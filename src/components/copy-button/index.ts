@@ -4,4 +4,5 @@ export {
 
 export type {
   CopyButtonProps,
+  CopyButtonStatus,
 } from './copy-button';

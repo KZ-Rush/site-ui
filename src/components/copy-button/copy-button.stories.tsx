@@ -3,7 +3,10 @@ import type {
   StoryObj,
 } from '@storybook/react-vite';
 import {
+  expect,
   fn,
+  userEvent,
+  within,
 } from 'storybook/test';
 
 import { CopyButton } from './copy-button';
@@ -26,6 +29,7 @@ const meta = {
     copiedContent: 'Copied',
     errorContent: 'Copy failed',
     copiedDuration: 1_500,
+    errorDuration: 1_500,
     onClick: fn(),
     onCopy: fn(),
     onCopyError: fn(),
@@ -35,7 +39,7 @@ const meta = {
     value: {
       control: 'text',
       description:
-        'Text written to the clipboard.',
+        'Text written to the system clipboard.',
     },
 
     defaultContent: {
@@ -98,12 +102,6 @@ export const CustomContent: Story = {
   },
 };
 
-export const QuickReset: Story = {
-  args: {
-    copiedDuration: 500,
-  },
-};
-
 export const Disabled: Story = {
   args: {
     disabled: true,
@@ -113,6 +111,12 @@ export const Disabled: Story = {
 export const MissingValue: Story = {
   args: {
     value: null,
+  },
+};
+
+export const EmptyValue: Story = {
+  args: {
+    value: '',
   },
 };
 
@@ -137,5 +141,34 @@ export const ReactNodeContent: Story = {
         Copied
       </>
     ),
+  },
+};
+
+export const SuccessfulInteraction: Story = {
+  args: {
+    copiedDuration: 10_000,
+  },
+
+  play: async ({
+    canvasElement,
+    args,
+  }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole(
+      'button',
+      { name: 'Copy' },
+    );
+
+    await userEvent.click(button);
+
+    await expect(args.onCopy).toHaveBeenCalledWith(
+      'demo-name.dem',
+    );
+
+    await expect(button).toHaveTextContent('Copied');
+    await expect(button).toHaveAttribute(
+      'data-status',
+      'copied',
+    );
   },
 };

@@ -8,7 +8,7 @@
   padding: 0.5rem 0.875rem;
 
   border: 1px solid var(
-    --rush-color-primary-border,
+    --rush-copy-button-border-color,
     #1d4ed8
   );
 
@@ -18,36 +18,36 @@
   );
 
   background-color: var(
-    --rush-color-primary,
+    --rush-copy-button-background,
     #2563eb
   );
 
   color: var(
-    --rush-color-on-primary,
+    --rush-copy-button-foreground,
     #fff
   );
 
   font: inherit;
   font-weight: 500;
   line-height: 1.25;
+  text-align: center;
 
   cursor: pointer;
 
   transition:
     background-color 150ms ease-in-out,
     border-color 150ms ease-in-out,
-    box-shadow 150ms ease-in-out,
     color 150ms ease-in-out,
     opacity 150ms ease-in-out;
 
   &:hover:not(:disabled) {
     border-color: var(
-      --rush-color-primary-hover-border,
+      --rush-copy-button-hover-border-color,
       #1e40af
     );
 
     background-color: var(
-      --rush-color-primary-hover,
+      --rush-copy-button-hover-background,
       #1d4ed8
     );
   }
@@ -68,24 +68,24 @@
 
   &[data-status='copied'] {
     border-color: var(
-      --rush-color-success-border,
+      --rush-copy-button-success-border-color,
       #15803d
     );
 
     background-color: var(
-      --rush-color-success,
+      --rush-copy-button-success-background,
       #16a34a
     );
   }
 
   &[data-status='error'] {
     border-color: var(
-      --rush-color-destructive-border,
+      --rush-copy-button-error-border-color,
       #b91c1c
     );
 
     background-color: var(
-      --rush-color-destructive,
+      --rush-copy-button-error-background,
       #dc2626
     );
   }

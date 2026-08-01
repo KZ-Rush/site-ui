@@ -38,6 +38,7 @@ export type {
 
 export type {
   CopyButtonProps,
+  CopyButtonStatus,
 } from './components/copy-button';
 
 export type {
