@@ -16,6 +16,10 @@ export {
 } from './components/copy-button';
 
 export {
+  FormField,
+} from './components/form-field';
+
+export {
   Label,
 } from './components/label';
 
@@ -35,6 +39,11 @@ export type {
 export type {
   CopyButtonProps,
 } from './components/copy-button';
+
+export type {
+  FormFieldProps,
+  FormFieldControlProps,
+} from './components/form-field';
 
 export type {
   LabelProps,
