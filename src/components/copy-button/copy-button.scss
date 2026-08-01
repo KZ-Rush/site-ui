@@ -1,43 +1,92 @@
-@use "../../styles/index" as *;
-
 .rush-copy-button {
   display: inline-flex;
-
   align-items: center;
-
   justify-content: center;
+  gap: 0.5rem;
 
-  gap: .5rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 0.875rem;
 
-  padding: .5rem .75rem;
+  border: 1px solid var(
+    --rush-color-primary-border,
+    #1d4ed8
+  );
 
-  border: 1px solid var(--rush-color-border);
+  border-radius: var(
+    --rush-radius-md,
+    0.375rem
+  );
 
-  border-radius: var(--rush-radius);
+  background-color: var(
+    --rush-color-primary,
+    #2563eb
+  );
 
-  background: var(--rush-color-primary);
+  color: var(
+    --rush-color-on-primary,
+    #fff
+  );
 
-  color: var(--rush-color-text);
-
-  font-family: var(--rush-font-family);
+  font: inherit;
+  font-weight: 500;
+  line-height: 1.25;
 
   cursor: pointer;
 
   transition:
-    background var(--rush-transition),
-    opacity var(--rush-transition);
+    background-color 150ms ease-in-out,
+    border-color 150ms ease-in-out,
+    box-shadow 150ms ease-in-out,
+    color 150ms ease-in-out,
+    opacity 150ms ease-in-out;
 
   &:hover:not(:disabled) {
-    background: var(--rush-color-primary-hover);
+    border-color: var(
+      --rush-color-primary-hover-border,
+      #1e40af
+    );
+
+    background-color: var(
+      --rush-color-primary-hover,
+      #1d4ed8
+    );
   }
 
   &:focus-visible {
-    @include focus-ring;
+    outline: 2px solid var(
+      --rush-color-focus,
+      #60a5fa
+    );
+
+    outline-offset: 2px;
   }
 
   &:disabled {
     cursor: not-allowed;
+    opacity: 0.5;
+  }
 
-    opacity: .5;
+  &[data-status='copied'] {
+    border-color: var(
+      --rush-color-success-border,
+      #15803d
+    );
+
+    background-color: var(
+      --rush-color-success,
+      #16a34a
+    );
+  }
+
+  &[data-status='error'] {
+    border-color: var(
+      --rush-color-destructive-border,
+      #b91c1c
+    );
+
+    background-color: var(
+      --rush-color-destructive,
+      #dc2626
+    );
   }
 }
