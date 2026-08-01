@@ -1,0 +1,29 @@
+:root {
+  --rush-color-primary: #2563eb;
+  --rush-color-primary-hover: #1d4ed8;
+
+  --rush-color-text: #ffffff;
+
+  --rush-color-border: #d1d5db;
+
+  --rush-radius: 6px;
+
+  --rush-transition: .15s ease-in-out;
+
+  --rush-font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+
+  --rush-color-card: #ffffff;
+  --rush-color-card-foreground: #0f172a;
+  --rush-color-muted-foreground: #64748b;
+  --rush-color-destructive: #dc2626;
+  --rush-color-border: #e2e8f0;
+
+  --rush-radius-xl: 0.75rem;
+
+  --rush-shadow-sm:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}

@@ -1,0 +1,43 @@
+@use "../../styles/index" as *;
+
+.rush-copy-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: .5rem;
+
+  padding: .5rem .75rem;
+
+  border: 1px solid var(--rush-color-border);
+
+  border-radius: var(--rush-radius);
+
+  background: var(--rush-color-primary);
+
+  color: var(--rush-color-text);
+
+  font-family: var(--rush-font-family);
+
+  cursor: pointer;
+
+  transition:
+    background var(--rush-transition),
+    opacity var(--rush-transition);
+
+  &:hover:not(:disabled) {
+    background: var(--rush-color-primary-hover);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    opacity: .5;
+  }
+}
