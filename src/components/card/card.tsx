@@ -43,7 +43,7 @@ export function CardHeader({
   );
 }
 
-export type CardTitleProps = ComponentProps<'h3'>;
+export type CardTitleProps = ComponentProps<'div'>;
 
 export function CardTitle({
   className,
@@ -61,7 +61,7 @@ export function CardTitle({
   );
 }
 
-export type CardDescriptionProps = ComponentProps<'p'>;
+export type CardDescriptionProps = ComponentProps<'div'>;
 
 export function CardDescription({
   className,
