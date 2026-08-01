@@ -30,7 +30,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/kz-rush-ui.css"
+    "./styles.css": "./dist/index.css"
   },
   "scripts": {
     "dev": "vite",
