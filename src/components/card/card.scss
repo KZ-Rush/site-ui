@@ -1,0 +1,50 @@
+.rush-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  padding-block: 1.5rem;
+
+  border: 1px solid var(--rush-color-border);
+  border-radius: var(--rush-radius-xl);
+
+  background-color: var(--rush-color-card);
+  color: var(--rush-color-card-foreground);
+
+  box-shadow: var(--rush-shadow-sm);
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+
+    padding-inline: 1.5rem;
+  }
+
+  &__title {
+    margin: 0;
+
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  &__description {
+    margin: 0;
+
+    color: var(--rush-color-muted-foreground);
+
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  &__content {
+    padding-inline: 1.5rem;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+
+    padding-inline: 1.5rem;
+  }
+}

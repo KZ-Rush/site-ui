@@ -1,0 +1,77 @@
+{
+  "name": "@kz-rush/site-ui",
+  "version": "0.1.0",
+  "description": "Reusable components for KZ-Rush projects",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KZ-Rush/site-ui.git"
+  },
+  "keywords": [],
+  "author": "Alexey Rodionov <devrnd@mail.ru>",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/KZ-Rush/site-ui/issues"
+  },
+  "homepage": "https://github.com/KZ-Rush/site-ui#readme",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/index.css"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build",
+    "test": "vitest run",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.2.1",
+    "@storybook/addon-a11y": "^10.5.5",
+    "@storybook/addon-docs": "^10.5.5",
+    "@storybook/addon-onboarding": "^10.5.5",
+    "@storybook/addon-vitest": "^10.5.5",
+    "@storybook/react-vite": "^10.5.5",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "@vitest/browser-playwright": "^4.1.10",
+    "@vitest/coverage-v8": "^4.1.10",
+    "playwright": "^1.62.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sass": "^1.102.0",
+    "storybook": "^10.5.5",
+    "typescript": "^6.0.3",
+    "vite": "^8.1.5",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.10"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

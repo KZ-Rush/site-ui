@@ -1,0 +1,33 @@
+.rush-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  margin-bottom: 0.5rem;
+
+  &__label {
+    align-self: flex-start;
+  }
+
+  &__description,
+  &__error {
+    margin: 0.25rem 0 0;
+
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  &__description {
+    color: var(
+      --rush-color-muted-foreground,
+      #64748b
+    );
+  }
+
+  &__error {
+    color: var(
+      --rush-color-destructive,
+      #dc2626
+    );
+  }
+}
