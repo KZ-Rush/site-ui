@@ -2,10 +2,12 @@
 
 Reusable React UI components for KZ-Rush projects.
 
+This package publishes a small set of composable primitives for React applications, with styling bundled for easy consumption in other projects.
+
 ## Features
 
-- Typed React 19 components
-- Lightweight, composable primitives
+- React 19-compatible components
+- TypeScript support with exported prop types
 - Bundled stylesheet export for fast integration
 - Storybook setup for local component development
 
@@ -17,110 +19,97 @@ Install from GitHub Packages:
 npm install @kz-rush/site-ui
 ```
 
-If your environment is not already configured for GitHub Packages, add this to your `.npmrc`:
+If GitHub Packages is not configured for your environment, add the registry to your npm config:
 
-```ini
-@kz-rush:registry=https://npm.pkg.github.com
+```bash
+npm config set @kz-rush:registry https://npm.pkg.github.com
 ```
 
 ## Usage
 
 ```tsx
 import {
-	Card,
-	CardHeader,
-	CardTitle,
-	CardDescription,
-	CardContent,
-	CardFooter,
-	Checkbox,
-	CopyButton,
-	Label,
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+  Checkbox,
+  CopyButton,
+  Label,
+  FormField,
 } from '@kz-rush/site-ui';
 
 import '@kz-rush/site-ui/styles.css';
 
 export function Example() {
-	return (
-		<Card>
-			<CardHeader>
-				<CardTitle>Rush Card</CardTitle>
-				<CardDescription>Reusable UI building block</CardDescription>
-			</CardHeader>
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Rush UI</CardTitle>
+        <CardDescription>Reusable building blocks for product UI.</CardDescription>
+      </CardHeader>
 
-			<CardContent>
-				<Label htmlFor="newsletter">Newsletter</Label>
-				<Checkbox id="newsletter">Subscribe me</Checkbox>
-			</CardContent>
+      <CardContent>
+        <FormField>
+          <Label htmlFor="newsletter">Email</Label>
+          <Checkbox id="newsletter">Subscribe me</Checkbox>
+        </FormField>
+      </CardContent>
 
-			<CardFooter>
-				<CopyButton value="https://kz-rush.com" />
-			</CardFooter>
-		</Card>
-	);
+      <CardFooter>
+        <Button variant="primary">Continue</Button>
+        <CopyButton value="https://kz-rush.com" />
+      </CardFooter>
+    </Card>
+  );
 }
 ```
 
-## Exported API
+## Available components
 
-### Components
-
-- `Card`
-- `CardHeader`
-- `CardTitle`
-- `CardDescription`
-- `CardContent`
-- `CardFooter`
-- `Checkbox`
-- `CopyButton`
-- `Label`
-
-### Type exports
-
-- `CardProps`
-- `CardHeaderProps`
-- `CardTitleProps`
-- `CardDescriptionProps`
-- `CardContentProps`
-- `CardFooterProps`
-- `CheckboxProps`
-- `CopyButtonProps`
-- `LabelProps`
+- Button
+- Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
+- Checkbox
+- CopyButton
+- FormField
+- Label
+- NumberDiff
+- Progress
 
 ## Styling
 
-The package exports a stylesheet at:
+Import the package stylesheet once in your app entrypoint:
 
-- `@kz-rush/site-ui/styles.css`
-
-This maps to the built CSS bundle generated during library build.
+```ts
+import '@kz-rush/site-ui/styles.css';
+```
 
 ## Development
 
 ### Scripts
 
-- `npm run dev` - start Vite dev server
-- `npm run build` - type-check and build library
+- `npm run dev` - start the Vite development server
+- `npm run build` - type-check and build the library
 - `npm run typecheck` - run TypeScript checks
+- `npm run test` - run the Vitest test suite
 - `npm run storybook` - start Storybook on port 6006
-- `npm run build-storybook` - build static Storybook
+- `npm run build-storybook` - build a static Storybook site
 
 ### Local workflow
 
 ```bash
 npm install
 npm run build
+npm run test
 ```
 
 ## Peer dependencies
 
 - `react` `^19.0.0`
 - `react-dom` `^19.0.0`
-
-## Notes
-
-- The package is published as ESM.
-- CSS files are marked as side effects to avoid accidental style tree-shaking.
 
 ## License
 
