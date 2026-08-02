@@ -1,4 +1,39 @@
+@use '../../styles/mixins';
+
 .rush-copy-button {
+  --rush-copy-button-background:
+    var(--rush-color-primary);
+
+  --rush-copy-button-foreground:
+    var(--rush-color-primary-foreground);
+
+  --rush-copy-button-border-color:
+    var(--rush-color-primary);
+
+  --rush-copy-button-hover-background:
+    var(--rush-color-primary-hover);
+
+  --rush-copy-button-hover-border-color:
+    var(--rush-copy-button-hover-background);
+
+  --rush-copy-button-success-background:
+    var(--rush-color-success);
+
+  --rush-copy-button-success-foreground:
+    var(--rush-color-success-foreground);
+
+  --rush-copy-button-success-border-color:
+    var(--rush-color-success);
+
+  --rush-copy-button-error-background:
+    var(--rush-color-destructive);
+
+  --rush-copy-button-error-foreground:
+    var(--rush-color-destructive-foreground);
+
+  --rush-copy-button-error-border-color:
+    var(--rush-color-destructive);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -7,27 +42,17 @@
   min-height: 2.5rem;
   padding: 0.5rem 0.875rem;
 
-  border: 1px solid var(
-    --rush-copy-button-border-color,
-    #1d4ed8
-  );
+  border: 1px solid
+    var(--rush-copy-button-border-color);
 
-  border-radius: var(
-    --rush-radius-md,
-    0.375rem
-  );
+  border-radius: var(--rush-radius-md);
 
-  background-color: var(
-    --rush-copy-button-background,
-    #2563eb
-  );
+  background-color:
+    var(--rush-copy-button-background);
 
-  color: var(
-    --rush-copy-button-foreground,
-    #fff
-  );
+  color:
+    var(--rush-copy-button-foreground);
 
-  font: inherit;
   font-weight: 500;
   line-height: 1.25;
   text-align: center;
@@ -35,58 +60,54 @@
   cursor: pointer;
 
   transition:
-    background-color 150ms ease-in-out,
-    border-color 150ms ease-in-out,
-    color 150ms ease-in-out,
-    opacity 150ms ease-in-out;
+    background-color
+    var(--rush-transition-duration-fast)
+    var(--rush-transition-timing),
+    border-color
+    var(--rush-transition-duration-fast)
+    var(--rush-transition-timing),
+    color
+    var(--rush-transition-duration-fast)
+    var(--rush-transition-timing),
+    opacity
+    var(--rush-transition-duration-fast)
+    var(--rush-transition-timing);
 
   &:hover:not(:disabled) {
-    border-color: var(
-      --rush-copy-button-hover-border-color,
-      #1e40af
-    );
+    border-color:
+      var(--rush-copy-button-hover-border-color);
 
-    background-color: var(
-      --rush-copy-button-hover-background,
-      #1d4ed8
-    );
+    background-color:
+      var(--rush-copy-button-hover-background);
   }
 
   &:focus-visible {
-    outline: 2px solid var(
-      --rush-color-focus,
-      #60a5fa
-    );
-
-    outline-offset: 2px;
+    @include mixins.focus-ring;
   }
 
   &:disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
+    @include mixins.disabled;
   }
 
   &[data-status='copied'] {
-    border-color: var(
-      --rush-copy-button-success-border-color,
-      #15803d
-    );
+    border-color:
+      var(--rush-copy-button-success-border-color);
 
-    background-color: var(
-      --rush-copy-button-success-background,
-      #16a34a
-    );
+    background-color:
+      var(--rush-copy-button-success-background);
+
+    color:
+      var(--rush-copy-button-success-foreground);
   }
 
   &[data-status='error'] {
-    border-color: var(
-      --rush-copy-button-error-border-color,
-      #b91c1c
-    );
+    border-color:
+      var(--rush-copy-button-error-border-color);
 
-    background-color: var(
-      --rush-copy-button-error-background,
-      #dc2626
-    );
+    background-color:
+      var(--rush-copy-button-error-background);
+
+    color:
+      var(--rush-copy-button-error-foreground);
   }
 }

@@ -1,0 +1,138 @@
+:root {
+  /*
+   * Typography
+   */
+  --rush-font-sans:
+    'Manrope',
+    'Instrument Sans',
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Noto Color Emoji';
+
+  /*
+   * Core surfaces and text
+   */
+  --rush-color-background: oklch(1 0 0);
+  --rush-color-foreground: oklch(0.145 0 0);
+
+  --rush-color-card: oklch(1 0 0);
+  --rush-color-card-foreground: oklch(0.145 0 0);
+
+  --rush-color-popover: oklch(1 0 0);
+  --rush-color-popover-foreground: oklch(0.145 0 0);
+
+  /*
+   * Brand and semantic colors
+   */
+  --rush-color-primary: oklch(0.205 0 0);
+  --rush-color-primary-hover: oklch(0.3 0 0);
+  --rush-color-primary-foreground: oklch(0.985 0 0);
+
+  --rush-color-primary-orange: #fd8901;
+  --rush-color-primary-orange-foreground: #fff;
+
+  --rush-color-primary-yellow: #fbad00;
+  --rush-color-primary-yellow-foreground: #0f1013;
+
+  --rush-color-secondary: oklch(0.97 0 0);
+  --rush-color-secondary-foreground: oklch(0.205 0 0);
+
+  --rush-color-muted: oklch(0.97 0 0);
+  --rush-color-muted-foreground: oklch(0.556 0 0);
+
+  --rush-color-accent: oklch(0.97 0 0);
+  --rush-color-accent-foreground: oklch(0.205 0 0);
+
+  --rush-color-destructive: oklch(0.577 0.245 27.325);
+  --rush-color-destructive-foreground: #fff;
+
+  --rush-color-success: oklch(0.627 0.194 149.214);
+  --rush-color-success-foreground: #fff;
+
+  /*
+   * Interactive and structural colors
+   */
+  --rush-color-border: oklch(0.922 0 0);
+  --rush-color-input: oklch(0.922 0 0);
+  --rush-color-focus: oklch(0.623 0.214 259.815);
+
+  /*
+   * Shape
+   */
+  --rush-radius-base: 0.625rem;
+  --rush-radius-sm: calc(var(--rush-radius-base) - 4px);
+  --rush-radius-md: calc(var(--rush-radius-base) - 2px);
+  --rush-radius-lg: var(--rush-radius-base);
+  --rush-radius-xl: calc(var(--rush-radius-base) + 2px);
+
+  /*
+   * Shadows
+   */
+  --rush-shadow-sm:
+    0 1px 3px rgb(0 0 0 / 10%),
+    0 1px 2px -1px rgb(0 0 0 / 10%);
+
+  /*
+   * Motion
+   */
+  --rush-transition-duration-fast: 250ms;
+  --rush-transition-duration-normal: 500ms;
+  --rush-transition-timing: ease-in-out;
+
+  /*
+   * Table
+   *
+   * Keep these only when the package contains a table
+   * component that consumes them.
+   */
+  --rush-color-table: #fff;
+  --rush-color-table-foreground: #606266;
+  --rush-color-table-border: #ebeef5;
+  --rush-color-table-striped: #fafafa;
+  --rush-color-table-hover: #f5f7fa;
+}
+
+.dark,
+[data-rush-theme='dark'] {
+  --rush-color-background: #0f1013;
+  --rush-color-foreground: oklch(0.985 0 0);
+
+  --rush-color-card: #14161b;
+  --rush-color-card-foreground: oklch(0.985 0 0);
+
+  --rush-color-popover: oklch(0.145 0 0);
+  --rush-color-popover-foreground: oklch(0.985 0 0);
+
+  --rush-color-primary: oklch(0.985 0 0);
+  --rush-color-primary-hover: oklch(0.87 0 0);
+  --rush-color-primary-foreground: oklch(0.205 0 0);
+
+  --rush-color-secondary: oklch(0.269 0 0);
+  --rush-color-secondary-foreground: oklch(0.985 0 0);
+
+  --rush-color-muted: oklch(0.269 0 0);
+  --rush-color-muted-foreground: oklch(0.708 0 0);
+
+  --rush-color-accent: oklch(0.269 0 0);
+  --rush-color-accent-foreground: oklch(0.985 0 0);
+
+  --rush-color-destructive: oklch(0.396 0.141 25.723);
+  --rush-color-destructive-foreground: oklch(0.985 0 0);
+
+  --rush-color-success: oklch(0.723 0.219 149.579);
+  --rush-color-success-foreground: #0f1013;
+
+  --rush-color-border: oklch(0.269 0 0);
+  --rush-color-input: oklch(0.269 0 0);
+  --rush-color-focus: oklch(0.623 0.214 259.815);
+
+  --rush-color-table: #1c1f27;
+  --rush-color-table-foreground: #f4f4f4;
+  --rush-color-table-border: #21252d;
+  --rush-color-table-striped: #191c22;
+  --rush-color-table-hover: #21252d;
+}

@@ -1,12 +1,23 @@
+@use '../../styles/mixins';
+
 .rush-checkbox {
+  --rush-checkbox-foreground:
+    var(--rush-color-foreground);
+
+  --rush-checkbox-icon-color:
+    var(--rush-color-muted-foreground);
+
+  --rush-checkbox-icon-checked-color:
+    var(--rush-color-primary-orange);
+
+  --rush-checkbox-icon-hover-color:
+    var(--rush-color-primary-orange);
+
   display: inline-flex;
   align-items: flex-start;
   gap: 0.5rem;
 
-  color: var(
-    --rush-color-foreground,
-    #0f172a
-  );
+  color: var(--rush-checkbox-foreground);
 
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -15,21 +26,7 @@
   user-select: none;
 
   &__input {
-    position: absolute;
-
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-
-    overflow: hidden;
-
-    white-space: nowrap;
-
-    border: 0;
-
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
+    @include mixins.visually-hidden;
   }
 
   &__icon {
@@ -43,14 +40,15 @@
     width: 1.25rem;
     height: 1.25rem;
 
-    color: var(
-      --rush-color-muted-foreground,
-      #64748b
-    );
+    color: var(--rush-checkbox-icon-color);
 
     transition:
-      color 150ms ease-in-out,
-      opacity 150ms ease-in-out;
+      color
+      var(--rush-transition-duration-fast)
+      var(--rush-transition-timing),
+      opacity
+      var(--rush-transition-duration-fast)
+      var(--rush-transition-timing);
   }
 
   &__icon-checked,
@@ -74,8 +72,7 @@
   &__input:checked
     + .rush-checkbox__icon {
     color: var(
-      --rush-color-primary,
-      #2563eb
+      --rush-checkbox-icon-checked-color
     );
   }
 
@@ -93,29 +90,17 @@
 
   &__input:focus-visible
     + .rush-checkbox__icon {
-    border-radius: var(
-      --rush-radius-sm,
-      0.25rem
-    );
+    border-radius: var(--rush-radius-sm);
 
-    outline: 2px solid var(
-      --rush-color-focus,
-      #60a5fa
-    );
-
-    outline-offset: 2px;
+    @include mixins.focus-ring;
   }
 
   &:hover:not([data-disabled='true'])
     .rush-checkbox__icon {
-    color: var(
-      --rush-color-primary-hover,
-      #1d4ed8
-    );
+    color: var(--rush-checkbox-icon-hover-color);
   }
 
   &[data-disabled='true'] {
-    cursor: not-allowed;
-    opacity: 0.5;
+    @include mixins.disabled;
   }
 }

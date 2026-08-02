@@ -19,15 +19,20 @@
 
   &__description {
     color: var(
-      --rush-color-muted-foreground,
-      #64748b
+      --rush-form-field-description-foreground,
+      var(--rush-color-muted-foreground)
     );
   }
 
   &__error {
     color: var(
-      --rush-color-destructive,
-      #dc2626
+      --rush-form-field-error-foreground,
+      var(--rush-color-destructive)
     );
+  }
+
+  &[data-invalid='true'] {
+    --rush-form-field-control-border-color:
+      var(--rush-color-destructive);
   }
 }
