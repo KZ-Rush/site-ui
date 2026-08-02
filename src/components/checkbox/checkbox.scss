@@ -109,8 +109,8 @@
   &:hover:not([data-disabled='true'])
     .rush-checkbox__icon {
     color: var(
-      --rush-color-primary-hover,
-      #1d4ed8
+      --rush-color-primary-orange,
+      #fd8901
     );
   }
 
