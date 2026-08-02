@@ -40,6 +40,7 @@
 
   --rush-color-secondary: oklch(0.97 0 0);
   --rush-color-secondary-foreground: oklch(0.205 0 0);
+  --rush-color-secondary-hover: #e2e8f0;
 
   --rush-color-muted: oklch(0.97 0 0);
   --rush-color-muted-foreground: oklch(0.556 0 0);
@@ -49,6 +50,7 @@
 
   --rush-color-destructive: oklch(0.577 0.245 27.325);
   --rush-color-destructive-foreground: #fff;
+  --rush-color-destructive-hover: #b91c1c;
 
   --rush-color-success: oklch(0.627 0.194 149.214);
   --rush-color-success-foreground: #fff;
@@ -72,6 +74,8 @@
   /*
    * Shadows
    */
+  --rush-shadow-xs:
+    0 1px 2px rgb(0 0 0 / 5%);
   --rush-shadow-sm:
     0 1px 3px rgb(0 0 0 / 10%),
     0 1px 2px -1px rgb(0 0 0 / 10%);
@@ -124,6 +128,8 @@
 
   --rush-color-secondary: oklch(0.269 0 0);
   --rush-color-secondary-foreground: oklch(0.985 0 0);
+  --rush-color-secondary-hover:
+    oklch(0.35 0 0);
 
   --rush-color-muted: oklch(0.269 0 0);
   --rush-color-muted-foreground: oklch(0.708 0 0);
@@ -133,6 +139,8 @@
 
   --rush-color-destructive: oklch(0.396 0.141 25.723);
   --rush-color-destructive-foreground: oklch(0.985 0 0);
+  --rush-color-destructive-hover:
+    oklch(0.577 0.245 27.325);
 
   --rush-color-success: oklch(0.723 0.219 149.579);
   --rush-color-success-foreground: #0f1013;

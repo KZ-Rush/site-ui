@@ -1,5 +1,8 @@
-import { ProgressProps } from './components/progress';
 import './styles/index.scss';
+
+export {
+  Button,
+} from './components/button';
 
 export {
   Card,
@@ -33,6 +36,14 @@ export {
 export {
   Progress,
 } from './components/progress';
+
+export type {
+  ButtonProps,
+  ButtonSize,
+  ButtonVariant,
+  LinkButtonProps,
+  NativeButtonProps,
+} from './components/button';
 
 export type {
   CardContentProps,
