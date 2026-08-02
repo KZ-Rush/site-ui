@@ -91,3 +91,40 @@
   --rush-color-table-striped: #fafafa;
   --rush-color-table-hover: #f5f7fa;
 }
+
+.dark,
+[data-rush-theme='dark'] {
+  --rush-color-background: #0f1013;
+  --rush-color-foreground: oklch(0.985 0 0);
+
+  --rush-color-card: #14161b;
+  --rush-color-card-foreground: oklch(0.985 0 0);
+
+  --rush-color-popover: oklch(0.145 0 0);
+  --rush-color-popover-foreground: oklch(0.985 0 0);
+
+  --rush-color-primary: oklch(0.985 0 0);
+  --rush-color-primary-foreground: oklch(0.205 0 0);
+
+  --rush-color-secondary: oklch(0.269 0 0);
+  --rush-color-secondary-foreground: oklch(0.985 0 0);
+
+  --rush-color-muted: oklch(0.269 0 0);
+  --rush-color-muted-foreground: oklch(0.708 0 0);
+
+  --rush-color-accent: oklch(0.269 0 0);
+  --rush-color-accent-foreground: oklch(0.985 0 0);
+
+  --rush-color-destructive: oklch(0.396 0.141 25.723);
+  --rush-color-destructive-foreground: oklch(0.985 0 0);
+
+  --rush-color-border: oklch(0.269 0 0);
+  --rush-color-input: oklch(0.269 0 0);
+  --rush-color-focus: oklch(0.623 0.214 259.815);
+
+  --rush-color-table: #1c1f27;
+  --rush-color-table-foreground: #f4f4f4;
+  --rush-color-table-border: #21252d;
+  --rush-color-table-striped: #191c22;
+  --rush-color-table-hover: #21252d;
+}
