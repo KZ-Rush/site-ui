@@ -1,3 +1,4 @@
+import { ProgressProps } from './components/progress';
 import './styles/index.scss';
 
 export {
@@ -25,6 +26,14 @@ export {
   Label,
 } from './components/label';
 
+export {
+  NumberDiff,
+} from './components/number-diff';
+
+export {
+  Progress,
+} from './components/progress';
+
 export type {
   CardContentProps,
   CardDescriptionProps,
@@ -51,3 +60,12 @@ export type {
 export type {
   LabelProps,
 } from './components/label';
+
+export type {
+  NumberDiffProps,
+  NumberDiffSign,
+} from './components/number-diff';
+
+export type {
+  ProgressProps,
+} from './components/progress';

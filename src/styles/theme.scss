@@ -94,6 +94,17 @@
   --rush-color-table-border: #ebeef5;
   --rush-color-table-striped: #fafafa;
   --rush-color-table-hover: #f5f7fa;
+
+  --rush-progress-track-background:
+    var(--rush-color-muted);
+
+  --rush-progress-fill-background:
+    var(--rush-color-primary-yellow);
+
+  --rush-progress-value-foreground: #935300;
+
+  --rush-progress-highlight-color:
+    rgb(255 255 255 / 33%);
 }
 
 .dark,
@@ -135,4 +146,15 @@
   --rush-color-table-border: #21252d;
   --rush-color-table-striped: #191c22;
   --rush-color-table-hover: #21252d;
+
+  --rush-progress-track-background:
+    var(--rush-color-muted);
+
+  --rush-progress-fill-background:
+    var(--rush-color-primary-yellow);
+
+  --rush-progress-value-foreground: #935300;
+
+  --rush-progress-highlight-color:
+    rgb(255 255 255 / 33%);
 }
