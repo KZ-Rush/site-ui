@@ -29,6 +29,7 @@
    * Brand and semantic colors
    */
   --rush-color-primary: oklch(0.205 0 0);
+  --rush-color-primary-hover: oklch(0.3 0 0);
   --rush-color-primary-foreground: oklch(0.985 0 0);
 
   --rush-color-primary-orange: #fd8901;
@@ -104,6 +105,7 @@
   --rush-color-popover-foreground: oklch(0.985 0 0);
 
   --rush-color-primary: oklch(0.985 0 0);
+  --rush-color-primary-hover: oklch(0.87 0 0);
   --rush-color-primary-foreground: oklch(0.205 0 0);
 
   --rush-color-secondary: oklch(0.269 0 0);

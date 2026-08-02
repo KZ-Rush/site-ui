@@ -16,7 +16,8 @@
   },
   "homepage": "https://github.com/KZ-Rush/site-ui#readme",
   "sideEffects": [
-    "**/*.css"
+    "**/*.css",
+    "**/*.scss"
   ],
   "files": [
     "dist",
