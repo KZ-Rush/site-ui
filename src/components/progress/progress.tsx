@@ -48,7 +48,8 @@ export function Progress({
   showValue = true,
   formatValue = (value) => `${value}%`,
   className,
-  'aria-label': ariaLabel = 'Progress',
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   ...divProps
 }: ProgressProps) {
   const normalizedProgress =
@@ -59,10 +60,17 @@ export function Progress({
       `${normalizedProgress}%`,
   } as CSSProperties;
 
+  const accessibleLabel =
+    ariaLabel === undefined
+    && ariaLabelledBy === undefined
+      ? 'Progress'
+      : ariaLabel;
+
   return (
     <div
       {...divProps}
-      aria-label={ariaLabel}
+      aria-label={accessibleLabel}
+      aria-labelledby={ariaLabelledBy}
       aria-valuemax={100}
       aria-valuemin={0}
       aria-valuenow={normalizedProgress}
