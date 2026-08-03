@@ -22,6 +22,10 @@ export {
 } from './components/copy-button';
 
 export {
+  FormattedDateTime,
+} from './components/formatted-date-time';
+
+export {
   FormField,
 } from './components/form-field';
 
@@ -76,6 +80,11 @@ export type {
   FormFieldProps,
   FormFieldControlProps,
 } from './components/form-field';
+
+export type {
+  FormattedDateTimeProps,
+  FormattedDateTimeValue,
+} from './components/formatted-date-time';
 
 export type {
   LabelProps,
