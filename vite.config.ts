@@ -31,7 +31,13 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime']
+      external: [
+        'moment',
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'react-toastify',
+      ],
     },
     sourcemap: true,
     cssCodeSplit: false
