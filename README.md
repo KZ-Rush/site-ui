@@ -60,7 +60,7 @@ export function Example() {
       </CardContent>
 
       <CardFooter>
-        <Button variant="primary">Continue</Button>
+        <Button variant="default">Continue</Button>
         <CopyButton value="https://kz-rush.com" />
       </CardFooter>
     </Card>
