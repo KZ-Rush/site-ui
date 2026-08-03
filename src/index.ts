@@ -1,6 +1,18 @@
 import './styles/index.scss';
 
 export {
+  Alert,
+  AlertDescription,
+  AlertList,
+  AlertTitle,
+  type AlertDescriptionProps,
+  type AlertListProps,
+  type AlertProps,
+  type AlertTitleProps,
+  type AlertVariant,
+} from './components/alert';
+
+export {
   Button,
 } from './components/button';
 

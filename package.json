@@ -48,9 +48,6 @@
     "react-dom": "^19.0.0",
     "react-toastify": "^11.0.0"
   },
-  "dependencies": {
-
-  },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
     "@storybook/addon-a11y": "^10.5.5",
