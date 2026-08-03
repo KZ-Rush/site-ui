@@ -89,9 +89,6 @@
 
   /*
    * Table
-   *
-   * Keep these only when the package contains a table
-   * component that consumes them.
    */
   --rush-color-table: #fff;
   --rush-color-table-foreground: #606266;
@@ -99,6 +96,9 @@
   --rush-color-table-striped: #fafafa;
   --rush-color-table-hover: #f5f7fa;
 
+  /*
+   * Progress
+   */
   --rush-progress-track-background:
     var(--rush-color-muted);
 
@@ -109,6 +109,29 @@
 
   --rush-progress-highlight-color:
     rgb(255 255 255 / 33%);
+
+  /*
+   * Switch
+   */
+  --rush-switch-width: 2.5rem;
+  --rush-switch-height: 1.25rem;
+  --rush-switch-thumb-size: 0.75rem;
+  --rush-switch-thumb-offset: 0.25rem;
+
+  --rush-switch-border-radius: 9999px;
+
+  --rush-switch-shadow-color: #0f1013;
+
+  --rush-switch-track-background: #1c1f27;
+  --rush-switch-track-border-color: #1c1f27;
+
+  --rush-switch-thumb-background: #8f98b3;
+  --rush-switch-checked-thumb-background:
+    var(--rush-color-primary-orange);
+
+  --rush-switch-disabled-thumb-background: #1f222a;
+
+  --rush-switch-transition-duration: 300ms;
 }
 
 .dark,
@@ -165,4 +188,10 @@
 
   --rush-progress-highlight-color:
     rgb(255 255 255 / 33%);
+
+  --rush-switch-track-background: #1c1f27;
+  --rush-switch-track-border-color: #21252d;
+
+  --rush-switch-thumb-background: #8f98b3;
+  --rush-switch-disabled-thumb-background: #1f222a;
 }

@@ -37,6 +37,10 @@ export {
   Progress,
 } from './components/progress';
 
+export {
+  Switch,
+} from './components/switch';
+
 export type {
   ButtonProps,
   ButtonSize,
@@ -80,3 +84,7 @@ export type {
 export type {
   ProgressProps,
 } from './components/progress';
+
+export type {
+  SwitchProps,
+} from './components/switch';
