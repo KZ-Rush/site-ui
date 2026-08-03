@@ -40,6 +40,7 @@
 
   --rush-color-secondary: oklch(0.97 0 0);
   --rush-color-secondary-foreground: oklch(0.205 0 0);
+  --rush-color-secondary-hover: #e2e8f0;
 
   --rush-color-muted: oklch(0.97 0 0);
   --rush-color-muted-foreground: oklch(0.556 0 0);
@@ -49,6 +50,7 @@
 
   --rush-color-destructive: oklch(0.577 0.245 27.325);
   --rush-color-destructive-foreground: #fff;
+  --rush-color-destructive-hover: #b91c1c;
 
   --rush-color-success: oklch(0.627 0.194 149.214);
   --rush-color-success-foreground: #fff;
@@ -72,6 +74,8 @@
   /*
    * Shadows
    */
+  --rush-shadow-xs:
+    0 1px 2px rgb(0 0 0 / 5%);
   --rush-shadow-sm:
     0 1px 3px rgb(0 0 0 / 10%),
     0 1px 2px -1px rgb(0 0 0 / 10%);
@@ -85,15 +89,49 @@
 
   /*
    * Table
-   *
-   * Keep these only when the package contains a table
-   * component that consumes them.
    */
   --rush-color-table: #fff;
   --rush-color-table-foreground: #606266;
   --rush-color-table-border: #ebeef5;
   --rush-color-table-striped: #fafafa;
   --rush-color-table-hover: #f5f7fa;
+
+  /*
+   * Progress
+   */
+  --rush-progress-track-background:
+    var(--rush-color-muted);
+
+  --rush-progress-fill-background:
+    var(--rush-color-primary-yellow);
+
+  --rush-progress-value-foreground: #935300;
+
+  --rush-progress-highlight-color:
+    rgb(255 255 255 / 33%);
+
+  /*
+   * Switch
+   */
+  --rush-switch-width: 2.5rem;
+  --rush-switch-height: 1.25rem;
+  --rush-switch-thumb-size: 0.75rem;
+  --rush-switch-thumb-offset: 0.25rem;
+
+  --rush-switch-border-radius: 9999px;
+
+  --rush-switch-shadow-color: #0f1013;
+
+  --rush-switch-track-background: #1c1f27;
+  --rush-switch-track-border-color: #1c1f27;
+
+  --rush-switch-thumb-background: #8f98b3;
+  --rush-switch-checked-thumb-background:
+    var(--rush-color-primary-orange);
+
+  --rush-switch-disabled-thumb-background: #1f222a;
+
+  --rush-switch-transition-duration: 300ms;
 }
 
 .dark,
@@ -113,6 +151,8 @@
 
   --rush-color-secondary: oklch(0.269 0 0);
   --rush-color-secondary-foreground: oklch(0.985 0 0);
+  --rush-color-secondary-hover:
+    oklch(0.35 0 0);
 
   --rush-color-muted: oklch(0.269 0 0);
   --rush-color-muted-foreground: oklch(0.708 0 0);
@@ -122,6 +162,8 @@
 
   --rush-color-destructive: oklch(0.396 0.141 25.723);
   --rush-color-destructive-foreground: oklch(0.985 0 0);
+  --rush-color-destructive-hover:
+    oklch(0.577 0.245 27.325);
 
   --rush-color-success: oklch(0.723 0.219 149.579);
   --rush-color-success-foreground: #0f1013;
@@ -135,4 +177,21 @@
   --rush-color-table-border: #21252d;
   --rush-color-table-striped: #191c22;
   --rush-color-table-hover: #21252d;
+
+  --rush-progress-track-background:
+    var(--rush-color-muted);
+
+  --rush-progress-fill-background:
+    var(--rush-color-primary-yellow);
+
+  --rush-progress-value-foreground: #935300;
+
+  --rush-progress-highlight-color:
+    rgb(255 255 255 / 33%);
+
+  --rush-switch-track-background: #1c1f27;
+  --rush-switch-track-border-color: #21252d;
+
+  --rush-switch-thumb-background: #8f98b3;
+  --rush-switch-disabled-thumb-background: #1f222a;
 }

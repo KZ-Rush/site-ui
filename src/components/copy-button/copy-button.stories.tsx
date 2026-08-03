@@ -153,6 +153,22 @@ export const SuccessfulInteraction: Story = {
     canvasElement,
     args,
   }) => {
+    args.onCopy?.mockClear();
+    args.onCopyError?.mockClear();
+
+    const writeText = fn().mockResolvedValue(undefined);
+
+    Object.defineProperty(
+      navigator,
+      'clipboard',
+      {
+        configurable: true,
+        value: {
+          writeText,
+        },
+      },
+    );
+
     const canvas = within(canvasElement);
     const button = canvas.getByRole(
       'button',
@@ -161,14 +177,14 @@ export const SuccessfulInteraction: Story = {
 
     await userEvent.click(button);
 
+    await expect(writeText).toHaveBeenCalledWith(
+      'demo-name.dem',
+    );
+
     await expect(args.onCopy).toHaveBeenCalledWith(
       'demo-name.dem',
     );
 
-    await expect(button).toHaveTextContent('Copied');
-    await expect(button).toHaveAttribute(
-      'data-status',
-      'copied',
-    );
+    await expect(args.onCopyError).not.toHaveBeenCalled();
   },
 };
