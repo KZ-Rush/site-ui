@@ -23,7 +23,8 @@ export interface FormattedDateTimeProps
    * Date value to format.
    *
    * Numbers and numeric strings are interpreted as Unix
-   * timestamps in seconds.
+    * timestamps in seconds (except 0 and "0", which are
+    * treated as missing values and render fallback).
    */
   value: FormattedDateTimeValue;
 
