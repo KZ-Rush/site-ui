@@ -48,6 +48,7 @@ export function RushToastContainer({
   closeOnClick = true,
   pauseOnHover = true,
   newestOnTop = true,
+  className,
   ...props
 }: RushToastContainerProps) {
   return (
@@ -58,7 +59,10 @@ export function RushToastContainer({
       newestOnTop={newestOnTop}
       pauseOnHover={pauseOnHover}
       position={position}
-      className="rush-toast-container"
+      className={[
+        'rush-toast-container',
+        className,
+      ].filter(Boolean).join(' ')}
     />
   );
 }
