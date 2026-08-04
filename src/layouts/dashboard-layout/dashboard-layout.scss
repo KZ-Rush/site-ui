@@ -1,0 +1,316 @@
+@use '../../styles/mixins';
+
+.rush-dashboard-layout {
+  display: grid;
+
+  grid-template-areas:
+    'sidebar header'
+    'sidebar main';
+
+  grid-template-columns:
+    var(
+      --rush-dashboard-sidebar-current-width,
+      var(
+        --rush-dashboard-sidebar-width,
+        16rem
+      )
+    )
+    minmax(0, 1fr);
+
+  grid-template-rows:
+    auto
+    minmax(0, 1fr);
+
+  min-width: 0;
+  min-height: 100dvh;
+
+  overflow: hidden;
+
+  background-color: var(
+    --rush-dashboard-background,
+    var(
+      --rush-color-background,
+      #fff
+    )
+  );
+
+  color: var(
+    --rush-dashboard-foreground,
+    var(
+      --rush-color-foreground,
+      #0f172a
+    )
+  );
+
+  font-family: var(
+    --rush-font-sans,
+    system-ui,
+    sans-serif
+  );
+
+  transition:
+    grid-template-columns
+    var(
+      --rush-dashboard-transition-duration,
+      var(
+        --rush-transition-duration-normal,
+        300ms
+      )
+    )
+    var(
+      --rush-transition-timing,
+      ease-in-out
+    );
+
+  &[data-collapsed='true'] {
+    --rush-dashboard-sidebar-current-width:
+      var(
+        --rush-dashboard-sidebar-collapsed-width,
+        4rem
+      );
+  }
+
+  &__sidebar {
+    grid-area: sidebar;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+
+    border-right: 1px solid var(
+      --rush-dashboard-border-color,
+      var(
+        --rush-color-border,
+        #e2e8f0
+      )
+    );
+
+    background-color: var(
+      --rush-dashboard-sidebar-background,
+      var(
+        --rush-color-card,
+        #fff
+      )
+    );
+
+    color: var(
+      --rush-dashboard-sidebar-foreground,
+      var(
+        --rush-color-card-foreground,
+        #0f172a
+      )
+    );
+  }
+
+  &__sidebar-content {
+    width: var(
+      --rush-dashboard-sidebar-width,
+      16rem
+    );
+
+    height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    transition:
+      opacity
+      var(
+        --rush-transition-duration-fast,
+        150ms
+      )
+      var(
+        --rush-transition-timing,
+        ease-in-out
+      );
+  }
+
+  &[data-collapsed='true']
+    &__sidebar-content {
+    width: var(
+      --rush-dashboard-sidebar-collapsed-width,
+      4rem
+    );
+  }
+
+  &__header {
+    grid-area: header;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    min-width: 0;
+    min-height: var(
+      --rush-dashboard-header-height,
+      4rem
+    );
+
+    padding-inline: var(
+      --rush-dashboard-content-padding,
+      1.5rem
+    );
+
+    border-bottom: 1px solid var(
+      --rush-dashboard-border-color,
+      var(
+        --rush-color-border,
+        #e2e8f0
+      )
+    );
+
+    background-color: var(
+      --rush-dashboard-header-background,
+      var(
+        --rush-color-background,
+        #fff
+      )
+    );
+  }
+
+  &__main {
+    grid-area: main;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: auto;
+
+    padding: var(
+      --rush-dashboard-content-padding,
+      1.5rem
+    );
+  }
+
+  &__toggle {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+
+    border: 1px solid transparent;
+    border-radius: var(
+      --rush-radius-md,
+      0.5rem
+    );
+
+    background: transparent;
+
+    color: inherit;
+
+    font: inherit;
+
+    cursor: pointer;
+
+    transition:
+      background-color
+      var(
+        --rush-transition-duration-fast,
+        150ms
+      )
+      var(
+        --rush-transition-timing,
+        ease-in-out
+      ),
+      color
+      var(
+        --rush-transition-duration-fast,
+        150ms
+      )
+      var(
+        --rush-transition-timing,
+        ease-in-out
+      );
+
+    &:hover {
+      background-color: var(
+        --rush-dashboard-toggle-hover-background,
+        var(
+          --rush-color-accent,
+          #f1f5f9
+        )
+      );
+
+      color: var(
+        --rush-dashboard-toggle-hover-foreground,
+        var(
+          --rush-color-accent-foreground,
+          #0f172a
+        )
+      );
+    }
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+
+    &:disabled {
+      @include mixins.disabled;
+    }
+  }
+}
+
+/*
+ * Until a modal Drawer component exists, the sidebar
+ * becomes an inline region between the header and main
+ * content on small screens.
+ */
+@media (width <= 48rem) {
+  .rush-dashboard-layout {
+    grid-template-areas:
+      'header'
+      'sidebar'
+      'main';
+
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows:
+      auto
+      auto
+      minmax(0, 1fr);
+
+    overflow: visible;
+
+    &__sidebar {
+      width: 100%;
+
+      border-right: 0;
+      border-bottom: 1px solid var(
+        --rush-dashboard-border-color,
+        var(
+          --rush-color-border,
+          #e2e8f0
+        )
+      );
+    }
+
+    &__sidebar-content {
+      width: 100%;
+      max-height: var(
+        --rush-dashboard-mobile-sidebar-max-height,
+        20rem
+      );
+    }
+
+    &[data-collapsed='true']
+      &__sidebar {
+      display: none;
+    }
+
+    &__main {
+      overflow: visible;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rush-dashboard-layout,
+  .rush-dashboard-layout__sidebar-content,
+  .rush-dashboard-layout__toggle {
+    transition: none;
+  }
+}

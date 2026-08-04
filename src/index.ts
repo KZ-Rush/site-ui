@@ -42,6 +42,13 @@ export {
 } from './components/copy-button';
 
 export {
+  DashboardLayout,
+  DashboardSidebarToggle,
+  type DashboardLayoutProps,
+  type DashboardSidebarToggleProps,
+} from './layouts/dashboard-layout';
+
+export {
   FormattedDateTime,
 } from './components/formatted-date-time';
 
