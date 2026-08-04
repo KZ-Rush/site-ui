@@ -21,6 +21,12 @@ export {
 } from './components/badge';
 
 export {
+  BlogLayout,
+  type BlogLayoutContentWidth,
+  type BlogLayoutProps,
+} from './layouts/blog-layout';
+
+export {
   Button,
 } from './components/button';
 
