@@ -1,0 +1,258 @@
+@use '../../styles/mixins';
+
+.rush-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.125rem 0.5rem;
+
+  overflow: hidden;
+
+  border: 1px solid transparent;
+  border-radius: var(
+    --rush-badge-border-radius,
+    var(--rush-radius-md, 0.5rem)
+  );
+
+  font-family: var(
+    --rush-font-sans,
+    system-ui,
+    sans-serif
+  );
+
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  transition:
+    background-color
+    var(--rush-transition-duration-fast, 150ms)
+    var(--rush-transition-timing, ease-in-out),
+    border-color
+    var(--rush-transition-duration-fast, 150ms)
+    var(--rush-transition-timing, ease-in-out),
+    color
+    var(--rush-transition-duration-fast, 150ms)
+    var(--rush-transition-timing, ease-in-out),
+    box-shadow
+    var(--rush-transition-duration-fast, 150ms)
+    var(--rush-transition-timing, ease-in-out);
+
+  > svg {
+    flex: 0 0 auto;
+
+    width: 0.75rem;
+    height: 0.75rem;
+
+    pointer-events: none;
+  }
+
+  &[href]:focus-visible {
+    @include mixins.focus-ring;
+  }
+
+  &--variant-default {
+    border-color: var(
+      --rush-badge-default-border-color,
+      transparent
+    );
+
+    background-color: var(
+      --rush-badge-default-background,
+      var(--rush-color-primary, #0f172a)
+    );
+
+    color: var(
+      --rush-badge-default-foreground,
+      var(--rush-color-primary-foreground, #fff)
+    );
+
+    &[href]:hover {
+      background-color: var(
+        --rush-badge-default-hover-background,
+        var(--rush-color-primary-hover, #1e293b)
+      );
+    }
+  }
+
+  &--variant-secondary {
+    border-color: var(
+      --rush-badge-secondary-border-color,
+      transparent
+    );
+
+    background-color: var(
+      --rush-badge-secondary-background,
+      var(--rush-color-secondary, #f1f5f9)
+    );
+
+    color: var(
+      --rush-badge-secondary-foreground,
+      var(--rush-color-secondary-foreground, #0f172a)
+    );
+
+    &[href]:hover {
+      background-color: var(
+        --rush-badge-secondary-hover-background,
+        var(--rush-color-secondary-hover, #e2e8f0)
+      );
+    }
+  }
+
+  &--variant-success {
+    border-color: var(
+      --rush-badge-success-border-color,
+      transparent
+    );
+
+    background-color: var(
+      --rush-badge-success-background,
+      var(--rush-color-success, #16a34a)
+    );
+
+    color: var(
+      --rush-badge-success-foreground,
+      var(--rush-color-success-foreground, #fff)
+    );
+
+    &[href]:hover {
+      background-color: var(
+        --rush-badge-success-hover-background,
+        var(--rush-color-success-hover, #15803d)
+      );
+    }
+  }
+
+  &--variant-warning {
+    border-color: var(
+      --rush-badge-warning-border-color,
+      transparent
+    );
+
+    background-color: var(
+      --rush-badge-warning-background,
+      var(--rush-color-warning, #f59e0b)
+    );
+
+    color: var(
+      --rush-badge-warning-foreground,
+      var(--rush-color-warning-foreground, #451a03)
+    );
+
+    &[href]:hover {
+      background-color: var(
+        --rush-badge-warning-hover-background,
+        var(--rush-color-warning-hover, #d97706)
+      );
+    }
+  }
+
+  &--variant-destructive {
+    border-color: var(
+      --rush-badge-destructive-border-color,
+      transparent
+    );
+
+    background-color: var(
+      --rush-badge-destructive-background,
+      var(--rush-color-destructive, #dc2626)
+    );
+
+    color: var(
+      --rush-badge-destructive-foreground,
+      var(--rush-color-destructive-foreground, #fff)
+    );
+
+    &[href]:hover {
+      background-color: var(
+        --rush-badge-destructive-hover-background,
+        var(--rush-color-destructive-hover, #b91c1c)
+      );
+    }
+  }
+
+  &--variant-info {
+    border-color: var(
+      --rush-badge-info-border-color,
+      transparent
+    );
+
+    background-color: var(
+      --rush-badge-info-background,
+      var(--rush-color-info, #3b82f6)
+    );
+
+    color: var(
+      --rush-badge-info-foreground,
+      var(--rush-color-info-foreground, #fff)
+    );
+
+    &[href]:hover {
+      background-color: var(
+        --rush-badge-info-hover-background,
+        var(--rush-color-info-hover, #2563eb)
+      );
+    }
+  }
+
+  &--variant-notice {
+    border-color: var(
+      --rush-badge-notice-border-color,
+      transparent
+    );
+
+    background-color: var(
+      --rush-badge-notice-background,
+      var(--rush-color-notice, #a855f7)
+    );
+
+    color: var(
+      --rush-badge-notice-foreground,
+      var(--rush-color-notice-foreground, #fff)
+    );
+
+    &[href]:hover {
+      background-color: var(
+        --rush-badge-notice-hover-background,
+        var(--rush-color-notice-hover, #9333ea)
+      );
+    }
+  }
+
+  &--variant-outline {
+    border-color: var(
+      --rush-badge-outline-border-color,
+      var(--rush-color-border, #e2e8f0)
+    );
+
+    background-color: var(
+      --rush-badge-outline-background,
+      transparent
+    );
+
+    color: var(
+      --rush-badge-outline-foreground,
+      var(--rush-color-foreground, #0f172a)
+    );
+
+    &[href]:hover {
+      background-color: var(
+        --rush-badge-outline-hover-background,
+        var(--rush-color-accent, #f1f5f9)
+      );
+
+      color: var(
+        --rush-badge-outline-hover-foreground,
+        var(--rush-color-accent-foreground, #0f172a)
+      );
+    }
+  }
+}

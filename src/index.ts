@@ -13,6 +13,14 @@ export {
 } from './components/alert';
 
 export {
+  Badge,
+  type BadgeLinkProps,
+  type BadgeProps,
+  type BadgeSpanProps,
+  type BadgeVariant,
+} from './components/badge';
+
+export {
   Button,
 } from './components/button';
 
