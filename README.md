@@ -29,6 +29,10 @@ npm config set @kz-rush:registry https://npm.pkg.github.com
 
 ```tsx
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+  Badge,
   Button,
   Card,
   CardHeader,
@@ -38,46 +42,75 @@ import {
   CardFooter,
   Checkbox,
   CopyButton,
+  FormattedDateTime,
   Label,
   FormField,
+  RushToastContainer,
+  showToast,
+  Switch,
 } from '@kz-rush/site-ui';
 
 import '@kz-rush/site-ui/styles.css';
 
 export function Example() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Rush UI</CardTitle>
-        <CardDescription>Reusable building blocks for product UI.</CardDescription>
-      </CardHeader>
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Rush UI</CardTitle>
+          <CardDescription>Reusable building blocks for product UI.</CardDescription>
+          <Badge variant="success">Connected</Badge>
+        </CardHeader>
 
-      <CardContent>
-        <FormField>
-          <Label htmlFor="newsletter">Email</Label>
-          <Checkbox id="newsletter">Subscribe me</Checkbox>
-        </FormField>
-      </CardContent>
+        <CardContent>
+          <Alert variant="info">
+            <AlertTitle>Profile updated</AlertTitle>
+            <AlertDescription>
+              Last saved <FormattedDateTime value="2026-08-01T17:30:00+05:00" format="YYYY-MM-DD HH:mm" />.
+            </AlertDescription>
+          </Alert>
 
-      <CardFooter>
-        <Button variant="default">Continue</Button>
-        <CopyButton value="https://kz-rush.com" />
-      </CardFooter>
-    </Card>
+          <FormField>
+            <Label htmlFor="newsletter">Email</Label>
+            <Checkbox id="newsletter">Subscribe me</Checkbox>
+          </FormField>
+
+          <FormField>
+            <Label htmlFor="notifications">Notifications</Label>
+            <Switch id="notifications" defaultChecked />
+          </FormField>
+        </CardContent>
+
+        <CardFooter>
+          <Button variant="default">Continue</Button>
+          <CopyButton value="https://kz-rush.com" />
+          <Button onClick={() => showToast('Settings saved.', { type: 'success' })}>
+            Show notification
+          </Button>
+        </CardFooter>
+      </Card>
+
+      <RushToastContainer />
+    </>
   );
 }
 ```
 
 ## Available components
 
+- Alert, AlertTitle, AlertDescription, AlertList
+- Badge
 - Button
 - Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
 - Checkbox
 - CopyButton
+- FormattedDateTime
 - FormField
 - Label
 - NumberDiff
 - Progress
+- Switch
+- RushToastContainer and showToast
 
 ## Styling
 
@@ -105,6 +138,22 @@ npm install
 npm run build
 npm run test
 ```
+
+## Release workflow
+
+Releases are published to GitHub Packages by [`.github/workflows/publish.yml`](.github/workflows/publish.yml). The workflow starts when a tag matching `vMAJOR.MINOR.PATCH` is pushed.
+
+Before creating the tag, update the version in `package.json` and ensure the changes are merged to the release commit. The tag version must exactly match the package version; for example, version `0.2.0` requires tag `v0.2.0`.
+
+```bash
+npm version 0.2.0 --no-git-tag-version
+git add package.json package-lock.json
+git commit -m "chore: release v0.2.0"
+git tag v0.2.0
+git push origin main --follow-tags
+```
+
+The workflow installs dependencies, verifies the tag and package versions match, runs unit and Storybook tests, builds the package, verifies its contents with `npm pack --dry-run`, and publishes using `GITHUB_TOKEN`.
 
 ## Peer dependencies
 

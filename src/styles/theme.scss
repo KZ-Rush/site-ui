@@ -29,8 +29,8 @@
    * Brand and semantic colors
    */
   --rush-color-primary: oklch(0.205 0 0);
-  --rush-color-primary-hover: oklch(0.3 0 0);
   --rush-color-primary-foreground: oklch(0.985 0 0);
+  --rush-color-primary-hover: oklch(0.3 0 0);
 
   --rush-color-primary-orange: #fd8901;
   --rush-color-primary-orange-foreground: #fff;
@@ -61,6 +61,29 @@
   --rush-color-border: oklch(0.922 0 0);
   --rush-color-input: oklch(0.922 0 0);
   --rush-color-focus: oklch(0.623 0.214 259.815);
+
+  --rush-color-info: #3b82f6;
+  --rush-color-info-soft: #eff6ff;
+  --rush-color-info-strong: #1d4ed8;
+  --rush-color-info-border: #bfdbfe;
+
+  --rush-color-warning: #f59e0b;
+  --rush-color-warning-soft: #fffbeb;
+  --rush-color-warning-strong: #92400e;
+  --rush-color-warning-border: #fde68a;
+
+  --rush-color-success-soft: #f0fdf4;
+  --rush-color-success-strong: #166534;
+  --rush-color-success-border: #bbf7d0;
+
+  --rush-color-destructive-soft: #fef2f2;
+  --rush-color-destructive-strong: #991b1b;
+  --rush-color-destructive-border: #fecaca;
+
+  --rush-color-notice: #a855f7;
+  --rush-color-notice-soft: #faf5ff;
+  --rush-color-notice-strong: #7e22ce;
+  --rush-color-notice-border: #e9d5ff;
 
   /*
    * Shape
@@ -146,8 +169,8 @@
   --rush-color-popover-foreground: oklch(0.985 0 0);
 
   --rush-color-primary: oklch(0.985 0 0);
-  --rush-color-primary-hover: oklch(0.87 0 0);
   --rush-color-primary-foreground: oklch(0.205 0 0);
+  --rush-color-primary-hover: oklch(0.87 0 0);
 
   --rush-color-secondary: oklch(0.269 0 0);
   --rush-color-secondary-foreground: oklch(0.985 0 0);
@@ -171,6 +194,26 @@
   --rush-color-border: oklch(0.269 0 0);
   --rush-color-input: oklch(0.269 0 0);
   --rush-color-focus: oklch(0.623 0.214 259.815);
+
+  --rush-color-info-soft: #172554;
+  --rush-color-info-strong: #bfdbfe;
+  --rush-color-info-border: #1e40af;
+
+  --rush-color-warning-soft: #451a03;
+  --rush-color-warning-strong: #fde68a;
+  --rush-color-warning-border: #92400e;
+
+  --rush-color-success-soft: #052e16;
+  --rush-color-success-strong: #bbf7d0;
+  --rush-color-success-border: #166534;
+
+  --rush-color-destructive-soft: #450a0a;
+  --rush-color-destructive-strong: #fecaca;
+  --rush-color-destructive-border: #991b1b;
+
+  --rush-color-notice-soft: #3b0764;
+  --rush-color-notice-strong: #e9d5ff;
+  --rush-color-notice-border: #7e22ce;
 
   --rush-color-table: #1c1f27;
   --rush-color-table-foreground: #f4f4f4;
