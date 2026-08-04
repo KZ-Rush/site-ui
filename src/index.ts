@@ -77,6 +77,15 @@ export {
   showToast,
 } from './components/toast';
 
+export {
+  WorkspaceAsideToggle,
+  WorkspaceLayout,
+  WorkspaceSidebarToggle,
+  type WorkspaceAsideToggleProps,
+  type WorkspaceLayoutProps,
+  type WorkspaceSidebarToggleProps,
+} from './layouts/workspace-layout';
+
 export type {
   ButtonProps,
   ButtonSize,
