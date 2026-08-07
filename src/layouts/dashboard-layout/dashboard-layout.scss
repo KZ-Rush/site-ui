@@ -227,7 +227,7 @@
         ease-in-out
       );
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: var(
         --rush-dashboard-toggle-hover-background,
         var(
