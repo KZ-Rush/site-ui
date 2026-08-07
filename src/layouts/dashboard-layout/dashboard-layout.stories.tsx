@@ -322,12 +322,7 @@ function ExampleSidebarNavigation() {
   return (
     <nav
       aria-label="Example navigation"
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '0.25rem',
-        padding: '1rem',
-      }}
+      className="dashboard-story-navigation"
     >
       <a href="#dashboard">
         Dashboard
