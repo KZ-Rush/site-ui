@@ -110,6 +110,41 @@
   --rush-transition-duration-normal: 500ms;
   --rush-transition-timing: ease-in-out;
 
+  --rush-dashboard-sidebar-width: 16rem;
+  --rush-dashboard-sidebar-collapsed-width: 4rem;
+  --rush-dashboard-header-height: 4rem;
+  --rush-dashboard-content-padding: 1.5rem;
+  --rush-dashboard-transition-duration: 300ms;
+  --rush-dashboard-mobile-sidebar-max-height: 20rem;
+
+  --rush-workspace-sidebar-width: 16rem;
+  --rush-workspace-sidebar-collapsed-width: 4rem;
+
+  --rush-workspace-aside-width: 20rem;
+  --rush-workspace-aside-collapsed-width: 0rem;
+
+  --rush-workspace-header-height: 4rem;
+  --rush-workspace-content-padding: 1.5rem;
+
+  --rush-workspace-transition-duration: 300ms;
+
+  --rush-workspace-inline-aside-max-height: 22rem;
+  --rush-workspace-mobile-sidebar-max-height: 20rem;
+
+  --rush-blog-container-width: 90rem;
+
+  --rush-blog-navigation-column-width: 15rem;
+  --rush-blog-aside-column-width: 15rem;
+
+  --rush-blog-column-gap: 2rem;
+  --rush-blog-tablet-column-gap: 1.5rem;
+  --rush-blog-mobile-section-gap: 2rem;
+
+  --rush-blog-body-padding: 2rem 1.5rem;
+  --rush-blog-mobile-body-padding: 1.5rem 1rem;
+
+  --rush-blog-sticky-offset: 1.5rem;
+
   /*
    * Table
    */

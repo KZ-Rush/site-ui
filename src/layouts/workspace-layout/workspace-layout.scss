@@ -1,0 +1,435 @@
+@use '../../styles/mixins';
+
+.rush-workspace-layout {
+  display: grid;
+
+  grid-template-areas:
+    'sidebar header aside'
+    'sidebar main aside';
+
+  grid-template-columns:
+    var(
+      --rush-workspace-sidebar-current-width,
+      var(
+        --rush-workspace-sidebar-width,
+        16rem
+      )
+    )
+    minmax(0, 1fr)
+    var(
+      --rush-workspace-aside-current-width,
+      var(
+        --rush-workspace-aside-width,
+        20rem
+      )
+    );
+
+  grid-template-rows:
+    auto
+    minmax(0, 1fr);
+
+  min-width: 0;
+  min-height: 100dvh;
+
+  overflow: hidden;
+
+  background-color: var(
+    --rush-workspace-background,
+    var(
+      --rush-color-background,
+      #fff
+    )
+  );
+
+  color: var(
+    --rush-workspace-foreground,
+    var(
+      --rush-color-foreground,
+      #0f172a
+    )
+  );
+
+  font-family: var(
+    --rush-font-sans,
+    system-ui,
+    sans-serif
+  );
+
+  transition:
+    grid-template-columns
+    var(
+      --rush-workspace-transition-duration,
+      var(
+        --rush-transition-duration-normal,
+        300ms
+      )
+    )
+    var(
+      --rush-transition-timing,
+      ease-in-out
+    );
+
+  &[data-sidebar-collapsed='true'] {
+    --rush-workspace-sidebar-current-width:
+      var(
+        --rush-workspace-sidebar-collapsed-width,
+        4rem
+      );
+  }
+
+  &[data-aside-collapsed='true'] {
+    --rush-workspace-aside-current-width:
+      var(
+        --rush-workspace-aside-collapsed-width,
+        0rem
+      );
+  }
+
+  &[data-has-aside='false'],
+  &:not([data-has-aside]) {
+    --rush-workspace-aside-current-width: 0rem;
+  }
+
+  &__sidebar,
+  &__aside {
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+
+    background-color: var(
+      --rush-workspace-panel-background,
+      var(
+        --rush-color-card,
+        #fff
+      )
+    );
+
+    color: var(
+      --rush-workspace-panel-foreground,
+      var(
+        --rush-color-card-foreground,
+        #0f172a
+      )
+    );
+  }
+
+  &__sidebar {
+    grid-area: sidebar;
+
+    border-right: 1px solid var(
+      --rush-workspace-border-color,
+      var(
+        --rush-color-border,
+        #e2e8f0
+      )
+    );
+  }
+
+  &__aside {
+    grid-area: aside;
+
+    border-left: 1px solid var(
+      --rush-workspace-border-color,
+      var(
+        --rush-color-border,
+        #e2e8f0
+      )
+    );
+  }
+
+  &__sidebar-content {
+    width: var(
+      --rush-workspace-sidebar-width,
+      16rem
+    );
+
+    height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &[data-sidebar-collapsed='true']
+    &__sidebar-content {
+    width: var(
+      --rush-workspace-sidebar-collapsed-width,
+      4rem
+    );
+  }
+
+  &__aside-content {
+    width: var(
+      --rush-workspace-aside-width,
+      20rem
+    );
+
+    height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    opacity: 1;
+
+    transition:
+      opacity
+      var(
+        --rush-transition-duration-fast,
+        150ms
+      )
+      var(
+        --rush-transition-timing,
+        ease-in-out
+      );
+  }
+
+  &[data-aside-collapsed='true']
+    &__aside {
+    border-left-width: 0;
+  }
+
+  &[data-aside-collapsed='true']
+    &__aside-content {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  &__header {
+    grid-area: header;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    min-width: 0;
+    min-height: var(
+      --rush-workspace-header-height,
+      4rem
+    );
+
+    padding-inline: var(
+      --rush-workspace-content-padding,
+      1.5rem
+    );
+
+    border-bottom: 1px solid var(
+      --rush-workspace-border-color,
+      var(
+        --rush-color-border,
+        #e2e8f0
+      )
+    );
+
+    background-color: var(
+      --rush-workspace-header-background,
+      var(
+        --rush-color-background,
+        #fff
+      )
+    );
+  }
+
+  &__main {
+    grid-area: main;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: auto;
+
+    padding: var(
+      --rush-workspace-content-padding,
+      1.5rem
+    );
+  }
+
+  &__toggle {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+
+    border: 1px solid transparent;
+    border-radius: var(
+      --rush-radius-md,
+      0.5rem
+    );
+
+    background-color: transparent;
+    color: inherit;
+
+    font: inherit;
+
+    cursor: pointer;
+
+    transition:
+      background-color
+      var(
+        --rush-transition-duration-fast,
+        150ms
+      )
+      var(
+        --rush-transition-timing,
+        ease-in-out
+      ),
+      color
+      var(
+        --rush-transition-duration-fast,
+        150ms
+      )
+      var(
+        --rush-transition-timing,
+        ease-in-out
+      );
+
+    &:hover:not(:disabled) {
+      background-color: var(
+        --rush-workspace-toggle-hover-background,
+        var(
+          --rush-color-accent,
+          #f1f5f9
+        )
+      );
+
+      color: var(
+        --rush-workspace-toggle-hover-foreground,
+        var(
+          --rush-color-accent-foreground,
+          #0f172a
+        )
+      );
+    }
+
+    &:focus-visible {
+      @include mixins.focus-ring;
+    }
+
+    &:disabled {
+      @include mixins.disabled;
+    }
+  }
+}
+
+/*
+ * At medium widths, the inspector becomes an inline
+ * section below the main content.
+ */
+@media (width <= 75rem) {
+  .rush-workspace-layout {
+    grid-template-areas:
+      'sidebar header'
+      'sidebar main'
+      'sidebar aside';
+
+    grid-template-columns:
+      var(
+        --rush-workspace-sidebar-current-width,
+        var(
+          --rush-workspace-sidebar-width,
+          16rem
+        )
+      )
+      minmax(0, 1fr);
+
+    grid-template-rows:
+      auto
+      minmax(0, 1fr)
+      auto;
+
+    &__aside {
+      width: 100%;
+      max-height: var(
+        --rush-workspace-inline-aside-max-height,
+        22rem
+      );
+
+      border-top: 1px solid var(
+        --rush-workspace-border-color,
+        var(
+          --rush-color-border,
+          #e2e8f0
+        )
+      );
+
+      border-left: 0;
+    }
+
+    &__aside-content {
+      width: 100%;
+    }
+
+    &[data-aside-collapsed='true']
+      &__aside {
+      display: none;
+    }
+  }
+}
+
+/*
+ * On small screens both panels become inline regions.
+ * A future Drawer component can replace this behavior.
+ */
+@media (width <= 48rem) {
+  .rush-workspace-layout {
+    grid-template-areas:
+      'header'
+      'sidebar'
+      'main'
+      'aside';
+
+    grid-template-columns:
+      minmax(0, 1fr);
+
+    grid-template-rows:
+      auto
+      auto
+      minmax(0, 1fr)
+      auto;
+
+    min-height: 100dvh;
+
+    overflow: visible;
+
+    &__sidebar {
+      width: 100%;
+
+      border-right: 0;
+      border-bottom: 1px solid var(
+        --rush-workspace-border-color,
+        var(
+          --rush-color-border,
+          #e2e8f0
+        )
+      );
+    }
+
+    &__sidebar-content {
+      width: 100%;
+      max-height: var(
+        --rush-workspace-mobile-sidebar-max-height,
+        20rem
+      );
+    }
+
+    &[data-sidebar-collapsed='true']
+      &__sidebar {
+      display: none;
+    }
+
+    &__main {
+      overflow: visible;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rush-workspace-layout,
+  .rush-workspace-layout__aside-content,
+  .rush-workspace-layout__toggle {
+    transition: none;
+  }
+}
