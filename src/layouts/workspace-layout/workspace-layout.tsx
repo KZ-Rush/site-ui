@@ -190,14 +190,16 @@ export function WorkspaceLayout({
       ? sidebarCollapsed
       : internalSidebarCollapsed;
 
+  const hasAside =
+    aside !== undefined && aside !== null;
+
   const resolvedAsideCollapsed =
-    aside === undefined
-    || aside === null
-    || (
-      asideIsControlled
-        ? asideCollapsed
-        : internalAsideCollapsed
-    );
+    hasAside
+      && (
+        asideIsControlled
+          ? asideCollapsed
+          : internalAsideCollapsed
+      );
 
   const setSidebarCollapsed = (
     nextCollapsed: boolean,
