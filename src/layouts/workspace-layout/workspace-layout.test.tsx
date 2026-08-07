@@ -14,6 +14,8 @@ import {
   WorkspaceAsideToggle,
   WorkspaceLayout,
   WorkspaceSidebarToggle,
+  WorkspaceMobileAsideToggle,
+  WorkspaceMobileSidebarToggle,
 } from './workspace-layout';
 
 interface RenderLayoutOptions {
@@ -361,5 +363,125 @@ describe('WorkspaceLayout', () => {
     }).toThrow(
       'Workspace layout controls must be used inside WorkspaceLayout.',
     );
+  });
+
+  it('opens the mobile sidebar drawer', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar="Desktop navigation"
+        mobileSidebar="Mobile navigation"
+        header={(
+          <WorkspaceMobileSidebarToggle />
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    const dialog = screen.getByRole(
+      'dialog',
+      {
+        name: 'Primary navigation',
+      },
+    );
+
+    expect(dialog).toHaveTextContent(
+      'Mobile navigation',
+    );
+  });
+
+  it('opens the mobile aside drawer', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar="Navigation"
+        aside="Desktop inspector"
+        mobileAside="Mobile inspector"
+        header={(
+          <WorkspaceMobileAsideToggle />
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open details panel',
+      }),
+    );
+
+    const dialog = screen.getByRole(
+      'dialog',
+      {
+        name: 'Workspace details',
+      },
+    );
+
+    expect(dialog).toHaveTextContent(
+      'Mobile inspector',
+    );
+  });
+
+  it('supports controlled mobile sidebar state', async () => {
+    const user = userEvent.setup();
+
+    const onMobileSidebarOpenChange =
+      vi.fn();
+
+    render(
+      <WorkspaceLayout
+        sidebar="Navigation"
+        mobileSidebarOpen={false}
+        onMobileSidebarOpenChange={
+          onMobileSidebarOpenChange
+        }
+        header={(
+          <WorkspaceMobileSidebarToggle />
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    expect(
+      onMobileSidebarOpenChange,
+    ).toHaveBeenCalledWith(true);
+
+    expect(
+      screen.queryByRole('dialog'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('does not render the mobile aside when aside is omitted', () => {
+    render(
+      <WorkspaceLayout
+        sidebar="Navigation"
+        defaultMobileAsideOpen
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    expect(
+      screen.queryByRole('dialog', {
+        name: 'Workspace details',
+      }),
+    ).not.toBeInTheDocument();
   });
 });

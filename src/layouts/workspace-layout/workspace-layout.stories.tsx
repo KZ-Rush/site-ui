@@ -10,10 +10,37 @@ import type {
 import {
   WorkspaceAsideToggle,
   WorkspaceLayout,
+  WorkspaceMobileAsideToggle,
+  WorkspaceMobileSidebarToggle,
   WorkspaceSidebarToggle,
 } from './workspace-layout';
 
 import './workspace-layout.stories.scss';
+
+function ExampleNavigation() {
+  return (
+    <nav
+      aria-label="Workspace navigation"
+      className="workspace-story-navigation"
+    >
+      <a href="#uploads">
+        Uploads
+      </a>
+
+      <a href="#releases">
+        Releases
+      </a>
+
+      <a href="#records">
+        Records
+      </a>
+
+      <a href="#maps">
+        Maps
+      </a>
+    </nav>
+  );
+}
 
 function ExampleSidebar() {
   return (
@@ -26,26 +53,87 @@ function ExampleSidebar() {
         <WorkspaceSidebarToggle />
       </div>
 
-      <nav
-        aria-label="Workspace navigation"
-        className="workspace-story-navigation"
-      >
-        <a href="#uploads">
-          Uploads
-        </a>
+      <ExampleNavigation />
+    </div>
+  );
+}
 
-        <a href="#releases">
-          Releases
-        </a>
+function ExampleMobileSidebar() {
+  return (
+    <div className="workspace-story-mobile-sidebar">
+      <div className="workspace-story-mobile-sidebar__header">
+        <strong>
+          KZ-Rush
+        </strong>
 
-        <a href="#records">
-          Records
-        </a>
+        <WorkspaceMobileSidebarToggle>
+          <span aria-hidden="true">
+            ×
+          </span>
+        </WorkspaceMobileSidebarToggle>
+      </div>
 
-        <a href="#maps">
-          Maps
-        </a>
-      </nav>
+      <ExampleNavigation />
+    </div>
+  );
+}
+
+function ExampleInspectorContent() {
+  return (
+    <div className="workspace-story-inspector">
+      <dl>
+        <dt>
+          Player
+        </dt>
+
+        <dd>
+          example-player
+        </dd>
+
+        <dt>
+          Map
+        </dt>
+
+        <dd>
+          kz_example
+        </dd>
+
+        <dt>
+          Time
+        </dt>
+
+        <dd>
+          01:23.45
+        </dd>
+
+        <dt>
+          Type
+        </dt>
+
+        <dd>
+          PRO
+        </dd>
+      </dl>
+    </div>
+  );
+}
+
+function ExampleMobileAside() {
+  return (
+    <div className="workspace-story-mobile-aside">
+      <div className="workspace-story-mobile-aside__header">
+        <strong>
+          Demo details
+        </strong>
+
+        <WorkspaceMobileAsideToggle>
+          <span aria-hidden="true">
+            ×
+          </span>
+        </WorkspaceMobileAsideToggle>
+      </div>
+
+      <ExampleInspectorContent />
     </div>
   );
 }
@@ -53,6 +141,8 @@ function ExampleSidebar() {
 function ExampleHeader() {
   return (
     <>
+      <WorkspaceMobileSidebarToggle />
+
       <strong>
         Demo review
       </strong>
@@ -60,8 +150,13 @@ function ExampleHeader() {
       <div
         style={{
           marginLeft: 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
         }}
       >
+        <WorkspaceMobileAsideToggle />
+
         <WorkspaceAsideToggle />
       </div>
     </>
@@ -79,41 +174,7 @@ function ExampleAside() {
         <WorkspaceAsideToggle />
       </div>
 
-      <div className="workspace-story-inspector">
-        <dl>
-          <dt>
-            Player
-          </dt>
-
-          <dd>
-            example-player
-          </dd>
-
-          <dt>
-            Map
-          </dt>
-
-          <dd>
-            kz_example
-          </dd>
-
-          <dt>
-            Time
-          </dt>
-
-          <dd>
-            01:23.45
-          </dd>
-
-          <dt>
-            Type
-          </dt>
-
-          <dd>
-            PRO
-          </dd>
-        </dl>
-      </div>
+      <ExampleInspectorContent />
     </div>
   );
 }
@@ -156,8 +217,19 @@ the consumer.
 
   args: {
     sidebar: <ExampleSidebar />,
+
+    mobileSidebar: (
+      <ExampleMobileSidebar />
+    ),
+
     header: <ExampleHeader />,
+
     aside: <ExampleAside />,
+
+    mobileAside: (
+      <ExampleMobileAside />
+    ),
+
     children: <ExampleContent />,
   },
 
@@ -207,6 +279,38 @@ the consumer.
     },
 
     onAsideCollapsedChange: {
+      control: false,
+    },
+
+    mobileSidebar: {
+      control: false,
+    },
+
+    mobileAside: {
+      control: false,
+    },
+
+    mobileSidebarOpen: {
+      control: 'boolean',
+    },
+
+    mobileAsideOpen: {
+      control: 'boolean',
+    },
+
+    defaultMobileSidebarOpen: {
+      control: 'boolean',
+    },
+
+    defaultMobileAsideOpen: {
+      control: 'boolean',
+    },
+
+    onMobileSidebarOpenChange: {
+      control: false,
+    },
+
+    onMobileAsideOpenChange: {
       control: false,
     },
   },

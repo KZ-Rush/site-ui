@@ -69,6 +69,30 @@
       ease-in-out
     );
 
+  &__mobile-sidebar-drawer {
+    --rush-drawer-width:
+      var(
+        --rush-workspace-mobile-sidebar-width,
+        18rem
+      );
+  }
+
+  &__mobile-aside-drawer {
+    --rush-drawer-width:
+      var(
+        --rush-workspace-mobile-aside-width,
+        20rem
+      );
+  }
+
+  &__mobile-sidebar,
+  &__mobile-aside {
+    min-height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
   &[data-sidebar-collapsed='true'] {
     --rush-workspace-sidebar-current-width:
       var(
@@ -244,6 +268,11 @@
   }
 }
 
+.rush-layout-panel-toggle.rush-workspace-layout__mobile-sidebar-toggle,
+.rush-layout-panel-toggle.rush-workspace-layout__mobile-aside-toggle {
+  display: none;
+}
+
 /*
  * At medium widths, the inspector becomes an inline
  * section below the main content.
@@ -307,52 +336,35 @@
   .rush-workspace-layout {
     grid-template-areas:
       'header'
-      'sidebar'
-      'main'
-      'aside';
+      'main';
 
     grid-template-columns:
       minmax(0, 1fr);
 
     grid-template-rows:
       auto
-      auto
-      minmax(0, 1fr)
-      auto;
+      minmax(0, 1fr);
 
     min-height: 100dvh;
 
-    overflow: visible;
-
-    &__sidebar {
-      width: 100%;
-
-      border-right: 0;
-      border-bottom: 1px solid var(
-        --rush-workspace-border-color,
-        var(
-          --rush-color-border,
-          #e2e8f0
-        )
-      );
-    }
-
-    &__sidebar-content {
-      width: 100%;
-      max-height: var(
-        --rush-workspace-mobile-sidebar-max-height,
-        20rem
-      );
-    }
-
-    &[data-sidebar-collapsed='true']
-      &__sidebar {
+    &__sidebar,
+    &__aside {
       display: none;
     }
 
     &__main {
-      overflow: visible;
+      overflow: auto;
     }
+  }
+
+  .rush-layout-panel-toggle.rush-workspace-layout__sidebar-toggle,
+  .rush-layout-panel-toggle.rush-workspace-layout__aside-toggle {
+    display: none;
+  }
+
+  .rush-layout-panel-toggle.rush-workspace-layout__mobile-sidebar-toggle,
+  .rush-layout-panel-toggle.rush-workspace-layout__mobile-aside-toggle {
+    display: inline-flex;
   }
 }
 

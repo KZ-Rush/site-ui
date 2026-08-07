@@ -102,9 +102,14 @@ export {
 export {
   WorkspaceAsideToggle,
   WorkspaceLayout,
+  WorkspaceMobileAsideToggle,
+  WorkspaceMobileSidebarToggle,
   WorkspaceSidebarToggle,
+
   type WorkspaceAsideToggleProps,
   type WorkspaceLayoutProps,
+  type WorkspaceMobileAsideToggleProps,
+  type WorkspaceMobileSidebarToggleProps,
   type WorkspaceSidebarToggleProps,
 } from './layouts/workspace-layout';
 
