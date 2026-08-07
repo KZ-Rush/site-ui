@@ -55,6 +55,20 @@ export {
 } from './layouts/dashboard-layout';
 
 export {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+  type DrawerCloseProps,
+  type DrawerContentProps,
+  type DrawerProps,
+  type DrawerSide,
+  type DrawerTitleProps,
+  type DrawerTriggerProps,
+} from './components/drawer';
+
+export {
   FormattedDateTime,
 } from './components/formatted-date-time';
 
