@@ -86,6 +86,21 @@
       )
     );
 
+    &__mobile-drawer {
+      --rush-drawer-width:
+        var(
+          --rush-dashboard-mobile-sidebar-width,
+          18rem
+        );
+    }
+
+    &__mobile-sidebar {
+      min-height: 100%;
+
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
     background-color: var(
       --rush-dashboard-sidebar-background,
       var(
@@ -184,6 +199,10 @@
   }
 }
 
+.rush-layout-panel-toggle.rush-dashboard-layout__mobile-toggle {
+  display: none;
+}
+
 /*
  * Until a modal Drawer component exists, the sidebar
  * becomes an inline region between the header and main
@@ -193,46 +212,32 @@
   .rush-dashboard-layout {
     grid-template-areas:
       'header'
-      'sidebar'
       'main';
 
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns:
+      minmax(0, 1fr);
+
     grid-template-rows:
-      auto
       auto
       minmax(0, 1fr);
 
-    overflow: visible;
+    min-height: 100dvh;
 
     &__sidebar {
-      width: 100%;
-
-      border-right: 0;
-      border-bottom: 1px solid var(
-        --rush-dashboard-border-color,
-        var(
-          --rush-color-border,
-          #e2e8f0
-        )
-      );
-    }
-
-    &__sidebar-content {
-      width: 100%;
-      max-height: var(
-        --rush-dashboard-mobile-sidebar-max-height,
-        20rem
-      );
-    }
-
-    &[data-collapsed='true']
-      &__sidebar {
       display: none;
     }
 
     &__main {
-      overflow: visible;
+      overflow: auto;
     }
+  }
+
+  .rush-layout-panel-toggle.rush-dashboard-layout__desktop-toggle {
+    display: none;
+  }
+
+  .rush-layout-panel-toggle.rush-dashboard-layout__mobile-toggle {
+    display: inline-flex;
   }
 }
 

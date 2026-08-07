@@ -49,8 +49,10 @@ export {
 
 export {
   DashboardLayout,
+  DashboardMobileSidebarToggle,
   DashboardSidebarToggle,
   type DashboardLayoutProps,
+  type DashboardMobileSidebarToggleProps,
   type DashboardSidebarToggleProps,
 } from './layouts/dashboard-layout';
 

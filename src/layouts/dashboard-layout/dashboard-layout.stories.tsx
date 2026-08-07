@@ -9,10 +9,36 @@ import type {
 
 import {
   DashboardLayout,
+  DashboardMobileSidebarToggle,
   DashboardSidebarToggle,
 } from './dashboard-layout';
 
 import './dashboard-layout.stories.scss';
+
+function ExampleNavigation() {
+  return (
+    <nav
+      aria-label="Example navigation"
+      className="dashboard-story-navigation"
+    >
+      <a href="#dashboard">
+        Dashboard
+      </a>
+
+      <a href="#records">
+        Records
+      </a>
+
+      <a href="#maps">
+        Maps
+      </a>
+
+      <a href="#players">
+        Players
+      </a>
+    </nav>
+  );
+}
 
 function ExampleSidebar() {
   return (
@@ -25,7 +51,27 @@ function ExampleSidebar() {
         <DashboardSidebarToggle />
       </div>
 
-      <ExampleSidebarNavigation />
+      <ExampleNavigation />
+    </div>
+  );
+}
+
+function ExampleMobileSidebar() {
+  return (
+    <div className="dashboard-story-mobile-sidebar">
+      <div className="dashboard-story-mobile-sidebar__header">
+        <strong>
+          KZ-Rush
+        </strong>
+
+        <DashboardMobileSidebarToggle>
+          <span aria-hidden="true">
+            ×
+          </span>
+        </DashboardMobileSidebarToggle>
+      </div>
+
+      <ExampleNavigation />
     </div>
   );
 }
@@ -33,6 +79,8 @@ function ExampleSidebar() {
 function ExampleHeader() {
   return (
     <>
+      <DashboardMobileSidebarToggle />
+
       <strong>
         Dashboard
       </strong>
@@ -85,6 +133,9 @@ left to the consuming application.
 
   args: {
     sidebar: <ExampleSidebar />,
+    mobileSidebar: (
+      <ExampleMobileSidebar />
+    ),
     header: <ExampleHeader />,
     children: <ExampleContent />,
   },
@@ -279,24 +330,8 @@ export const CustomDimensions: Story = {
 export const CustomToggleContent: Story = {
   args: {
     sidebar: (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100%',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            minHeight: '4rem',
-            padding: '0 1rem',
-            borderBottom:
-              '1px solid var(--rush-color-border, #e2e8f0)',
-          }}
-        >
+      <div className="dashboard-story-sidebar">
+        <div className="dashboard-story-sidebar__header">
           <strong className="dashboard-story-sidebar__title">
             KZ-Rush
           </strong>
@@ -308,33 +343,34 @@ export const CustomToggleContent: Story = {
           </DashboardSidebarToggle>
         </div>
 
-        <ExampleSidebarNavigation />
+        <ExampleNavigation />
+      </div>
+    ),
+
+    mobileSidebar: (
+      <div className="dashboard-story-mobile-sidebar">
+        <div className="dashboard-story-mobile-sidebar__header">
+          <strong>
+            KZ-Rush
+          </strong>
+
+          <DashboardMobileSidebarToggle>
+            <span aria-hidden="true">
+              ×
+            </span>
+          </DashboardMobileSidebarToggle>
+        </div>
+
+        <ExampleNavigation />
       </div>
     ),
   },
 };
 
-function ExampleSidebarNavigation() {
-  return (
-    <nav
-      aria-label="Example navigation"
-      className="dashboard-story-navigation"
-    >
-      <a href="#dashboard">
-        Dashboard
-      </a>
-
-      <a href="#records">
-        Records
-      </a>
-
-      <a href="#maps">
-        Maps
-      </a>
-
-      <a href="#players">
-        Players
-      </a>
-    </nav>
-  );
-}
+export const Mobile: Story = {
+  parameters: {
+    viewport: {
+      defaultViewport: 'mobile1',
+    },
+  },
+};
