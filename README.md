@@ -42,6 +42,11 @@ import {
   CardFooter,
   Checkbox,
   CopyButton,
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
   FormattedDateTime,
   Label,
   FormField,
@@ -79,6 +84,14 @@ export function Example() {
             <Label htmlFor="notifications">Notifications</Label>
             <Switch id="notifications" defaultChecked />
           </FormField>
+
+          <Drawer>
+            <DrawerTrigger>Open details</DrawerTrigger>
+            <DrawerContent side="right">
+              <DrawerTitle>Details</DrawerTitle>
+              <DrawerClose>Close</DrawerClose>
+            </DrawerContent>
+          </Drawer>
         </CardContent>
 
         <CardFooter>
@@ -104,6 +117,7 @@ export function Example() {
 - Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
 - Checkbox
 - CopyButton
+- Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerClose
 - FormattedDateTime
 - FormField
 - Label
@@ -111,6 +125,9 @@ export function Example() {
 - Progress
 - Switch
 - RushToastContainer and showToast
+- BlogLayout
+- DashboardLayout and DashboardSidebarToggle
+- WorkspaceLayout, WorkspaceAsideToggle, and WorkspaceSidebarToggle
 
 ## Styling
 
@@ -159,6 +176,8 @@ The workflow installs dependencies, verifies the tag and package versions match,
 
 - `react` `^19.0.0`
 - `react-dom` `^19.0.0`
+- `moment` `^2.30.0`
+- `react-toastify` `^11.0.0`
 
 ## License
 
