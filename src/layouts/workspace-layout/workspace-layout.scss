@@ -242,76 +242,6 @@
       1.5rem
     );
   }
-
-  &__toggle {
-    display: inline-flex;
-    flex: 0 0 auto;
-    align-items: center;
-    justify-content: center;
-
-    width: 2.25rem;
-    height: 2.25rem;
-    padding: 0;
-
-    border: 1px solid transparent;
-    border-radius: var(
-      --rush-radius-md,
-      0.5rem
-    );
-
-    background-color: transparent;
-    color: inherit;
-
-    font: inherit;
-
-    cursor: pointer;
-
-    transition:
-      background-color
-      var(
-        --rush-transition-duration-fast,
-        150ms
-      )
-      var(
-        --rush-transition-timing,
-        ease-in-out
-      ),
-      color
-      var(
-        --rush-transition-duration-fast,
-        150ms
-      )
-      var(
-        --rush-transition-timing,
-        ease-in-out
-      );
-
-    &:hover:not(:disabled) {
-      background-color: var(
-        --rush-workspace-toggle-hover-background,
-        var(
-          --rush-color-accent,
-          #f1f5f9
-        )
-      );
-
-      color: var(
-        --rush-workspace-toggle-hover-foreground,
-        var(
-          --rush-color-accent-foreground,
-          #0f172a
-        )
-      );
-    }
-
-    &:focus-visible {
-      @include mixins.focus-ring;
-    }
-
-    &:disabled {
-      @include mixins.disabled;
-    }
-  }
 }
 
 /*
@@ -428,8 +358,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .rush-workspace-layout,
-  .rush-workspace-layout__aside-content,
-  .rush-workspace-layout__toggle {
+  .rush-workspace-layout__aside-content {
     transition: none;
   }
 }

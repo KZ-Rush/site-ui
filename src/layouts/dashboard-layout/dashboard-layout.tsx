@@ -3,12 +3,20 @@ import type {
   ComponentPropsWithoutRef,
   ReactNode,
 } from 'react';
+
 import {
   createContext,
   useContext,
   useId,
-  useState,
 } from 'react';
+
+import {
+  useControllableState,
+} from '../../hooks/use-controllable-state';
+
+import {
+  LayoutPanelToggle,
+} from '../shared/layout-panel-toggle';
 
 import { classNames } from '../../utils/class-names';
 
@@ -131,30 +139,13 @@ export function DashboardLayout({
     ?? `rush-dashboard-sidebar-${generatedSidebarId}`;
 
   const [
-    internalSidebarCollapsed,
-    setInternalSidebarCollapsed,
-  ] = useState(defaultSidebarCollapsed);
-
-  const isControlled =
-    sidebarCollapsed !== undefined;
-
-  const collapsed = isControlled
-    ? sidebarCollapsed
-    : internalSidebarCollapsed;
-
-  const setCollapsed = (
-    nextCollapsed: boolean,
-  ): void => {
-    if (!isControlled) {
-      setInternalSidebarCollapsed(
-        nextCollapsed,
-      );
-    }
-
-    onSidebarCollapsedChange?.(
-      nextCollapsed,
-    );
-  };
+    collapsed,
+    setCollapsed,
+  ] = useControllableState({
+    value: sidebarCollapsed,
+    defaultValue: defaultSidebarCollapsed,
+    onChange: onSidebarCollapsedChange,
+  });
 
   const toggleSidebar = (): void => {
     setCollapsed(!collapsed);
@@ -249,7 +240,6 @@ export function DashboardSidebarToggle({
   collapseLabel = 'Collapse sidebar',
   expandLabel = 'Expand sidebar',
   className,
-  onClick,
   ...buttonProps
 }: DashboardSidebarToggleProps) {
   const {
@@ -258,37 +248,25 @@ export function DashboardSidebarToggle({
     toggleSidebar,
   } = useDashboardLayoutContext();
 
-  const label = collapsed
-    ? expandLabel
-    : collapseLabel;
-
   return (
-    <button
+    <LayoutPanelToggle
       {...buttonProps}
-      type="button"
-      aria-controls={sidebarId}
-      aria-expanded={!collapsed}
-      aria-label={label}
+      controls={sidebarId}
+      expanded={!collapsed}
+      collapseLabel={collapseLabel}
+      expandLabel={expandLabel}
+      onToggle={toggleSidebar}
       className={classNames(
         'rush-dashboard-layout__toggle',
         className,
       )}
-      data-slot="dashboard-sidebar-toggle"
-      onClick={(event) => {
-        onClick?.(event);
-
-        if (event.defaultPrevented) {
-          return;
-        }
-
-        toggleSidebar();
-      }}
-    >
-      {children ?? (
+      fallbackContent={(
         <span aria-hidden="true">
           ☰
         </span>
       )}
-    </button>
+    >
+      {children}
+    </LayoutPanelToggle>
   );
 }

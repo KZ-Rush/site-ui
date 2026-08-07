@@ -264,4 +264,37 @@ describe('DashboardLayout', () => {
       'DashboardSidebarToggle must be used inside DashboardLayout.',
     );
   });
+
+  it('does not emit duplicate state changes', async () => {
+    const user = userEvent.setup();
+
+    const onSidebarCollapsedChange =
+      vi.fn();
+
+    render(
+      <DashboardLayout
+        sidebar={(
+          <DashboardSidebarToggle />
+        )}
+        sidebarCollapsed
+        onSidebarCollapsedChange={
+          onSidebarCollapsedChange
+        }
+      >
+        Main
+      </DashboardLayout>,
+    );
+
+    /*
+    * The toggle requests false, which differs from
+    * current true.
+    */
+    await user.click(
+      screen.getByRole('button'),
+    );
+
+    expect(
+      onSidebarCollapsedChange,
+    ).toHaveBeenCalledWith(false);
+  });
 });

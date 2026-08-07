@@ -137,10 +137,6 @@ const meta = {
   title: 'Layouts/WorkspaceLayout',
   component: WorkspaceLayout,
 
-  tags: [
-    'autodocs',
-  ],
-
   parameters: {
     layout: 'fullscreen',
 

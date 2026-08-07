@@ -66,10 +66,6 @@ const meta = {
   title: 'Layouts/DashboardLayout',
   component: DashboardLayout,
 
-  tags: [
-    'autodocs',
-  ],
-
   parameters: {
     layout: 'fullscreen',
 

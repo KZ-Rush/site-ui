@@ -3,12 +3,20 @@ import type {
   ComponentPropsWithoutRef,
   ReactNode,
 } from 'react';
+
 import {
   createContext,
   useContext,
   useId,
-  useState,
 } from 'react';
+
+import {
+  useControllableState,
+} from '../../hooks/use-controllable-state';
+
+import {
+  LayoutPanelToggle,
+} from '../shared/layout-panel-toggle';
 
 import { classNames } from '../../utils/class-names';
 
@@ -169,79 +177,49 @@ export function WorkspaceLayout({
     providedAsideId
     ?? `rush-workspace-aside-${generatedAsideId}`;
 
-  const [
-    internalSidebarCollapsed,
-    setInternalSidebarCollapsed,
-  ] = useState(defaultSidebarCollapsed);
-
-  const [
-    internalAsideCollapsed,
-    setInternalAsideCollapsed,
-  ] = useState(defaultAsideCollapsed);
-
-  const sidebarIsControlled =
-    sidebarCollapsed !== undefined;
-
-  const asideIsControlled =
-    asideCollapsed !== undefined;
-
-  const resolvedSidebarCollapsed =
-    sidebarIsControlled
-      ? sidebarCollapsed
-      : internalSidebarCollapsed;
-
   const hasAside =
-    aside !== undefined && aside !== null;
+    aside !== undefined
+    && aside !== null;
 
-  const resolvedAsideCollapsed =
-    hasAside
-      && (
-        asideIsControlled
-          ? asideCollapsed
-          : internalAsideCollapsed
-      );
+  const [
+    resolvedSidebarCollapsed,
+    setSidebarCollapsed,
+  ] = useControllableState({
+    value: sidebarCollapsed,
+    defaultValue:
+      defaultSidebarCollapsed,
+    onChange:
+      onSidebarCollapsedChange,
+  });
 
-  const setSidebarCollapsed = (
-    nextCollapsed: boolean,
-  ): void => {
-    if (!sidebarIsControlled) {
-      setInternalSidebarCollapsed(
-        nextCollapsed,
-      );
-    }
+  const [
+    resolvedAsideCollapsed,
+    setAsideCollapsed,
+  ] = useControllableState({
+    value: asideCollapsed,
+    defaultValue:
+      defaultAsideCollapsed,
+    onChange:
+      onAsideCollapsedChange,
+  });
 
-    onSidebarCollapsedChange?.(
-      nextCollapsed,
-    );
-  };
-
-  const setAsideCollapsed = (
-    nextCollapsed: boolean,
-  ): void => {
-    if (!asideIsControlled) {
-      setInternalAsideCollapsed(
-        nextCollapsed,
-      );
-    }
-
-    onAsideCollapsedChange?.(
-      nextCollapsed,
-    );
-  };
+  const effectiveAsideCollapsed =
+    !hasAside
+    || resolvedAsideCollapsed;
 
   const toggleSidebar = (): void => {
     setSidebarCollapsed(
-      !resolvedSidebarCollapsed,
+      (current) => !current,
     );
   };
 
   const toggleAside = (): void => {
-    if (aside === undefined || aside === null) {
+    if (!hasAside) {
       return;
     }
 
     setAsideCollapsed(
-      !resolvedAsideCollapsed,
+      (current) => !current,
     );
   };
 
@@ -252,7 +230,7 @@ export function WorkspaceLayout({
           resolvedSidebarCollapsed,
 
         asideCollapsed:
-          resolvedAsideCollapsed,
+          effectiveAsideCollapsed,
 
         sidebarId,
         asideId,
@@ -272,13 +250,11 @@ export function WorkspaceLayout({
           || undefined
         }
         data-aside-collapsed={
-          resolvedAsideCollapsed
+          effectiveAsideCollapsed
           || undefined
         }
         data-has-aside={
-          aside !== undefined
-          && aside !== null
-          || undefined
+          hasAside || undefined
         }
         data-slot="workspace-layout"
       >
@@ -358,7 +334,6 @@ export function WorkspaceSidebarToggle({
   collapseLabel = 'Collapse sidebar',
   expandLabel = 'Expand sidebar',
   className,
-  onClick,
   ...buttonProps
 }: WorkspaceSidebarToggleProps) {
   const {
@@ -368,38 +343,26 @@ export function WorkspaceSidebarToggle({
   } = useWorkspaceLayoutContext();
 
   return (
-    <button
+    <LayoutPanelToggle
       {...buttonProps}
-      type="button"
-      aria-controls={sidebarId}
-      aria-expanded={!sidebarCollapsed}
-      aria-label={
-        sidebarCollapsed
-          ? expandLabel
-          : collapseLabel
-      }
+      controls={sidebarId}
+      expanded={!sidebarCollapsed}
+      collapseLabel={collapseLabel}
+      expandLabel={expandLabel}
+      onToggle={toggleSidebar}
       className={classNames(
         'rush-workspace-layout__toggle',
         'rush-workspace-layout__sidebar-toggle',
         className,
       )}
-      data-slot="workspace-sidebar-toggle"
-      onClick={(event) => {
-        onClick?.(event);
-
-        if (event.defaultPrevented) {
-          return;
-        }
-
-        toggleSidebar();
-      }}
-    >
-      {children ?? (
+      fallbackContent={(
         <span aria-hidden="true">
           ☰
         </span>
       )}
-    </button>
+    >
+      {children}
+    </LayoutPanelToggle>
   );
 }
 
@@ -411,7 +374,6 @@ export function WorkspaceAsideToggle({
   collapseLabel = 'Collapse details panel',
   expandLabel = 'Expand details panel',
   className,
-  onClick,
   ...buttonProps
 }: WorkspaceAsideToggleProps) {
   const {
@@ -421,37 +383,25 @@ export function WorkspaceAsideToggle({
   } = useWorkspaceLayoutContext();
 
   return (
-    <button
+    <LayoutPanelToggle
       {...buttonProps}
-      type="button"
-      aria-controls={asideId}
-      aria-expanded={!asideCollapsed}
-      aria-label={
-        asideCollapsed
-          ? expandLabel
-          : collapseLabel
-      }
+      controls={asideId}
+      expanded={!asideCollapsed}
+      collapseLabel={collapseLabel}
+      expandLabel={expandLabel}
+      onToggle={toggleAside}
       className={classNames(
         'rush-workspace-layout__toggle',
         'rush-workspace-layout__aside-toggle',
         className,
       )}
-      data-slot="workspace-aside-toggle"
-      onClick={(event) => {
-        onClick?.(event);
-
-        if (event.defaultPrevented) {
-          return;
-        }
-
-        toggleAside();
-      }}
-    >
-      {children ?? (
+      fallbackContent={(
         <span aria-hidden="true">
           ◧
         </span>
       )}
-    </button>
+    >
+      {children}
+    </LayoutPanelToggle>
   );
 }
