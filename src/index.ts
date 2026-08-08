@@ -107,6 +107,11 @@ export {
 } from './components/page-header';
 
 export {
+  Pagination,
+  type PaginationProps,
+} from './components/pagination';
+
+export {
   Progress,
 } from './components/progress';
 
