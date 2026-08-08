@@ -100,6 +100,20 @@ export {
 } from './components/toast';
 
 export {
+  SidebarNavigation,
+  SidebarNavigationGroup,
+  SidebarNavigationItem,
+  SidebarNavigationSeparator,
+
+  type SidebarNavigationButtonItemProps,
+  type SidebarNavigationGroupProps,
+  type SidebarNavigationItemProps,
+  type SidebarNavigationLinkItemProps,
+  type SidebarNavigationProps,
+  type SidebarNavigationSeparatorProps,
+} from './components/sidebar-navigation';
+
+export {
   WorkspaceAsideToggle,
   WorkspaceLayout,
   WorkspaceMobileAsideToggle,
