@@ -27,6 +27,16 @@ export {
 } from './layouts/blog-layout';
 
 export {
+  BreadcrumbItem,
+  Breadcrumbs,
+
+  type BreadcrumbCurrentItemProps,
+  type BreadcrumbItemProps,
+  type BreadcrumbLinkItemProps,
+  type BreadcrumbsProps,
+} from './components/breadcrumbs';
+
+export {
   Button,
 } from './components/button';
 
@@ -85,6 +95,11 @@ export {
 export {
   NumberDiff,
 } from './components/number-diff';
+
+export {
+  PageHeader,
+  type PageHeaderProps,
+} from './components/page-header';
 
 export {
   Progress,
