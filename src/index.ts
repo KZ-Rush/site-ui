@@ -97,6 +97,11 @@ export {
 } from './components/number-diff';
 
 export {
+  PageHeader,
+  type PageHeaderProps,
+} from './components/page-header';
+
+export {
   Progress,
 } from './components/progress';
 
