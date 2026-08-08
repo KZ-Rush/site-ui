@@ -418,7 +418,7 @@ export function DrawerContent({
       <div
         {...props}
         ref={contentRef}
-        id={contentId}
+        id={props.id ?? contentId}
         role="dialog"
         aria-modal="true"
         aria-labelledby={
