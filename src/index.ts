@@ -81,6 +81,11 @@ export {
 } from './components/drawer';
 
 export {
+  EmptyState,
+  type EmptyStateProps,
+} from './components/empty-state';
+
+export {
   FormattedDateTime,
 } from './components/formatted-date-time';
 
