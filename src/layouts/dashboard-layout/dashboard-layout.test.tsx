@@ -415,4 +415,79 @@ describe('DashboardLayout', () => {
       'Mobile navigation',
     );
   });
+
+  it('provides collapsed state to sidebar render function', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <DashboardLayout
+        sidebar={({ collapsed }) => (
+          <>
+            <span>
+              {collapsed
+                ? 'Collapsed'
+                : 'Expanded'}
+            </span>
+
+            <DashboardSidebarToggle />
+          </>
+        )}
+      >
+        Main
+      </DashboardLayout>,
+    );
+
+    expect(
+      screen.getByText('Expanded'),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Collapse sidebar',
+      }),
+    );
+
+    expect(
+      screen.getByText('Collapsed'),
+    ).toBeInTheDocument();
+  });
+
+  it('marks mobile sidebar render state', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <DashboardLayout
+        sidebar={({ mobile }) => (
+          <span>
+            {mobile
+              ? 'Mobile navigation'
+              : 'Desktop navigation'}
+          </span>
+        )}
+        header={(
+          <DashboardMobileSidebarToggle />
+        )}
+      >
+        Main
+      </DashboardLayout>,
+    );
+
+    expect(
+      screen.getByText(
+        'Desktop navigation',
+      ),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    expect(
+      screen.getByRole('dialog'),
+    ).toHaveTextContent(
+      'Mobile navigation',
+    );
+  });
 });

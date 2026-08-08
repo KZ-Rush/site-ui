@@ -8,6 +8,13 @@ import type {
 } from '@storybook/react-vite';
 
 import {
+  SidebarNavigation,
+  SidebarNavigationGroup,
+  SidebarNavigationItem,
+  SidebarNavigationSeparator,
+} from '../../components/sidebar-navigation';
+
+import {
   WorkspaceAsideToggle,
   WorkspaceLayout,
   WorkspaceMobileAsideToggle,
@@ -23,64 +30,150 @@ import {
 
 import './workspace-layout.stories.scss';
 
-function ExampleNavigation() {
+function DashboardStoryIcon() {
   return (
-    <nav
-      aria-label="Workspace navigation"
-      className="workspace-story-navigation"
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
     >
-      <a href="#uploads">
-        Uploads
-      </a>
+      <rect
+        x="3"
+        y="3"
+        width="7"
+        height="7"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-      <a href="#releases">
-        Releases
-      </a>
+      <rect
+        x="14"
+        y="3"
+        width="7"
+        height="7"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-      <a href="#records">
-        Records
-      </a>
+      <rect
+        x="3"
+        y="14"
+        width="7"
+        height="7"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-      <a href="#maps">
-        Maps
-      </a>
-    </nav>
+      <rect
+        x="14"
+        y="14"
+        width="7"
+        height="7"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
   );
 }
 
-function ExampleSidebar() {
+function RecordStoryIcon() {
   return (
-    <div className="workspace-story-sidebar">
-      <div className="workspace-story-sidebar__header">
-        <strong className="workspace-story-sidebar__title">
-          KZ-Rush
-        </strong>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M6 4H18V20H6V4Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-        <WorkspaceSidebarToggle />
-      </div>
-
-      <ExampleNavigation />
-    </div>
+      <path
+        d="M9 8H15M9 12H15M9 16H13"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="2"
+      />
+    </svg>
   );
 }
 
-function ExampleMobileSidebar() {
+function SettingsStoryIcon() {
   return (
-    <div className="workspace-story-mobile-sidebar">
-      <div className="workspace-story-mobile-sidebar__header">
-        <strong>
-          KZ-Rush
-        </strong>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="3"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-        <WorkspaceMobileSidebarToggle>
-          <span aria-hidden="true">
-            ×
-          </span>
-        </WorkspaceMobileSidebarToggle>
-      </div>
+      <circle
+        cx="12"
+        cy="12"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  );
 
-      <ExampleNavigation />
-    </div>
+}
+
+function ExampleNavigation({
+  collapsed,
+}: {
+  collapsed: boolean;
+}) {
+  return (
+    <SidebarNavigation
+      collapsed={collapsed}
+      aria-label="Workspace navigation"
+    >
+      <SidebarNavigationGroup label="Workspace">
+        <SidebarNavigationItem
+          href="#uploads"
+          icon={<DashboardStoryIcon />}
+          active
+        >
+          Uploads
+        </SidebarNavigationItem>
+
+        <SidebarNavigationItem
+          href="#releases"
+          icon={<RecordStoryIcon />}
+        >
+          Releases
+        </SidebarNavigationItem>
+
+        <SidebarNavigationItem
+          href="#records"
+          icon={<RecordStoryIcon />}
+        >
+          Records
+        </SidebarNavigationItem>
+      </SidebarNavigationGroup>
+
+      <SidebarNavigationSeparator />
+
+      <SidebarNavigationGroup label="Administration">
+        <SidebarNavigationItem
+          icon={<SettingsStoryIcon />}
+        >
+          Settings
+        </SidebarNavigationItem>
+      </SidebarNavigationGroup>
+    </SidebarNavigation>
   );
 }
 
@@ -124,26 +217,6 @@ function ExampleInspectorContent() {
   );
 }
 
-function ExampleMobileAside() {
-  return (
-    <div className="workspace-story-mobile-aside">
-      <div className="workspace-story-mobile-aside__header">
-        <strong>
-          Demo details
-        </strong>
-
-        <WorkspaceMobileAsideToggle>
-          <span aria-hidden="true">
-            ×
-          </span>
-        </WorkspaceMobileAsideToggle>
-      </div>
-
-      <ExampleInspectorContent />
-    </div>
-  );
-}
-
 function ExampleHeader() {
   return (
     <>
@@ -155,10 +228,10 @@ function ExampleHeader() {
 
       <div
         style={{
-          marginLeft: 'auto',
           display: 'flex',
           alignItems: 'center',
           gap: '0.5rem',
+          marginLeft: 'auto',
         }}
       >
         <WorkspaceMobileAsideToggle />
@@ -166,22 +239,6 @@ function ExampleHeader() {
         <WorkspaceAsideToggle />
       </div>
     </>
-  );
-}
-
-function ExampleAside() {
-  return (
-    <div className="workspace-story-aside">
-      <div className="workspace-story-aside__header">
-        <strong className="workspace-story-aside__title">
-          Demo details
-        </strong>
-
-        <WorkspaceAsideToggle />
-      </div>
-
-      <ExampleInspectorContent />
-    </div>
   );
 }
 
@@ -193,8 +250,8 @@ function ExampleContent() {
       </h1>
 
       <p>
-        Select a demo from the list and inspect its
-        metadata in the right panel.
+        Select a demo from the list and inspect
+        its metadata in the right panel.
       </p>
     </div>
   );
@@ -203,6 +260,10 @@ function ExampleContent() {
 const meta = {
   title: 'Layouts/WorkspaceLayout',
   component: WorkspaceLayout,
+
+  tags: [
+    '!autodocs',
+  ],
 
   parameters: {
     layout: 'fullscreen',
@@ -222,19 +283,89 @@ the consumer.
   },
 
   args: {
-    sidebar: <ExampleSidebar />,
+    sidebar: ({
+      collapsed,
+      mobile,
+    }) => (
+      <div
+        className={
+          mobile
+            ? 'workspace-story-mobile-sidebar'
+            : 'workspace-story-sidebar'
+        }
+      >
+        <div
+          className={
+            mobile
+              ? 'workspace-story-mobile-sidebar__header'
+              : 'workspace-story-sidebar__header'
+          }
+        >
+          {!collapsed && (
+            <strong className="workspace-story-sidebar__title">
+              KZ-Rush
+            </strong>
+          )}
 
-    mobileSidebar: (
-      <ExampleMobileSidebar />
+          {mobile ? (
+            <WorkspaceMobileSidebarToggle>
+              <span aria-hidden="true">
+                ×
+              </span>
+            </WorkspaceMobileSidebarToggle>
+          ) : (
+            <WorkspaceSidebarToggle />
+          )}
+        </div>
+
+        <ExampleNavigation
+          collapsed={collapsed}
+        />
+      </div>
+    ),
+
+    aside: ({
+      collapsed,
+      mobile,
+    }) => (
+      <div
+        className={
+          mobile
+            ? 'workspace-story-mobile-aside'
+            : 'workspace-story-aside'
+        }
+      >
+        <div
+          className={
+            mobile
+              ? 'workspace-story-mobile-aside__header'
+              : 'workspace-story-aside__header'
+          }
+        >
+          {!collapsed && (
+            <strong className="workspace-story-aside__title">
+              Demo details
+            </strong>
+          )}
+
+          {mobile ? (
+            <WorkspaceMobileAsideToggle>
+              <span aria-hidden="true">
+                ×
+              </span>
+            </WorkspaceMobileAsideToggle>
+          ) : (
+            <WorkspaceAsideToggle />
+          )}
+        </div>
+
+        {!collapsed && (
+          <ExampleInspectorContent />
+        )}
+      </div>
     ),
 
     header: <ExampleHeader />,
-
-    aside: <ExampleAside />,
-
-    mobileAside: (
-      <ExampleMobileAside />
-    ),
 
     children: <ExampleContent />,
   },
@@ -444,18 +575,6 @@ export const MobileInteraction: Story = {
     },
   },
 
-  render: () => (
-    <WorkspaceLayout
-      sidebar={<ExampleSidebar />}
-      mobileSidebar={<ExampleMobileSidebar />}
-      aside={<ExampleAside />}
-      mobileAside={<ExampleMobileAside />}
-      header={<ExampleHeader />}
-    >
-      <ExampleContent />
-    </WorkspaceLayout>
-  ),
-
   play: async ({
     canvasElement,
   }) => {
@@ -465,10 +584,16 @@ export const MobileInteraction: Story = {
     const body =
       within(document.body);
 
+    const navigationTrigger =
+      await canvas.findByRole(
+        'button',
+        {
+          name: 'Open navigation',
+        },
+      );
+
     await userEvent.click(
-      canvas.getByRole('button', {
-        name: 'Open navigation',
-      }),
+      navigationTrigger,
     );
 
     await expect(
@@ -477,22 +602,32 @@ export const MobileInteraction: Story = {
       }),
     ).toBeInTheDocument();
 
-    await userEvent.click(
-      canvas.getByRole('button', {
-        name: 'Open details panel',
-      }),
+    await userEvent.keyboard(
+      '{Escape}',
     );
 
-    await expect(
-      body.queryByRole('dialog', {
-        name: 'Primary navigation',
-      }),
-    ).not.toBeInTheDocument();
+    const detailsTrigger =
+      await canvas.findByRole(
+        'button',
+        {
+          name: 'Open details panel',
+        },
+      );
+
+    await userEvent.click(
+      detailsTrigger,
+    );
 
     await expect(
       body.getByRole('dialog', {
         name: 'Workspace details',
       }),
     ).toBeInTheDocument();
+
+    await expect(
+      body.queryByRole('dialog', {
+        name: 'Primary navigation',
+      }),
+    ).not.toBeInTheDocument();
   },
 };
