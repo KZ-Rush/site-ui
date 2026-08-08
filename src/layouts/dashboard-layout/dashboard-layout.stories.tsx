@@ -252,7 +252,7 @@ left to the consuming application.
             </strong>
           )}
 
-                    {mobile ? (
+          {mobile ? (
             <DashboardMobileSidebarToggle>
               <span aria-hidden="true">
                 ×
