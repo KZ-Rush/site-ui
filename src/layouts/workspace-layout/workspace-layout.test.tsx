@@ -484,4 +484,48 @@ describe('WorkspaceLayout', () => {
       }),
     ).not.toBeInTheDocument();
   });
+
+  it('closes the mobile aside when opening the mobile sidebar', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar="Navigation"
+        aside="Inspector"
+        defaultMobileAsideOpen
+        header={(
+          <>
+            <WorkspaceMobileSidebarToggle />
+            <WorkspaceMobileAsideToggle />
+          </>
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    expect(
+      screen.getByRole('dialog', {
+        name: 'Workspace details',
+      }),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    expect(
+      screen.queryByRole('dialog', {
+        name: 'Workspace details',
+      }),
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.getByRole('dialog', {
+        name: 'Primary navigation',
+      }),
+    ).toBeInTheDocument();
+  });
 });

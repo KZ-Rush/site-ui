@@ -13,6 +13,12 @@ import {
   DashboardSidebarToggle,
 } from './dashboard-layout';
 
+import {
+  expect,
+  userEvent,
+  within,
+} from 'storybook/test';
+
 import './dashboard-layout.stories.scss';
 
 function ExampleNavigation() {
@@ -372,5 +378,54 @@ export const Mobile: Story = {
     viewport: {
       defaultViewport: 'mobile1',
     },
+  },
+};
+
+export const MobileInteraction: Story = {
+  globals: {
+    viewport: {
+      value: 'mobile1',
+      isRotated: false,
+    },
+  },
+
+  render: () => (
+    <DashboardLayout
+      sidebar={<ExampleSidebar />}
+      mobileSidebar={<ExampleMobileSidebar />}
+      header={<ExampleHeader />}
+    >
+      <ExampleContent />
+    </DashboardLayout>
+  ),
+
+  play: async ({
+    canvasElement,
+  }) => {
+    const canvas =
+      within(canvasElement);
+
+    const body =
+      within(document.body);
+
+    await userEvent.click(
+      canvas.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    await expect(
+      body.getByRole('dialog', {
+        name: 'Primary navigation',
+      }),
+    ).toBeInTheDocument();
+
+    await userEvent.keyboard('{Escape}');
+
+    await expect(
+      body.queryByRole('dialog', {
+        name: 'Primary navigation',
+      }),
+    ).not.toBeInTheDocument();
   },
 };

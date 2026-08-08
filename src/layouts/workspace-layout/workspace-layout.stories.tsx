@@ -15,6 +15,12 @@ import {
   WorkspaceSidebarToggle,
 } from './workspace-layout';
 
+import {
+  expect,
+  userEvent,
+  within,
+} from 'storybook/test';
+
 import './workspace-layout.stories.scss';
 
 function ExampleNavigation() {
@@ -427,5 +433,66 @@ export const LongContent: Story = {
         )}
       </div>
     ),
+  },
+};
+
+export const MobileInteraction: Story = {
+  globals: {
+    viewport: {
+      value: 'mobile1',
+      isRotated: false,
+    },
+  },
+
+  render: () => (
+    <WorkspaceLayout
+      sidebar={<ExampleSidebar />}
+      mobileSidebar={<ExampleMobileSidebar />}
+      aside={<ExampleAside />}
+      mobileAside={<ExampleMobileAside />}
+      header={<ExampleHeader />}
+    >
+      <ExampleContent />
+    </WorkspaceLayout>
+  ),
+
+  play: async ({
+    canvasElement,
+  }) => {
+    const canvas =
+      within(canvasElement);
+
+    const body =
+      within(document.body);
+
+    await userEvent.click(
+      canvas.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    await expect(
+      body.getByRole('dialog', {
+        name: 'Primary navigation',
+      }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(
+      canvas.getByRole('button', {
+        name: 'Open details panel',
+      }),
+    );
+
+    await expect(
+      body.queryByRole('dialog', {
+        name: 'Primary navigation',
+      }),
+    ).not.toBeInTheDocument();
+
+    await expect(
+      body.getByRole('dialog', {
+        name: 'Workspace details',
+      }),
+    ).toBeInTheDocument();
   },
 };

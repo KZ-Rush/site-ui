@@ -312,6 +312,10 @@ export function WorkspaceLayout({
   };
 
   const toggleMobileSidebar = (): void => {
+    if (!resolvedMobileSidebarOpen) {
+      setMobileAsideOpen(false);
+    }
+
     setMobileSidebarOpen(
       (current) => !current,
     );
@@ -320,6 +324,10 @@ export function WorkspaceLayout({
   const toggleMobileAside = (): void => {
     if (!hasAside) {
       return;
+    }
+
+    if (!effectiveMobileAsideOpen) {
+      setMobileSidebarOpen(false);
     }
 
     setMobileAsideOpen(

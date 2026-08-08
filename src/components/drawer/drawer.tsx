@@ -26,6 +26,7 @@ import {
 } from '../../utils/class-names';
 
 import './drawer.scss';
+import { lockBodyScroll, unlockBodyScroll } from './body-scroll-lock';
 
 export type DrawerSide =
   | 'left'
@@ -284,15 +285,10 @@ export function DrawerContent({
       return;
     }
 
-    const previousOverflow =
-      document.body.style.overflow;
-
-    document.body.style.overflow =
-      'hidden';
+    lockBodyScroll();
 
     return () => {
-      document.body.style.overflow =
-        previousOverflow;
+      unlockBodyScroll();
     };
   }, [
     open,

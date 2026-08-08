@@ -11,6 +11,12 @@ import {
   DrawerTrigger,
 } from './drawer';
 
+import {
+  expect,
+  userEvent,
+  within,
+} from 'storybook/test';
+
 const meta = {
   title: 'Components/Drawer',
   component: Drawer,
@@ -168,4 +174,52 @@ export const InitiallyOpen: Story = {
       </DrawerContent>
     </Drawer>
   ),
+};
+
+export const Interaction: Story = {
+  render: () => (
+    <Drawer>
+      <DrawerTrigger>
+        Open drawer
+      </DrawerTrigger>
+
+      <DrawerContent aria-label="Navigation">
+        <DrawerClose>
+          Close drawer
+        </DrawerClose>
+      </DrawerContent>
+    </Drawer>
+  ),
+
+  play: async ({
+    canvasElement,
+  }) => {
+    const canvas =
+      within(canvasElement);
+
+    const body =
+      within(document.body);
+
+    await userEvent.click(
+      canvas.getByRole('button', {
+        name: 'Open drawer',
+      }),
+    );
+
+    await expect(
+      body.getByRole('dialog', {
+        name: 'Navigation',
+      }),
+    ).toBeInTheDocument();
+
+    await userEvent.keyboard(
+      '{Escape}',
+    );
+
+    await expect(
+      body.queryByRole('dialog', {
+        name: 'Navigation',
+      }),
+    ).not.toBeInTheDocument();
+  },
 };

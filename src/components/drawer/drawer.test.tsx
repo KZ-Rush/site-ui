@@ -249,4 +249,60 @@ describe('Drawer', () => {
       }),
     ).toBeInTheDocument();
   });
+
+  it('keeps body scrolling locked while another drawer remains open', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <>
+        <Drawer defaultOpen>
+          <DrawerTrigger>
+            Open first
+          </DrawerTrigger>
+
+          <DrawerContent aria-label="First drawer">
+            <DrawerClose>
+              Close first
+            </DrawerClose>
+          </DrawerContent>
+        </Drawer>
+
+        <Drawer defaultOpen>
+          <DrawerTrigger>
+            Open second
+          </DrawerTrigger>
+
+          <DrawerContent aria-label="Second drawer">
+            <DrawerClose>
+              Close second
+            </DrawerClose>
+          </DrawerContent>
+        </Drawer>
+      </>,
+    );
+
+    expect(
+      document.body.style.overflow,
+    ).toBe('hidden');
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Close first',
+      }),
+    );
+
+    expect(
+      document.body.style.overflow,
+    ).toBe('hidden');
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Close second',
+      }),
+    );
+
+    expect(
+      document.body.style.overflow,
+    ).toBe('');
+  });
 });
