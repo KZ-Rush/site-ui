@@ -2,7 +2,9 @@ import {
   render,
   screen,
 } from '@testing-library/react';
+
 import userEvent from '@testing-library/user-event';
+
 import {
   describe,
   expect,
@@ -17,6 +19,11 @@ import {
   WorkspaceMobileAsideToggle,
   WorkspaceMobileSidebarToggle,
 } from './workspace-layout';
+
+import {
+  SidebarNavigation,
+  SidebarNavigationItem,
+} from '../../components/sidebar-navigation';
 
 interface RenderLayoutOptions {
   sidebarCollapsed?: boolean;
@@ -525,6 +532,365 @@ describe('WorkspaceLayout', () => {
     expect(
       screen.getByRole('dialog', {
         name: 'Primary navigation',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('provides collapsed state to the sidebar render function', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar={({
+          collapsed,
+          mobile,
+        }) => (
+          <>
+            <span>
+              {mobile
+                ? 'Mobile sidebar'
+                : (
+                  collapsed
+                    ? 'Collapsed sidebar'
+                    : 'Expanded sidebar'
+                )}
+            </span>
+
+            {!mobile && (
+              <WorkspaceSidebarToggle />
+            )}
+          </>
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    expect(
+      screen.getByText(
+        'Expanded sidebar',
+      ),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Collapse sidebar',
+      }),
+    );
+
+    expect(
+      screen.getByText(
+        'Collapsed sidebar',
+      ),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByText(
+        'Expanded sidebar',
+      ),
+    ).not.toBeInTheDocument();
+  });
+
+  it('provides collapsed state to the aside render function', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar="Navigation"
+        aside={({
+          collapsed,
+          mobile,
+        }) => (
+          <>
+            <span>
+              {mobile
+                ? 'Mobile aside'
+                : (
+                  collapsed
+                    ? 'Collapsed aside'
+                    : 'Expanded aside'
+                )}
+            </span>
+
+            {!mobile && (
+              <WorkspaceAsideToggle />
+            )}
+          </>
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    expect(
+      screen.getByText(
+        'Expanded aside',
+      ),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Collapse details panel',
+      }),
+    );
+
+    expect(
+      screen.getByText(
+        'Collapsed aside',
+      ),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByText(
+        'Expanded aside',
+      ),
+    ).not.toBeInTheDocument();
+  });
+
+  it('marks the mobile sidebar render state', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar={({
+          mobile,
+        }) => (
+          <span>
+            {mobile
+              ? 'Mobile navigation'
+              : 'Desktop navigation'}
+          </span>
+        )}
+        header={(
+          <WorkspaceMobileSidebarToggle />
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    expect(
+      screen.getByText(
+        'Desktop navigation',
+      ),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    const dialog =
+      screen.getByRole(
+        'dialog',
+        {
+          name: 'Primary navigation',
+        },
+      );
+
+    expect(dialog).toHaveTextContent(
+      'Mobile navigation',
+    );
+  });
+
+  it('marks the mobile aside render state', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar="Navigation"
+        aside={({
+          mobile,
+        }) => (
+          <span>
+            {mobile
+              ? 'Mobile inspector'
+              : 'Desktop inspector'}
+          </span>
+        )}
+        header={(
+          <WorkspaceMobileAsideToggle />
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    expect(
+      screen.getByText(
+        'Desktop inspector',
+      ),
+    ).toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open details panel',
+      }),
+    );
+
+    const dialog =
+      screen.getByRole(
+        'dialog',
+        {
+          name: 'Workspace details',
+        },
+      );
+
+    expect(dialog).toHaveTextContent(
+      'Mobile inspector',
+    );
+  });
+
+  it('prefers explicit mobileSidebar content', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar={({
+          mobile,
+        }) => (
+          <span>
+            {mobile
+              ? 'Fallback mobile navigation'
+              : 'Desktop navigation'}
+          </span>
+        )}
+        mobileSidebar="Dedicated mobile navigation"
+        header={(
+          <WorkspaceMobileSidebarToggle />
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    const dialog =
+      screen.getByRole(
+        'dialog',
+        {
+          name: 'Primary navigation',
+        },
+      );
+
+    expect(dialog).toHaveTextContent(
+      'Dedicated mobile navigation',
+    );
+
+    expect(dialog).not.toHaveTextContent(
+      'Fallback mobile navigation',
+    );
+  });
+
+  it('prefers explicit mobileAside content', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar="Navigation"
+        aside={({
+          mobile,
+        }) => (
+          <span>
+            {mobile
+              ? 'Fallback mobile inspector'
+              : 'Desktop inspector'}
+          </span>
+        )}
+        mobileAside="Dedicated mobile inspector"
+        header={(
+          <WorkspaceMobileAsideToggle />
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open details panel',
+      }),
+    );
+
+    const dialog =
+      screen.getByRole(
+        'dialog',
+        {
+          name: 'Workspace details',
+        },
+      );
+
+    expect(dialog).toHaveTextContent(
+      'Dedicated mobile inspector',
+    );
+
+    expect(dialog).not.toHaveTextContent(
+      'Fallback mobile inspector',
+    );
+  });
+
+  it('can connect sidebar navigation to layout collapsed state', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <WorkspaceLayout
+        sidebar={({
+          collapsed,
+        }) => (
+          <>
+            <WorkspaceSidebarToggle />
+
+            <SidebarNavigation
+              collapsed={collapsed}
+              aria-label="Workspace navigation"
+            >
+              <SidebarNavigationItem href="/records">
+                Records
+              </SidebarNavigationItem>
+            </SidebarNavigation>
+          </>
+        )}
+      >
+        Main
+      </WorkspaceLayout>,
+    );
+
+    const navigation =
+      screen.getByRole(
+        'navigation',
+        {
+          name: 'Workspace navigation',
+        },
+      );
+
+    expect(
+      navigation,
+    ).not.toHaveAttribute(
+      'data-collapsed',
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Collapse sidebar',
+      }),
+    );
+
+    expect(
+      navigation,
+    ).toHaveAttribute(
+      'data-collapsed',
+      'true',
+    );
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Records',
       }),
     ).toBeInTheDocument();
   });

@@ -67,6 +67,17 @@ function useWorkspaceLayoutContext():
   return context;
 }
 
+export interface WorkspacePanelRenderState {
+  collapsed: boolean;
+  mobile: boolean;
+}
+
+export type WorkspacePanelContent =
+  | ReactNode
+  | ((
+      state: WorkspacePanelRenderState,
+    ) => ReactNode);
+
 export interface WorkspaceLayoutProps
   extends Omit<
     ComponentPropsWithoutRef<'div'>,
@@ -80,12 +91,12 @@ export interface WorkspaceLayoutProps
   /**
    * Content rendered in the left sidebar.
    */
-  sidebar: ReactNode;
+  sidebar: WorkspacePanelContent;
 
   /**
    * Optional content rendered in the right inspector.
    */
-  aside?: ReactNode;
+  aside?: WorkspacePanelContent;
 
   /**
    * Optional header above the main content.
@@ -96,8 +107,8 @@ export interface WorkspaceLayoutProps
    * Optional mobile-specific content.
    * Falls back to sidebar / aside when omitted.
    */
-  mobileSidebar?: ReactNode;
-  mobileAside?: ReactNode;
+  mobileSidebar?: WorkspacePanelContent;
+  mobileAside?: WorkspacePanelContent;
 
   /**
    * Accessible label for the left sidebar.
@@ -179,6 +190,22 @@ export interface WorkspaceLayoutProps
   asideClassName?: string;
   headerClassName?: string;
   mainClassName?: string;
+}
+
+function renderPanelContent(
+  content: WorkspacePanelContent | undefined,
+  state: WorkspacePanelRenderState,
+): ReactNode {
+  if (
+    content === undefined
+    || content === null
+  ) {
+    return null;
+  }
+
+  return typeof content === 'function'
+    ? content(state)
+    : content;
 }
 
 export function WorkspaceLayout({
@@ -335,11 +362,43 @@ export function WorkspaceLayout({
     );
   };
 
+  const desktopSidebarContent =
+    renderPanelContent(
+      sidebar,
+      {
+        collapsed:
+          resolvedSidebarCollapsed,
+        mobile: false,
+      },
+    );
+
+  const desktopAsideContent =
+    renderPanelContent(
+      aside,
+      {
+        collapsed:
+          effectiveAsideCollapsed,
+        mobile: false,
+      },
+    );
+
   const mobileSidebarContent =
-    mobileSidebar ?? sidebar;
+    renderPanelContent(
+      mobileSidebar ?? sidebar,
+      {
+        collapsed: false,
+        mobile: true,
+      },
+    );
 
   const mobileAsideContent =
-    mobileAside ?? aside;
+    renderPanelContent(
+      mobileAside ?? aside,
+      {
+        collapsed: false,
+        mobile: true,
+      },
+    );
 
   return (
     <WorkspaceLayoutContext.Provider
@@ -414,7 +473,7 @@ export function WorkspaceLayout({
               data-slot="workspace-sidebar"
             >
               <div className="rush-workspace-layout__sidebar-content">
-                {sidebar}
+                {desktopSidebarContent}
               </div>
             </aside>
 
@@ -452,7 +511,7 @@ export function WorkspaceLayout({
                 data-slot="workspace-aside"
               >
                 <div className="rush-workspace-layout__aside-content">
-                  {aside}
+                  {desktopAsideContent}
                 </div>
               </aside>
             )}

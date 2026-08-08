@@ -8,6 +8,13 @@ import type {
 } from '@storybook/react-vite';
 
 import {
+  SidebarNavigation,
+  SidebarNavigationGroup,
+  SidebarNavigationItem,
+  SidebarNavigationSeparator,
+} from '../../components/sidebar-navigation';
+
+import {
   DashboardLayout,
   DashboardMobileSidebarToggle,
   DashboardSidebarToggle,
@@ -21,64 +28,143 @@ import {
 
 import './dashboard-layout.stories.scss';
 
-function ExampleNavigation() {
+function DashboardStoryIcon() {
   return (
-    <nav
-      aria-label="Example navigation"
-      className="dashboard-story-navigation"
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
     >
-      <a href="#dashboard">
-        Dashboard
-      </a>
+      <rect
+        x="3"
+        y="3"
+        width="7"
+        height="7"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-      <a href="#records">
-        Records
-      </a>
+      <rect
+        x="14"
+        y="3"
+        width="7"
+        height="7"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-      <a href="#maps">
-        Maps
-      </a>
+      <rect
+        x="3"
+        y="14"
+        width="7"
+        height="7"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-      <a href="#players">
-        Players
-      </a>
-    </nav>
+      <rect
+        x="14"
+        y="14"
+        width="7"
+        height="7"
+        rx="1"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+
+    </svg>
   );
 }
 
-function ExampleSidebar() {
+function RecordStoryIcon() {
   return (
-    <div className="dashboard-story-sidebar">
-      <div className="dashboard-story-sidebar__header">
-        <strong className="dashboard-story-sidebar__title">
-          KZ-Rush
-        </strong>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <path
+        d="M6 4H18V20H6V4Z"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-        <DashboardSidebarToggle />
-      </div>
-
-      <ExampleNavigation />
-    </div>
+      <path
+        d="M9 8H15M9 12H15M9 16H13"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="2"
+      />
+    </svg>
   );
 }
 
-function ExampleMobileSidebar() {
+function SettingsStoryIcon() {
   return (
-    <div className="dashboard-story-mobile-sidebar">
-      <div className="dashboard-story-mobile-sidebar__header">
-        <strong>
-          KZ-Rush
-        </strong>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="3"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
 
-        <DashboardMobileSidebarToggle>
-          <span aria-hidden="true">
-            ×
-          </span>
-        </DashboardMobileSidebarToggle>
-      </div>
+      <circle
+        cx="12"
+        cy="12"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
 
-      <ExampleNavigation />
-    </div>
+function ExampleSidebarNavigation({
+  collapsed,
+}: {
+  collapsed: boolean;
+}) {
+  return (
+    <SidebarNavigation
+      collapsed={collapsed}
+      aria-label="Example navigation"
+    >
+      <SidebarNavigationGroup label="Main">
+        <SidebarNavigationItem
+          href="#dashboard"
+          icon={<DashboardStoryIcon />}
+          active
+        >
+          Dashboard
+        </SidebarNavigationItem>
+
+        <SidebarNavigationItem
+          href="#records"
+          icon={<RecordStoryIcon />}
+        >
+          Records
+        </SidebarNavigationItem>
+      </SidebarNavigationGroup>
+
+      <SidebarNavigationSeparator />
+
+      <SidebarNavigationGroup label="Administration">
+        <SidebarNavigationItem
+          icon={<SettingsStoryIcon />}
+        >
+          Settings
+        </SidebarNavigationItem>
+      </SidebarNavigationGroup>
+    </SidebarNavigation>
   );
 }
 
@@ -120,6 +206,10 @@ const meta = {
   title: 'Layouts/DashboardLayout',
   component: DashboardLayout,
 
+  tags: [
+    '!autodocs',
+  ],
+
   parameters: {
     layout: 'fullscreen',
 
@@ -138,9 +228,45 @@ left to the consuming application.
   },
 
   args: {
-    sidebar: <ExampleSidebar />,
-    mobileSidebar: (
-      <ExampleMobileSidebar />
+    sidebar: ({
+      collapsed,
+      mobile,
+    }) => (
+      <div
+        className={
+          mobile
+            ? 'dashboard-story-mobile-sidebar'
+            : 'dashboard-story-sidebar'
+        }
+      >
+        <div
+          className={
+            mobile
+              ? 'dashboard-story-mobile-sidebar__header'
+              : 'dashboard-story-sidebar__header'
+          }
+        >
+          {!collapsed && (
+            <strong className="dashboard-story-sidebar__title">
+              KZ-Rush
+            </strong>
+          )}
+
+          {mobile ? (
+            <DashboardMobileSidebarToggle>
+              <span aria-hidden="true">
+                ×
+              </span>
+            </DashboardMobileSidebarToggle>
+          ) : (
+            <DashboardSidebarToggle />
+          )}
+        </div>
+
+        <ExampleSidebarNavigation
+          collapsed={collapsed}
+        />
+      </div>
     ),
     header: <ExampleHeader />,
     children: <ExampleContent />,
@@ -335,39 +461,48 @@ export const CustomDimensions: Story = {
 
 export const CustomToggleContent: Story = {
   args: {
-    sidebar: (
-      <div className="dashboard-story-sidebar">
-        <div className="dashboard-story-sidebar__header">
-          <strong className="dashboard-story-sidebar__title">
-            KZ-Rush
-          </strong>
+    sidebar: ({
+      collapsed,
+      mobile,
+    }) => (
+      <div
+        className={
+          mobile
+            ? 'dashboard-story-mobile-sidebar'
+            : 'dashboard-story-sidebar'
+        }
+      >
+        <div
+          className={
+            mobile
+              ? 'dashboard-story-mobile-sidebar__header'
+              : 'dashboard-story-sidebar__header'
+          }
+        >
+          {!collapsed && (
+            <strong className="dashboard-story-sidebar__title">
+              KZ-Rush
+            </strong>
+          )}
 
-          <DashboardSidebarToggle>
-            <span aria-hidden="true">
-              ⇔
-            </span>
-          </DashboardSidebarToggle>
+          {mobile ? (
+            <DashboardMobileSidebarToggle>
+              <span aria-hidden="true">
+                ✕
+              </span>
+            </DashboardMobileSidebarToggle>
+          ) : (
+            <DashboardSidebarToggle>
+              <span aria-hidden="true">
+                ⇔
+              </span>
+            </DashboardSidebarToggle>
+          )}
         </div>
 
-        <ExampleNavigation />
-      </div>
-    ),
-
-    mobileSidebar: (
-      <div className="dashboard-story-mobile-sidebar">
-        <div className="dashboard-story-mobile-sidebar__header">
-          <strong>
-            KZ-Rush
-          </strong>
-
-          <DashboardMobileSidebarToggle>
-            <span aria-hidden="true">
-              ×
-            </span>
-          </DashboardMobileSidebarToggle>
-        </div>
-
-        <ExampleNavigation />
+        <ExampleSidebarNavigation
+          collapsed={collapsed}
+        />
       </div>
     ),
   },
@@ -389,16 +524,6 @@ export const MobileInteraction: Story = {
     },
   },
 
-  render: () => (
-    <DashboardLayout
-      sidebar={<ExampleSidebar />}
-      mobileSidebar={<ExampleMobileSidebar />}
-      header={<ExampleHeader />}
-    >
-      <ExampleContent />
-    </DashboardLayout>
-  ),
-
   play: async ({
     canvasElement,
   }) => {
@@ -408,11 +533,15 @@ export const MobileInteraction: Story = {
     const body =
       within(document.body);
 
-    await userEvent.click(
-      canvas.getByRole('button', {
-        name: 'Open navigation',
-      }),
-    );
+    const trigger =
+      await canvas.findByRole(
+        'button',
+        {
+          name: 'Open navigation',
+        },
+      );
+
+    await userEvent.click(trigger);
 
     await expect(
       body.getByRole('dialog', {
@@ -420,7 +549,9 @@ export const MobileInteraction: Story = {
       }),
     ).toBeInTheDocument();
 
-    await userEvent.keyboard('{Escape}');
+    await userEvent.keyboard(
+      '{Escape}',
+    );
 
     await expect(
       body.queryByRole('dialog', {

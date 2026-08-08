@@ -61,6 +61,17 @@ function useDashboardLayoutContext():
   return context;
 }
 
+export interface DashboardSidebarRenderState {
+  collapsed: boolean;
+  mobile: boolean;
+}
+
+export type DashboardSidebarContent =
+  | ReactNode
+  | ((
+      state: DashboardSidebarRenderState,
+    ) => ReactNode);
+
 export interface DashboardLayoutProps
   extends Omit<
     ComponentPropsWithoutRef<'div'>,
@@ -74,7 +85,7 @@ export interface DashboardLayoutProps
   /**
    * Content rendered inside the left sidebar.
    */
-  sidebar: ReactNode;
+  sidebar: DashboardSidebarContent;
 
   /**
    * Optional content rendered above the main area.
@@ -85,7 +96,7 @@ export interface DashboardLayoutProps
    * Optional alternative sidebar content for the mobile
    * drawer. Falls back to `sidebar`.
    */
-  mobileSidebar?: ReactNode;
+  mobileSidebar?: DashboardSidebarContent;
 
   /**
    * Accessible label for the sidebar region.
@@ -145,6 +156,15 @@ export interface DashboardLayoutProps
    * Additional class applied to the main element.
    */
   mainClassName?: string;
+}
+
+function renderSidebarContent(
+  content: DashboardSidebarContent,
+  state: DashboardSidebarRenderState,
+): ReactNode {
+  return typeof content === 'function'
+    ? content(state)
+    : content;
 }
 
 /**
@@ -230,7 +250,23 @@ export function DashboardLayout({
   };
 
   const mobileSidebarContent =
-    mobileSidebar ?? sidebar;
+    renderSidebarContent(
+      mobileSidebar ?? sidebar,
+      {
+        collapsed: false,
+        mobile: true,
+      },
+    );
+
+  const desktopSidebarContent =
+    renderSidebarContent(
+      sidebar,
+      {
+        collapsed,
+        mobile: false,
+      },
+    );
+
 
   return (
     <DashboardLayoutContext.Provider
@@ -276,7 +312,7 @@ export function DashboardLayout({
             data-slot="dashboard-sidebar"
           >
             <div className="rush-dashboard-layout__sidebar-content">
-              {sidebar}
+              {desktopSidebarContent}
             </div>
           </aside>
 
