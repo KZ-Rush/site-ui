@@ -12,6 +12,7 @@ import {
 
 import {
   DashboardLayout,
+  DashboardMobileSidebarToggle,
   DashboardSidebarToggle,
 } from './dashboard-layout';
 
@@ -262,6 +263,156 @@ describe('DashboardLayout', () => {
       );
     }).toThrow(
       'DashboardSidebarToggle must be used inside DashboardLayout.',
+    );
+  });
+
+  it('does not emit duplicate state changes', async () => {
+    const user = userEvent.setup();
+
+    const onSidebarCollapsedChange =
+      vi.fn();
+
+    render(
+      <DashboardLayout
+        sidebar={(
+          <DashboardSidebarToggle />
+        )}
+        sidebarCollapsed
+        onSidebarCollapsedChange={
+          onSidebarCollapsedChange
+        }
+      >
+        Main
+      </DashboardLayout>,
+    );
+
+    /*
+    * The toggle requests false, which differs from
+    * current true.
+    */
+    await user.click(
+      screen.getByRole('button'),
+    );
+
+    expect(
+      onSidebarCollapsedChange,
+    ).toHaveBeenCalledWith(false);
+  });
+
+  it('opens the mobile sidebar drawer', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <DashboardLayout
+        sidebar="Navigation"
+        header={(
+          <DashboardMobileSidebarToggle />
+        )}
+      >
+        Main
+      </DashboardLayout>,
+    );
+
+    expect(
+      screen.queryByRole('dialog'),
+    ).not.toBeInTheDocument();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    expect(
+      screen.getByRole('dialog', {
+        name: 'Primary navigation',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('supports controlled mobile sidebar state', async () => {
+    const user = userEvent.setup();
+
+    const onMobileSidebarOpenChange =
+      vi.fn();
+
+    render(
+      <DashboardLayout
+        sidebar="Navigation"
+        header={(
+          <DashboardMobileSidebarToggle />
+        )}
+        mobileSidebarOpen={false}
+        onMobileSidebarOpenChange={
+          onMobileSidebarOpenChange
+        }
+      >
+        Main
+      </DashboardLayout>,
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    expect(
+      onMobileSidebarOpenChange,
+    ).toHaveBeenCalledWith(true);
+
+    expect(
+      screen.queryByRole('dialog'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('supports an initially open mobile sidebar', () => {
+    render(
+      <DashboardLayout
+        sidebar="Navigation"
+        defaultMobileSidebarOpen
+      >
+        Main
+      </DashboardLayout>,
+    );
+
+    expect(
+      screen.getByRole('dialog', {
+        name: 'Primary navigation',
+      }),
+    ).toBeInTheDocument();
+  });
+
+  it('supports dedicated mobile sidebar content', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <DashboardLayout
+        sidebar="Desktop navigation"
+        mobileSidebar="Mobile navigation"
+        header={(
+          <DashboardMobileSidebarToggle />
+        )}
+      >
+        Main
+      </DashboardLayout>,
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open navigation',
+      }),
+    );
+
+    const dialog = screen.getByRole(
+      'dialog',
+      {
+        name: 'Primary navigation',
+      },
+    );
+
+    expect(dialog).toHaveTextContent(
+      'Mobile navigation',
     );
   });
 });

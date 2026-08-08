@@ -3,12 +3,25 @@ import type {
   ComponentPropsWithoutRef,
   ReactNode,
 } from 'react';
+
 import {
   createContext,
   useContext,
   useId,
-  useState,
 } from 'react';
+
+import {
+  Drawer,
+  DrawerContent
+} from '../../components/drawer';
+
+import {
+  useControllableState,
+} from '../../hooks/use-controllable-state';
+
+import {
+  LayoutPanelToggle,
+} from '../shared/layout-panel-toggle';
 
 import { classNames } from '../../utils/class-names';
 
@@ -16,8 +29,16 @@ import './dashboard-layout.scss';
 
 interface DashboardLayoutContextValue {
   collapsed: boolean;
+  mobileOpen: boolean;
+
   sidebarId: string;
+  mobileSidebarId: string;
+
   toggleSidebar: () => void;
+
+  openMobileSidebar: () => void;
+  closeMobileSidebar: () => void;
+  toggleMobileSidebar: () => void;
 }
 
 const DashboardLayoutContext =
@@ -61,6 +82,12 @@ export interface DashboardLayoutProps
   header?: ReactNode;
 
   /**
+   * Optional alternative sidebar content for the mobile
+   * drawer. Falls back to `sidebar`.
+   */
+  mobileSidebar?: ReactNode;
+
+  /**
    * Accessible label for the sidebar region.
    */
   sidebarLabel?: string;
@@ -88,6 +115,23 @@ export interface DashboardLayoutProps
   ) => void;
 
   /**
+   * Controlled mobile drawer state.
+   */
+  mobileSidebarOpen?: boolean;
+
+  /**
+   * Initial mobile drawer state.
+   */
+  defaultMobileSidebarOpen?: boolean;
+
+  /**
+   * Called when mobile drawer visibility changes.
+   */
+  onMobileSidebarOpenChange?: (
+    open: boolean,
+  ) => void;
+
+  /**
    * Additional class applied to the sidebar element.
    */
   sidebarClassName?: string;
@@ -112,110 +156,168 @@ export interface DashboardLayoutProps
 export function DashboardLayout({
   children,
   sidebar,
+  mobileSidebar,
   header,
+
   sidebarLabel = 'Primary navigation',
   sidebarId: providedSidebarId,
+
   sidebarCollapsed,
   defaultSidebarCollapsed = false,
   onSidebarCollapsedChange,
+
+  mobileSidebarOpen,
+  defaultMobileSidebarOpen = false,
+  onMobileSidebarOpenChange,
+
   sidebarClassName,
   headerClassName,
   mainClassName,
   className,
+
   ...rootProps
 }: DashboardLayoutProps) {
   const generatedSidebarId = useId();
+  const generatedMobileSidebarId = useId();
 
   const sidebarId =
     providedSidebarId
     ?? `rush-dashboard-sidebar-${generatedSidebarId}`;
 
+  const mobileSidebarId =
+    `rush-dashboard-mobile-sidebar-${generatedMobileSidebarId}`;
+
   const [
-    internalSidebarCollapsed,
-    setInternalSidebarCollapsed,
-  ] = useState(defaultSidebarCollapsed);
+    collapsed,
+    setCollapsed,
+  ] = useControllableState({
+    value: sidebarCollapsed,
+    defaultValue:
+      defaultSidebarCollapsed,
+    onChange:
+      onSidebarCollapsedChange,
+  });
 
-  const isControlled =
-    sidebarCollapsed !== undefined;
+  const [
+    mobileOpen,
+    setMobileOpen,
+  ] = useControllableState({
+    value: mobileSidebarOpen,
+    defaultValue:
+      defaultMobileSidebarOpen,
+    onChange:
+      onMobileSidebarOpenChange,
+  });
 
-  const collapsed = isControlled
-    ? sidebarCollapsed
-    : internalSidebarCollapsed;
-
-  const setCollapsed = (
-    nextCollapsed: boolean,
-  ): void => {
-    if (!isControlled) {
-      setInternalSidebarCollapsed(
-        nextCollapsed,
-      );
-    }
-
-    onSidebarCollapsedChange?.(
-      nextCollapsed,
+  const toggleSidebar = (): void => {
+    setCollapsed(
+      (current) => !current,
     );
   };
 
-  const toggleSidebar = (): void => {
-    setCollapsed(!collapsed);
+  const openMobileSidebar = (): void => {
+    setMobileOpen(true);
   };
+
+  const closeMobileSidebar = (): void => {
+    setMobileOpen(false);
+  };
+
+  const toggleMobileSidebar = (): void => {
+    setMobileOpen(
+      (current) => !current,
+    );
+  };
+
+  const mobileSidebarContent =
+    mobileSidebar ?? sidebar;
 
   return (
     <DashboardLayoutContext.Provider
       value={{
         collapsed,
+        mobileOpen,
+
         sidebarId,
+        mobileSidebarId,
+
         toggleSidebar,
+
+        openMobileSidebar,
+        closeMobileSidebar,
+        toggleMobileSidebar,
       }}
     >
-      <div
-        {...rootProps}
-        className={classNames(
-          'rush-dashboard-layout',
-          className,
-        )}
-        data-collapsed={
-          collapsed || undefined
-        }
-        data-slot="dashboard-layout"
+      <Drawer
+        open={mobileOpen}
+        onOpenChange={setMobileOpen}
       >
-        <aside
-          id={sidebarId}
+        <div
+          {...rootProps}
+          className={classNames(
+            'rush-dashboard-layout',
+            className,
+          )}
+          data-collapsed={
+            collapsed || undefined
+          }
+          data-mobile-sidebar-open={
+            mobileOpen || undefined
+          }
+          data-slot="dashboard-layout"
+        >
+          <aside
+            id={sidebarId}
+            aria-label={sidebarLabel}
+            className={classNames(
+              'rush-dashboard-layout__sidebar',
+              sidebarClassName,
+            )}
+            data-slot="dashboard-sidebar"
+          >
+            <div className="rush-dashboard-layout__sidebar-content">
+              {sidebar}
+            </div>
+          </aside>
+
+          {header !== undefined
+            && header !== null && (
+              <header
+                className={classNames(
+                  'rush-dashboard-layout__header',
+                  headerClassName,
+                )}
+                data-slot="dashboard-header"
+              >
+                {header}
+              </header>
+            )}
+
+          <main
+            className={classNames(
+              'rush-dashboard-layout__main',
+              mainClassName,
+            )}
+            data-slot="dashboard-main"
+          >
+            {children}
+          </main>
+        </div>
+
+        <DrawerContent
+          id={mobileSidebarId}
+          side="left"
+          className="rush-dashboard-layout__mobile-drawer"
           aria-label={sidebarLabel}
-          className={classNames(
-            'rush-dashboard-layout__sidebar',
-            sidebarClassName,
-          )}
-          data-slot="dashboard-sidebar"
         >
-          <div className="rush-dashboard-layout__sidebar-content">
-            {sidebar}
+          <div
+            className="rush-dashboard-layout__mobile-sidebar"
+            data-slot="dashboard-mobile-sidebar"
+          >
+            {mobileSidebarContent}
           </div>
-        </aside>
-
-        {header !== undefined
-          && header !== null && (
-            <header
-              className={classNames(
-                'rush-dashboard-layout__header',
-                headerClassName,
-              )}
-              data-slot="dashboard-header"
-            >
-              {header}
-            </header>
-          )}
-
-        <main
-          className={classNames(
-            'rush-dashboard-layout__main',
-            mainClassName,
-          )}
-          data-slot="dashboard-main"
-        >
-          {children}
-        </main>
-      </div>
+        </DrawerContent>
+      </Drawer>
     </DashboardLayoutContext.Provider>
   );
 }
@@ -249,7 +351,6 @@ export function DashboardSidebarToggle({
   collapseLabel = 'Collapse sidebar',
   expandLabel = 'Expand sidebar',
   className,
-  onClick,
   ...buttonProps
 }: DashboardSidebarToggleProps) {
   const {
@@ -258,37 +359,72 @@ export function DashboardSidebarToggle({
     toggleSidebar,
   } = useDashboardLayoutContext();
 
-  const label = collapsed
-    ? expandLabel
-    : collapseLabel;
-
   return (
-    <button
+    <LayoutPanelToggle
       {...buttonProps}
-      type="button"
-      aria-controls={sidebarId}
-      aria-expanded={!collapsed}
-      aria-label={label}
+      controls={sidebarId}
+      expanded={!collapsed}
+      collapseLabel={collapseLabel}
+      expandLabel={expandLabel}
+      onToggle={toggleSidebar}
       className={classNames(
         'rush-dashboard-layout__toggle',
         className,
       )}
-      data-slot="dashboard-sidebar-toggle"
-      onClick={(event) => {
-        onClick?.(event);
-
-        if (event.defaultPrevented) {
-          return;
-        }
-
-        toggleSidebar();
-      }}
-    >
-      {children ?? (
+      fallbackContent={(
         <span aria-hidden="true">
           ☰
         </span>
       )}
-    </button>
+    >
+      {children}
+    </LayoutPanelToggle>
+  );
+}
+
+export interface DashboardMobileSidebarToggleProps
+  extends Omit<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    'children' | 'type'
+  > {
+  children?: ReactNode;
+
+  openLabel?: string;
+  closeLabel?: string;
+}
+
+export function DashboardMobileSidebarToggle({
+  children,
+  openLabel = 'Open navigation',
+  closeLabel = 'Close navigation',
+  className,
+  ...buttonProps
+}: DashboardMobileSidebarToggleProps) {
+  const {
+    mobileOpen,
+    mobileSidebarId,
+    toggleMobileSidebar,
+  } = useDashboardLayoutContext();
+
+  return (
+    <LayoutPanelToggle
+      {...buttonProps}
+      controls={mobileSidebarId}
+      expanded={mobileOpen}
+      collapseLabel={closeLabel}
+      expandLabel={openLabel}
+      onToggle={toggleMobileSidebar}
+      className={classNames(
+        'rush-dashboard-layout__mobile-toggle',
+        className,
+      )}
+      fallbackContent={(
+        <span aria-hidden="true">
+          ☰
+        </span>
+      )}
+    >
+      {children}
+    </LayoutPanelToggle>
   );
 }

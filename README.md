@@ -42,6 +42,11 @@ import {
   CardFooter,
   Checkbox,
   CopyButton,
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
   FormattedDateTime,
   Label,
   FormField,
@@ -79,6 +84,14 @@ export function Example() {
             <Label htmlFor="notifications">Notifications</Label>
             <Switch id="notifications" defaultChecked />
           </FormField>
+
+          <Drawer>
+            <DrawerTrigger>Open details</DrawerTrigger>
+            <DrawerContent side="right">
+              <DrawerTitle>Details</DrawerTitle>
+              <DrawerClose>Close</DrawerClose>
+            </DrawerContent>
+          </Drawer>
         </CardContent>
 
         <CardFooter>
@@ -96,6 +109,119 @@ export function Example() {
 }
 ```
 
+## Layout examples
+
+### Blog layout
+
+Use `BlogLayout` for long-form pages with optional navigation and supporting content.
+
+```tsx
+import { BlogLayout } from '@kz-rush/site-ui';
+
+export function ArticlePage() {
+  return (
+    <BlogLayout
+      header={<header>Site name</header>}
+      navigation={(
+        <nav>
+          <a href="#introduction">Introduction</a>
+          <a href="#summary">Summary</a>
+        </nav>
+      )}
+      aside={<nav>On this page</nav>}
+      footer={<footer>Copyright 2026</footer>}
+      contentWidth="md"
+    >
+      <article>
+        <h1 id="introduction">Article title</h1>
+        <p>Article content goes here.</p>
+        <h2 id="summary">Summary</h2>
+      </article>
+    </BlogLayout>
+  );
+}
+```
+
+### Dashboard layout
+
+Use `DashboardLayout` for an application shell with a collapsible navigation panel. Its toggle controls must be rendered inside the layout.
+
+```tsx
+import {
+  DashboardLayout,
+  DashboardMobileSidebarToggle,
+  DashboardSidebarToggle,
+} from '@kz-rush/site-ui';
+
+export function DashboardPage() {
+  return (
+    <DashboardLayout
+      sidebar={(
+        <nav>
+          <DashboardSidebarToggle />
+          <a href="#overview">Overview</a>
+          <a href="#records">Records</a>
+        </nav>
+      )}
+      header={(
+        <header>
+          <DashboardMobileSidebarToggle />
+          <strong>Dashboard</strong>
+        </header>
+      )}
+    >
+      <h1 id="overview">Overview</h1>
+      <p>Dashboard content goes here.</p>
+    </DashboardLayout>
+  );
+}
+```
+
+### Workspace layout
+
+Use `WorkspaceLayout` when the main workspace needs both navigation and an independently collapsible details panel.
+
+```tsx
+import {
+  WorkspaceAsideToggle,
+  WorkspaceLayout,
+  WorkspaceMobileAsideToggle,
+  WorkspaceMobileSidebarToggle,
+  WorkspaceSidebarToggle,
+} from '@kz-rush/site-ui';
+
+export function WorkspacePage() {
+  return (
+    <WorkspaceLayout
+      sidebar={(
+        <nav>
+          <WorkspaceSidebarToggle />
+          <a href="#files">Files</a>
+          <a href="#activity">Activity</a>
+        </nav>
+      )}
+      aside={(
+        <section>
+          <WorkspaceAsideToggle />
+          <h2>Details</h2>
+          <p>Selected item metadata.</p>
+        </section>
+      )}
+      header={(
+        <header>
+          <WorkspaceMobileSidebarToggle />
+          <strong>Workspace</strong>
+          <WorkspaceMobileAsideToggle />
+        </header>
+      )}
+    >
+      <h1 id="files">Files</h1>
+      <p>Select an item to view its details.</p>
+    </WorkspaceLayout>
+  );
+}
+```
+
 ## Available components
 
 - Alert, AlertTitle, AlertDescription, AlertList
@@ -104,6 +230,7 @@ export function Example() {
 - Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
 - Checkbox
 - CopyButton
+- Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerClose
 - FormattedDateTime
 - FormField
 - Label
@@ -111,6 +238,9 @@ export function Example() {
 - Progress
 - Switch
 - RushToastContainer and showToast
+- BlogLayout
+- DashboardLayout and DashboardSidebarToggle
+- WorkspaceLayout, WorkspaceAsideToggle, and WorkspaceSidebarToggle
 
 ## Styling
 
@@ -128,6 +258,9 @@ import '@kz-rush/site-ui/styles.css';
 - `npm run build` - type-check and build the library
 - `npm run typecheck` - run TypeScript checks
 - `npm run test` - run the Vitest test suite
+- `npm run test:unit` - run unit tests
+- `npm run test:storybook` - run Storybook interaction tests
+- `npm run test:all` - run all Vitest projects
 - `npm run storybook` - start Storybook on port 6006
 - `npm run build-storybook` - build a static Storybook site
 
@@ -159,6 +292,8 @@ The workflow installs dependencies, verifies the tag and package versions match,
 
 - `react` `^19.0.0`
 - `react-dom` `^19.0.0`
+- `moment` `^2.30.0`
+- `react-toastify` `^11.0.0`
 
 ## License
 

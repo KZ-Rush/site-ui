@@ -116,6 +116,7 @@
   --rush-dashboard-content-padding: 1.5rem;
   --rush-dashboard-transition-duration: 300ms;
   --rush-dashboard-mobile-sidebar-max-height: 20rem;
+  --rush-dashboard-mobile-sidebar-width: 18rem;
 
   --rush-workspace-sidebar-width: 16rem;
   --rush-workspace-sidebar-collapsed-width: 4rem;
@@ -131,6 +132,10 @@
   --rush-workspace-inline-aside-max-height: 22rem;
   --rush-workspace-mobile-sidebar-max-height: 20rem;
 
+  --rush-workspace-mobile-sidebar-width: 18rem;
+
+  --rush-workspace-mobile-aside-width: 20rem;
+
   --rush-blog-container-width: 90rem;
 
   --rush-blog-navigation-column-width: 15rem;
@@ -144,6 +149,13 @@
   --rush-blog-mobile-body-padding: 1.5rem 1rem;
 
   --rush-blog-sticky-offset: 1.5rem;
+
+  --rush-drawer-width: 20rem;
+  --rush-drawer-z-index: 50;
+  --rush-drawer-transition-duration: 200ms;
+
+  --rush-drawer-overlay-background:
+    rgb(0 0 0 / 50%);
 
   /*
    * Table

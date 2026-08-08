@@ -49,10 +49,26 @@ export {
 
 export {
   DashboardLayout,
+  DashboardMobileSidebarToggle,
   DashboardSidebarToggle,
   type DashboardLayoutProps,
+  type DashboardMobileSidebarToggleProps,
   type DashboardSidebarToggleProps,
 } from './layouts/dashboard-layout';
+
+export {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+  type DrawerCloseProps,
+  type DrawerContentProps,
+  type DrawerProps,
+  type DrawerSide,
+  type DrawerTitleProps,
+  type DrawerTriggerProps,
+} from './components/drawer';
 
 export {
   FormattedDateTime,
@@ -86,9 +102,14 @@ export {
 export {
   WorkspaceAsideToggle,
   WorkspaceLayout,
+  WorkspaceMobileAsideToggle,
+  WorkspaceMobileSidebarToggle,
   WorkspaceSidebarToggle,
+
   type WorkspaceAsideToggleProps,
   type WorkspaceLayoutProps,
+  type WorkspaceMobileAsideToggleProps,
+  type WorkspaceMobileSidebarToggleProps,
   type WorkspaceSidebarToggleProps,
 } from './layouts/workspace-layout';
 
