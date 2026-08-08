@@ -134,6 +134,12 @@ export {
 } from './components/sidebar-navigation';
 
 export {
+  Skeleton,
+  type SkeletonProps,
+  type SkeletonVariant,
+} from './components/skeleton';
+
+export {
   Table,
   TableBody,
   TableCaption,
