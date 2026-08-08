@@ -264,7 +264,11 @@ export function SidebarNavigationItem(
             : href
         }
         target={target}
-        rel={rel}
+        rel={
+          target === '_blank' && rel === undefined
+            ? 'noopener noreferrer'
+            : rel
+        }
         aria-current={
           active
             ? 'page'
