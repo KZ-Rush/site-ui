@@ -129,6 +129,30 @@ export {
 } from './components/sidebar-navigation';
 
 export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+
+  type TableBodyProps,
+  type TableCaptionProps,
+  type TableCellAlign,
+  type TableCellProps,
+  type TableContainerProps,
+  type TableDensity,
+  type TableFooterProps,
+  type TableHeadProps,
+  type TableHeaderProps,
+  type TableProps,
+  type TableRowProps,
+} from './components/table';
+
+export {
   WorkspaceAsideToggle,
   WorkspaceLayout,
   WorkspaceMobileAsideToggle,
