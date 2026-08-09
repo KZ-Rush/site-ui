@@ -310,46 +310,46 @@ export function DataTable<T>({
   const hasData =
     data.length > 0;
 
-const selectableRows =
-  selection == null
-    ? []
-    : data
-        .map(
-          (
-            row,
-            rowIndex,
-          ) => ({
-            row,
-            rowIndex,
-            key: getRowKey(
+  const selectableRows =
+    selection == null
+      ? []
+      : data
+          .map(
+            (
               row,
               rowIndex,
-            ),
-          }),
-        )
-        .filter(
-          ({
-            row,
-            rowIndex,
-          }) => (
-            selection.isRowSelectable?.(
+            ) => ({
               row,
               rowIndex,
-            )
-            ?? true
-          ),
-        );
-
-const selectedSelectableCount =
-  selection == null
-    ? 0
-    : selectableRows.filter(
-        ({ key }) => (
-          selection.selectedKeys.has(
-            key,
+              key: getRowKey(
+                row,
+                rowIndex,
+              ),
+            }),
           )
-        ),
-      ).length;
+          .filter(
+            ({
+              row,
+              rowIndex,
+            }) => (
+              selection.isRowSelectable?.(
+                row,
+                rowIndex,
+              )
+              ?? true
+            ),
+          );
+
+  const selectedSelectableCount =
+    selection == null
+      ? 0
+      : selectableRows.filter(
+          ({ key }) => (
+            selection.selectedKeys.has(
+              key,
+            )
+          ),
+        ).length;
 
   const allSelectableSelected =
     selectableRows.length > 0
