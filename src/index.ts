@@ -81,6 +81,11 @@ export {
 } from './components/drawer';
 
 export {
+  EmptyState,
+  type EmptyStateProps,
+} from './components/empty-state';
+
+export {
   FormattedDateTime,
 } from './components/formatted-date-time';
 
@@ -100,6 +105,11 @@ export {
   PageHeader,
   type PageHeaderProps,
 } from './components/page-header';
+
+export {
+  Pagination,
+  type PaginationProps,
+} from './components/pagination';
 
 export {
   Progress,
@@ -127,6 +137,36 @@ export {
   type SidebarNavigationProps,
   type SidebarNavigationSeparatorProps,
 } from './components/sidebar-navigation';
+
+export {
+  Skeleton,
+  type SkeletonProps,
+  type SkeletonVariant,
+} from './components/skeleton';
+
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+
+  type TableBodyProps,
+  type TableCaptionProps,
+  type TableCellAlign,
+  type TableCellProps,
+  type TableContainerProps,
+  type TableDensity,
+  type TableFooterProps,
+  type TableHeadProps,
+  type TableHeaderProps,
+  type TableProps,
+  type TableRowProps,
+} from './components/table';
 
 export {
   WorkspaceAsideToggle,

@@ -181,6 +181,41 @@
   --rush-color-table-striped: #fafafa;
   --rush-color-table-hover: #f5f7fa;
 
+  --rush-table-background:
+    var(--rush-color-card);
+
+  --rush-table-foreground:
+    var(--rush-color-card-foreground);
+
+  --rush-table-border-color:
+    var(--rush-color-border);
+
+  --rush-table-header-background:
+    var(--rush-color-muted);
+
+  --rush-table-footer-background:
+    var(--rush-color-muted);
+
+  --rush-table-hover-background:
+    var(--rush-color-accent);
+
+  --rush-table-selected-background:
+    var(--rush-color-accent);
+
+  --rush-table-striped-background:
+    var(--rush-color-table-striped);
+
+  --rush-table-font-size: 0.875rem;
+
+  --rush-table-cell-padding-y: 0.75rem;
+  --rush-table-cell-padding-x: 1rem;
+
+  --rush-table-compact-cell-padding-y: 0.5rem;
+  --rush-table-compact-cell-padding-x: 0.75rem;
+
+  --rush-pagination-gap: 0.25rem;
+  --rush-pagination-button-size: 2.25rem;
+
   /*
    * Progress
    */
@@ -194,6 +229,11 @@
 
   --rush-progress-highlight-color:
     rgb(255 255 255 / 33%);
+
+  --rush-skeleton-animation-duration: 1.5s;
+
+  --rush-skeleton-highlight:
+    rgb(255 255 255 / 45%);
 
   /*
    * Switch

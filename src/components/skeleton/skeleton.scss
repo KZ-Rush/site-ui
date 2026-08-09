@@ -1,0 +1,73 @@
+.rush-skeleton {
+  box-sizing: border-box;
+
+  position: relative;
+
+  display: block;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  border-radius: var(
+    --rush-skeleton-border-radius,
+    var(--rush-radius-md, 0.5rem)
+  );
+
+  background-color: var(
+    --rush-skeleton-background,
+    var(--rush-color-muted, #e2e8f0)
+  );
+
+  &--block {
+    width: 100%;
+    min-height: 1rem;
+  }
+
+  &--circle {
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+  }
+
+  &--animated {
+    &::after {
+      content: '';
+
+      position: absolute;
+      inset: 0;
+
+      transform: translateX(-100%);
+
+      background: linear-gradient(
+        90deg,
+        transparent,
+        var(
+          --rush-skeleton-highlight,
+          rgb(255 255 255 / 45%)
+        ),
+        transparent
+      );
+
+      animation:
+        rush-skeleton-shimmer
+        var(
+          --rush-skeleton-animation-duration,
+          1.5s
+        )
+        infinite;
+    }
+  }
+}
+
+@keyframes rush-skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rush-skeleton--animated::after {
+    animation: none;
+  }
+}
