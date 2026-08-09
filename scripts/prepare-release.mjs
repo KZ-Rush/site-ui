@@ -6,7 +6,7 @@ const version = process.argv[2];
 
 if (!version) {
   console.error(
-    'Usage: npm run do-release -- <version>',
+    'Usage: npm run prepare-release -- <version>',
   );
 
   process.exit(1);
@@ -69,6 +69,14 @@ const branch =
     '--show-current',
   ]);
 
+if (!branch) {
+  console.error(
+    'Cannot prepare a release from detached HEAD.',
+  );
+
+  process.exit(1);
+}
+
 if (branch === 'main') {
   console.error(
     'Do not prepare a release directly on protected main.',
@@ -78,7 +86,7 @@ if (branch === 'main') {
 }
 
 console.log(
-  `Preparing release v${version} from ${branch}...`,
+  `Preparing release v${version} on ${branch}...`,
 );
 
 run(
@@ -115,17 +123,9 @@ console.log(
 
 console.log('');
 console.log(
-  'Next:',
+  `Push ${branch}, merge the PR into main, then run:`,
 );
 
 console.log(
-  `  git push origin ${branch}`,
-);
-
-console.log(
-  '  create/merge PR into main',
-);
-
-console.log(
-  `  tag the merged main commit as v${version}`,
+  `GitHub → Actions → Release package → Run workflow → ${version}`,
 );
