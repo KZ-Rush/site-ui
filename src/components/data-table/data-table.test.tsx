@@ -13,12 +13,9 @@ import {
 } from 'vitest';
 
 import {
-  Badge,
-} from '../badge';
-
-import {
   DataTable,
   type DataTableColumn,
+  type DataTableRowKey,
 } from './data-table';
 
 interface TestRow {
@@ -316,5 +313,341 @@ describe('DataTable', () => {
         },
       ),
     ).not.toBeInTheDocument();
+  });
+
+  it('selects an individual row', async () => {
+    const user = userEvent.setup();
+
+    const onSelectionChange =
+      vi.fn();
+
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set<DataTableRowKey>(),
+
+        onSelectionChange,
+      },
+    });
+
+    await user.click(
+      screen.getByRole(
+        'checkbox',
+        {
+          name: 'Select row 1',
+        },
+      ),
+    );
+
+    expect(
+      onSelectionChange,
+    ).toHaveBeenCalledOnce();
+
+    const selection =
+      onSelectionChange.mock
+        .calls[0][0] as Set<DataTableRowKey>;
+
+    expect(
+      selection,
+    ).toEqual(
+      new Set([
+        1,
+      ]),
+    );
+  });
+
+  it('selects an individual row', async () => {
+    const user = userEvent.setup();
+
+    const onSelectionChange =
+      vi.fn();
+
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set<DataTableRowKey>(),
+
+        onSelectionChange,
+      },
+    });
+
+    await user.click(
+      screen.getByRole(
+        'checkbox',
+        {
+          name: 'Select row 1',
+        },
+      ),
+    );
+
+    expect(
+      onSelectionChange,
+    ).toHaveBeenCalledOnce();
+
+    const selection =
+      onSelectionChange.mock
+        .calls[0][0] as Set<DataTableRowKey>;
+
+    expect(
+      selection,
+    ).toEqual(
+      new Set([
+        1,
+      ]),
+    );
+  });
+
+  it('deselects an individual row', async () => {
+    const user = userEvent.setup();
+
+    const onSelectionChange =
+      vi.fn();
+
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set<DataTableRowKey>([
+            1,
+          ]),
+
+        onSelectionChange,
+      },
+    });
+
+    await user.click(
+      screen.getByRole(
+        'checkbox',
+        {
+          name: 'Deselect row 1',
+        },
+      ),
+    );
+
+    const selection =
+      onSelectionChange.mock
+        .calls[0][0] as Set<DataTableRowKey>;
+
+    expect(
+      selection,
+    ).toEqual(
+      new Set(),
+    );
+  });
+
+  it('selects all rows on the current page', async () => {
+    const user = userEvent.setup();
+
+    const onSelectionChange =
+      vi.fn();
+
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set<DataTableRowKey>(),
+
+        onSelectionChange,
+      },
+    });
+
+    await user.click(
+      screen.getByRole(
+        'checkbox',
+        {
+          name:
+            'Select all rows on this page',
+        },
+      ),
+    );
+
+    const selection =
+      onSelectionChange.mock
+        .calls[0][0] as Set<DataTableRowKey>;
+
+    expect(selection).toEqual(
+      new Set([
+        1,
+        2,
+      ]),
+    );
+  });
+
+  it('preserves selected keys outside the current page', async () => {
+    const user = userEvent.setup();
+
+    const onSelectionChange =
+      vi.fn();
+
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set<DataTableRowKey>([
+            100,
+          ]),
+
+        onSelectionChange,
+      },
+    });
+
+    await user.click(
+      screen.getByRole(
+        'checkbox',
+        {
+          name:
+            'Select all rows on this page',
+        },
+      ),
+    );
+
+    const selection =
+      onSelectionChange.mock
+        .calls[0][0] as Set<DataTableRowKey>;
+
+    expect(selection).toEqual(
+      new Set([
+        100,
+        1,
+        2,
+      ]),
+    );
+  });
+
+  it('shows an indeterminate select-all state when some rows are selected', () => {
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set<DataTableRowKey>([
+            1,
+          ]),
+
+        onSelectionChange:
+          () => {},
+      },
+    });
+
+    const checkbox =
+      screen.getByRole(
+        'checkbox',
+        {
+          name:
+            'Select all rows on this page',
+        },
+      );
+
+    expect(checkbox).toHaveAttribute(
+      'aria-checked',
+      'mixed',
+    );
+
+    expect(
+      checkbox,
+    ).toHaveProperty(
+      'indeterminate',
+      true,
+    );
+  });
+
+  it('deselects all visible rows while preserving other keys', async () => {
+    const user = userEvent.setup();
+
+    const onSelectionChange =
+      vi.fn();
+
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set<DataTableRowKey>([
+            1,
+            2,
+            100,
+          ]),
+
+        onSelectionChange,
+      },
+    });
+
+    await user.click(
+      screen.getByRole(
+        'checkbox',
+        {
+          name:
+            'Deselect all rows on this page',
+        },
+      ),
+    );
+
+    const selection =
+      onSelectionChange.mock
+        .calls[0][0] as Set<DataTableRowKey>;
+
+    expect(selection).toEqual(
+      new Set([
+        100,
+      ]),
+    );
+  });
+
+  it('does not allow non-selectable rows to be selected', () => {
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set(),
+
+        onSelectionChange:
+          () => {},
+
+        isRowSelectable: (
+          row,
+        ) => row.id !== 2,
+      },
+    });
+
+    expect(
+      screen.getByRole(
+        'checkbox',
+        {
+          name: 'Select row 2',
+        },
+      ),
+    ).toBeDisabled();
+  });
+
+  it('select all ignores non-selectable rows', async () => {
+    const user = userEvent.setup();
+
+    const onSelectionChange =
+      vi.fn();
+
+    renderTable({
+      selection: {
+        selectedKeys:
+          new Set(),
+
+        onSelectionChange,
+
+        isRowSelectable: (
+          row,
+        ) => row.id !== 2,
+      },
+    });
+
+    await user.click(
+      screen.getByRole(
+        'checkbox',
+        {
+          name:
+            'Select all rows on this page',
+        },
+      ),
+    );
+
+    const selection =
+      onSelectionChange.mock
+        .calls[0][0];
+
+    expect(selection).toEqual(
+      new Set([
+        1,
+      ]),
+    );
   });
 });

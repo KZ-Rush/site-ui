@@ -69,6 +69,8 @@ export {
   type DataTableColumn,
   type DataTablePagination,
   type DataTableProps,
+  type DataTableRowKey,
+  type DataTableSelection,
   type DataTableSortDirection,
   type DataTableSorting,
 } from './components/data-table';

@@ -3,6 +3,10 @@ import type {
 } from 'react';
 
 import {
+  Checkbox,
+} from '../checkbox';
+
+import {
   EmptyState,
 } from '../empty-state';
 
@@ -92,6 +96,37 @@ export interface DataTablePagination {
   onPageChange: (page: number) => void;
 }
 
+export type DataTableRowKey =
+  | string
+  | number;
+
+export interface DataTableSelection<T> {
+  /**
+   * Currently selected row keys.
+   */
+  selectedKeys: ReadonlySet<DataTableRowKey>;
+
+  /**
+   * Called with the complete requested selection.
+   */
+  onSelectionChange: (
+    selectedKeys: Set<DataTableRowKey>,
+  ) => void;
+
+  /**
+   * Optional predicate for rows that cannot be selected.
+   */
+  isRowSelectable?: (
+    row: T,
+    rowIndex: number,
+  ) => boolean;
+
+  /**
+   * Show the select-all checkbox in the header.
+   */
+  showSelectAll?: boolean;
+}
+
 export interface DataTableProps<T> {
   columns: readonly DataTableColumn<T>[];
 
@@ -103,7 +138,7 @@ export interface DataTableProps<T> {
   getRowKey: (
     row: T,
     rowIndex: number,
-  ) => string | number;
+  ) => DataTableRowKey;
 
   /**
    * Whether loading placeholders should be shown.
@@ -155,6 +190,8 @@ export interface DataTableProps<T> {
    * Accessible table caption.
    */
   caption?: ReactNode;
+
+  selection?: DataTableSelection<T>;
 }
 
 function getNextSortDirection(
@@ -261,6 +298,8 @@ export function DataTable<T>({
   tableClassName,
 
   caption,
+
+  selection,
 }: DataTableProps<T>) {
   const safeLoadingRows =
     Math.max(
@@ -270,6 +309,109 @@ export function DataTable<T>({
 
   const hasData =
     data.length > 0;
+
+const selectableRows =
+  selection == null
+    ? []
+    : data
+        .map(
+          (
+            row,
+            rowIndex,
+          ) => ({
+            row,
+            rowIndex,
+            key: getRowKey(
+              row,
+              rowIndex,
+            ),
+          }),
+        )
+        .filter(
+          ({
+            row,
+            rowIndex,
+          }) => (
+            selection.isRowSelectable?.(
+              row,
+              rowIndex,
+            )
+            ?? true
+          ),
+        );
+
+const selectedSelectableCount =
+  selection == null
+    ? 0
+    : selectableRows.filter(
+        ({ key }) => (
+          selection.selectedKeys.has(
+            key,
+          )
+        ),
+      ).length;
+
+  const allSelectableSelected =
+    selectableRows.length > 0
+    && selectedSelectableCount
+      === selectableRows.length;
+
+  const someSelectableSelected =
+    selectedSelectableCount > 0
+    && !allSelectableSelected;
+
+  const setRowSelected = (
+    key: DataTableRowKey,
+    selected: boolean,
+  ): void => {
+    if (!selection) {
+      return;
+    }
+
+    const next =
+      new Set(
+        selection.selectedKeys,
+      );
+
+    if (selected) {
+      next.add(key);
+    } else {
+      next.delete(key);
+    }
+
+    selection.onSelectionChange(
+      next,
+    );
+  };
+
+  const setAllVisibleSelected = (
+    selected: boolean,
+  ): void => {
+    if (!selection) {
+      return;
+    }
+
+    const next =
+      new Set(
+        selection.selectedKeys,
+      );
+
+    for (
+      const {
+        key,
+      } of selectableRows
+    ) {
+      if (selected) {
+        next.add(key);
+      } else {
+        next.delete(key);
+      }
+    }
+
+    selection.onSelectionChange(
+      next,
+    );
+  };
 
   return (
     <div
@@ -300,6 +442,36 @@ export function DataTable<T>({
 
           <TableHeader>
             <TableRow>
+              {selection != null && (
+                <TableHead
+                  className="rush-data-table__selection-cell"
+                  align="center"
+                  aria-label="Selection"
+                >
+                  {selection.showSelectAll !== false && (
+                    <Checkbox
+                      checked={
+                        allSelectableSelected
+                      }
+                      indeterminate={
+                        someSelectableSelected
+                      }
+                      disabled={
+                        selectableRows.length === 0
+                      }
+                      aria-label={
+                        allSelectableSelected
+                          ? 'Deselect all rows on this page'
+                          : 'Select all rows on this page'
+                      }
+                      onCheckedChange={
+                        setAllVisibleSelected
+                      }
+                    />
+                  )}
+                </TableHead>
+              )}
+
               {columns.map(
                 (column) => (
                   <TableHead
@@ -356,6 +528,22 @@ export function DataTable<T>({
                       `loading-${rowIndex}`
                     }
                   >
+                    {selection != null && (
+                      <TableCell
+                        className="rush-data-table__selection-cell"
+                        align="center"
+                      >
+                        <Skeleton
+                          variant="block"
+                          style={{
+                            width: '1.25rem',
+                            height: '1.25rem',
+                            marginInline: 'auto',
+                          }}
+                        />
+                      </TableCell>
+                    )}
+
                     {columns.map(
                       (column) => (
                         <TableCell
@@ -399,45 +587,90 @@ export function DataTable<T>({
                     (
                       row,
                       rowIndex,
-                    ) => (
-                      <TableRow
-                        key={
-                          getRowKey(
-                            row,
-                            rowIndex,
-                          )
-                        }
-                      >
-                        {columns.map(
-                          (
-                            column,
-                          ) => (
+                    ) => {
+                      const rowKey =
+                        getRowKey(
+                          row,
+                          rowIndex,
+                        );
+
+                      const selectable =
+                        selection?.isRowSelectable?.(
+                          row,
+                          rowIndex,
+                        )
+                        ?? true;
+
+                      const selected =
+                        selection?.selectedKeys.has(
+                          rowKey,
+                        )
+                        ?? false;
+
+                      return (
+                        <TableRow
+                          key={rowKey}
+                          selected={selected}
+                        >
+                          {selection != null && (
                             <TableCell
-                              key={
-                                column.id
-                              }
-                              align={
-                                column.align
-                              }
-                              className={
-                                column.cellClassName
-                              }
+                              align="center"
+                              className="rush-data-table__selection-cell"
                             >
-                              {column.cell(
-                                row,
-                                rowIndex,
-                              )}
+                              <Checkbox
+                                checked={selected}
+                                disabled={!selectable}
+                                aria-label={
+                                  selected
+                                    ? `Deselect row ${rowIndex + 1}`
+                                    : `Select row ${rowIndex + 1}`
+                                }
+                                onCheckedChange={(
+                                  checked,
+                                ) => {
+                                  if (!selectable) {
+                                    return;
+                                  }
+
+                                  setRowSelected(
+                                    rowKey,
+                                    checked,
+                                  );
+                                }}
+                              />
                             </TableCell>
-                          ),
-                        )}
-                      </TableRow>
-                    ),
+                          )}
+
+                          {columns.map(
+                            (column) => (
+                              <TableCell
+                                key={column.id}
+                                align={column.align}
+                                className={
+                                  column.cellClassName
+                                }
+                              >
+                                {column.cell(
+                                  row,
+                                  rowIndex,
+                                )}
+                              </TableCell>
+                            ),
+                          )}
+                        </TableRow>
+                      );
+                    },
                   )
                 : (
                     <TableRow>
                       <TableCell
                         colSpan={
                           columns.length
+                          + (
+                            selection != null
+                              ? 1
+                              : 0
+                          )
                         }
                         className="rush-data-table__empty-cell"
                       >

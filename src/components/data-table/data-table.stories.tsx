@@ -10,6 +10,7 @@ import type {
 import {
   DataTable,
   type DataTableSorting,
+  type DataTableRowKey,
 } from './data-table';
 
 import {
@@ -261,6 +262,74 @@ export const Paginated: Story = {
           pageCount: 12,
           showFirstLast: true,
           onPageChange: setPage,
+        }}
+      />
+    );
+  },
+};
+
+export const Selectable: Story = {
+  render: (args) => {
+    const [
+      selectedKeys,
+      setSelectedKeys,
+    ] = useState<
+      Set<DataTableRowKey>
+    >(
+      new Set(),
+    );
+
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gap: '1rem',
+        }}
+      >
+        <DataTable<RecordRow>
+          {...args}
+          selection={{
+            selectedKeys,
+
+            onSelectionChange:
+              setSelectedKeys,
+          }}
+        />
+
+        <div>
+          Selected:{' '}
+          {selectedKeys.size}
+        </div>
+      </div>
+    );
+  },
+};
+
+export const PartiallySelectable: Story = {
+  render: (args) => {
+    const [
+      selectedKeys,
+      setSelectedKeys,
+    ] = useState<
+      Set<DataTableRowKey>
+    >(
+      new Set(),
+    );
+
+    return (
+      <DataTable<RecordRow>
+        {...args}
+        selection={{
+          selectedKeys,
+
+          onSelectionChange:
+            setSelectedKeys,
+
+          isRowSelectable: (
+            row,
+          ) => (
+            row.type === 'PRO'
+          ),
         }}
       />
     );

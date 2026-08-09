@@ -102,6 +102,25 @@
 
     min-width: 0;
   }
+
+  &__selection-cell {
+    width: var(
+      --rush-data-table-selection-column-width,
+      3rem
+    );
+
+    min-width: var(
+      --rush-data-table-selection-column-width,
+      3rem
+    );
+
+    padding-inline: 0.5rem;
+  }
+
+  &__selection-cell
+    .rush-checkbox {
+    margin-inline: auto;
+  }
 }
 
 @media (width <= 40rem) {
