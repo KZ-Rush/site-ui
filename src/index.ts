@@ -67,6 +67,15 @@ export {
 } from './layouts/dashboard-layout';
 
 export {
+  DataTable,
+  type DataTableColumn,
+  type DataTablePagination,
+  type DataTableProps,
+  type DataTableSortDirection,
+  type DataTableSorting,
+} from './components/data-table';
+
+export {
   Drawer,
   DrawerClose,
   DrawerContent,
