@@ -23,6 +23,23 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Verify tag belongs to main
+        shell: bash
+        run: |
+          git fetch origin main
+
+          TAG_COMMIT="$(git rev-list -n 1 "${GITHUB_REF_NAME}")"
+
+          echo "Tag: ${GITHUB_REF_NAME}"
+          echo "Tag commit: ${TAG_COMMIT}"
+
+          if ! git merge-base --is-ancestor "${TAG_COMMIT}" origin/main; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not point to a commit contained in main"
+            exit 1
+          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
