@@ -43,7 +43,8 @@
     "test:storybook": "vitest run --project=storybook",
     "test:all": "vitest run",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "do-release": "node ./scripts/release.mjs"
   },
   "peerDependencies": {
     "moment": "^2.30.0",
