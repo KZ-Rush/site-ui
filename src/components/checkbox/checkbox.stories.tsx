@@ -49,6 +49,10 @@ const meta = {
         'Initial state for uncontrolled usage.',
     },
 
+    indeterminate: {
+      control: 'boolean',
+    },
+
     disabled: {
       control: 'boolean',
     },
@@ -131,32 +135,32 @@ export const LongLabel: Story = {
 };
 
 export const Controlled: Story = {
-  args: {
-    checked: undefined,
-  },
-
-  render: (args) => {
-    const [checked, setChecked] = useState(false);
+  render: () => {
+    const [
+      checked,
+      setChecked,
+    ] = useState(false);
 
     return (
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
+          display: 'grid',
           gap: '1rem',
         }}
       >
         <Checkbox
-          {...args}
           checked={checked}
           onCheckedChange={setChecked}
         >
-          Enable notifications
+          Controlled checkbox
         </Checkbox>
 
-        <span>
-          State: {checked ? 'checked' : 'unchecked'}
-        </span>
+        <div>
+          Checked:{' '}
+          {checked
+            ? 'yes'
+            : 'no'}
+        </div>
       </div>
     );
   },
@@ -203,4 +207,135 @@ export const FormSubmission: Story = {
       </div>
     </form>
   ),
+};
+
+export const SelectAll: Story = {
+  render: () => {
+    const items = [
+      'Player One',
+      'Player Two',
+      'Player Three',
+    ];
+
+    const [
+      selected,
+      setSelected,
+    ] = useState<
+      Set<number>
+    >(
+      new Set([
+        0,
+      ]),
+    );
+
+    const allSelected =
+      selected.size === items.length;
+
+    const someSelected =
+      selected.size > 0
+      && !allSelected;
+
+    const toggleAll = (
+      checked: boolean,
+    ): void => {
+      if (checked) {
+        setSelected(
+          new Set(
+            items.map(
+              (_, index) => index,
+            ),
+          ),
+        );
+
+        return;
+      }
+
+      setSelected(
+        new Set(),
+      );
+    };
+
+    const toggleItem = (
+      index: number,
+      checked: boolean,
+    ): void => {
+      setSelected(
+        (current) => {
+          const next =
+            new Set(current);
+
+          if (checked) {
+            next.add(index);
+          } else {
+            next.delete(index);
+          }
+
+          return next;
+        },
+      );
+    };
+
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gap: '0.75rem',
+          minWidth: '14rem',
+        }}
+      >
+        <Checkbox
+          checked={allSelected}
+          indeterminate={
+            someSelected
+          }
+          onCheckedChange={
+            toggleAll
+          }
+        >
+          Select all
+        </Checkbox>
+
+        <div
+          style={{
+            display: 'grid',
+            gap: '0.5rem',
+            paddingLeft: '1.5rem',
+          }}
+        >
+          {items.map(
+            (
+              item,
+              index,
+            ) => (
+              <Checkbox
+                key={item}
+                checked={
+                  selected.has(
+                    index,
+                  )
+                }
+                onCheckedChange={(
+                  checked,
+                ) => {
+                  toggleItem(
+                    index,
+                    checked,
+                  );
+                }}
+              >
+                {item}
+              </Checkbox>
+            ),
+          )}
+        </div>
+
+        <div>
+          Selected:{' '}
+          {selected.size}
+          {' / '}
+          {items.length}
+        </div>
+      </div>
+    );
+  },
 };
