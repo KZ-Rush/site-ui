@@ -200,9 +200,45 @@ export const Sorting: Story = {
       direction: 'asc',
     });
 
+    const sortedData = [...args.data].sort(
+      (a, b) => {
+        const direction =
+          sorting.direction === 'asc'
+            ? 1
+            : -1;
+
+        switch (sorting.column) {
+          case 'player':
+            return (
+              a.player.localeCompare(
+                b.player,
+              ) * direction
+            );
+
+          case 'map':
+            return (
+              a.map.localeCompare(
+                b.map,
+              ) * direction
+            );
+
+          case 'time':
+            return (
+              a.time.localeCompare(
+                b.time,
+              ) * direction
+            );
+
+          default:
+            return 0;
+        }
+      },
+    );
+
     return (
       <DataTable<RecordRow>
         {...args}
+        data={sortedData}
         sorting={sorting}
         onSortChange={setSorting}
       />
