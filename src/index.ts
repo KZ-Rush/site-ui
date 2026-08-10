@@ -139,6 +139,12 @@ export {
 } from './components/progress';
 
 export {
+  Select,
+  type SelectProps,
+  type SelectSize,
+} from './components/select';
+
+export {
   SidebarNavigation,
   SidebarNavigationGroup,
   SidebarNavigationItem,
