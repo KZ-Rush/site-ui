@@ -192,6 +192,12 @@ export {
 } from './components/table';
 
 export {
+  Textarea,
+  type TextareaProps,
+  type TextareaSize,
+} from './components/textarea';
+
+export {
   RushToastContainer,
   showToast,
   type RushToastContainerProps,
