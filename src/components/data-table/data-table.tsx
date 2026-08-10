@@ -80,6 +80,11 @@ export interface DataTableColumn<T> {
   sortable?: boolean;
 
   /**
+   * Whether the column can be hidden by the user.
+   */
+  hideable?: boolean;
+
+  /**
    * Whether the column is sticky on the left or right side of the table.
    */
   sticky?: 'left' | 'right';
@@ -93,6 +98,14 @@ export interface DataTableColumn<T> {
    * Optional class applied to body cells.
    */
   cellClassName?: string;
+}
+
+export interface DataTableColumnVisibility {
+  visibleColumns: ReadonlySet<string>;
+
+  onVisibilityChange?: (
+    visibleColumns: Set<string>,
+  ) => void;
 }
 
 export interface DataTablePagination {
@@ -238,6 +251,11 @@ export interface DataTableProps<T> {
    * - `none`: Table is not scrollable and may overflow its container.
    */
   responsive?: DataTableResponsiveMode;
+
+  /**
+   * Optional controlled column visibility state.
+   */
+  columnVisibility?: DataTableColumnVisibility;
 }
 
 function getNextSortDirection(
@@ -385,6 +403,8 @@ export function DataTable<T>({
   onRowClick,
   isRowClickable,
   getRowAriaLabel,
+
+  columnVisibility,
 }: DataTableProps<T>) {
   const safeLoadingRows =
     Math.max(
@@ -498,6 +518,16 @@ export function DataTable<T>({
     );
   };
 
+  const visibleColumns =
+    columnVisibility == null
+      ? columns
+      : columns.filter(
+          (column) =>
+            columnVisibility
+              .visibleColumns
+              .has(column.id),
+        );
+
   return (
     <div
       className={classNames(
@@ -558,7 +588,7 @@ export function DataTable<T>({
                 </TableHead>
               )}
 
-              {columns.map(
+              {visibleColumns.map(
                 (column) => (
                   <TableHead
                     key={column.id}
@@ -632,7 +662,7 @@ export function DataTable<T>({
                       </TableCell>
                     )}
 
-                    {columns.map(
+                    {visibleColumns.map(
                       (column) => (
                         <TableCell
                           key={
@@ -821,7 +851,7 @@ export function DataTable<T>({
                             </TableCell>
                           )}
 
-                          {columns.map(
+                          {visibleColumns.map(
                             (column) => (
                               <TableCell
                                 key={column.id}
@@ -847,7 +877,7 @@ export function DataTable<T>({
                     <TableRow>
                       <TableCell
                         colSpan={
-                          columns.length
+                          visibleColumns.length
                           + (
                             selection != null
                               ? 1

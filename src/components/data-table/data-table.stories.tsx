@@ -21,6 +21,10 @@ import {
   Button,
 } from '../button';
 
+import {
+  Checkbox,
+} from '../checkbox';
+
 import type {
   DataTableColumn,
 } from './data-table';
@@ -893,4 +897,86 @@ export const ResponsiveScroll: Story = {
       }}
     />
   ),
+};
+
+export const ColumnVisibility: Story = {
+  render: (args) => {
+    const [
+      visibleColumns,
+      setVisibleColumns,
+    ] = useState(
+      new Set(
+        columns.map(
+          (column) => column.id,
+        ),
+      ),
+    );
+
+    const toggleColumn = (
+      columnId: string,
+      visible: boolean,
+    ): void => {
+      setVisibleColumns(
+        (current) => {
+          const next =
+            new Set(current);
+
+          if (visible) {
+            next.add(columnId);
+          } else {
+            next.delete(columnId);
+          }
+
+          return next;
+        },
+      );
+    };
+
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gap: '1rem',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            gap: '1rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          {columns.map(
+            (column) => (
+              <Checkbox
+                key={column.id}
+                checked={
+                  visibleColumns.has(
+                    column.id,
+                  )
+                }
+                onCheckedChange={(
+                  checked,
+                ) => {
+                  toggleColumn(
+                    column.id,
+                    checked,
+                  );
+                }}
+              >
+                {column.id}
+              </Checkbox>
+            ),
+          )}
+        </div>
+
+        <DataTable<RecordRow>
+          {...args}
+          columnVisibility={{
+            visibleColumns,
+          }}
+        />
+      </div>
+    );
+  },
 };

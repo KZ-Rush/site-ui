@@ -1092,4 +1092,66 @@ describe('DataTable', () => {
       'rush-data-table__cell--sticky-right',
     );
   });
+
+  it('hides columns not included in visibleColumns', () => {
+    renderTable({
+      columnVisibility: {
+        visibleColumns:
+          new Set([
+            'name',
+          ]),
+      },
+    });
+
+    expect(
+      screen.getByRole(
+        'columnheader',
+        {
+          name: 'Name',
+        },
+      ),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByRole(
+        'columnheader',
+        {
+          name: 'Score',
+        },
+      ),
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByText('100'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('keeps the selection column when data columns are hidden', () => {
+    renderTable({
+      columnVisibility: {
+        visibleColumns:
+          new Set([
+            'name',
+          ]),
+      },
+
+      selection: {
+        selectedKeys:
+          new Set(),
+
+        onSelectionChange:
+          () => {},
+      },
+    });
+
+    expect(
+      screen.getByRole(
+        'checkbox',
+        {
+          name:
+            'Select all rows on this page',
+        },
+      ),
+    ).toBeInTheDocument();
+  });
 });
