@@ -1,0 +1,63 @@
+.rush-data-table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(
+    --rush-data-table-toolbar-gap,
+    0.75rem
+  );
+
+  width: 100%;
+
+  padding-block: var(
+    --rush-data-table-toolbar-padding-block,
+    0.75rem
+  );
+
+  &__start,
+  &__end {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: var(
+      --rush-data-table-toolbar-control-gap,
+      0.5rem
+    );
+  }
+
+  &__start {
+    flex: 1 1 auto;
+
+    min-width: 0;
+  }
+
+  &__end {
+    flex: 0 0 auto;
+
+    justify-content: flex-end;
+  }
+
+  &--selection {
+    .rush-data-table-toolbar__start {
+      font-weight: 500;
+    }
+  }
+}
+
+@media (max-width: 40rem) {
+  .rush-data-table-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+
+    &__start,
+    &__end {
+      width: 100%;
+    }
+
+    &__end {
+      justify-content: flex-start;
+    }
+  }
+}

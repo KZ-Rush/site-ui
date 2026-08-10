@@ -160,6 +160,10 @@
   --rush-drawer-overlay-background:
     rgb(0 0 0 / 50%);
 
+  --rush-input-height-sm: 2rem;
+  --rush-input-height: 2.25rem;
+  --rush-input-height-lg: 2.5rem;
+
   --rush-page-header-gap: 1rem;
   --rush-page-header-body-gap: 1.5rem;
   --rush-page-header-actions-gap: 0.5rem;
@@ -169,6 +173,10 @@
 
   --rush-page-header-description-max-width:
     48rem;
+
+  --rush-select-height-sm: 2rem;
+  --rush-select-height: 2.25rem;
+  --rush-select-height-lg: 2.5rem;
 
   --rush-sidebar-navigation-gap: 0.75rem;
   --rush-sidebar-navigation-padding: 0.75rem;
@@ -215,6 +223,10 @@
 
   --rush-table-compact-cell-padding-y: 0.5rem;
   --rush-table-compact-cell-padding-x: 0.75rem;
+
+  --rush-textarea-height-sm: 5rem;
+  --rush-textarea-height: 6rem;
+  --rush-textarea-height-lg: 7rem;
 
   --rush-pagination-gap: 0.25rem;
   --rush-pagination-button-size: 2.25rem;

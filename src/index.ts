@@ -76,6 +76,11 @@ export {
 } from './components/data-table';
 
 export {
+  DataTableToolbar,
+  type DataTableToolbarProps,
+} from './components/data-table-toolbar';
+
+export {
   Drawer,
   DrawerClose,
   DrawerContent,
@@ -107,6 +112,12 @@ export {
 } from './components/form-field';
 
 export {
+  Input,
+  type InputProps,
+  type InputSize,
+} from './components/input';
+
+export {
   Label,
   type LabelProps,
 } from './components/label';
@@ -131,6 +142,12 @@ export {
   Progress,
   type ProgressProps,
 } from './components/progress';
+
+export {
+  Select,
+  type SelectProps,
+  type SelectSize,
+} from './components/select';
 
 export {
   SidebarNavigation,
@@ -178,6 +195,12 @@ export {
   type TableProps,
   type TableRowProps,
 } from './components/table';
+
+export {
+  Textarea,
+  type TextareaProps,
+  type TextareaSize,
+} from './components/textarea';
 
 export {
   RushToastContainer,

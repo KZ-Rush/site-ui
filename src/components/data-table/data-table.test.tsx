@@ -1050,4 +1050,108 @@ describe('DataTable', () => {
       onRowClick,
     ).not.toHaveBeenCalled();
   });
+
+  it('applies sticky column classes', () => {
+    const stickyColumns:
+      DataTableColumn<TestRow>[] = [
+        {
+          id: 'name',
+          header: 'Name',
+          sticky: 'left',
+          cell: (row) => row.name,
+        },
+        {
+          id: 'score',
+          header: 'Score',
+          sticky: 'right',
+          cell: (row) => row.score,
+        },
+      ];
+
+    render(
+      <DataTable<TestRow>
+        columns={stickyColumns}
+        data={data}
+        getRowKey={(row) => row.id}
+      />,
+    );
+
+    expect(
+      screen.getByRole('columnheader', {
+        name: 'Name',
+      }),
+    ).toHaveClass(
+      'rush-data-table__cell--sticky-left',
+    );
+
+    expect(
+      screen.getByRole('columnheader', {
+        name: 'Score',
+      }),
+    ).toHaveClass(
+      'rush-data-table__cell--sticky-right',
+    );
+  });
+
+  it('hides columns not included in visibleColumns', () => {
+    renderTable({
+      columnVisibility: {
+        visibleColumns:
+          new Set([
+            'name',
+          ]),
+      },
+    });
+
+    expect(
+      screen.getByRole(
+        'columnheader',
+        {
+          name: 'Name',
+        },
+      ),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByRole(
+        'columnheader',
+        {
+          name: 'Score',
+        },
+      ),
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByText('100'),
+    ).not.toBeInTheDocument();
+  });
+
+  it('keeps the selection column when data columns are hidden', () => {
+    renderTable({
+      columnVisibility: {
+        visibleColumns:
+          new Set([
+            'name',
+          ]),
+      },
+
+      selection: {
+        selectedKeys:
+          new Set(),
+
+        onSelectionChange:
+          () => {},
+      },
+    });
+
+    expect(
+      screen.getByRole(
+        'checkbox',
+        {
+          name:
+            'Select all rows on this page',
+        },
+      ),
+    ).toBeInTheDocument();
+  });
 });
