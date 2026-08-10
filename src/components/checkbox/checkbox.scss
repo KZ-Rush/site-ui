@@ -61,7 +61,8 @@
     justify-content: center;
   }
 
-  &__icon-checked {
+  &__icon-checked,
+  &__icon-indeterminate {
     display: none;
   }
 
@@ -86,6 +87,18 @@
     + .rush-checkbox__icon
     .rush-checkbox__icon-checked {
     display: inline-flex;
+  }
+
+  &__input:indeterminate
+    + &__icon {
+    .rush-checkbox__icon-unchecked,
+    .rush-checkbox__icon-checked {
+      display: none;
+    }
+
+    .rush-checkbox__icon-indeterminate {
+      display: inline-flex;
+    }
   }
 
   &__input:focus-visible

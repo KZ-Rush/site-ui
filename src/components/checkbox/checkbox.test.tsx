@@ -61,4 +61,95 @@ describe('Checkbox', () => {
     expect(input).toHaveClass('rush-checkbox__input', 'custom-input');
     expect(input.closest('[data-slot="checkbox"]')).toHaveClass('rush-checkbox', 'custom-checkbox');
   });
+
+  it('supports an indeterminate state', () => {
+    render(
+      <Checkbox indeterminate>
+        Select all
+      </Checkbox>,
+    );
+
+    const checkbox =
+      screen.getByRole('checkbox');
+
+    expect(checkbox).toHaveAttribute(
+      'aria-checked',
+      'mixed',
+    );
+
+    expect(checkbox).toHaveProperty(
+      'indeterminate',
+      true,
+    );
+  });
+
+  it('updates the indeterminate state', () => {
+    const {
+      rerender,
+    } = render(
+      <Checkbox indeterminate>
+        Select all
+      </Checkbox>,
+    );
+
+    const checkbox =
+      screen.getByRole('checkbox');
+
+    expect(checkbox).toHaveProperty(
+      'indeterminate',
+      true,
+    );
+
+    rerender(
+      <Checkbox indeterminate={false}>
+        Select all
+      </Checkbox>,
+    );
+
+    expect(checkbox).toHaveProperty(
+      'indeterminate',
+      false,
+    );
+  });
+
+  it('supports controlled checked state with indeterminate state', () => {
+    const {
+      rerender,
+    } = render(
+      <Checkbox
+        checked={false}
+        indeterminate
+        readOnly
+      >
+        Select rows
+      </Checkbox>,
+    );
+
+    const checkbox =
+      screen.getByRole('checkbox');
+
+    expect(checkbox).not.toBeChecked();
+
+    expect(checkbox).toHaveProperty(
+      'indeterminate',
+      true,
+    );
+
+    rerender(
+      <Checkbox
+        checked
+        indeterminate={false}
+        readOnly
+      >
+        Select rows
+      </Checkbox>,
+    );
+
+    expect(checkbox).toBeChecked();
+
+    expect(checkbox).toHaveProperty(
+      'indeterminate',
+      false,
+    );
+  });
 });
