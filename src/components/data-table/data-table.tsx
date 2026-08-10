@@ -1,4 +1,6 @@
 import type {
+  KeyboardEvent,
+  MouseEvent,
   ReactNode,
 } from 'react';
 
@@ -141,6 +143,33 @@ export interface DataTableProps<T> {
   ) => DataTableRowKey;
 
   /**
+   * Called when an interactive row is activated
+   * by mouse or keyboard.
+   */
+  onRowClick?: (
+    row: T,
+    rowIndex: number,
+  ) => void;
+
+  /**
+   * Controls whether a particular row can be activated.
+   *
+   * Defaults to true when onRowClick is provided.
+   */
+  isRowClickable?: (
+    row: T,
+    rowIndex: number,
+  ) => boolean;
+
+  /**
+   * Optional accessible label for clickable rows.
+   */
+  getRowAriaLabel?: (
+    row: T,
+    rowIndex: number,
+  ) => string | undefined;
+
+  /**
    * Whether loading placeholders should be shown.
    */
   loading?: boolean;
@@ -273,6 +302,40 @@ function SortButton({
   );
 }
 
+const interactiveElementSelector = [
+  'a[href]',
+  'button',
+  'input',
+  'label',
+  'select',
+  'textarea',
+  '[role="button"]',
+  '[role="checkbox"]',
+  '[role="link"]',
+  '[contenteditable="true"]',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',');
+
+function isInteractiveElement(
+  target: EventTarget | null,
+  currentTarget: HTMLElement,
+): boolean {
+  if (!(target instanceof Element)) {
+    return false;
+  }
+
+  const interactiveElement =
+    target.closest(
+      interactiveElementSelector,
+    );
+
+  return interactiveElement != null
+    && interactiveElement !== currentTarget
+    && currentTarget.contains(
+      interactiveElement,
+    );
+}
+
 export function DataTable<T>({
   columns,
   data,
@@ -300,6 +363,10 @@ export function DataTable<T>({
   caption,
 
   selection,
+
+  onRowClick,
+  isRowClickable,
+  getRowAriaLabel,
 }: DataTableProps<T>) {
   const safeLoadingRows =
     Math.max(
@@ -607,10 +674,102 @@ export function DataTable<T>({
                         )
                         ?? false;
 
+                      const clickable =
+                        onRowClick != null
+                        && (
+                          isRowClickable?.(
+                            row,
+                            rowIndex,
+                          )
+                          ?? true
+                        );
+
+                      const handleRowClick = (
+                        event: MouseEvent<HTMLTableRowElement>,
+                      ): void => {
+                        if (
+                          !clickable
+                          || onRowClick == null
+                        ) {
+                          return;
+                        }
+
+                        if (
+                          isInteractiveElement(
+                            event.target,
+                            event.currentTarget,
+                          )
+                        ) {
+                          return;
+                        }
+
+                        onRowClick(
+                          row,
+                          rowIndex,
+                        );
+                      };
+
+                      const handleRowKeyDown = (
+                        event: KeyboardEvent<HTMLTableRowElement>,
+                      ): void => {
+                        if (
+                          !clickable
+                          || onRowClick == null
+                        ) {
+                          return;
+                        }
+
+                        /*
+                        * If keyboard input originated from a control inside
+                        * the row, let that control handle it.
+                        */
+                        if (
+                          event.target !== event.currentTarget
+                        ) {
+                          return;
+                        }
+
+                        if (
+                          event.key !== 'Enter'
+                          && event.key !== ' '
+                        ) {
+                          return;
+                        }
+
+                        event.preventDefault();
+
+                        onRowClick(
+                          row,
+                          rowIndex,
+                        );
+                      };
+
                       return (
                         <TableRow
                           key={rowKey}
                           selected={selected}
+                          tabIndex={
+                            clickable
+                              ? 0
+                              : undefined
+                          }
+                          aria-label={
+                            clickable
+                              ? getRowAriaLabel?.(
+                                  row,
+                                  rowIndex,
+                                )
+                              : undefined
+                          }
+                          className={classNames(
+                            clickable
+                              && 'rush-data-table__row--clickable',
+                          )}
+                          data-clickable={
+                            clickable || undefined
+                          }
+                          onClick={handleRowClick}
+                          onKeyDown={handleRowKeyDown}
                         >
                           {selection != null && (
                             <TableCell

@@ -17,6 +17,10 @@ import {
   Badge,
 } from '../badge';
 
+import {
+  Button,
+} from '../button';
+
 import type {
   DataTableColumn,
 } from './data-table';
@@ -99,6 +103,53 @@ const columns: DataTableColumn<RecordRow>[] = [
     ),
   },
 ];
+
+const columnsWithActions:
+  DataTableColumn<RecordRow>[] = [
+    ...columns,
+
+    {
+      id: 'actions',
+      header: '',
+      align: 'right',
+
+      cell: (row) => (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            gap: '0.5rem',
+          }}
+        >
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => {
+              console.log(
+                'Edit',
+                row.id,
+              );
+            }}
+          >
+            Edit
+          </Button>
+
+          <Button
+            size="sm"
+            variant="destructive"
+            onClick={() => {
+              console.log(
+                'Delete',
+                row.id,
+              );
+            }}
+          >
+            Delete
+          </Button>
+        </div>
+      ),
+    },
+  ];
 
 const meta = {
   title: 'Components/DataTable',
@@ -332,6 +383,109 @@ export const PartiallySelectable: Story = {
           ),
         }}
       />
+    );
+  },
+};
+
+export const ClickableRows: Story = {
+  render: (args) => {
+    const [
+      openedRecord,
+      setOpenedRecord,
+    ] = useState<RecordRow | null>(
+      null,
+    );
+
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gap: '1rem',
+        }}
+      >
+        <DataTable<RecordRow>
+          {...args}
+          columns={
+            columnsWithActions
+          }
+          onRowClick={(row) => {
+            setOpenedRecord(
+              row,
+            );
+          }}
+          getRowAriaLabel={(
+            row,
+          ) => (
+            `Open record for ${row.player}`
+          )}
+        />
+
+        <div>
+          Opened:{' '}
+          {openedRecord?.player
+            ?? 'none'}
+        </div>
+      </div>
+    );
+  },
+};
+
+export const SelectableClickableRows: Story = {
+  render: (args) => {
+    const [
+      selectedKeys,
+      setSelectedKeys,
+    ] = useState<
+      Set<DataTableRowKey>
+    >(
+      new Set(),
+    );
+
+    const [
+      openedRecord,
+      setOpenedRecord,
+    ] = useState<RecordRow | null>(
+      null,
+    );
+
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gap: '1rem',
+        }}
+      >
+        <DataTable<RecordRow>
+          {...args}
+          columns={
+            columnsWithActions
+          }
+          selection={{
+            selectedKeys,
+            onSelectionChange:
+              setSelectedKeys,
+          }}
+          onRowClick={(row) => {
+            setOpenedRecord(
+              row,
+            );
+          }}
+          getRowAriaLabel={(
+            row,
+          ) => (
+            `Open record for ${row.player}`
+          )}
+        />
+
+        <div>
+          Selected:{' '}
+          {selectedKeys.size}
+          {' · '}
+          Opened:{' '}
+          {openedRecord?.player
+            ?? 'none'}
+        </div>
+      </div>
     );
   },
 };

@@ -121,6 +121,21 @@
     .rush-checkbox {
     margin-inline: auto;
   }
+
+  &__row--clickable {
+    cursor: pointer;
+
+    &:focus-visible {
+      position: relative;
+
+      outline: 2px solid var(
+        --rush-color-ring,
+        #94a3b8
+      );
+
+      outline-offset: -2px;
+    }
+  }
 }
 
 @media (width <= 40rem) {
