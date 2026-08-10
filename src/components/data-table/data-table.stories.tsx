@@ -25,6 +25,18 @@ import type {
   DataTableColumn,
 } from './data-table';
 
+import {
+  DataTableToolbar,
+} from '../data-table-toolbar';
+
+import {
+  Input,
+} from '../input';
+
+import {
+  Select,
+} from '../select';
+
 interface RecordRow {
   id: number;
   player: string;
@@ -55,6 +67,69 @@ const records: RecordRow[] = [
     type: 'PRO',
     time: '00:58.32',
   },
+  {
+    id: 4,
+    player: 'SpeedRunner',
+    map: 'kz_beginner',
+    type: 'PRO',
+    time: '00:47.11',
+  },
+  {
+    id: 5,
+    player: 'Climber',
+    map: 'kz_extreme',
+    type: 'NUB',
+    time: '03:18.20',
+  },
+  {
+    id: 6,
+    player: 'Jumper',
+    map: 'kz_simple',
+    type: 'PRO',
+    time: '01:05.73',
+  },
+  {
+    id: 7,
+    player: 'Runner',
+    map: 'kz_master',
+    type: 'PRO',
+    time: '01:41.92',
+  },
+  {
+    id: 8,
+    player: 'OldSchool',
+    map: 'kz_legacy',
+    type: 'NUB',
+    time: '02:51.04',
+  },
+  {
+    id: 9,
+    player: 'FastPlayer',
+    map: 'kz_speed',
+    type: 'PRO',
+    time: '00:54.37',
+  },
+  {
+    id: 10,
+    player: 'Kreedzer',
+    map: 'kz_jump',
+    type: 'NUB',
+    time: '02:03.66',
+  },
+  {
+    id: 11,
+    player: 'Veteran',
+    map: 'kz_old',
+    type: 'PRO',
+    time: '01:35.28',
+  },
+  {
+    id: 12,
+    player: 'NewPlayer',
+    map: 'kz_training',
+    type: 'NUB',
+    time: '04:12.10',
+  },
 ];
 
 const columns: DataTableColumn<RecordRow>[] = [
@@ -79,6 +154,7 @@ const columns: DataTableColumn<RecordRow>[] = [
   {
     id: 'type',
     header: 'Type',
+    sortable: true,
 
     cell: (row) => (
       <Badge
@@ -484,6 +560,309 @@ export const SelectableClickableRows: Story = {
           Opened:{' '}
           {openedRecord?.player
             ?? 'none'}
+        </div>
+      </div>
+    );
+  },
+};
+
+export const CompleteExample: Story = {
+  render: (args) => {
+    const [search, setSearch] = useState('');
+    const [type, setType] = useState('');
+    const [page, setPage] = useState(1);
+
+    const [sorting, setSorting] =
+      useState<DataTableSorting>({
+        column: 'time',
+        direction: 'asc',
+      });
+
+    const [selectedKeys, setSelectedKeys] =
+      useState<Set<DataTableRowKey>>(
+        new Set(),
+      );
+
+    const [openedRecord, setOpenedRecord] =
+      useState<RecordRow | null>(null);
+
+    const pageSize = 5;
+
+    const filteredData = records.filter(
+      (record) => {
+        const normalizedSearch =
+          search
+            .trim()
+            .toLowerCase();
+
+        const matchesSearch =
+          normalizedSearch === ''
+          || record.player
+            .toLowerCase()
+            .includes(
+              normalizedSearch,
+            )
+          || record.map
+            .toLowerCase()
+            .includes(
+              normalizedSearch,
+            );
+
+        const matchesType =
+          type === ''
+          || record.type === type;
+
+        return (
+          matchesSearch
+          && matchesType
+        );
+      },
+    );
+
+    const sortedData = [
+      ...filteredData,
+    ].sort((a, b) => {
+      const direction =
+        sorting.direction === 'asc'
+          ? 1
+          : -1;
+
+      switch (sorting.column) {
+        case 'player':
+          return (
+            a.player.localeCompare(
+              b.player,
+            )
+            * direction
+          );
+
+        case 'map':
+          return (
+            a.map.localeCompare(
+              b.map,
+            )
+            * direction
+          );
+
+        case 'type':
+          return (
+            a.type.localeCompare(
+              b.type,
+            )
+            * direction
+          );
+
+        case 'time':
+          return (
+            a.time.localeCompare(
+              b.time,
+            )
+            * direction
+          );
+
+        default:
+          return 0;
+      }
+    });
+
+    const pageCount =
+      Math.max(
+        1,
+        Math.ceil(
+          sortedData.length
+          / pageSize,
+        ),
+      );
+
+    const currentPage =
+      Math.min(
+        page,
+        pageCount,
+      );
+
+    const start =
+      (currentPage - 1)
+      * pageSize;
+
+    const pageData =
+      sortedData.slice(
+        start,
+        start + pageSize,
+      );
+
+    const clearSelection = (): void => {
+      setSelectedKeys(
+        new Set(),
+      );
+    };
+
+    return (
+      <div
+        style={{
+          display: 'grid',
+          gap: '1rem',
+        }}
+      >
+        <DataTableToolbar
+          start={(
+            <>
+              <div
+                style={{
+                  width: '18rem',
+                }}
+              >
+                <Input
+                  type="search"
+                  placeholder="Search player or map..."
+                  aria-label="Search records"
+                  value={search}
+                  onChange={(event) => {
+                    setSearch(
+                      event.currentTarget.value,
+                    );
+
+                    setPage(1);
+                  }}
+                />
+              </div>
+
+              <div
+                style={{
+                  width: '10rem',
+                }}
+              >
+                <Select
+                  aria-label="Record type"
+                  value={type}
+                  onChange={(event) => {
+                    setType(
+                      event.currentTarget.value,
+                    );
+
+                    setPage(1);
+                  }}
+                >
+                  <option value="">
+                    All types
+                  </option>
+
+                  <option value="PRO">
+                    PRO
+                  </option>
+
+                  <option value="NUB">
+                    NUB
+                  </option>
+                </Select>
+              </div>
+            </>
+          )}
+
+          selection={
+            selectedKeys.size > 0
+              ? (
+                <span>
+                  {selectedKeys.size}{' '}
+                  selected
+                </span>
+              )
+              : undefined
+          }
+
+          end={
+            selectedKeys.size > 0
+              ? (
+                <>
+                  <Button
+                    variant="outline"
+                    onClick={
+                      clearSelection
+                    }
+                  >
+                    Clear
+                  </Button>
+
+                  <Button
+                    variant="destructive"
+                    onClick={() => {
+                      clearSelection();
+                    }}
+                  >
+                    Delete selected
+                  </Button>
+                </>
+              )
+              : (
+                <Button>
+                  Add record
+                </Button>
+              )
+          }
+        />
+
+        <DataTable<RecordRow>
+          {...args}
+          data={pageData}
+          sorting={sorting}
+          onSortChange={(
+            nextSorting,
+          ) => {
+            setSorting(
+              nextSorting,
+            );
+
+            setPage(1);
+          }}
+          selection={{
+            selectedKeys,
+            onSelectionChange:
+              setSelectedKeys,
+          }}
+          pagination={{
+            page: currentPage,
+            pageCount,
+            showFirstLast: true,
+
+            onPageChange:
+              setPage,
+          }}
+          onRowClick={(row) => {
+            setOpenedRecord(
+              row,
+            );
+          }}
+          getRowAriaLabel={(
+            row,
+          ) => (
+            `Open record for ${row.player}`
+          )}
+          emptyTitle="No records found"
+          emptyDescription="Try changing the search text or filters."
+        />
+
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            fontSize: '0.875rem',
+          }}
+        >
+          <span>
+            Results:{' '}
+            {filteredData.length}
+          </span>
+
+          <span>
+            Selected:{' '}
+            {selectedKeys.size}
+          </span>
+
+          <span>
+            Opened:{' '}
+            {openedRecord?.player
+              ?? 'none'}
+          </span>
         </div>
       </div>
     );
