@@ -76,6 +76,11 @@ export {
 } from './components/data-table';
 
 export {
+  DataTableColumnVisibility,
+  type DataTableColumnVisibilityProps,
+} from './components/data-table-column-visibility';
+
+export {
   DataTableToolbar,
   type DataTableToolbarProps,
 } from './components/data-table-toolbar';
