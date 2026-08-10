@@ -107,6 +107,12 @@ export {
 } from './components/form-field';
 
 export {
+  Input,
+  type InputProps,
+  type InputSize,
+} from './components/input';
+
+export {
   Label,
   type LabelProps,
 } from './components/label';
