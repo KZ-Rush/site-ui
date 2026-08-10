@@ -76,6 +76,11 @@ export {
 } from './components/data-table';
 
 export {
+  DataTableToolbar,
+  type DataTableToolbarProps,
+} from './components/data-table-toolbar';
+
+export {
   Drawer,
   DrawerClose,
   DrawerContent,
