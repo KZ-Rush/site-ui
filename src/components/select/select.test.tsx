@@ -72,32 +72,30 @@ describe('Select', () => {
     expect(select).toBeRequired();
   });
 
-  it('supports changing the selected value', async () => {
+    it('supports changing the selected value', async () => {
     const user = userEvent.setup();
 
     renderSelect();
 
     const select =
-      screen.getByRole('combobox');
+        screen.getByRole('combobox');
 
     await user.selectOptions(
-      select,
-      'two',
+        select,
+        'two',
     );
 
-    expect(select).toHaveValue(
-      'two',
-    );
+    expect(select).toHaveValue('two');
 
     expect(
-      screen.getByRole(
-        'option',
-        {
-          name: 'Player Two',
-        },
-      ),
-    ).toBeChecked();
-  });
+        screen.getByRole('option', {
+        name: 'Player Two',
+        }),
+    ).toHaveProperty(
+        'selected',
+        true,
+    );
+    });
 
   it('calls native onChange', async () => {
     const user = userEvent.setup();
