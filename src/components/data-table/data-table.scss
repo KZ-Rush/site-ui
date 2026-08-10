@@ -92,6 +92,25 @@
     );
   }
 
+  &__cell--sticky-left,
+  &__cell--sticky-right {
+    position: sticky;
+    z-index: 1;
+
+    background-color: var(
+      --rush-table-background,
+      var(--rush-color-card, #fff)
+    );
+  }
+
+  &__cell--sticky-left {
+    left: 0;
+  }
+
+  &__cell--sticky-right {
+    right: 0;
+  }
+
   &__empty-cell {
     padding: 0;
   }

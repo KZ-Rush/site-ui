@@ -80,6 +80,11 @@ export interface DataTableColumn<T> {
   sortable?: boolean;
 
   /**
+   * Whether the column is sticky on the left or right side of the table.
+   */
+  sticky?: 'left' | 'right';
+
+  /**
    * Optional class applied to header cells.
    */
   headerClassName?: string;
@@ -97,6 +102,10 @@ export interface DataTablePagination {
   showFirstLast?: boolean;
   onPageChange: (page: number) => void;
 }
+
+export type DataTableResponsiveMode =
+  | 'scroll'
+  | 'none';
 
 export type DataTableRowKey =
   | string
@@ -221,6 +230,14 @@ export interface DataTableProps<T> {
   caption?: ReactNode;
 
   selection?: DataTableSelection<T>;
+
+  /**
+   * Controls how the table behaves on small screens.
+   *
+   * - `scroll` (default): Table is horizontally scrollable.
+   * - `none`: Table is not scrollable and may overflow its container.
+   */
+  responsive?: DataTableResponsiveMode;
 }
 
 function getNextSortDirection(
@@ -363,6 +380,7 @@ export function DataTable<T>({
   caption,
 
   selection,
+  responsive = 'scroll',
 
   onRowClick,
   isRowClickable,
@@ -484,6 +502,7 @@ export function DataTable<T>({
     <div
       className={classNames(
         'rush-data-table',
+        `rush-data-table--responsive-${responsive}`,
         className,
       )}
       data-loading={
@@ -546,9 +565,11 @@ export function DataTable<T>({
                     align={
                       column.align
                     }
-                    className={
-                      column.headerClassName
-                    }
+                    className={classNames(
+                      column.headerClassName,
+                      column.sticky
+                        && `rush-data-table__cell--sticky-${column.sticky}`,
+                    )}
                     aria-sort={
                       sorting?.column
                         === column.id
@@ -805,9 +826,11 @@ export function DataTable<T>({
                               <TableCell
                                 key={column.id}
                                 align={column.align}
-                                className={
-                                  column.cellClassName
-                                }
+                                className={classNames(
+                                  column.cellClassName,
+                                  column.sticky &&
+                                    `rush-data-table__cell--sticky-${column.sticky}`,
+                                )}
                               >
                                 {column.cell(
                                   row,

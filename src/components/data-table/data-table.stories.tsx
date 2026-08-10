@@ -188,6 +188,7 @@ const columnsWithActions:
       id: 'actions',
       header: '',
       align: 'right',
+      sticky: 'right',
 
       cell: (row) => (
         <div
@@ -867,4 +868,29 @@ export const CompleteExample: Story = {
       </div>
     );
   },
+};
+
+export const ResponsiveScroll: Story = {
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          width: '22rem',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
+
+  render: (args) => (
+    <DataTable<RecordRow>
+      {...args}
+      columns={columnsWithActions}
+      selection={{
+        selectedKeys: new Set(),
+        onSelectionChange: () => {},
+      }}
+    />
+  ),
 };
