@@ -1,13 +1,17 @@
 import eslint from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
 import storybook from 'eslint-plugin-storybook';
 import tseslint from 'typescript-eslint';
+import globals from 'globals';
 
 export default tseslint.config(
   {
-    ignores: ['dist', 'coverage', 'storybook-static'],
+    ignores: [
+      'dist',
+      'coverage',
+      'storybook-static',
+    ],
   },
 
   eslint.configs.recommended,
@@ -15,22 +19,29 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
 
   {
+    files: ['scripts/**/*.{js,mjs,cjs}'],
+
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+
+  {
     files: ['**/*.{ts,tsx}'],
+
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.es2024,
+      },
+    },
 
     plugins: {
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
     },
 
     rules: {
       ...reactHooks.configs.recommended.rules,
-
-      'react-refresh/only-export-components': [
-        'warn',
-        {
-          allowConstantExport: true,
-        },
-      ],
 
       '@typescript-eslint/consistent-type-imports': [
         'error',
@@ -52,7 +63,5 @@ export default tseslint.config(
 
   ...storybook.configs['flat/recommended'],
 
-  // Must be near the end so formatting-related
-  // ESLint rules don't conflict with Prettier.
   prettier,
 );
