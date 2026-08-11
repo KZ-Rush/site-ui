@@ -26,6 +26,8 @@ export {
   type AlertVariant,
 } from './components/alert';
 
+export { Avatar, type AvatarProps, type AvatarSize, type AvatarStatus } from './components/avatar';
+
 export {
   Badge,
   type BadgeLinkProps,
