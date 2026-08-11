@@ -1,6 +1,7 @@
 import {
   render,
   screen,
+  waitFor,
 } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
@@ -437,6 +438,8 @@ describe('Dropdown', () => {
       '{Escape}',
     );
 
-    expect(trigger).toHaveFocus();
+    await waitFor(() => {
+      expect(trigger).toHaveFocus();
+    });
   });
 });
