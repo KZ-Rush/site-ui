@@ -76,6 +76,23 @@ export {
 export { DataTableToolbar, type DataTableToolbarProps } from './components/data-table-toolbar';
 
 export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+  type DialogCloseProps,
+  type DialogCloseRenderProps,
+  type DialogContentProps,
+  type DialogDescriptionProps,
+  type DialogProps,
+  type DialogTitleProps,
+  type DialogTriggerProps,
+  type DialogTriggerRenderProps,
+} from './components/dialog';
+
+export {
   Drawer,
   DrawerClose,
   DrawerContent,
