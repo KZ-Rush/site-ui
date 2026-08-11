@@ -158,6 +158,12 @@ export { Input, type InputProps, type InputSize } from './components/input';
 
 export { Label, type LabelProps } from './components/label';
 
+export {
+  LoadingOverlay,
+  type LoadingOverlayPosition,
+  type LoadingOverlayProps,
+} from './components/loading-overlay';
+
 export { NumberDiff, type NumberDiffProps, type NumberDiffSign } from './components/number-diff';
 
 export { PageHeader, type PageHeaderProps } from './components/page-header';
