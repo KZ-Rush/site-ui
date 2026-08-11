@@ -1,0 +1,88 @@
+.rush-spinner {
+  --rush-spinner-size: 3rem;
+
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  width: var(--rush-spinner-size);
+  height: var(--rush-spinner-size);
+  border-radius: 50%;
+  color: var(--rush-spinner-color, #fff);
+  perspective: 1000px;
+  transform: rotate(45deg);
+
+  &::before,
+  &::after {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+    content: '';
+    transform: rotateX(70deg);
+    animation: rush-spinner-spin 1s linear infinite;
+  }
+
+  &::after {
+    color: var(--rush-spinner-accent-color, #dd163b);
+    transform: rotateY(70deg);
+    animation-delay: 0.4s;
+  }
+
+  &--sm {
+    --rush-spinner-size: 1.5rem;
+  }
+
+  &--default {
+    --rush-spinner-size: 3rem;
+  }
+
+  &--lg {
+    --rush-spinner-size: 4rem;
+  }
+}
+
+@keyframes rush-spinner-spin {
+  0%,
+  100% {
+    box-shadow: 0.2em 0 0 0 currentcolor;
+  }
+
+  12% {
+    box-shadow: 0.2em 0.2em 0 0 currentcolor;
+  }
+
+  25% {
+    box-shadow: 0 0.2em 0 0 currentcolor;
+  }
+
+  37% {
+    box-shadow: -0.2em 0.2em 0 0 currentcolor;
+  }
+
+  50% {
+    box-shadow: -0.2em 0 0 0 currentcolor;
+  }
+
+  62% {
+    box-shadow: -0.2em -0.2em 0 0 currentcolor;
+  }
+
+  75% {
+    box-shadow: 0 -0.2em 0 0 currentcolor;
+  }
+
+  87% {
+    box-shadow: 0.2em -0.2em 0 0 currentcolor;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rush-spinner {
+    &::before,
+    &::after {
+      animation-duration: 2s;
+    }
+  }
+}

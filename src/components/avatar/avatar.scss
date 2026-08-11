@@ -1,0 +1,72 @@
+.rush-avatar {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  border-radius: 50%;
+  background-color: var(--rush-avatar-background, var(--rush-color-muted, #f1f5f9));
+  color: var(--rush-avatar-foreground, var(--rush-color-muted-foreground, #64748b));
+  font-weight: 600;
+  line-height: 1;
+
+  &--sm {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.75rem;
+  }
+
+  &--default {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 0.875rem;
+  }
+
+  &--lg {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1rem;
+  }
+
+  &__image,
+  &__fallback {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  &__image {
+    display: block;
+    object-fit: cover;
+  }
+
+  &__fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &__status {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 2px solid var(--rush-avatar-status-border-color, var(--rush-color-background, #fff));
+    border-radius: 50%;
+
+    &--online {
+      background-color: var(--rush-avatar-status-online, #16a34a);
+    }
+
+    &--offline {
+      background-color: var(--rush-avatar-status-offline, #94a3b8);
+    }
+
+    &--busy {
+      background-color: var(--rush-avatar-status-busy, #dc2626);
+    }
+  }
+}

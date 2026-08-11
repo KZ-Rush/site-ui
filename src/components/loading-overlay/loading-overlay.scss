@@ -1,0 +1,16 @@
+.rush-loading-overlay {
+  inset: 0;
+  z-index: var(--rush-loading-overlay-z-index, 1300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--rush-loading-overlay-background, rgb(0 0 0 / 90%));
+
+  &--fixed {
+    position: fixed;
+  }
+
+  &--absolute {
+    position: absolute;
+  }
+}

@@ -1,6 +1,20 @@
 import './styles/index.scss';
 
 export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  type AccordionContentProps,
+  type AccordionItemProps,
+  type AccordionMultipleProps,
+  type AccordionProps,
+  type AccordionSingleProps,
+  type AccordionTriggerProps,
+  type AccordionType,
+} from './components/accordion';
+
+export {
   Alert,
   AlertDescription,
   AlertList,
@@ -11,6 +25,8 @@ export {
   type AlertTitleProps,
   type AlertVariant,
 } from './components/alert';
+
+export { Avatar, type AvatarProps, type AvatarSize, type AvatarStatus } from './components/avatar';
 
 export {
   Badge,
@@ -55,6 +71,8 @@ export {
 
 export { Checkbox, type CheckboxProps } from './components/checkbox';
 
+export { ConfirmDialog, type ConfirmDialogProps } from './components/confirm-dialog';
+
 export { CopyButton, type CopyButtonProps, type CopyButtonStatus } from './components/copy-button';
 
 export {
@@ -74,6 +92,23 @@ export {
 } from './components/data-table-column-visibility';
 
 export { DataTableToolbar, type DataTableToolbarProps } from './components/data-table-toolbar';
+
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+  type DialogCloseProps,
+  type DialogCloseRenderProps,
+  type DialogContentProps,
+  type DialogDescriptionProps,
+  type DialogProps,
+  type DialogTitleProps,
+  type DialogTriggerProps,
+  type DialogTriggerRenderProps,
+} from './components/dialog';
 
 export {
   Drawer,
@@ -123,6 +158,12 @@ export { Input, type InputProps, type InputSize } from './components/input';
 
 export { Label, type LabelProps } from './components/label';
 
+export {
+  LoadingOverlay,
+  type LoadingOverlayPosition,
+  type LoadingOverlayProps,
+} from './components/loading-overlay';
+
 export { NumberDiff, type NumberDiffProps, type NumberDiffSign } from './components/number-diff';
 
 export { PageHeader, type PageHeaderProps } from './components/page-header';
@@ -148,6 +189,8 @@ export { Progress, type ProgressProps } from './components/progress';
 
 export { Select, type SelectProps, type SelectSize } from './components/select';
 
+export { Separator, type SeparatorOrientation, type SeparatorProps } from './components/separator';
+
 export {
   SidebarNavigation,
   SidebarNavigationGroup,
@@ -162,6 +205,8 @@ export {
 } from './components/sidebar-navigation';
 
 export { Skeleton, type SkeletonProps, type SkeletonVariant } from './components/skeleton';
+
+export { Spinner, type SpinnerProps, type SpinnerSize } from './components/spinner';
 
 export { Switch, type SwitchProps } from './components/switch';
 
@@ -187,6 +232,18 @@ export {
   type TableProps,
   type TableRowProps,
 } from './components/table';
+
+export {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  type TabsContentProps,
+  type TabsListProps,
+  type TabsOrientation,
+  type TabsProps,
+  type TabsTriggerProps,
+} from './components/tabs';
 
 export { Textarea, type TextareaProps, type TextareaSize } from './components/textarea';
 

@@ -1,0 +1,48 @@
+.rush-dialog {
+  &__portal {
+    position: fixed;
+    inset: 0;
+    z-index: var(--rush-dialog-z-index, 1200);
+  }
+
+  &__overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: var(--rush-dialog-viewport-padding, 1rem);
+    background-color: var(--rush-dialog-overlay-background, rgb(15 23 42 / 50%));
+  }
+
+  &__content {
+    box-sizing: border-box;
+    width: min(var(--rush-dialog-width, 32rem), 100%);
+    max-height: calc(100vh - 2 * var(--rush-dialog-viewport-padding, 1rem));
+    overflow-y: auto;
+    padding: var(--rush-dialog-padding, 1.5rem);
+    border: 1px solid var(--rush-dialog-border-color, var(--rush-color-border, #e2e8f0));
+    border-radius: var(--rush-dialog-border-radius, var(--rush-radius-lg, 0.625rem));
+    background-color: var(--rush-dialog-background, var(--rush-color-background, #fff));
+    color: var(--rush-dialog-foreground, var(--rush-color-foreground, #0f172a));
+    box-shadow: 0 24px 60px rgb(0 0 0 / 20%);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  &__description {
+    margin: 0.5rem 0 0;
+    color: var(--rush-dialog-description-foreground, var(--rush-color-muted-foreground, #64748b));
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+}
