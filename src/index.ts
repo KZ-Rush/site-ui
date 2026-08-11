@@ -200,6 +200,8 @@ export {
 
 export { Skeleton, type SkeletonProps, type SkeletonVariant } from './components/skeleton';
 
+export { Spinner, type SpinnerProps, type SpinnerSize } from './components/spinner';
+
 export { Switch, type SwitchProps } from './components/switch';
 
 export {
