@@ -323,4 +323,35 @@ describe('Dropdown', () => {
       screen.getByRole('menu'),
     ).toBeInTheDocument();
   });
+
+  it('supports Button props on the trigger', () => {
+    render(
+      <Dropdown>
+        <DropdownTrigger
+          variant="outline"
+          size="sm"
+        >
+          Actions
+        </DropdownTrigger>
+
+        <DropdownContent>
+          <DropdownItem>
+            Edit
+          </DropdownItem>
+        </DropdownContent>
+      </Dropdown>,
+    );
+
+    const trigger =
+      screen.getByRole(
+        'button',
+        {
+          name: 'Actions',
+        },
+      );
+
+    expect(trigger).toHaveClass(
+      'rush-button',
+    );
+  });
 });

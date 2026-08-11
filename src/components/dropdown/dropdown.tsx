@@ -24,6 +24,11 @@ import {
   classNames,
 } from '../../utils/class-names';
 
+import {
+  Button,
+  type NativeButtonProps,
+} from '../button';
+
 import './dropdown.scss';
 
 export type DropdownAlign =
@@ -124,7 +129,7 @@ export function Dropdown({
 }
 
 export type DropdownTriggerProps =
-  ButtonHTMLAttributes<HTMLButtonElement>;
+  NativeButtonProps;
 
 export function DropdownTrigger({
   className,
@@ -144,19 +149,15 @@ export function DropdownTrigger({
   ): void => {
     onClick?.(event);
 
-    if (
-      event.defaultPrevented
-    ) {
+    if (event.defaultPrevented) {
       return;
     }
 
-    setOpen(
-      !open,
-    );
+    setOpen(!open);
   };
 
   return (
-    <button
+    <Button
       {...props}
       ref={triggerRef}
       type="button"
@@ -172,12 +173,10 @@ export function DropdownTrigger({
         className,
       )}
       data-slot="dropdown-trigger"
-      onClick={
-        handleClick
-      }
+      onClick={handleClick}
     >
       {children}
-    </button>
+    </Button>
   );
 }
 

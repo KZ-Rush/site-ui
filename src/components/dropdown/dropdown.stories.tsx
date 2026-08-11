@@ -149,11 +149,11 @@ export const Checkboxes: Story = {
   },
 };
 
-export const ButtonTrigger: Story = {
+export const TriggerVariant: Story = {
   render: () => (
     <Dropdown>
       <DropdownTrigger
-        className="rush-button"
+        variant="outline"
       >
         Actions
       </DropdownTrigger>

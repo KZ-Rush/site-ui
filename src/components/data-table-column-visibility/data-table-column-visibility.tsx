@@ -74,6 +74,7 @@ export function DataTableColumnVisibility<T>({
     <Dropdown>
       <DropdownTrigger
         className={className}
+        variant="outline"
       >
         {label}
       </DropdownTrigger>
