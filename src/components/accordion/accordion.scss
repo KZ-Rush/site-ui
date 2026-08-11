@@ -64,6 +64,27 @@
   }
 
   &__content {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+      grid-template-rows var(--rush-accordion-animation-duration, 200ms)
+        var(--rush-transition-timing, ease-in-out),
+      opacity var(--rush-accordion-animation-duration, 200ms)
+        var(--rush-transition-timing, ease-in-out);
+
+    &--open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+  }
+
+  &__content-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  &__content-body {
     padding: 0 0 1rem;
     color: var(--rush-accordion-content-foreground, var(--rush-color-muted-foreground, #64748b));
     font-size: 0.875rem;
@@ -72,7 +93,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .rush-accordion__indicator {
+  .rush-accordion__indicator,
+  .rush-accordion__content {
     transition: none;
   }
 }

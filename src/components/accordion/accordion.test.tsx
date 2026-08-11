@@ -30,6 +30,18 @@ function renderAccordion() {
   );
 }
 
+function getAccordionPanelByText(text: string): HTMLElement {
+  const content = screen.getByText(text);
+
+  const panel = content.closest('[data-slot="accordion-content"]');
+
+  if (!(panel instanceof HTMLElement)) {
+    throw new Error(`Accordion panel for "${text}" was not found.`);
+  }
+
+  return panel;
+}
+
 describe('Accordion', () => {
   it('renders the initially open item', () => {
     renderAccordion();
@@ -42,7 +54,7 @@ describe('Accordion', () => {
 
     expect(screen.getByText('First content')).toBeInTheDocument();
 
-    expect(screen.queryByText('Second content')).not.toBeInTheDocument();
+    expect(getAccordionPanelByText('Second content')).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('opens another item', async () => {
@@ -58,7 +70,7 @@ describe('Accordion', () => {
 
     expect(screen.getByText('Second content')).toBeInTheDocument();
 
-    expect(screen.queryByText('First content')).not.toBeInTheDocument();
+    expect(getAccordionPanelByText('First content')).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('collapses an open item when collapsible', async () => {
@@ -72,7 +84,7 @@ describe('Accordion', () => {
       }),
     );
 
-    expect(screen.queryByText('First content')).not.toBeInTheDocument();
+    expect(getAccordionPanelByText('First content')).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('does not collapse in non-collapsible single mode', async () => {
@@ -140,7 +152,7 @@ describe('Accordion', () => {
 
     await user.click(trigger);
 
-    expect(screen.queryByText('Disabled content')).not.toBeInTheDocument();
+    expect(getAccordionPanelByText('Disabled content')).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('calls onValueChange in single mode', async () => {

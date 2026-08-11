@@ -269,20 +269,25 @@ export type AccordionContentProps = ComponentPropsWithoutRef<'div'>;
 export function AccordionContent({ className, children, ...props }: AccordionContentProps) {
   const { open, triggerId, contentId } = useAccordionItemContext();
 
-  if (!open) {
-    return null;
-  }
-
   return (
     <div
       {...props}
       id={contentId}
       role="region"
       aria-labelledby={triggerId}
-      className={classNames('rush-accordion__content', className)}
+      aria-hidden={!open}
+      inert={!open ? true : undefined}
+      className={classNames(
+        'rush-accordion__content',
+        open && 'rush-accordion__content--open',
+        className,
+      )}
+      data-open={open || undefined}
       data-slot="accordion-content"
     >
-      {children}
+      <div className="rush-accordion__content-inner">
+        <div className="rush-accordion__content-body">{children}</div>
+      </div>
     </div>
   );
 }
