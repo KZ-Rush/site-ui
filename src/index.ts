@@ -160,6 +160,20 @@ export {
 } from './components/pagination';
 
 export {
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
+  type PopoverAlign,
+  type PopoverCloseProps,
+  type PopoverContentProps,
+  type PopoverProps,
+  type PopoverSide,
+  type PopoverTriggerProps,
+  type PopoverTriggerRenderProps,
+} from './components/popover';
+
+export {
   Progress,
   type ProgressProps,
 } from './components/progress';
