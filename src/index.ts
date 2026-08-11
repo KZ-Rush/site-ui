@@ -1,6 +1,20 @@
 import './styles/index.scss';
 
 export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  type AccordionContentProps,
+  type AccordionItemProps,
+  type AccordionMultipleProps,
+  type AccordionProps,
+  type AccordionSingleProps,
+  type AccordionTriggerProps,
+  type AccordionType,
+} from './components/accordion';
+
+export {
   Alert,
   AlertDescription,
   AlertList,
