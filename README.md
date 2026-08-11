@@ -48,11 +48,16 @@ import {
   DrawerTitle,
   DrawerTrigger,
   FormattedDateTime,
+  Input,
   Label,
   FormField,
   RushToastContainer,
   showToast,
+  Spinner,
   Switch,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from '@kz-rush/site-ui';
 
 import '@kz-rush/site-ui/styles.css';
@@ -77,14 +82,26 @@ export function Example() {
           </Alert>
 
           <FormField>
-            <Label htmlFor="newsletter">Email</Label>
-            <Checkbox id="newsletter">Subscribe me</Checkbox>
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" placeholder="you@example.com" />
+          </FormField>
+
+          <FormField>
+            <Label htmlFor="newsletter">Subscribe to newsletter</Label>
+            <Checkbox id="newsletter" />
           </FormField>
 
           <FormField>
             <Label htmlFor="notifications">Notifications</Label>
             <Switch id="notifications" defaultChecked />
           </FormField>
+
+          <Tooltip>
+            <TooltipTrigger>
+              <Button variant="ghost">Hover me</Button>
+            </TooltipTrigger>
+            <TooltipContent>Tooltip text</TooltipContent>
+          </Tooltip>
 
           <Drawer>
             <DrawerTrigger>Open details</DrawerTrigger>
@@ -101,6 +118,7 @@ export function Example() {
           <Button onClick={() => showToast('Settings saved.', { type: 'success' })}>
             Show notification
           </Button>
+          <Spinner size="sm" />
         </CardFooter>
       </Card>
 
@@ -225,23 +243,45 @@ export function WorkspacePage() {
 
 ## Available components
 
+- Accordion, AccordionContent, AccordionItem, AccordionTrigger
 - Alert, AlertTitle, AlertDescription, AlertList
+- Avatar
 - Badge
+- Breadcrumbs, BreadcrumbItem
 - Button
 - Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter
 - Checkbox
+- ConfirmDialog
 - CopyButton
+- DataTable, DataTableColumnVisibility, DataTableToolbar
+- Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose
 - Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerClose
+- Dropdown, DropdownTrigger, DropdownContent, DropdownItem, DropdownCheckboxItem, DropdownSeparator
+- EmptyState
 - FormattedDateTime
 - FormField
+- Input
 - Label
+- LoadingOverlay
 - NumberDiff
+- PageHeader
+- Pagination
+- Popover, PopoverTrigger, PopoverContent, PopoverClose
 - Progress
+- Select
+- Separator
+- SidebarNavigation, SidebarNavigationGroup, SidebarNavigationItem, SidebarNavigationSeparator
+- Skeleton
+- Spinner
 - Switch
+- Table, TableContainer, TableHeader, TableHead, TableBody, TableRow, TableCell, TableFooter, TableCaption
+- Tabs, TabsList, TabsTrigger, TabsContent
+- Textarea
+- Tooltip, TooltipTrigger, TooltipContent
 - RushToastContainer and showToast
 - BlogLayout
-- DashboardLayout and DashboardSidebarToggle
-- WorkspaceLayout, WorkspaceAsideToggle, and WorkspaceSidebarToggle
+- DashboardLayout, DashboardSidebarToggle, and DashboardMobileSidebarToggle
+- WorkspaceLayout, WorkspaceAsideToggle, WorkspaceSidebarToggle, WorkspaceMobileAsideToggle, and WorkspaceMobileSidebarToggle
 
 ## Styling
 
