@@ -354,4 +354,89 @@ describe('Dropdown', () => {
       'rush-button',
     );
   });
+
+  it('supports a custom trigger renderer', async () => {
+    const user =
+      userEvent.setup();
+
+    render(
+      <Dropdown>
+        <DropdownTrigger
+          render={(
+            triggerProps,
+          ) => (
+            <button
+              {...triggerProps}
+              type="button"
+            >
+              Custom trigger
+            </button>
+          )}
+        />
+
+        <DropdownContent>
+          <DropdownItem>
+            Profile
+          </DropdownItem>
+        </DropdownContent>
+      </Dropdown>,
+    );
+
+    await user.click(
+      screen.getByRole(
+        'button',
+        {
+          name: 'Custom trigger',
+        },
+      ),
+    );
+
+    expect(
+      screen.getByRole('menu'),
+    ).toBeInTheDocument();
+  });
+
+  it('restores focus to a custom trigger after Escape', async () => {
+    const user =
+      userEvent.setup();
+
+    render(
+      <Dropdown>
+        <DropdownTrigger
+          render={(
+            triggerProps,
+          ) => (
+            <button
+              {...triggerProps}
+              type="button"
+            >
+              Custom trigger
+            </button>
+          )}
+        />
+
+        <DropdownContent>
+          <DropdownItem>
+            Profile
+          </DropdownItem>
+        </DropdownContent>
+      </Dropdown>,
+    );
+
+    const trigger =
+      screen.getByRole(
+        'button',
+        {
+          name: 'Custom trigger',
+        },
+      );
+
+    await user.click(trigger);
+
+    await user.keyboard(
+      '{Escape}',
+    );
+
+    expect(trigger).toHaveFocus();
+  });
 });

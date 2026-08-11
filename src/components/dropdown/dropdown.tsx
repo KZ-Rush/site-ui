@@ -29,6 +29,10 @@ import {
   type NativeButtonProps,
 } from '../button';
 
+import type {
+  TriggerRenderProps,
+} from '../../types/trigger';
+
 import './dropdown.scss';
 
 export type DropdownAlign =
@@ -128,12 +132,22 @@ export function Dropdown({
   );
 }
 
-export type DropdownTriggerProps =
-  NativeButtonProps;
+export interface DropdownTriggerProps
+  extends Omit<
+    NativeButtonProps,
+    'children'
+  > {
+  children?: ReactNode;
+
+  render?: (
+    props: TriggerRenderProps<HTMLButtonElement>,
+  ) => ReactNode;
+}
 
 export function DropdownTrigger({
-  className,
   children,
+  render,
+  className,
   onClick,
   ...props
 }: DropdownTriggerProps) {
@@ -145,7 +159,8 @@ export function DropdownTrigger({
   } = useDropdownContext();
 
   const handleClick = (
-    event: ReactMouseEvent<HTMLButtonElement>,
+    event:
+      ReactMouseEvent<HTMLButtonElement>,
   ): void => {
     onClick?.(event);
 
@@ -156,24 +171,40 @@ export function DropdownTrigger({
     setOpen(!open);
   };
 
+  const triggerProps:
+    TriggerRenderProps<HTMLButtonElement> = {
+      ref: triggerRef,
+
+      'aria-expanded': open,
+
+      'aria-haspopup': 'menu',
+
+      'aria-controls':
+        open
+          ? contentId
+          : undefined,
+
+      onClick: handleClick,
+    };
+
+  if (render) {
+    return (
+      <>
+        {render(triggerProps)}
+      </>
+    );
+  }
+
   return (
     <Button
       {...props}
-      ref={triggerRef}
+      {...triggerProps}
       type="button"
-      aria-expanded={open}
-      aria-haspopup="menu"
-      aria-controls={
-        open
-          ? contentId
-          : undefined
-      }
       className={classNames(
         'rush-dropdown__trigger',
         className,
       )}
       data-slot="dropdown-trigger"
-      onClick={handleClick}
     >
       {children}
     </Button>

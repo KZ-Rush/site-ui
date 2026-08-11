@@ -177,3 +177,67 @@ export const TriggerVariant: Story = {
   ),
 };
 
+export const CustomTrigger: Story = {
+  render: () => (
+    <Dropdown>
+      <DropdownTrigger
+        render={(
+          triggerProps,
+        ) => (
+          <Button
+            {...triggerProps}
+            variant="outline"
+            size="sm"
+          >
+            Custom trigger
+          </Button>
+        )}
+      />
+
+      <DropdownContent align="end">
+        <DropdownItem>
+          Edit
+        </DropdownItem>
+
+        <DropdownItem>
+          Duplicate
+        </DropdownItem>
+      </DropdownContent>
+    </Dropdown>
+  ),
+};
+
+export const IconTrigger: Story = {
+  render: () => (
+    <Dropdown>
+      <DropdownTrigger
+        render={(
+          triggerProps,
+        ) => (
+          <button
+            {...triggerProps}
+            type="button"
+            aria-label="More actions"
+            style={{
+              width: '2rem',
+              height: '2rem',
+              borderRadius: '50%',
+            }}
+          >
+            ⋯
+          </button>
+        )}
+      />
+
+      <DropdownContent align="end">
+        <DropdownItem>
+          Edit
+        </DropdownItem>
+
+        <DropdownItem destructive>
+          Delete
+        </DropdownItem>
+      </DropdownContent>
+    </Dropdown>
+  ),
+};
