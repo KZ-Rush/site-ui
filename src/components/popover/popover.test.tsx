@@ -1,6 +1,7 @@
 import {
   render,
   screen,
+  waitFor,
 } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
@@ -298,5 +299,70 @@ describe('Popover', () => {
         'Content',
       ),
     ).toBeInTheDocument();
+  });
+
+  it('supports a custom close renderer', async () => {
+    const user =
+      userEvent.setup();
+
+    render(
+      <Popover>
+        <PopoverTrigger<HTMLButtonElement>
+          render={(triggerProps) => (
+            <button
+              {...triggerProps}
+              type="button"
+            >
+              Open
+            </button>
+          )}
+        />
+
+        <PopoverContent>
+          <PopoverClose<HTMLButtonElement>
+            render={(closeProps) => (
+              <button
+                {...closeProps}
+                type="button"
+              >
+                Cancel
+              </button>
+            )}
+          />
+        </PopoverContent>
+      </Popover>,
+    );
+
+    const trigger =
+      screen.getByRole(
+        'button',
+        {
+          name: 'Open',
+        },
+      );
+
+    await user.click(trigger);
+
+    await user.click(
+      screen.getByRole(
+        'button',
+        {
+          name: 'Cancel',
+        },
+      ),
+    );
+
+    expect(
+      screen.queryByRole(
+        'button',
+        {
+          name: 'Cancel',
+        },
+      ),
+    ).not.toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(trigger).toHaveFocus();
+    });
   });
 });

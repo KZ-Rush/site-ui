@@ -136,12 +136,26 @@ export const Filters: Story = {
             </option>
           </Select>
 
-          <PopoverClose>
-            Close
-          </PopoverClose>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+            }}
+          >
+            <PopoverClose<HTMLButtonElement>
+              render={(closeProps) => (
+                <Button
+                  {...closeProps}
+                  variant="outline"
+                  size="sm"
+                >
+                  Close
+                </Button>
+              )}
+            />
+          </div>
         </div>
       </PopoverContent>
     </Popover>
   ),
 };
-

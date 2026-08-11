@@ -166,6 +166,7 @@ export {
   PopoverTrigger,
   type PopoverAlign,
   type PopoverCloseProps,
+  type PopoverCloseRenderProps,
   type PopoverContentProps,
   type PopoverProps,
   type PopoverSide,

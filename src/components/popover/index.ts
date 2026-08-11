@@ -8,6 +8,7 @@ export {
 export type {
   PopoverAlign,
   PopoverCloseProps,
+  PopoverCloseRenderProps,
   PopoverContentProps,
   PopoverProps,
   PopoverSide,

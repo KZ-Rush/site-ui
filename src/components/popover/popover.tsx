@@ -520,47 +520,90 @@ export function PopoverContent({
   );
 }
 
-export interface PopoverCloseProps
-  extends ComponentPropsWithoutRef<'button'> {}
+export interface PopoverCloseRenderProps<
+  TElement extends HTMLElement,
+> {
+  onClick:
+    MouseEventHandler<TElement>;
 
-export function PopoverClose({
-  className,
-  onClick,
+  'data-slot':
+    'popover-close';
+}
+
+export interface PopoverCloseProps<
+  TElement extends HTMLElement =
+    HTMLButtonElement,
+> {
+  children?: ReactNode;
+
+  render?: (
+    props:
+      PopoverCloseRenderProps<TElement>,
+  ) => ReactNode;
+}
+
+export function PopoverClose<
+  TElement extends HTMLElement =
+    HTMLButtonElement,
+>({
   children,
-  ...props
-}: PopoverCloseProps) {
+  render,
+}: PopoverCloseProps<TElement>) {
   const {
     setOpen,
     triggerRef,
   } = usePopoverContext();
 
+  const close = (): void => {
+    setOpen(false);
+
+    requestAnimationFrame(() => {
+      triggerRef.current?.focus();
+    });
+  };
+
+  const handleRenderClick:
+    MouseEventHandler<TElement> = (
+      event,
+    ) => {
+      if (event.defaultPrevented) {
+        return;
+      }
+
+      close();
+    };
+
+  if (render) {
+    return (
+      <>
+        {render({
+          onClick:
+            handleRenderClick,
+          'data-slot':
+            'popover-close',
+        })}
+      </>
+    );
+  }
+
+  const handleButtonClick:
+    MouseEventHandler<HTMLButtonElement> = (
+      event,
+    ) => {
+      if (event.defaultPrevented) {
+        return;
+      }
+
+      close();
+    };
+
   return (
     <button
-      {...props}
       type="button"
-      className={classNames(
-        'rush-popover__close',
-        className,
-      )}
       data-slot="popover-close"
-      onClick={(event) => {
-        onClick?.(event);
-
-        if (
-          event.defaultPrevented
-        ) {
-          return;
-        }
-
-        setOpen(false);
-
-        requestAnimationFrame(
-          () => {
-            triggerRef.current
-              ?.focus();
-          },
-        );
-      }}
+      onClick={
+        handleButtonClick
+      }
     >
       {children}
     </button>
