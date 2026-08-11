@@ -235,4 +235,56 @@ describe('Dialog', () => {
       }),
     ).toBeInTheDocument();
   });
+
+  it('does not set aria-describedby when description is omitted', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Dialog>
+        <DialogTrigger<HTMLButtonElement>
+          render={(triggerProps) => (
+            <button {...triggerProps} type="button">
+              Open
+            </button>
+          )}
+        />
+
+        <DialogContent>
+          <DialogTitle>Test dialog</DialogTitle>
+        </DialogContent>
+      </Dialog>,
+    );
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open',
+      }),
+    );
+
+    expect(
+      screen.getByRole('dialog', {
+        name: 'Test dialog',
+      }),
+    ).not.toHaveAttribute('aria-describedby');
+  });
+
+  it('uses the description for aria-describedby', async () => {
+    const user = userEvent.setup();
+
+    renderDialog();
+
+    await user.click(
+      screen.getByRole('button', {
+        name: 'Open',
+      }),
+    );
+
+    const dialog = screen.getByRole('dialog', {
+      name: 'Test dialog',
+    });
+
+    const description = screen.getByText('Test description');
+
+    expect(dialog).toHaveAttribute('aria-describedby', description.id);
+  });
 });

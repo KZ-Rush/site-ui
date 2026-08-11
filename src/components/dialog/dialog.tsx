@@ -35,6 +35,10 @@ interface DialogContextValue {
   descriptionId: string;
 
   focusTrigger: () => void;
+
+  hasDescription: boolean;
+
+  setHasDescription: (hasDescription: boolean) => void;
 }
 
 const DialogContext = createContext<DialogContextValue | null>(null);
@@ -63,6 +67,8 @@ export function Dialog({ children, open, defaultOpen = false, onOpenChange }: Di
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
 
   const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
+
+  const [hasDescription, setHasDescription] = useState(false);
 
   const generatedId = useId();
 
@@ -102,6 +108,8 @@ export function Dialog({ children, open, defaultOpen = false, onOpenChange }: Di
         titleId,
         descriptionId,
         focusTrigger,
+        hasDescription,
+        setHasDescription,
       }}
     >
       {children}
@@ -164,7 +172,8 @@ export function DialogContent({
   children,
   ...props
 }: DialogContentProps) {
-  const { open, setOpen, contentId, titleId, descriptionId, focusTrigger } = useDialogContext();
+  const { open, setOpen, contentId, titleId, descriptionId, focusTrigger, hasDescription } =
+    useDialogContext();
 
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -289,7 +298,7 @@ export function DialogContent({
           role="dialog"
           aria-modal="true"
           aria-labelledby={titleId}
-          aria-describedby={descriptionId}
+          aria-describedby={hasDescription ? descriptionId : undefined}
           tabIndex={-1}
           className={classNames('rush-dialog__content', className)}
           data-slot="dialog-content"
@@ -320,7 +329,15 @@ export function DialogTitle({ className, ...props }: DialogTitleProps) {
 export type DialogDescriptionProps = ComponentPropsWithoutRef<'p'>;
 
 export function DialogDescription({ className, ...props }: DialogDescriptionProps) {
-  const { descriptionId } = useDialogContext();
+  const { descriptionId, setHasDescription } = useDialogContext();
+
+  useEffect(() => {
+    setHasDescription(true);
+
+    return () => {
+      setHasDescription(false);
+    };
+  }, [setHasDescription]);
 
   return (
     <p
