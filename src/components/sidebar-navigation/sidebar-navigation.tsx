@@ -18,6 +18,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  TooltipTriggerRenderProps,
 } from '../tooltip';
 
 import './sidebar-navigation.scss';
@@ -277,14 +278,7 @@ export function SidebarNavigationItem(
     } = props;
 
     const link = (
-      triggerProps?: {
-        ref?: React.Ref<HTMLAnchorElement>;
-        'aria-describedby'?: string;
-        onMouseEnter?: React.MouseEventHandler<HTMLAnchorElement>;
-        onMouseLeave?: React.MouseEventHandler<HTMLAnchorElement>;
-        onFocus?: React.FocusEventHandler<HTMLAnchorElement>;
-        onBlur?: React.FocusEventHandler<HTMLAnchorElement>;
-      },
+      triggerProps?: TooltipTriggerRenderProps<HTMLAnchorElement>,
     ) => (
       <a
         {...anchorProps}
@@ -374,14 +368,7 @@ export function SidebarNavigationItem(
   } = props;
 
   const button = (
-    triggerProps?: {
-      ref?: React.Ref<HTMLButtonElement>;
-      'aria-describedby'?: string;
-      onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
-      onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
-      onFocus?: React.FocusEventHandler<HTMLButtonElement>;
-      onBlur?: React.FocusEventHandler<HTMLButtonElement>;
-    },
+    triggerProps?: TooltipTriggerRenderProps<HTMLButtonElement>,
   ) => (
     <button
       {...buttonProps}
