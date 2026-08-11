@@ -313,4 +313,84 @@ describe('SidebarNavigation', () => {
       'Admin menu',
     );
   });
+
+  it('shows a tooltip for collapsed navigation items', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <SidebarNavigation collapsed>
+        <SidebarNavigationItem
+          href="/records"
+          icon={<span>R</span>}
+          tooltip="Records"
+        >
+          Records
+        </SidebarNavigationItem>
+      </SidebarNavigation>,
+    );
+
+    await user.hover(
+      screen.getByRole(
+        'link',
+        {
+          name: 'Records',
+        },
+      ),
+    );
+
+    expect(
+      await screen.findByRole('tooltip'),
+    ).toHaveTextContent('Records');
+  });
+
+  it('shows a tooltip when a collapsed item receives focus', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <SidebarNavigation collapsed>
+        <SidebarNavigationItem
+          href="/records"
+          icon={<span>R</span>}
+          tooltip="Records"
+        >
+          Records
+        </SidebarNavigationItem>
+      </SidebarNavigation>,
+    );
+
+    await user.tab();
+
+    expect(
+      await screen.findByRole('tooltip'),
+    ).toHaveTextContent('Records');
+  });
+
+  it('does not show a tooltip in expanded mode', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <SidebarNavigation>
+        <SidebarNavigationItem
+          href="/records"
+          icon={<span>R</span>}
+          tooltip="Records"
+        >
+          Records
+        </SidebarNavigationItem>
+      </SidebarNavigation>,
+    );
+
+    await user.hover(
+      screen.getByRole(
+        'link',
+        {
+          name: 'Records',
+        },
+      ),
+    );
+
+    expect(
+      screen.queryByRole('tooltip'),
+    ).not.toBeInTheDocument();
+  });
 });
