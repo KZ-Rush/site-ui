@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { Button } from './button';
+import { createRef } from 'react';
 
 describe('Button', () => {
   it('renders a native button with type=button by default', () => {
@@ -38,5 +39,48 @@ describe('Button', () => {
     expect(element).toHaveAttribute('aria-disabled', 'true');
     fireEvent.click(element);
     expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('forwards a ref to the native button', () => {
+    const ref =
+      createRef<HTMLButtonElement>();
+
+    render(
+      <Button ref={ref}>
+        Save
+      </Button>,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole(
+        'button',
+        {
+          name: 'Save',
+        },
+      ),
+    );
+  });
+
+  it('forwards a ref to the link', () => {
+    const ref =
+      createRef<HTMLAnchorElement>();
+
+    render(
+      <Button
+        ref={ref}
+        href="/records"
+      >
+        Records
+      </Button>,
+    );
+
+    expect(ref.current).toBe(
+      screen.getByRole(
+        'link',
+        {
+          name: 'Records',
+        },
+      ),
+    );
   });
 });

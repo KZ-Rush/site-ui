@@ -2,6 +2,7 @@ import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
   ReactNode,
+  Ref,
 } from 'react';
 
 import { classNames } from '../../utils/class-names';
@@ -51,6 +52,11 @@ export interface NativeButtonProps
       'children' | 'className'
     > {
   href?: never;
+
+  /**
+   * Ref to the native button element.
+   */
+  ref?: Ref<HTMLButtonElement>;
 }
 
 export interface LinkButtonProps
@@ -69,6 +75,11 @@ export interface LinkButtonProps
    * its visible content.
    */
   disabled?: boolean;
+
+  /**
+   * Ref to the native anchor element.
+   */
+  ref?: Ref<HTMLAnchorElement>;
 }
 
 export type ButtonProps =
@@ -120,12 +131,14 @@ export function Button(
       children,
       onClick,
       tabIndex,
+      ref,
       ...anchorProps
     } = props;
 
     return (
       <a
         {...anchorProps}
+        ref={ref}
         href={disabled ? undefined : href}
         aria-disabled={disabled || undefined}
         className={buttonClassName}
@@ -153,12 +166,14 @@ export function Button(
     children,
     disabled,
     type = 'button',
+    ref,
     ...buttonProps
   } = props;
 
   return (
     <button
       {...buttonProps}
+      ref={ref}
       className={buttonClassName}
       data-slot="button"
       data-size={size}

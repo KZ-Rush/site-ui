@@ -14,6 +14,13 @@ import {
   classNames,
 } from '../../utils/class-names';
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipTriggerRenderProps,
+} from '../tooltip';
+
 import './sidebar-navigation.scss';
 
 interface SidebarNavigationContextValue {
@@ -133,6 +140,13 @@ interface SidebarNavigationItemSharedProps {
   icon?: ReactNode;
 
   /**
+   * Tooltip shown in collapsed mode.
+   *
+   * Defaults to children when children is a string.
+   */
+  tooltip?: ReactNode;
+
+  /**
    * Marks this item as the current/active destination.
    */
   active?: boolean;
@@ -246,6 +260,14 @@ export function SidebarNavigationItem(
     className,
   );
 
+  const resolvedTooltip =
+    props.tooltip
+    ?? (
+      typeof children === 'string'
+        ? children
+        : undefined
+    );
+
   if (isLinkItem(props)) {
     const {
       href,
@@ -255,9 +277,12 @@ export function SidebarNavigationItem(
       ...anchorProps
     } = props;
 
-    return (
+    const link = (
+      triggerProps?: TooltipTriggerRenderProps<HTMLAnchorElement>,
+    ) => (
       <a
         {...anchorProps}
+        {...triggerProps}
         href={
           disabled
             ? undefined
@@ -265,7 +290,8 @@ export function SidebarNavigationItem(
         }
         target={target}
         rel={
-          target === '_blank' && rel === undefined
+          target === '_blank'
+            && rel === undefined
             ? 'noopener noreferrer'
             : rel
         }
@@ -308,6 +334,31 @@ export function SidebarNavigationItem(
         </SidebarNavigationItemContent>
       </a>
     );
+
+    if (
+      collapsed
+      && resolvedTooltip != null
+      && !disabled
+    ) {
+      return (
+        <Tooltip>
+          <TooltipTrigger<HTMLAnchorElement>
+            render={(triggerProps) => (
+              link(triggerProps)
+            )}
+          />
+
+          <TooltipContent
+            side="right"
+            align="center"
+          >
+            {resolvedTooltip}
+          </TooltipContent>
+        </Tooltip>
+      );
+    }
+
+    return link();
   }
 
   const {
@@ -316,9 +367,12 @@ export function SidebarNavigationItem(
     ...buttonProps
   } = props;
 
-  return (
+  const button = (
+    triggerProps?: TooltipTriggerRenderProps<HTMLButtonElement>,
+  ) => (
     <button
       {...buttonProps}
+      {...triggerProps}
       type={type}
       disabled={disabled}
       className={itemClassName}
@@ -339,6 +393,31 @@ export function SidebarNavigationItem(
       </SidebarNavigationItemContent>
     </button>
   );
+
+  if (
+    collapsed
+    && resolvedTooltip != null
+    && !disabled
+  ) {
+    return (
+      <Tooltip>
+        <TooltipTrigger<HTMLButtonElement>
+          render={(triggerProps) => (
+            button(triggerProps)
+          )}
+        />
+
+        <TooltipContent
+          side="right"
+          align="center"
+        >
+          {resolvedTooltip}
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
+
+  return button();
 }
 
 export type SidebarNavigationSeparatorProps =

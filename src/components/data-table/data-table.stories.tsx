@@ -30,6 +30,10 @@ import type {
 } from './data-table';
 
 import {
+  DataTableColumnVisibility,
+} from '../data-table-column-visibility';
+
+import {
   DataTableToolbar,
 } from '../data-table-toolbar';
 
@@ -192,6 +196,7 @@ const columnsWithActions:
       id: 'actions',
       header: '',
       align: 'right',
+      hideable: false,
       sticky: 'right',
 
       cell: (row) => (
@@ -591,6 +596,17 @@ export const CompleteExample: Story = {
     const [openedRecord, setOpenedRecord] =
       useState<RecordRow | null>(null);
 
+    const [
+      visibleColumns,
+      setVisibleColumns,
+    ] = useState(
+      new Set(
+        columns.map(
+          (column) => column.id,
+        ),
+      ),
+    );
+
     const pageSize = 5;
 
     const filteredData = records.filter(
@@ -789,18 +805,30 @@ export const CompleteExample: Story = {
 
                   <Button
                     variant="destructive"
-                    onClick={() => {
-                      clearSelection();
-                    }}
+                    onClick={
+                      clearSelection
+                    }
                   >
                     Delete selected
                   </Button>
                 </>
               )
               : (
-                <Button>
-                  Add record
-                </Button>
+                <>
+                  <DataTableColumnVisibility
+                    columns={columns}
+                    visibleColumns={
+                      visibleColumns
+                    }
+                    onVisibilityChange={
+                      setVisibleColumns
+                    }
+                  />
+
+                  <Button>
+                    Add record
+                  </Button>
+                </>
               )
           }
         />
@@ -808,6 +836,11 @@ export const CompleteExample: Story = {
         <DataTable<RecordRow>
           {...args}
           data={pageData}
+
+          columnVisibility={{
+            visibleColumns,
+          }}
+
           sorting={sorting}
           onSortChange={(
             nextSorting,

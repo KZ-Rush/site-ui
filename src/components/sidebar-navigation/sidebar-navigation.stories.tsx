@@ -284,3 +284,69 @@ export const States: Story = {
     </SidebarNavigation>
   ),
 };
+
+export const CollapsedWithTooltips: Story = {
+  render: () => (
+    <div
+      style={{
+        width: '4rem',
+      }}
+    >
+      <SidebarNavigation
+        collapsed
+        aria-label="Main navigation"
+      >
+        <SidebarNavigationGroup>
+          <SidebarNavigationItem
+            href="#dashboard"
+            icon={<span>⌂</span>}
+            tooltip="Dashboard"
+          >
+            Dashboard
+          </SidebarNavigationItem>
+
+          <SidebarNavigationItem
+            href="#records"
+            icon={<span>★</span>}
+            tooltip="Records"
+          >
+            Records
+          </SidebarNavigationItem>
+
+          <SidebarNavigationItem
+            icon={<span>⚙</span>}
+            tooltip="Settings"
+          >
+            Settings
+          </SidebarNavigationItem>
+        </SidebarNavigationGroup>
+      </SidebarNavigation>
+    </div>
+  ),
+};
+
+export const CollapsedAutomaticLabels: Story = {
+  render: () => (
+    <div
+      style={{
+        width: '4rem',
+      }}
+    >
+      <SidebarNavigation collapsed>
+        <SidebarNavigationItem
+          href="#dashboard"
+          icon={<span>⌂</span>}
+        >
+          Dashboard
+        </SidebarNavigationItem>
+
+        <SidebarNavigationItem
+          href="#records"
+          icon={<span>★</span>}
+        >
+          Records
+        </SidebarNavigationItem>
+      </SidebarNavigation>
+    </div>
+  ),
+};

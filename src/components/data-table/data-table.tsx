@@ -85,6 +85,12 @@ export interface DataTableColumn<T> {
   hideable?: boolean;
 
   /**
+   * Optional accessible label for column visibility controls.
+   * If not provided, the header content will be used.
+   */
+  visibilityLabel?: ReactNode;
+
+  /**
    * Whether the column is sticky on the left or right side of the table.
    */
   sticky?: 'left' | 'right';

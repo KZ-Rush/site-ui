@@ -76,6 +76,11 @@ export {
 } from './components/data-table';
 
 export {
+  DataTableColumnVisibility,
+  type DataTableColumnVisibilityProps,
+} from './components/data-table-column-visibility';
+
+export {
   DataTableToolbar,
   type DataTableToolbarProps,
 } from './components/data-table-toolbar';
@@ -93,6 +98,22 @@ export {
   type DrawerTitleProps,
   type DrawerTriggerProps,
 } from './components/drawer';
+
+export {
+  Dropdown,
+  DropdownCheckboxItem,
+  DropdownContent,
+  DropdownItem,
+  DropdownSeparator,
+  DropdownTrigger,
+  type DropdownAlign,
+  type DropdownCheckboxItemProps,
+  type DropdownContentProps,
+  type DropdownItemProps,
+  type DropdownProps,
+  type DropdownSeparatorProps,
+  type DropdownTriggerProps,
+} from './components/dropdown';
 
 export {
   EmptyState,
@@ -137,6 +158,21 @@ export {
   Pagination,
   type PaginationProps,
 } from './components/pagination';
+
+export {
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
+  type PopoverAlign,
+  type PopoverCloseProps,
+  type PopoverCloseRenderProps,
+  type PopoverContentProps,
+  type PopoverProps,
+  type PopoverSide,
+  type PopoverTriggerProps,
+  type PopoverTriggerRenderProps,
+} from './components/popover';
 
 export {
   Progress,
@@ -201,6 +237,18 @@ export {
   type TextareaProps,
   type TextareaSize,
 } from './components/textarea';
+
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  type TooltipAlign,
+  type TooltipContentProps,
+  type TooltipProps,
+  type TooltipSide,
+  type TooltipTriggerProps,
+  type TooltipTriggerRenderProps,
+} from './components/tooltip';
 
 export {
   RushToastContainer,
