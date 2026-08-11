@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export interface UseControllableStateOptions<T> {
   /**
@@ -32,14 +32,6 @@ export function useControllableState<T>({
 
   const isControlled = value !== undefined;
 
-  /*
-   * Keep the latest callback available without making
-   * the setter unstable every time onChange changes.
-   */
-  const onChangeRef = useRef(onChange);
-
-  onChangeRef.current = onChange;
-
   const currentValue = isControlled ? value : internalValue;
 
   const setValue = useCallback<SetControllableState<T>>(
@@ -49,9 +41,9 @@ export function useControllableState<T>({
           ? (nextValue as (current: T) => T)(currentValue)
           : nextValue;
 
-      /*
-       * Do not notify the consumer when nothing actually
-       * changes.
+      /**
+       * Do not notify the consumer when nothing
+       * actually changes.
        */
       if (Object.is(resolvedValue, currentValue)) {
         return;
@@ -61,9 +53,9 @@ export function useControllableState<T>({
         setInternalValue(resolvedValue);
       }
 
-      onChangeRef.current?.(resolvedValue);
+      onChange?.(resolvedValue);
     },
-    [currentValue, isControlled],
+    [currentValue, isControlled, onChange],
   );
 
   return [currentValue, setValue];

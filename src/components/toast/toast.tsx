@@ -6,7 +6,7 @@ import './toast.scss';
 
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
-export interface RushToastContainerProps extends ComponentPropsWithoutRef<typeof ToastContainer> {}
+export type RushToastContainerProps = ComponentPropsWithoutRef<typeof ToastContainer>;
 
 export interface ShowToastOptions extends Omit<ToastOptions, 'type'> {
   type?: ToastType;

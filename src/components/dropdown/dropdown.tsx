@@ -8,6 +8,7 @@ import type {
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -174,7 +175,7 @@ export function DropdownContent({
 
   const [position, setPosition] = useState<DropdownPosition | null>(null);
 
-  const updatePosition = (): void => {
+  const updatePosition = useCallback((): void => {
     const trigger = triggerRef.current;
 
     const content = contentRef.current;
@@ -222,17 +223,15 @@ export function DropdownContent({
       top,
       left,
     });
-  };
+  }, [align, offset, triggerRef]);
 
   useLayoutEffect(() => {
     if (!open) {
-      setPosition(null);
-
       return;
     }
 
     updatePosition();
-  }, [open, align, offset]);
+  }, [open, align, offset, updatePosition]);
 
   useEffect(() => {
     if (!open) {
@@ -252,7 +251,7 @@ export function DropdownContent({
 
       window.removeEventListener('scroll', handleWindowChange, true);
     };
-  }, [open, align, offset]);
+  }, [open, align, offset, updatePosition]);
 
   useEffect(() => {
     if (!open) {

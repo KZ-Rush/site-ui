@@ -7,11 +7,7 @@ import globals from 'globals';
 
 export default tseslint.config(
   {
-    ignores: [
-      'dist',
-      'coverage',
-      'storybook-static',
-    ],
+    ignores: ['dist', 'coverage', 'storybook-static'],
   },
 
   eslint.configs.recommended,

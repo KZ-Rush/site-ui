@@ -9,7 +9,9 @@ import { createContext, useContext } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipTriggerRenderProps } from '../tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../tooltip';
+
+import type { TooltipTriggerRenderProps } from '../tooltip';
 
 import './sidebar-navigation.scss';
 

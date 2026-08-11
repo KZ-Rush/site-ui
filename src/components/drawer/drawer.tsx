@@ -89,7 +89,7 @@ export function Drawer({ children, open, defaultOpen = false, onOpenChange }: Dr
   );
 }
 
-export interface DrawerTriggerProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {}
+export type DrawerTriggerProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>;
 
 export function DrawerTrigger({ className, onClick, ...props }: DrawerTriggerProps) {
   const { open, contentId, triggerRef, setOpen } = useDrawerContext();
@@ -178,6 +178,8 @@ export function DrawerContent({
     const previouslyFocused =
       document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
+    const trigger = triggerRef.current;
+
     const frame = window.requestAnimationFrame(() => {
       const content = contentRef.current;
 
@@ -193,7 +195,7 @@ export function DrawerContent({
     return () => {
       window.cancelAnimationFrame(frame);
 
-      const returnTarget = triggerRef.current ?? previouslyFocused;
+      const returnTarget = trigger ?? previouslyFocused;
 
       returnTarget?.focus();
     };
@@ -333,7 +335,7 @@ export function DrawerTitle({ className, ...props }: DrawerTitleProps) {
   );
 }
 
-export interface DrawerCloseProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {}
+export type DrawerCloseProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'>;
 
 export function DrawerClose({ className, onClick, ...props }: DrawerCloseProps) {
   const { setOpen } = useDrawerContext();

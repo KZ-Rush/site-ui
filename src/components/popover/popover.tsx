@@ -2,6 +2,7 @@ import type { ComponentPropsWithoutRef, MouseEventHandler, ReactNode } from 'rea
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useId,
@@ -27,9 +28,13 @@ interface PopoverContextValue {
 
   setOpen: (open: boolean) => void;
 
-  triggerRef: React.RefObject<HTMLElement | null>;
+  triggerElement: HTMLElement | null;
+
+  setTriggerElement: (element: HTMLElement | null) => void;
 
   contentId: string;
+
+  focusTrigger: () => void;
 }
 
 const PopoverContext = createContext<PopoverContextValue | null>(null);
@@ -57,7 +62,7 @@ export interface PopoverProps {
 export function Popover({ children, open, defaultOpen = false, onOpenChange }: PopoverProps) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
 
-  const triggerRef = useRef<HTMLElement>(null);
+  const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
 
   const generatedId = useId();
 
@@ -66,6 +71,10 @@ export function Popover({ children, open, defaultOpen = false, onOpenChange }: P
   const controlled = open !== undefined;
 
   const resolvedOpen = controlled ? open : internalOpen;
+
+  const focusTrigger = useCallback((): void => {
+    triggerElement?.focus();
+  }, [triggerElement]);
 
   const setOpen = (nextOpen: boolean): void => {
     if (!controlled) {
@@ -80,8 +89,10 @@ export function Popover({ children, open, defaultOpen = false, onOpenChange }: P
       value={{
         open: resolvedOpen,
         setOpen,
-        triggerRef,
+        triggerElement,
+        setTriggerElement,
         contentId,
+        focusTrigger,
       }}
     >
       {children}
@@ -102,7 +113,7 @@ export interface PopoverTriggerProps<TElement extends HTMLElement = HTMLElement>
 export function PopoverTrigger<TElement extends HTMLElement = HTMLElement>({
   render,
 }: PopoverTriggerProps<TElement>) {
-  const { open, setOpen, triggerRef, contentId } = usePopoverContext();
+  const { open, setOpen, setTriggerElement, contentId } = usePopoverContext();
 
   const handleClick: MouseEventHandler<TElement> = (event) => {
     if (event.defaultPrevented) {
@@ -112,10 +123,17 @@ export function PopoverTrigger<TElement extends HTMLElement = HTMLElement>({
     setOpen(!open);
   };
 
+  const setTriggerRef = useCallback(
+    (element: TElement | null): void => {
+      setTriggerElement(element);
+    },
+    [setTriggerElement],
+  );
+
   return (
     <>
       {render({
-        ref: triggerRef as React.Ref<TElement>,
+        ref: setTriggerRef,
 
         'aria-expanded': open,
 
@@ -149,14 +167,14 @@ export function PopoverContent({
   children,
   ...props
 }: PopoverContentProps) {
-  const { open, setOpen, triggerRef, contentId } = usePopoverContext();
+  const { open, setOpen, triggerElement, contentId, focusTrigger } = usePopoverContext();
 
   const contentRef = useRef<HTMLDivElement>(null);
 
   const [position, setPosition] = useState<PopoverPosition | null>(null);
 
-  const updatePosition = (): void => {
-    const trigger = triggerRef.current;
+  const updatePosition = useCallback((): void => {
+    const trigger = triggerElement;
 
     const content = contentRef.current;
 
@@ -168,8 +186,8 @@ export function PopoverContent({
 
     const contentRect = content.getBoundingClientRect();
 
-    let top = 0;
-    let left = 0;
+    let top: number;
+    let left: number;
 
     if (side === 'top' || side === 'bottom') {
       if (align === 'start') {
@@ -215,17 +233,15 @@ export function PopoverContent({
       top,
       left,
     });
-  };
+  }, [side, align, offset, triggerElement]);
 
   useLayoutEffect(() => {
     if (!open) {
-      setPosition(null);
-
       return;
     }
 
     updatePosition();
-  }, [open, side, align, offset]);
+  }, [open, side, align, offset, updatePosition]);
 
   useEffect(() => {
     if (!open) {
@@ -243,7 +259,7 @@ export function PopoverContent({
         return;
       }
 
-      if (triggerRef.current?.contains(target)) {
+      if (triggerElement?.contains(target)) {
         return;
       }
 
@@ -260,7 +276,7 @@ export function PopoverContent({
       setOpen(false);
 
       requestAnimationFrame(() => {
-        triggerRef.current?.focus();
+        focusTrigger();
       });
     };
 
@@ -285,7 +301,7 @@ export function PopoverContent({
 
       window.removeEventListener('scroll', handleWindowChange, true);
     };
-  }, [open, setOpen, triggerRef, side, align, offset]);
+  }, [open, setOpen, triggerElement, side, align, offset, updatePosition, focusTrigger]);
 
   if (!open) {
     return null;
@@ -332,13 +348,13 @@ export function PopoverClose<TElement extends HTMLElement = HTMLButtonElement>({
   children,
   render,
 }: PopoverCloseProps<TElement>) {
-  const { setOpen, triggerRef } = usePopoverContext();
+  const { setOpen, focusTrigger } = usePopoverContext();
 
   const close = (): void => {
     setOpen(false);
 
     requestAnimationFrame(() => {
-      triggerRef.current?.focus();
+      focusTrigger();
     });
   };
 

@@ -7,6 +7,7 @@ import type {
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useId,
@@ -29,11 +30,18 @@ export type TooltipAlign = 'start' | 'center' | 'end';
 
 interface TooltipContextValue {
   open: boolean;
+
   setOpen: (open: boolean) => void;
-  triggerRef: React.RefObject<HTMLElement | null>;
+
+  scheduleOpen: () => void;
+
+  scheduleClose: () => void;
+
+  triggerElement: HTMLElement | null;
+
+  setTriggerElement: (element: HTMLElement | null) => void;
+
   contentId: string;
-  openDelay: number;
-  closeDelay: number;
 }
 
 const TooltipContext = createContext<TooltipContextValue | null>(null);
@@ -69,8 +77,11 @@ export function Tooltip({
   closeDelay = 100,
 }: TooltipProps) {
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
 
-  const triggerRef = useRef<HTMLElement>(null);
+  const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const generatedId = useId();
 
@@ -80,23 +91,63 @@ export function Tooltip({
 
   const resolvedOpen = controlled ? open : internalOpen;
 
-  const setOpen = (nextOpen: boolean): void => {
-    if (!controlled) {
-      setInternalOpen(nextOpen);
+  const setOpen = useCallback(
+    (nextOpen: boolean): void => {
+      if (!controlled) {
+        setInternalOpen(nextOpen);
+      }
+
+      onOpenChange?.(nextOpen);
+    },
+    [controlled, onOpenChange],
+  );
+
+  const clearTimers = useCallback((): void => {
+    if (openTimer.current != null) {
+      clearTimeout(openTimer.current);
+
+      openTimer.current = null;
     }
 
-    onOpenChange?.(nextOpen);
-  };
+    if (closeTimer.current != null) {
+      clearTimeout(closeTimer.current);
+
+      closeTimer.current = null;
+    }
+  }, []);
+
+  const scheduleOpen = useCallback((): void => {
+    clearTimers();
+
+    openTimer.current = setTimeout(() => {
+      setOpen(true);
+    }, openDelay);
+  }, [clearTimers, openDelay, setOpen]);
+
+  const scheduleClose = useCallback((): void => {
+    clearTimers();
+
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+    }, closeDelay);
+  }, [clearTimers, closeDelay, setOpen]);
+
+  useEffect(() => {
+    return () => {
+      clearTimers();
+    };
+  }, [clearTimers]);
 
   return (
     <TooltipContext.Provider
       value={{
         open: resolvedOpen,
         setOpen,
-        triggerRef,
+        scheduleOpen,
+        scheduleClose,
+        triggerElement,
+        setTriggerElement,
         contentId,
-        openDelay,
-        closeDelay,
       }}
     >
       {children}
@@ -125,49 +176,19 @@ export interface TooltipTriggerProps<TElement extends HTMLElement = HTMLElement>
 export function TooltipTrigger<TElement extends HTMLElement = HTMLElement>({
   render,
 }: TooltipTriggerProps<TElement>) {
-  const { open, setOpen, triggerRef, contentId, openDelay, closeDelay } = useTooltipContext();
+  const { open, setTriggerElement, contentId, scheduleOpen, scheduleClose } = useTooltipContext();
 
-  const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const clearTimers = (): void => {
-    if (openTimer.current) {
-      clearTimeout(openTimer.current);
-    }
-
-    if (closeTimer.current) {
-      clearTimeout(closeTimer.current);
-    }
-
-    openTimer.current = null;
-    closeTimer.current = null;
-  };
-
-  useEffect(() => {
-    return clearTimers;
-  }, []);
-
-  const scheduleOpen = (): void => {
-    clearTimers();
-
-    openTimer.current = setTimeout(() => {
-      setOpen(true);
-    }, openDelay);
-  };
-
-  const scheduleClose = (): void => {
-    clearTimers();
-
-    closeTimer.current = setTimeout(() => {
-      setOpen(false);
-    }, closeDelay);
-  };
+  const setTriggerRef = useCallback(
+    (element: TElement | null): void => {
+      setTriggerElement(element);
+    },
+    [setTriggerElement],
+  );
 
   return (
     <>
       {render({
-        ref: triggerRef as React.Ref<TElement>,
+        ref: setTriggerRef,
 
         'aria-describedby': open ? contentId : undefined,
 
@@ -203,14 +224,14 @@ export function TooltipContent({
   children,
   ...props
 }: TooltipContentProps) {
-  const { open, setOpen, triggerRef, contentId } = useTooltipContext();
+  const { open, setOpen, triggerElement, contentId } = useTooltipContext();
 
   const contentRef = useRef<HTMLDivElement>(null);
 
   const [position, setPosition] = useState<TooltipPosition | null>(null);
 
-  const updatePosition = (): void => {
-    const trigger = triggerRef.current;
+  const updatePosition = useCallback((): void => {
+    const trigger = triggerElement;
 
     const content = contentRef.current;
 
@@ -222,8 +243,8 @@ export function TooltipContent({
 
     const contentRect = content.getBoundingClientRect();
 
-    let top = 0;
-    let left = 0;
+    let top: number;
+    let left: number;
 
     if (side === 'top' || side === 'bottom') {
       if (align === 'start') {
@@ -269,17 +290,15 @@ export function TooltipContent({
       top,
       left,
     });
-  };
+  }, [side, align, offset, triggerElement]);
 
   useLayoutEffect(() => {
     if (!open) {
-      setPosition(null);
-
       return;
     }
 
     updatePosition();
-  }, [open, side, align, offset]);
+  }, [open, side, align, offset, updatePosition]);
 
   useEffect(() => {
     if (!open) {
@@ -311,7 +330,7 @@ export function TooltipContent({
 
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [open, side, align, offset, setOpen]);
+  }, [open, side, align, offset, setOpen, updatePosition]);
 
   if (!open) {
     return null;
