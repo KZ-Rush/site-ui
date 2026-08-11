@@ -1,0 +1,16 @@
+.rush-separator {
+  flex-shrink: 0;
+  border: 0;
+  background-color: var(--rush-separator-color, var(--rush-color-border, #e2e8f0));
+
+  &--horizontal {
+    width: 100%;
+    height: 1px;
+  }
+
+  &--vertical {
+    align-self: stretch;
+    width: 1px;
+    min-height: 1rem;
+  }
+}

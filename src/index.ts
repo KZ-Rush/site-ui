@@ -183,6 +183,8 @@ export { Progress, type ProgressProps } from './components/progress';
 
 export { Select, type SelectProps, type SelectSize } from './components/select';
 
+export { Separator, type SeparatorOrientation, type SeparatorProps } from './components/separator';
+
 export {
   SidebarNavigation,
   SidebarNavigationGroup,
