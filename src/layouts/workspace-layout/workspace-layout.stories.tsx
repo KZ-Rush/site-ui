@@ -1,11 +1,6 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import {
   SidebarNavigation,
@@ -22,76 +17,28 @@ import {
   WorkspaceSidebarToggle,
 } from './workspace-layout';
 
-import {
-  expect,
-  userEvent,
-  within,
-} from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 
 import './workspace-layout.stories.scss';
 
 function DashboardStoryIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <rect
-        x="3"
-        y="3"
-        width="7"
-        height="7"
-        rx="1"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2" />
 
-      <rect
-        x="14"
-        y="3"
-        width="7"
-        height="7"
-        rx="1"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2" />
 
-      <rect
-        x="3"
-        y="14"
-        width="7"
-        height="7"
-        rx="1"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2" />
 
-      <rect
-        x="14"
-        y="14"
-        width="7"
-        height="7"
-        rx="1"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
 }
 
 function RecordStoryIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <path
-        d="M6 4H18V20H6V4Z"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <path d="M6 4H18V20H6V4Z" stroke="currentColor" strokeWidth="2" />
 
       <path
         d="M9 8H15M9 12H15M9 16H13"
@@ -105,61 +52,27 @@ function RecordStoryIcon() {
 
 function SettingsStoryIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <circle
-        cx="12"
-        cy="12"
-        r="3"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
 
-      <circle
-        cx="12"
-        cy="12"
-        r="8"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
-
 }
 
-function ExampleNavigation({
-  collapsed,
-}: {
-  collapsed: boolean;
-}) {
+function ExampleNavigation({ collapsed }: { collapsed: boolean }) {
   return (
-    <SidebarNavigation
-      collapsed={collapsed}
-      aria-label="Workspace navigation"
-    >
+    <SidebarNavigation collapsed={collapsed} aria-label="Workspace navigation">
       <SidebarNavigationGroup label="Workspace">
-        <SidebarNavigationItem
-          href="#uploads"
-          icon={<DashboardStoryIcon />}
-          active
-        >
+        <SidebarNavigationItem href="#uploads" icon={<DashboardStoryIcon />} active>
           Uploads
         </SidebarNavigationItem>
 
-        <SidebarNavigationItem
-          href="#releases"
-          icon={<RecordStoryIcon />}
-        >
+        <SidebarNavigationItem href="#releases" icon={<RecordStoryIcon />}>
           Releases
         </SidebarNavigationItem>
 
-        <SidebarNavigationItem
-          href="#records"
-          icon={<RecordStoryIcon />}
-        >
+        <SidebarNavigationItem href="#records" icon={<RecordStoryIcon />}>
           Records
         </SidebarNavigationItem>
       </SidebarNavigationGroup>
@@ -167,11 +80,7 @@ function ExampleNavigation({
       <SidebarNavigationSeparator />
 
       <SidebarNavigationGroup label="Administration">
-        <SidebarNavigationItem
-          icon={<SettingsStoryIcon />}
-        >
-          Settings
-        </SidebarNavigationItem>
+        <SidebarNavigationItem icon={<SettingsStoryIcon />}>Settings</SidebarNavigationItem>
       </SidebarNavigationGroup>
     </SidebarNavigation>
   );
@@ -181,37 +90,21 @@ function ExampleInspectorContent() {
   return (
     <div className="workspace-story-inspector">
       <dl>
-        <dt>
-          Player
-        </dt>
+        <dt>Player</dt>
 
-        <dd>
-          example-player
-        </dd>
+        <dd>example-player</dd>
 
-        <dt>
-          Map
-        </dt>
+        <dt>Map</dt>
 
-        <dd>
-          kz_example
-        </dd>
+        <dd>kz_example</dd>
 
-        <dt>
-          Time
-        </dt>
+        <dt>Time</dt>
 
-        <dd>
-          01:23.45
-        </dd>
+        <dd>01:23.45</dd>
 
-        <dt>
-          Type
-        </dt>
+        <dt>Type</dt>
 
-        <dd>
-          PRO
-        </dd>
+        <dd>PRO</dd>
       </dl>
     </div>
   );
@@ -222,9 +115,7 @@ function ExampleHeader() {
     <>
       <WorkspaceMobileSidebarToggle />
 
-      <strong>
-        Demo review
-      </strong>
+      <strong>Demo review</strong>
 
       <div
         style={{
@@ -245,14 +136,9 @@ function ExampleHeader() {
 function ExampleContent() {
   return (
     <div>
-      <h1>
-        Demo review
-      </h1>
+      <h1>Demo review</h1>
 
-      <p>
-        Select a demo from the list and inspect
-        its metadata in the right panel.
-      </p>
+      <p>Select a demo from the list and inspect its metadata in the right panel.</p>
     </div>
   );
 }
@@ -261,9 +147,7 @@ const meta = {
   title: 'Layouts/WorkspaceLayout',
   component: WorkspaceLayout,
 
-  tags: [
-    '!autodocs',
-  ],
+  tags: ['!autodocs'],
 
   parameters: {
     layout: 'fullscreen',
@@ -283,85 +167,47 @@ the consumer.
   },
 
   args: {
-    sidebar: ({
-      collapsed,
-      mobile,
-    }) => (
-      <div
-        className={
-          mobile
-            ? 'workspace-story-mobile-sidebar'
-            : 'workspace-story-sidebar'
-        }
-      >
+    sidebar: ({ collapsed, mobile }) => (
+      <div className={mobile ? 'workspace-story-mobile-sidebar' : 'workspace-story-sidebar'}>
         <div
           className={
-            mobile
-              ? 'workspace-story-mobile-sidebar__header'
-              : 'workspace-story-sidebar__header'
+            mobile ? 'workspace-story-mobile-sidebar__header' : 'workspace-story-sidebar__header'
           }
         >
-          {!collapsed && (
-            <strong className="workspace-story-sidebar__title">
-              KZ-Rush
-            </strong>
-          )}
+          {!collapsed && <strong className="workspace-story-sidebar__title">KZ-Rush</strong>}
 
           {mobile ? (
             <WorkspaceMobileSidebarToggle>
-              <span aria-hidden="true">
-                ×
-              </span>
+              <span aria-hidden="true">×</span>
             </WorkspaceMobileSidebarToggle>
           ) : (
             <WorkspaceSidebarToggle />
           )}
         </div>
 
-        <ExampleNavigation
-          collapsed={collapsed}
-        />
+        <ExampleNavigation collapsed={collapsed} />
       </div>
     ),
 
-    aside: ({
-      collapsed,
-      mobile,
-    }) => (
-      <div
-        className={
-          mobile
-            ? 'workspace-story-mobile-aside'
-            : 'workspace-story-aside'
-        }
-      >
+    aside: ({ collapsed, mobile }) => (
+      <div className={mobile ? 'workspace-story-mobile-aside' : 'workspace-story-aside'}>
         <div
           className={
-            mobile
-              ? 'workspace-story-mobile-aside__header'
-              : 'workspace-story-aside__header'
+            mobile ? 'workspace-story-mobile-aside__header' : 'workspace-story-aside__header'
           }
         >
-          {!collapsed && (
-            <strong className="workspace-story-aside__title">
-              Demo details
-            </strong>
-          )}
+          {!collapsed && <strong className="workspace-story-aside__title">Demo details</strong>}
 
           {mobile ? (
             <WorkspaceMobileAsideToggle>
-              <span aria-hidden="true">
-                ×
-              </span>
+              <span aria-hidden="true">×</span>
             </WorkspaceMobileAsideToggle>
           ) : (
             <WorkspaceAsideToggle />
           )}
         </div>
 
-        {!collapsed && (
-          <ExampleInspectorContent />
-        )}
+        {!collapsed && <ExampleInspectorContent />}
       </div>
     ),
 
@@ -373,26 +219,22 @@ the consumer.
   argTypes: {
     sidebar: {
       control: false,
-      description:
-        'Content rendered inside the left sidebar.',
+      description: 'Content rendered inside the left sidebar.',
     },
 
     aside: {
       control: false,
-      description:
-        'Optional content rendered inside the right inspector.',
+      description: 'Optional content rendered inside the right inspector.',
     },
 
     header: {
       control: false,
-      description:
-        'Optional header above the central content.',
+      description: 'Optional header above the central content.',
     },
 
     children: {
       control: false,
-      description:
-        'Central workspace content.',
+      description: 'Central workspace content.',
     },
 
     sidebarCollapsed: {
@@ -482,11 +324,7 @@ export const WithoutAside: Story = {
   args: {
     aside: undefined,
 
-    header: (
-      <strong>
-        Workspace without inspector
-      </strong>
-    ),
+    header: <strong>Workspace without inspector</strong>,
   },
 };
 
@@ -497,29 +335,17 @@ export const Controlled: Story = {
   },
 
   render: (args) => {
-    const [
-      sidebarCollapsed,
-      setSidebarCollapsed,
-    ] = useState(false);
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
-    const [
-      asideCollapsed,
-      setAsideCollapsed,
-    ] = useState(false);
+    const [asideCollapsed, setAsideCollapsed] = useState(false);
 
     return (
       <WorkspaceLayout
         {...args}
-        sidebarCollapsed={
-          sidebarCollapsed
-        }
-        onSidebarCollapsedChange={
-          setSidebarCollapsed
-        }
+        sidebarCollapsed={sidebarCollapsed}
+        onSidebarCollapsedChange={setSidebarCollapsed}
         asideCollapsed={asideCollapsed}
-        onAsideCollapsedChange={
-          setAsideCollapsed
-        }
+        onAsideCollapsedChange={setAsideCollapsed}
       />
     );
   },
@@ -528,17 +354,13 @@ export const Controlled: Story = {
 export const CustomDimensions: Story = {
   args: {
     style: {
-      '--rush-workspace-sidebar-width':
-        '19rem',
+      '--rush-workspace-sidebar-width': '19rem',
 
-      '--rush-workspace-sidebar-collapsed-width':
-        '5rem',
+      '--rush-workspace-sidebar-collapsed-width': '5rem',
 
-      '--rush-workspace-aside-width':
-        '24rem',
+      '--rush-workspace-aside-width': '24rem',
 
-      '--rush-workspace-content-padding':
-        '2rem',
+      '--rush-workspace-content-padding': '2rem',
     } as React.CSSProperties,
   },
 };
@@ -547,19 +369,14 @@ export const LongContent: Story = {
   args: {
     children: (
       <div>
-        <h1>
-          Long workspace
-        </h1>
+        <h1>Long workspace</h1>
 
         {Array.from(
           {
             length: 35,
           },
           (_, index) => (
-            <p key={index}>
-              Workspace content row{' '}
-              {index + 1}
-            </p>
+            <p key={index}>Workspace content row {index + 1}</p>
           ),
         )}
       </div>
@@ -575,26 +392,16 @@ export const MobileInteraction: Story = {
     },
   },
 
-  play: async ({
-    canvasElement,
-  }) => {
-    const canvas =
-      within(canvasElement);
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-    const body =
-      within(document.body);
+    const body = within(document.body);
 
-    const navigationTrigger =
-      await canvas.findByRole(
-        'button',
-        {
-          name: 'Open navigation',
-        },
-      );
+    const navigationTrigger = await canvas.findByRole('button', {
+      name: 'Open navigation',
+    });
 
-    await userEvent.click(
-      navigationTrigger,
-    );
+    await userEvent.click(navigationTrigger);
 
     await expect(
       body.getByRole('dialog', {
@@ -602,21 +409,13 @@ export const MobileInteraction: Story = {
       }),
     ).toBeInTheDocument();
 
-    await userEvent.keyboard(
-      '{Escape}',
-    );
+    await userEvent.keyboard('{Escape}');
 
-    const detailsTrigger =
-      await canvas.findByRole(
-        'button',
-        {
-          name: 'Open details panel',
-        },
-      );
+    const detailsTrigger = await canvas.findByRole('button', {
+      name: 'Open details panel',
+    });
 
-    await userEvent.click(
-      detailsTrigger,
-    );
+    await userEvent.click(detailsTrigger);
 
     await expect(
       body.getByRole('dialog', {

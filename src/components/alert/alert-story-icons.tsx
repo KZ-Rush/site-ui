@@ -2,9 +2,7 @@ interface StoryIconProps {
   className?: string;
 }
 
-export function InfoStoryIcon({
-  className,
-}: StoryIconProps) {
+export function InfoStoryIcon({ className }: StoryIconProps) {
   return (
     <svg
       aria-hidden="true"
@@ -14,34 +12,16 @@ export function InfoStoryIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-        cx="12"
-        cy="12"
-        r="9"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
 
-      <path
-        d="M12 11V17"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="2"
-      />
+      <path d="M12 11V17" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
 
-      <circle
-        cx="12"
-        cy="7.5"
-        r="1"
-        fill="currentColor"
-      />
+      <circle cx="12" cy="7.5" r="1" fill="currentColor" />
     </svg>
   );
 }
 
-export function WarningStoryIcon({
-  className,
-}: StoryIconProps) {
+export function WarningStoryIcon({ className }: StoryIconProps) {
   return (
     <svg
       aria-hidden="true"
@@ -51,33 +31,16 @@ export function WarningStoryIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        d="M12 3L22 20H2L12 3Z"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="2"
-      />
+      <path d="M12 3L22 20H2L12 3Z" stroke="currentColor" strokeLinejoin="round" strokeWidth="2" />
 
-      <path
-        d="M12 9V14"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="2"
-      />
+      <path d="M12 9V14" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
 
-      <circle
-        cx="12"
-        cy="17"
-        r="1"
-        fill="currentColor"
-      />
+      <circle cx="12" cy="17" r="1" fill="currentColor" />
     </svg>
   );
 }
 
-export function SuccessStoryIcon({
-  className,
-}: StoryIconProps) {
+export function SuccessStoryIcon({ className }: StoryIconProps) {
   return (
     <svg
       aria-hidden="true"
@@ -87,13 +50,7 @@ export function SuccessStoryIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-        cx="12"
-        cy="12"
-        r="9"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
 
       <path
         d="M8 12L10.5 14.5L16 9"
@@ -106,9 +63,7 @@ export function SuccessStoryIcon({
   );
 }
 
-export function ErrorStoryIcon({
-  className,
-}: StoryIconProps) {
+export function ErrorStoryIcon({ className }: StoryIconProps) {
   return (
     <svg
       aria-hidden="true"
@@ -118,27 +73,14 @@ export function ErrorStoryIcon({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle
-        cx="12"
-        cy="12"
-        r="9"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
 
-      <path
-        d="M9 9L15 15M15 9L9 15"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="2"
-      />
+      <path d="M9 9L15 15M15 9L9 15" stroke="currentColor" strokeLinecap="round" strokeWidth="2" />
     </svg>
   );
 }
 
-export function NoticeStoryIcon({
-  className,
-}: StoryIconProps) {
+export function NoticeStoryIcon({ className }: StoryIconProps) {
   return (
     <svg
       aria-hidden="true"

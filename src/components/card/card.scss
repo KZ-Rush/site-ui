@@ -5,30 +5,15 @@
 
   padding-block: 1.5rem;
 
-  border: 1px solid var(
-    --rush-card-border-color,
-    var(--rush-color-border)
-  );
+  border: 1px solid var(--rush-card-border-color, var(--rush-color-border));
 
-  border-radius: var(
-    --rush-card-border-radius,
-    var(--rush-radius-xl)
-  );
+  border-radius: var(--rush-card-border-radius, var(--rush-radius-xl));
 
-  background-color: var(
-    --rush-card-background,
-    var(--rush-color-card)
-  );
+  background-color: var(--rush-card-background, var(--rush-color-card));
 
-  color: var(
-    --rush-card-foreground,
-    var(--rush-color-card-foreground)
-  );
+  color: var(--rush-card-foreground, var(--rush-color-card-foreground));
 
-  box-shadow: var(
-    --rush-card-shadow,
-    var(--rush-shadow-sm)
-  );
+  box-shadow: var(--rush-card-shadow, var(--rush-shadow-sm));
 
   &__header {
     display: flex;
@@ -48,10 +33,7 @@
   &__description {
     margin: 0;
 
-    color: var(
-      --rush-card-description-foreground,
-      var(--rush-color-muted-foreground)
-    );
+    color: var(--rush-card-description-foreground, var(--rush-color-muted-foreground));
 
     font-size: 0.875rem;
     line-height: 1.25rem;

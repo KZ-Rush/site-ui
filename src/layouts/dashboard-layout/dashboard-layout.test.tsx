@@ -1,14 +1,6 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import {
   DashboardLayout,
@@ -23,33 +15,20 @@ function renderLayout({
 }: {
   sidebarCollapsed?: boolean;
   defaultSidebarCollapsed?: boolean;
-  onSidebarCollapsedChange?: (
-    collapsed: boolean,
-  ) => void;
+  onSidebarCollapsedChange?: (collapsed: boolean) => void;
 } = {}) {
   return render(
     <DashboardLayout
-      sidebar={(
-        <nav>
-          Navigation
-        </nav>
-      )}
-      header={(
+      sidebar={<nav>Navigation</nav>}
+      header={
         <>
           <DashboardSidebarToggle />
-
           Header
         </>
-      )}
-      sidebarCollapsed={
-        sidebarCollapsed
       }
-      defaultSidebarCollapsed={
-        defaultSidebarCollapsed
-      }
-      onSidebarCollapsedChange={
-        onSidebarCollapsedChange
-      }
+      sidebarCollapsed={sidebarCollapsed}
+      defaultSidebarCollapsed={defaultSidebarCollapsed}
+      onSidebarCollapsedChange={onSidebarCollapsedChange}
     >
       Main content
     </DashboardLayout>,
@@ -66,13 +45,9 @@ describe('DashboardLayout', () => {
       }),
     ).toHaveTextContent('Navigation');
 
-    expect(
-      screen.getByRole('banner'),
-    ).toHaveTextContent('Header');
+    expect(screen.getByRole('banner')).toHaveTextContent('Header');
 
-    expect(
-      screen.getByRole('main'),
-    ).toHaveTextContent('Main content');
+    expect(screen.getByRole('main')).toHaveTextContent('Main content');
   });
 
   it('supports uncontrolled sidebar state', async () => {
@@ -80,43 +55,25 @@ describe('DashboardLayout', () => {
 
     renderLayout();
 
-    const layout = screen
-      .getByRole('main')
-      .closest(
-        '[data-slot="dashboard-layout"]',
-      );
+    const layout = screen.getByRole('main').closest('[data-slot="dashboard-layout"]');
 
-    const toggle = screen.getByRole(
-      'button',
-      {
-        name: 'Collapse sidebar',
-      },
-    );
+    const toggle = screen.getByRole('button', {
+      name: 'Collapse sidebar',
+    });
 
-    expect(layout).not.toHaveAttribute(
-      'data-collapsed',
-    );
+    expect(layout).not.toHaveAttribute('data-collapsed');
 
-    expect(toggle).toHaveAttribute(
-      'aria-expanded',
-      'true',
-    );
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
 
     await user.click(toggle);
 
-    expect(layout).toHaveAttribute(
-      'data-collapsed',
-      'true',
-    );
+    expect(layout).toHaveAttribute('data-collapsed', 'true');
 
     expect(
       screen.getByRole('button', {
         name: 'Expand sidebar',
       }),
-    ).toHaveAttribute(
-      'aria-expanded',
-      'false',
-    );
+    ).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('supports an initially collapsed sidebar', () => {
@@ -124,13 +81,7 @@ describe('DashboardLayout', () => {
       defaultSidebarCollapsed: true,
     });
 
-    expect(
-      screen
-        .getByRole('main')
-        .closest(
-          '[data-slot="dashboard-layout"]',
-        ),
-    ).toHaveAttribute(
+    expect(screen.getByRole('main').closest('[data-slot="dashboard-layout"]')).toHaveAttribute(
       'data-collapsed',
       'true',
     );
@@ -139,8 +90,7 @@ describe('DashboardLayout', () => {
   it('notifies controlled consumers', async () => {
     const user = userEvent.setup();
 
-    const onSidebarCollapsedChange =
-      vi.fn();
+    const onSidebarCollapsedChange = vi.fn();
 
     renderLayout({
       sidebarCollapsed: false,
@@ -153,21 +103,13 @@ describe('DashboardLayout', () => {
       }),
     );
 
-    expect(
-      onSidebarCollapsedChange,
-    ).toHaveBeenCalledWith(true);
+    expect(onSidebarCollapsedChange).toHaveBeenCalledWith(true);
 
     /*
      * Controlled state remains unchanged until the
      * consumer supplies a new prop value.
      */
-    expect(
-      screen
-        .getByRole('main')
-        .closest(
-          '[data-slot="dashboard-layout"]',
-        ),
-    ).not.toHaveAttribute(
+    expect(screen.getByRole('main').closest('[data-slot="dashboard-layout"]')).not.toHaveAttribute(
       'data-collapsed',
     );
   });
@@ -175,24 +117,15 @@ describe('DashboardLayout', () => {
   it('connects the toggle to the sidebar', () => {
     renderLayout();
 
-    const sidebar = screen.getByRole(
-      'complementary',
-      {
-        name: 'Primary navigation',
-      },
-    );
+    const sidebar = screen.getByRole('complementary', {
+      name: 'Primary navigation',
+    });
 
-    const toggle = screen.getByRole(
-      'button',
-      {
-        name: 'Collapse sidebar',
-      },
-    );
+    const toggle = screen.getByRole('button', {
+      name: 'Collapse sidebar',
+    });
 
-    expect(toggle).toHaveAttribute(
-      'aria-controls',
-      sidebar.id,
-    );
+    expect(toggle).toHaveAttribute('aria-controls', sidebar.id);
   });
 
   it('does not toggle when click is prevented', async () => {
@@ -201,121 +134,79 @@ describe('DashboardLayout', () => {
     render(
       <DashboardLayout
         sidebar="Navigation"
-        header={(
+        header={
           <DashboardSidebarToggle
             onClick={(event) => {
               event.preventDefault();
             }}
           />
-        )}
+        }
       >
         Main content
       </DashboardLayout>,
     );
 
-    await user.click(
-      screen.getByRole('button'),
-    );
+    await user.click(screen.getByRole('button'));
 
-    expect(
-      screen
-        .getByRole('main')
-        .closest(
-          '[data-slot="dashboard-layout"]',
-        ),
-    ).not.toHaveAttribute(
+    expect(screen.getByRole('main').closest('[data-slot="dashboard-layout"]')).not.toHaveAttribute(
       'data-collapsed',
     );
   });
 
   it('forwards native root properties', () => {
     render(
-      <DashboardLayout
-        sidebar="Navigation"
-        className="custom-layout"
-        title="Application dashboard"
-      >
+      <DashboardLayout sidebar="Navigation" className="custom-layout" title="Application dashboard">
         Main content
       </DashboardLayout>,
     );
 
-    const layout = screen
-      .getByRole('main')
-      .closest(
-        '[data-slot="dashboard-layout"]',
-      );
+    const layout = screen.getByRole('main').closest('[data-slot="dashboard-layout"]');
 
-    expect(layout).toHaveClass(
-      'rush-dashboard-layout',
-      'custom-layout',
-    );
+    expect(layout).toHaveClass('rush-dashboard-layout', 'custom-layout');
 
-    expect(layout).toHaveAttribute(
-      'title',
-      'Application dashboard',
-    );
+    expect(layout).toHaveAttribute('title', 'Application dashboard');
   });
 
   it('throws when the toggle is outside the layout', () => {
     expect(() => {
-      render(
-        <DashboardSidebarToggle />,
-      );
-    }).toThrow(
-      'DashboardSidebarToggle must be used inside DashboardLayout.',
-    );
+      render(<DashboardSidebarToggle />);
+    }).toThrow('DashboardSidebarToggle must be used inside DashboardLayout.');
   });
 
   it('does not emit duplicate state changes', async () => {
     const user = userEvent.setup();
 
-    const onSidebarCollapsedChange =
-      vi.fn();
+    const onSidebarCollapsedChange = vi.fn();
 
     render(
       <DashboardLayout
-        sidebar={(
-          <DashboardSidebarToggle />
-        )}
+        sidebar={<DashboardSidebarToggle />}
         sidebarCollapsed
-        onSidebarCollapsedChange={
-          onSidebarCollapsedChange
-        }
+        onSidebarCollapsedChange={onSidebarCollapsedChange}
       >
         Main
       </DashboardLayout>,
     );
 
     /*
-    * The toggle requests false, which differs from
-    * current true.
-    */
-    await user.click(
-      screen.getByRole('button'),
-    );
+     * The toggle requests false, which differs from
+     * current true.
+     */
+    await user.click(screen.getByRole('button'));
 
-    expect(
-      onSidebarCollapsedChange,
-    ).toHaveBeenCalledWith(false);
+    expect(onSidebarCollapsedChange).toHaveBeenCalledWith(false);
   });
 
   it('opens the mobile sidebar drawer', async () => {
     const user = userEvent.setup();
 
     render(
-      <DashboardLayout
-        sidebar="Navigation"
-        header={(
-          <DashboardMobileSidebarToggle />
-        )}
-      >
+      <DashboardLayout sidebar="Navigation" header={<DashboardMobileSidebarToggle />}>
         Main
       </DashboardLayout>,
     );
 
-    expect(
-      screen.queryByRole('dialog'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 
     await user.click(
       screen.getByRole('button', {
@@ -333,19 +224,14 @@ describe('DashboardLayout', () => {
   it('supports controlled mobile sidebar state', async () => {
     const user = userEvent.setup();
 
-    const onMobileSidebarOpenChange =
-      vi.fn();
+    const onMobileSidebarOpenChange = vi.fn();
 
     render(
       <DashboardLayout
         sidebar="Navigation"
-        header={(
-          <DashboardMobileSidebarToggle />
-        )}
+        header={<DashboardMobileSidebarToggle />}
         mobileSidebarOpen={false}
-        onMobileSidebarOpenChange={
-          onMobileSidebarOpenChange
-        }
+        onMobileSidebarOpenChange={onMobileSidebarOpenChange}
       >
         Main
       </DashboardLayout>,
@@ -357,21 +243,14 @@ describe('DashboardLayout', () => {
       }),
     );
 
-    expect(
-      onMobileSidebarOpenChange,
-    ).toHaveBeenCalledWith(true);
+    expect(onMobileSidebarOpenChange).toHaveBeenCalledWith(true);
 
-    expect(
-      screen.queryByRole('dialog'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('supports an initially open mobile sidebar', () => {
     render(
-      <DashboardLayout
-        sidebar="Navigation"
-        defaultMobileSidebarOpen
-      >
+      <DashboardLayout sidebar="Navigation" defaultMobileSidebarOpen>
         Main
       </DashboardLayout>,
     );
@@ -390,9 +269,7 @@ describe('DashboardLayout', () => {
       <DashboardLayout
         sidebar="Desktop navigation"
         mobileSidebar="Mobile navigation"
-        header={(
-          <DashboardMobileSidebarToggle />
-        )}
+        header={<DashboardMobileSidebarToggle />}
       >
         Main
       </DashboardLayout>,
@@ -404,16 +281,11 @@ describe('DashboardLayout', () => {
       }),
     );
 
-    const dialog = screen.getByRole(
-      'dialog',
-      {
-        name: 'Primary navigation',
-      },
-    );
+    const dialog = screen.getByRole('dialog', {
+      name: 'Primary navigation',
+    });
 
-    expect(dialog).toHaveTextContent(
-      'Mobile navigation',
-    );
+    expect(dialog).toHaveTextContent('Mobile navigation');
   });
 
   it('provides collapsed state to sidebar render function', async () => {
@@ -423,11 +295,7 @@ describe('DashboardLayout', () => {
       <DashboardLayout
         sidebar={({ collapsed }) => (
           <>
-            <span>
-              {collapsed
-                ? 'Collapsed'
-                : 'Expanded'}
-            </span>
+            <span>{collapsed ? 'Collapsed' : 'Expanded'}</span>
 
             <DashboardSidebarToggle />
           </>
@@ -437,9 +305,7 @@ describe('DashboardLayout', () => {
       </DashboardLayout>,
     );
 
-    expect(
-      screen.getByText('Expanded'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Expanded')).toBeInTheDocument();
 
     await user.click(
       screen.getByRole('button', {
@@ -447,9 +313,7 @@ describe('DashboardLayout', () => {
       }),
     );
 
-    expect(
-      screen.getByText('Collapsed'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Collapsed')).toBeInTheDocument();
   });
 
   it('marks mobile sidebar render state', async () => {
@@ -457,26 +321,14 @@ describe('DashboardLayout', () => {
 
     render(
       <DashboardLayout
-        sidebar={({ mobile }) => (
-          <span>
-            {mobile
-              ? 'Mobile navigation'
-              : 'Desktop navigation'}
-          </span>
-        )}
-        header={(
-          <DashboardMobileSidebarToggle />
-        )}
+        sidebar={({ mobile }) => <span>{mobile ? 'Mobile navigation' : 'Desktop navigation'}</span>}
+        header={<DashboardMobileSidebarToggle />}
       >
         Main
       </DashboardLayout>,
     );
 
-    expect(
-      screen.getByText(
-        'Desktop navigation',
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Desktop navigation')).toBeInTheDocument();
 
     await user.click(
       screen.getByRole('button', {
@@ -484,10 +336,6 @@ describe('DashboardLayout', () => {
       }),
     );
 
-    expect(
-      screen.getByRole('dialog'),
-    ).toHaveTextContent(
-      'Mobile navigation',
-    );
+    expect(screen.getByRole('dialog')).toHaveTextContent('Mobile navigation');
   });
 });

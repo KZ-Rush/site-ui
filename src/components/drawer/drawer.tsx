@@ -5,32 +5,18 @@ import type {
   ReactNode,
 } from 'react';
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useId,
-  useRef,
-} from 'react';
+import { createContext, useContext, useEffect, useId, useRef } from 'react';
 
-import {
-  createPortal,
-} from 'react-dom';
+import { createPortal } from 'react-dom';
 
-import {
-  useControllableState,
-} from '../../hooks/use-controllable-state';
+import { useControllableState } from '../../hooks/use-controllable-state';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './drawer.scss';
 import { lockBodyScroll, unlockBodyScroll } from './body-scroll-lock';
 
-export type DrawerSide =
-  | 'left'
-  | 'right';
+export type DrawerSide = 'left' | 'right';
 
 interface DrawerContextValue {
   open: boolean;
@@ -38,26 +24,18 @@ interface DrawerContextValue {
   contentId: string;
   titleId: string;
 
-  triggerRef:
-    React.RefObject<HTMLButtonElement | null>;
+  triggerRef: React.RefObject<HTMLButtonElement | null>;
 
-  setOpen: (
-    open: boolean,
-  ) => void;
+  setOpen: (open: boolean) => void;
 }
 
-const DrawerContext =
-  createContext<DrawerContextValue | null>(
-    null,
-  );
+const DrawerContext = createContext<DrawerContextValue | null>(null);
 
 function useDrawerContext(): DrawerContextValue {
   const context = useContext(DrawerContext);
 
   if (!context) {
-    throw new Error(
-      'Drawer components must be used inside Drawer.',
-    );
+    throw new Error('Drawer components must be used inside Drawer.');
   }
 
   return context;
@@ -79,41 +57,28 @@ export interface DrawerProps {
   /**
    * Called when the requested open state changes.
    */
-  onOpenChange?: (
-    open: boolean,
-  ) => void;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function Drawer({
-  children,
-  open,
-  defaultOpen = false,
-  onOpenChange,
-}: DrawerProps) {
+export function Drawer({ children, open, defaultOpen = false, onOpenChange }: DrawerProps) {
   const generatedId = useId();
 
-  const [
-    resolvedOpen,
-    setOpen,
-  ] = useControllableState({
+  const [resolvedOpen, setOpen] = useControllableState({
     value: open,
     defaultValue: defaultOpen,
     onChange: onOpenChange,
   });
 
-  const triggerRef =
-    useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   return (
     <DrawerContext.Provider
       value={{
         open: resolvedOpen,
 
-        contentId:
-          `rush-drawer-content-${generatedId}`,
+        contentId: `rush-drawer-content-${generatedId}`,
 
-        titleId:
-          `rush-drawer-title-${generatedId}`,
+        titleId: `rush-drawer-title-${generatedId}`,
 
         triggerRef,
         setOpen,
@@ -124,23 +89,10 @@ export function Drawer({
   );
 }
 
-export interface DrawerTriggerProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'type'
-  > {}
+export interface DrawerTriggerProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {}
 
-export function DrawerTrigger({
-  className,
-  onClick,
-  ...props
-}: DrawerTriggerProps) {
-  const {
-    open,
-    contentId,
-    triggerRef,
-    setOpen,
-  } = useDrawerContext();
+export function DrawerTrigger({ className, onClick, ...props }: DrawerTriggerProps) {
+  const { open, contentId, triggerRef, setOpen } = useDrawerContext();
 
   return (
     <button
@@ -149,10 +101,7 @@ export function DrawerTrigger({
       type="button"
       aria-controls={contentId}
       aria-expanded={open}
-      className={classNames(
-        'rush-drawer__trigger',
-        className,
-      )}
+      className={classNames('rush-drawer__trigger', className)}
       data-slot="drawer-trigger"
       onClick={(event) => {
         onClick?.(event);
@@ -167,11 +116,7 @@ export function DrawerTrigger({
   );
 }
 
-export interface DrawerContentProps
-  extends Omit<
-    ComponentPropsWithoutRef<'div'>,
-    'children'
-  > {
+export interface DrawerContentProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
   children: ReactNode;
 
   side?: DrawerSide;
@@ -211,23 +156,15 @@ export function DrawerContent({
   onKeyDown,
   ...props
 }: DrawerContentProps) {
-  const {
-    open,
-    contentId,
-    titleId,
-    triggerRef,
-    setOpen,
-  } = useDrawerContext();
+  const { open, contentId, titleId, triggerRef, setOpen } = useDrawerContext();
 
-  const contentRef =
-    useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const ariaLabel = props['aria-label'];
   const ariaLabelledBy = props['aria-labelledby'];
 
-  const resolvedAriaLabelledBy = ariaLabel !== undefined
-    ? ariaLabelledBy
-    : ariaLabelledBy ?? titleId;
+  const resolvedAriaLabelledBy =
+    ariaLabel !== undefined ? ariaLabelledBy : (ariaLabelledBy ?? titleId);
 
   /*
    * Move focus into the drawer when opened and return it
@@ -239,43 +176,28 @@ export function DrawerContent({
     }
 
     const previouslyFocused =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
-    const frame = window.requestAnimationFrame(
-      () => {
-        const content = contentRef.current;
+    const frame = window.requestAnimationFrame(() => {
+      const content = contentRef.current;
 
-        if (!content) {
-          return;
-        }
+      if (!content) {
+        return;
+      }
 
-        const firstFocusable =
-          content.querySelector<HTMLElement>(
-            focusableSelector,
-          );
+      const firstFocusable = content.querySelector<HTMLElement>(focusableSelector);
 
-        (
-          firstFocusable
-          ?? content
-        ).focus();
-      },
-    );
+      (firstFocusable ?? content).focus();
+    });
 
     return () => {
       window.cancelAnimationFrame(frame);
 
-      const returnTarget =
-        triggerRef.current
-        ?? previouslyFocused;
+      const returnTarget = triggerRef.current ?? previouslyFocused;
 
       returnTarget?.focus();
     };
-  }, [
-    open,
-    triggerRef,
-  ]);
+  }, [open, triggerRef]);
 
   /*
    * Prevent the page behind the drawer from scrolling.
@@ -290,19 +212,14 @@ export function DrawerContent({
     return () => {
       unlockBodyScroll();
     };
-  }, [
-    open,
-    lockScroll,
-  ]);
+  }, [open, lockScroll]);
 
   useEffect(() => {
     if (!open || !closeOnEscape) {
       return;
     }
 
-    const handleEscape = (
-      event: KeyboardEvent,
-    ): void => {
+    const handleEscape = (event: KeyboardEvent): void => {
       if (event.key !== 'Escape') {
         return;
       }
@@ -312,102 +229,68 @@ export function DrawerContent({
       setOpen(false);
     };
 
-    document.addEventListener(
-      'keydown',
-      handleEscape,
-    );
+    document.addEventListener('keydown', handleEscape);
 
     return () => {
-      document.removeEventListener(
-        'keydown',
-        handleEscape,
-      );
+      document.removeEventListener('keydown', handleEscape);
     };
-  }, [
-    open,
-    closeOnEscape,
-    setOpen,
-  ]);
+  }, [open, closeOnEscape, setOpen]);
 
   if (!open) {
     return null;
   }
 
-  const handleKeyDown:
-    HTMLAttributes<HTMLDivElement>['onKeyDown'] =
-    (event) => {
-      onKeyDown?.(event);
+  const handleKeyDown: HTMLAttributes<HTMLDivElement>['onKeyDown'] = (event) => {
+    onKeyDown?.(event);
 
-      if (event.defaultPrevented) {
-        return;
-      }
+    if (event.defaultPrevented) {
+      return;
+    }
 
-      if (event.key !== 'Tab') {
-        return;
-      }
+    if (event.key !== 'Tab') {
+      return;
+    }
 
-      const content = contentRef.current;
+    const content = contentRef.current;
 
-      if (!content) {
-        return;
-      }
+    if (!content) {
+      return;
+    }
 
-      const focusableElements =
-        Array.from(
-          content.querySelectorAll<HTMLElement>(
-            focusableSelector,
-          ),
-        );
+    const focusableElements = Array.from(content.querySelectorAll<HTMLElement>(focusableSelector));
 
-      if (focusableElements.length === 0) {
-        event.preventDefault();
-        content.focus();
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+      content.focus();
 
-        return;
-      }
+      return;
+    }
 
-      const first =
-        focusableElements[0];
+    const first = focusableElements[0];
 
-      const last =
-        focusableElements[
-          focusableElements.length - 1
-        ];
+    const last = focusableElements[focusableElements.length - 1];
 
-      if (
-        event.shiftKey
-        && document.activeElement === first
-      ) {
-        event.preventDefault();
-        last.focus();
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
 
-        return;
-      }
+      return;
+    }
 
-      if (
-        !event.shiftKey
-        && document.activeElement === last
-      ) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
+    if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
 
   return createPortal(
-    <div
-      className="rush-drawer"
-      data-side={side}
-      data-slot="drawer"
-    >
+    <div className="rush-drawer" data-side={side} data-slot="drawer">
       <div
         aria-hidden="true"
         className="rush-drawer__overlay"
         data-slot="drawer-overlay"
         onMouseDown={(event) => {
-          if (
-            !closeOnOverlayClick
-            || event.target !== event.currentTarget
-          ) {
+          if (!closeOnOverlayClick || event.target !== event.currentTarget) {
             return;
           }
 
@@ -421,14 +304,8 @@ export function DrawerContent({
         id={props.id ?? contentId}
         role="dialog"
         aria-modal="true"
-        aria-labelledby={
-          resolvedAriaLabelledBy
-        }
-        className={classNames(
-          'rush-drawer__content',
-          `rush-drawer__content--${side}`,
-          className,
-        )}
+        aria-labelledby={resolvedAriaLabelledBy}
+        className={classNames('rush-drawer__content', `rush-drawer__content--${side}`, className)}
         data-side={side}
         data-slot="drawer-content"
         tabIndex={-1}
@@ -441,53 +318,31 @@ export function DrawerContent({
   );
 }
 
-export type DrawerTitleProps =
-  ComponentPropsWithoutRef<'h2'>;
+export type DrawerTitleProps = ComponentPropsWithoutRef<'h2'>;
 
-export function DrawerTitle({
-  className,
-  ...props
-}: DrawerTitleProps) {
-  const {
-    titleId,
-  } = useDrawerContext();
+export function DrawerTitle({ className, ...props }: DrawerTitleProps) {
+  const { titleId } = useDrawerContext();
 
   return (
     <h2
       {...props}
       id={props.id ?? titleId}
-      className={classNames(
-        'rush-drawer__title',
-        className,
-      )}
+      className={classNames('rush-drawer__title', className)}
       data-slot="drawer-title"
     />
   );
 }
 
-export interface DrawerCloseProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'type'
-  > {}
+export interface DrawerCloseProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {}
 
-export function DrawerClose({
-  className,
-  onClick,
-  ...props
-}: DrawerCloseProps) {
-  const {
-    setOpen,
-  } = useDrawerContext();
+export function DrawerClose({ className, onClick, ...props }: DrawerCloseProps) {
+  const { setOpen } = useDrawerContext();
 
   return (
     <button
       {...props}
       type="button"
-      className={classNames(
-        'rush-drawer__close',
-        className,
-      )}
+      className={classNames('rush-drawer__close', className)}
       data-slot="drawer-close"
       onClick={(event) => {
         onClick?.(event);

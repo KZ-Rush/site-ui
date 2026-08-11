@@ -25,13 +25,7 @@ describe('Switch', () => {
     const user = userEvent.setup();
     const onCheckedChange = vi.fn();
 
-    render(
-      <Switch
-        disabled
-        onLabel="Notifications"
-        onCheckedChange={onCheckedChange}
-      />,
-    );
+    render(<Switch disabled onLabel="Notifications" onCheckedChange={onCheckedChange} />);
 
     const switchElement = screen.getByRole('switch', {
       name: 'Notifications',

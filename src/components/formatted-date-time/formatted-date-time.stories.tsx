@@ -1,19 +1,12 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  FormattedDateTime,
-} from './formatted-date-time';
+import { FormattedDateTime } from './formatted-date-time';
 
 const meta = {
   title: 'Components/FormattedDateTime',
   component: FormattedDateTime,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -30,38 +23,32 @@ const meta = {
   argTypes: {
     value: {
       control: 'text',
-      description:
-        'Date string or Unix timestamp in seconds.',
+      description: 'Date string or Unix timestamp in seconds.',
     },
 
     format: {
       control: 'text',
-      description:
-        'Moment format used for displayed content.',
+      description: 'Moment format used for displayed content.',
     },
 
     fallback: {
       control: 'text',
-      description:
-        'Content displayed for missing or invalid values.',
+      description: 'Content displayed for missing or invalid values.',
     },
 
     utc: {
       control: 'boolean',
-      description:
-        'Display the value in UTC instead of local time.',
+      description: 'Display the value in UTC instead of local time.',
     },
 
     strict: {
       control: 'boolean',
-      description:
-        'Enable strict parsing when inputFormat is provided.',
+      description: 'Enable strict parsing when inputFormat is provided.',
     },
 
     inputFormat: {
       control: 'text',
-      description:
-        'Expected Moment format for input strings.',
+      description: 'Expected Moment format for input strings.',
     },
   },
 } satisfies Meta<typeof FormattedDateTime>;

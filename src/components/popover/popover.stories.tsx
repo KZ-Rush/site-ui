@@ -1,34 +1,18 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Button,
-} from '../button';
+import { Button } from '../button';
 
-import {
-  Input,
-} from '../input';
+import { Input } from '../input';
 
-import {
-  Select,
-} from '../select';
+import { Select } from '../select';
 
-import {
-  Popover,
-  PopoverClose,
-  PopoverContent,
-  PopoverTrigger,
-} from './popover';
+import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from './popover';
 
 const meta = {
   title: 'Components/Popover',
   component: Popover,
 
-  tags: [
-    '!autodocs',
-  ],
+  tags: ['!autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -66,27 +50,21 @@ const meta = {
 
 export default meta;
 
-type Story =
-  StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
     <Popover>
       <PopoverTrigger<HTMLButtonElement>
         render={(triggerProps) => (
-          <Button
-            {...triggerProps}
-            variant="outline"
-          >
+          <Button {...triggerProps} variant="outline">
             Open popover
           </Button>
         )}
       />
 
       <PopoverContent>
-        <p>
-          This is arbitrary popover content.
-        </p>
+        <p>This is arbitrary popover content.</p>
       </PopoverContent>
     </Popover>
   ),
@@ -97,43 +75,27 @@ export const Filters: Story = {
     <Popover>
       <PopoverTrigger<HTMLButtonElement>
         render={(triggerProps) => (
-          <Button
-            {...triggerProps}
-            variant="outline"
-          >
+          <Button {...triggerProps} variant="outline">
             Filters
           </Button>
         )}
       />
 
-      <PopoverContent
-        align="end"
-      >
+      <PopoverContent align="end">
         <div
           style={{
             display: 'grid',
             gap: '0.75rem',
           }}
         >
-          <Input
-            aria-label="Player"
-            placeholder="Player..."
-          />
+          <Input aria-label="Player" placeholder="Player..." />
 
-          <Select
-            aria-label="Record type"
-          >
-            <option value="">
-              All types
-            </option>
+          <Select aria-label="Record type">
+            <option value="">All types</option>
 
-            <option value="PRO">
-              PRO
-            </option>
+            <option value="PRO">PRO</option>
 
-            <option value="NUB">
-              NUB
-            </option>
+            <option value="NUB">NUB</option>
           </Select>
 
           <div
@@ -144,11 +106,7 @@ export const Filters: Story = {
           >
             <PopoverClose<HTMLButtonElement>
               render={(closeProps) => (
-                <Button
-                  {...closeProps}
-                  variant="outline"
-                  size="sm"
-                >
+                <Button {...closeProps} variant="outline" size="sm">
                   Close
                 </Button>
               )}

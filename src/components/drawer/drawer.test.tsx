@@ -1,56 +1,28 @@
-import {
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 
-import {
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTitle,
-  DrawerTrigger,
-} from './drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from './drawer';
 
 function renderDrawer({
   defaultOpen = false,
   onOpenChange,
 }: {
   defaultOpen?: boolean;
-  onOpenChange?: (
-    open: boolean,
-  ) => void;
+  onOpenChange?: (open: boolean) => void;
 } = {}) {
   return render(
-    <Drawer
-      defaultOpen={defaultOpen}
-      onOpenChange={onOpenChange}
-    >
-      <DrawerTrigger>
-        Open navigation
-      </DrawerTrigger>
+    <Drawer defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+      <DrawerTrigger>Open navigation</DrawerTrigger>
 
       <DrawerContent>
-        <DrawerTitle>
-          Navigation
-        </DrawerTitle>
+        <DrawerTitle>Navigation</DrawerTitle>
 
-        <button>
-          First action
-        </button>
+        <button>First action</button>
 
-        <DrawerClose>
-          Close
-        </DrawerClose>
+        <DrawerClose>Close</DrawerClose>
       </DrawerContent>
     </Drawer>,
   );
@@ -60,9 +32,7 @@ describe('Drawer', () => {
   it('is closed by default', () => {
     renderDrawer();
 
-    expect(
-      screen.queryByRole('dialog'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('opens from the trigger', async () => {
@@ -96,9 +66,7 @@ describe('Drawer', () => {
       }),
     );
 
-    expect(
-      screen.queryByRole('dialog'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('closes when Escape is pressed', async () => {
@@ -108,13 +76,9 @@ describe('Drawer', () => {
       defaultOpen: true,
     });
 
-    await user.keyboard(
-      '{Escape}',
-    );
+    await user.keyboard('{Escape}');
 
-    expect(
-      screen.queryByRole('dialog'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('notifies controlled consumers', async () => {
@@ -122,18 +86,11 @@ describe('Drawer', () => {
     const onOpenChange = vi.fn();
 
     render(
-      <Drawer
-        open={false}
-        onOpenChange={onOpenChange}
-      >
-        <DrawerTrigger>
-          Open
-        </DrawerTrigger>
+      <Drawer open={false} onOpenChange={onOpenChange}>
+        <DrawerTrigger>Open</DrawerTrigger>
 
         <DrawerContent>
-          <DrawerTitle>
-            Drawer
-          </DrawerTitle>
+          <DrawerTitle>Drawer</DrawerTitle>
         </DrawerContent>
       </Drawer>,
     );
@@ -144,17 +101,13 @@ describe('Drawer', () => {
       }),
     );
 
-    expect(
-      onOpenChange,
-    ).toHaveBeenCalledWith(true);
+    expect(onOpenChange).toHaveBeenCalledWith(true);
 
     /*
      * Controlled value remains false until its owner
      * supplies a new value.
      */
-    expect(
-      screen.queryByRole('dialog'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 
   it('locks body scrolling while open', () => {
@@ -162,9 +115,7 @@ describe('Drawer', () => {
       defaultOpen: true,
     });
 
-    expect(
-      document.body.style.overflow,
-    ).toBe('hidden');
+    expect(document.body.style.overflow).toBe('hidden');
   });
 
   it('restores body scrolling after closing', async () => {
@@ -180,9 +131,7 @@ describe('Drawer', () => {
       }),
     );
 
-    expect(
-      document.body.style.overflow,
-    ).toBe('');
+    expect(document.body.style.overflow).toBe('');
   });
 
   it('moves focus into the drawer', async () => {
@@ -204,10 +153,9 @@ describe('Drawer', () => {
 
     renderDrawer();
 
-    const trigger =
-      screen.getByRole('button', {
-        name: 'Open navigation',
-      });
+    const trigger = screen.getByRole('button', {
+      name: 'Open navigation',
+    });
 
     await user.click(trigger);
 
@@ -227,16 +175,10 @@ describe('Drawer', () => {
 
     render(
       <Drawer defaultOpen>
-        <DrawerTrigger>
-          Open
-        </DrawerTrigger>
+        <DrawerTrigger>Open</DrawerTrigger>
 
-        <DrawerContent
-          closeOnEscape={false}
-        >
-          <DrawerTitle>
-            Navigation
-          </DrawerTitle>
+        <DrawerContent closeOnEscape={false}>
+          <DrawerTitle>Navigation</DrawerTitle>
         </DrawerContent>
       </Drawer>,
     );
@@ -256,34 +198,24 @@ describe('Drawer', () => {
     render(
       <>
         <Drawer defaultOpen>
-          <DrawerTrigger>
-            Open first
-          </DrawerTrigger>
+          <DrawerTrigger>Open first</DrawerTrigger>
 
           <DrawerContent aria-label="First drawer">
-            <DrawerClose>
-              Close first
-            </DrawerClose>
+            <DrawerClose>Close first</DrawerClose>
           </DrawerContent>
         </Drawer>
 
         <Drawer defaultOpen>
-          <DrawerTrigger>
-            Open second
-          </DrawerTrigger>
+          <DrawerTrigger>Open second</DrawerTrigger>
 
           <DrawerContent aria-label="Second drawer">
-            <DrawerClose>
-              Close second
-            </DrawerClose>
+            <DrawerClose>Close second</DrawerClose>
           </DrawerContent>
         </Drawer>
       </>,
     );
 
-    expect(
-      document.body.style.overflow,
-    ).toBe('hidden');
+    expect(document.body.style.overflow).toBe('hidden');
 
     await user.click(
       screen.getByRole('button', {
@@ -291,9 +223,7 @@ describe('Drawer', () => {
       }),
     );
 
-    expect(
-      document.body.style.overflow,
-    ).toBe('hidden');
+    expect(document.body.style.overflow).toBe('hidden');
 
     await user.click(
       screen.getByRole('button', {
@@ -301,8 +231,6 @@ describe('Drawer', () => {
       }),
     );
 
-    expect(
-      document.body.style.overflow,
-    ).toBe('');
+    expect(document.body.style.overflow).toBe('');
   });
 });

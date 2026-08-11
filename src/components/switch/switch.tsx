@@ -1,11 +1,5 @@
-import type {
-  ChangeEvent,
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
-import {
-  useId,
-} from 'react';
+import type { ChangeEvent, ComponentPropsWithoutRef, ReactNode } from 'react';
+import { useId } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
@@ -48,10 +42,7 @@ export interface SwitchProps extends NativeSwitchProps {
   /**
    * Called with the new checked state after a user change.
    */
-  onCheckedChange?: (
-    checked: boolean,
-    event: ChangeEvent<HTMLInputElement>,
-  ) => void;
+  onCheckedChange?: (checked: boolean, event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function Switch({
@@ -69,80 +60,51 @@ export function Switch({
   const generatedId = useId();
   const id = providedId ?? generatedId;
 
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement>,
-  ): void => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     onChange?.(event);
 
     if (event.defaultPrevented) {
       return;
     }
 
-    onCheckedChange?.(
-      event.currentTarget.checked,
-      event,
-    );
+    onCheckedChange?.(event.currentTarget.checked, event);
   };
 
   return (
     <label
-      className={classNames(
-        'rush-switch',
-        className,
-      )}
-      data-always-active={
-        alwaysActive || undefined
-      }
+      className={classNames('rush-switch', className)}
+      data-always-active={alwaysActive || undefined}
       data-disabled={disabled || undefined}
       data-slot="switch"
       htmlFor={id}
     >
-      {offLabel !== undefined
-        && offLabel !== null
-        && offLabel !== '' && (
-          <span
-            className="rush-switch__label rush-switch__label--off"
-            data-slot="switch-off-label"
-          >
-            {offLabel}
-          </span>
-        )}
+      {offLabel !== undefined && offLabel !== null && offLabel !== '' && (
+        <span className="rush-switch__label rush-switch__label--off" data-slot="switch-off-label">
+          {offLabel}
+        </span>
+      )}
 
-      <span
-        className="rush-switch__control"
-        data-slot="switch-control"
-      >
+      <span className="rush-switch__control" data-slot="switch-control">
         <input
           {...inputProps}
           id={id}
-          className={classNames(
-            'rush-switch__input',
-            inputClassName,
-          )}
+          className={classNames('rush-switch__input', inputClassName)}
           disabled={disabled}
           role="switch"
           type="checkbox"
           onChange={handleChange}
         />
 
-        <span
-          aria-hidden="true"
-          className="rush-switch__track"
-        >
+        <span aria-hidden="true" className="rush-switch__track">
           <span className="rush-switch__thumb" />
         </span>
       </span>
 
-      {onLabel !== undefined
-        && onLabel !== null
-        && onLabel !== '' && (
-          <span
-            className="rush-switch__label rush-switch__label--on"
-            data-slot="switch-on-label"
-          >
-            {onLabel}
-          </span>
-        )}
+      {onLabel !== undefined && onLabel !== null && onLabel !== '' && (
+        <span className="rush-switch__label rush-switch__label--on" data-slot="switch-on-label">
+          {onLabel}
+        </span>
+      )}
     </label>
   );
 }

@@ -1,24 +1,12 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from './card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './card';
 
 const meta = {
   title: 'Components/Card',
   component: Card,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -39,8 +27,7 @@ const meta = {
 
     className: {
       control: 'text',
-      description:
-        'Additional CSS classes applied to the root element.',
+      description: 'Additional CSS classes applied to the root element.',
     },
   },
 } satisfies Meta<typeof Card>;
@@ -55,16 +42,11 @@ export const Default: Story = {
       <CardHeader>
         <CardTitle>Player profile</CardTitle>
 
-        <CardDescription>
-          Information about the KZ-Rush player.
-        </CardDescription>
+        <CardDescription>Information about the KZ-Rush player.</CardDescription>
       </CardHeader>
 
       <CardContent>
-        <p>
-          Player statistics and recent records will appear
-          here.
-        </p>
+        <p>Player statistics and recent records will appear here.</p>
       </CardContent>
     </Card>
   ),
@@ -76,9 +58,7 @@ export const WithFooter: Story = {
       <CardHeader>
         <CardTitle>Demo submission</CardTitle>
 
-        <CardDescription>
-          Review the demo information before uploading it.
-        </CardDescription>
+        <CardDescription>Review the demo information before uploading it.</CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -101,13 +81,9 @@ export const WithFooter: Story = {
       </CardContent>
 
       <CardFooter>
-        <button type="button">
-          Cancel
-        </button>
+        <button type="button">Cancel</button>
 
-        <button type="button">
-          Upload demo
-        </button>
+        <button type="button">Upload demo</button>
       </CardFooter>
     </Card>
   ),
@@ -116,9 +92,7 @@ export const WithFooter: Story = {
 export const ContentOnly: Story = {
   render: (args) => (
     <Card {...args}>
-      <CardContent>
-        A card does not have to contain a header or footer.
-      </CardContent>
+      <CardContent>A card does not have to contain a header or footer.</CardContent>
     </Card>
   ),
 };
@@ -127,34 +101,24 @@ export const LongContent: Story = {
   render: (args) => (
     <Card {...args}>
       <CardHeader>
-        <CardTitle>
-          Counter-Strike 1.6 Kreedz record
-        </CardTitle>
+        <CardTitle>Counter-Strike 1.6 Kreedz record</CardTitle>
 
-        <CardDescription>
-          Detailed information about an approved player
-          record.
-        </CardDescription>
+        <CardDescription>Detailed information about an approved player record.</CardDescription>
       </CardHeader>
 
       <CardContent>
         <p>
-          This story demonstrates how the card behaves when
-          its content occupies several lines. The card height
-          grows naturally, while spacing between its sections
-          remains consistent.
+          This story demonstrates how the card behaves when its content occupies several lines. The
+          card height grows naturally, while spacing between its sections remains consistent.
         </p>
 
         <p>
-          Additional content can include text, forms, tables,
-          lists, or other Rush UI components.
+          Additional content can include text, forms, tables, lists, or other Rush UI components.
         </p>
       </CardContent>
 
       <CardFooter>
-        <button type="button">
-          View record
-        </button>
+        <button type="button">View record</button>
       </CardFooter>
     </Card>
   ),
@@ -170,14 +134,10 @@ export const CustomClassName: Story = {
       <CardHeader>
         <CardTitle>Custom class</CardTitle>
 
-        <CardDescription>
-          Consumer classes are merged with rush-card.
-        </CardDescription>
+        <CardDescription>Consumer classes are merged with rush-card.</CardDescription>
       </CardHeader>
 
-      <CardContent>
-        Inspect the root element in developer tools.
-      </CardContent>
+      <CardContent>Inspect the root element in developer tools.</CardContent>
     </Card>
   ),
 };
@@ -200,9 +160,7 @@ export const NestedCards: Story = {
       <CardHeader>
         <CardTitle>World records</CardTitle>
 
-        <CardDescription>
-          Recently approved KZ-Rush records.
-        </CardDescription>
+        <CardDescription>Recently approved KZ-Rush records.</CardDescription>
       </CardHeader>
 
       <CardContent>
@@ -216,28 +174,20 @@ export const NestedCards: Story = {
             <CardHeader>
               <CardTitle>kz_example</CardTitle>
 
-              <CardDescription>
-                Player: Alexey
-              </CardDescription>
+              <CardDescription>Player: Alexey</CardDescription>
             </CardHeader>
 
-            <CardContent>
-              Time: 01:42.56
-            </CardContent>
+            <CardContent>Time: 01:42.56</CardContent>
           </Card>
 
           <Card>
             <CardHeader>
               <CardTitle>bkz_example</CardTitle>
 
-              <CardDescription>
-                Player: Example Player
-              </CardDescription>
+              <CardDescription>Player: Example Player</CardDescription>
             </CardHeader>
 
-            <CardContent>
-              Time: 02:08.12
-            </CardContent>
+            <CardContent>Time: 02:08.12</CardContent>
           </Card>
         </div>
       </CardContent>

@@ -18,21 +18,14 @@
   }
 
   &__description {
-    color: var(
-      --rush-form-field-description-foreground,
-      var(--rush-color-muted-foreground)
-    );
+    color: var(--rush-form-field-description-foreground, var(--rush-color-muted-foreground));
   }
 
   &__error {
-    color: var(
-      --rush-form-field-error-foreground,
-      var(--rush-color-destructive)
-    );
+    color: var(--rush-form-field-error-foreground, var(--rush-color-destructive));
   }
 
   &[data-invalid='true'] {
-    --rush-form-field-control-border-color:
-      var(--rush-color-destructive);
+    --rush-form-field-control-border-color: var(--rush-color-destructive);
   }
 }

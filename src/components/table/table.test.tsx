@@ -1,13 +1,6 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import {
-  describe,
-  expect,
-  it,
-} from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import {
   Table,
@@ -26,31 +19,21 @@ describe('Table', () => {
     render(
       <TableContainer>
         <Table>
-          <TableCaption>
-            Records
-          </TableCaption>
+          <TableCaption>Records</TableCaption>
 
           <TableHeader>
             <TableRow>
-              <TableHead>
-                Player
-              </TableHead>
+              <TableHead>Player</TableHead>
 
-              <TableHead>
-                Time
-              </TableHead>
+              <TableHead>Time</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             <TableRow>
-              <TableCell>
-                PlayerOne
-              </TableCell>
+              <TableCell>PlayerOne</TableCell>
 
-              <TableCell>
-                01:23.45
-              </TableCell>
+              <TableCell>01:23.45</TableCell>
             </TableRow>
           </TableBody>
         </Table>
@@ -78,78 +61,44 @@ describe('Table', () => {
 
   it('applies table options', () => {
     render(
-      <Table
-        striped
-        hoverable={false}
-        density="compact"
-        data-testid="table"
-      >
+      <Table striped hoverable={false} density="compact" data-testid="table">
         <TableBody>
           <TableRow>
-            <TableCell>
-              Value
-            </TableCell>
+            <TableCell>Value</TableCell>
           </TableRow>
         </TableBody>
       </Table>,
     );
 
-    const table =
-      screen.getByTestId('table');
+    const table = screen.getByTestId('table');
 
-    expect(table).toHaveClass(
-      'rush-table',
-      'rush-table--striped',
-      'rush-table--density-compact',
-    );
+    expect(table).toHaveClass('rush-table', 'rush-table--striped', 'rush-table--density-compact');
 
-    expect(table).not.toHaveClass(
-      'rush-table--hoverable',
-    );
+    expect(table).not.toHaveClass('rush-table--hoverable');
 
-    expect(table).toHaveAttribute(
-      'data-striped',
-      'true',
-    );
+    expect(table).toHaveAttribute('data-striped', 'true');
 
-    expect(table).toHaveAttribute(
-      'data-density',
-      'compact',
-    );
+    expect(table).toHaveAttribute('data-density', 'compact');
   });
 
   it('marks a selected row', () => {
     render(
       <Table>
         <TableBody>
-          <TableRow
-            selected
-            data-testid="row"
-          >
-            <TableCell>
-              PlayerOne
-            </TableCell>
+          <TableRow selected data-testid="row">
+            <TableCell>PlayerOne</TableCell>
           </TableRow>
         </TableBody>
       </Table>,
     );
 
-    const row =
-      screen.getByTestId('row');
+    const row = screen.getByTestId('row');
 
-    expect(row).toHaveClass(
-      'rush-table__row--selected',
-    );
+    expect(row).toHaveClass('rush-table__row--selected');
 
-    expect(row).toHaveAttribute(
-      'data-selected',
-      'true',
-    );
+    expect(row).toHaveAttribute('data-selected', 'true');
 
-    expect(row).toHaveAttribute(
-      'aria-selected',
-      'true',
-    );
+    expect(row).toHaveAttribute('aria-selected', 'true');
   });
 
   it('applies alignment to header and body cells', () => {
@@ -157,10 +106,7 @@ describe('Table', () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead
-              align="right"
-              data-testid="head"
-            >
+            <TableHead align="right" data-testid="head">
               Time
             </TableHead>
           </TableRow>
@@ -168,10 +114,7 @@ describe('Table', () => {
 
         <TableBody>
           <TableRow>
-            <TableCell
-              align="right"
-              data-testid="cell"
-            >
+            <TableCell align="right" data-testid="cell">
               01:23.45
             </TableCell>
           </TableRow>
@@ -179,17 +122,9 @@ describe('Table', () => {
       </Table>,
     );
 
-    expect(
-      screen.getByTestId('head'),
-    ).toHaveClass(
-      'rush-table__cell--align-right',
-    );
+    expect(screen.getByTestId('head')).toHaveClass('rush-table__cell--align-right');
 
-    expect(
-      screen.getByTestId('cell'),
-    ).toHaveClass(
-      'rush-table__cell--align-right',
-    );
+    expect(screen.getByTestId('cell')).toHaveClass('rush-table__cell--align-right');
   });
 
   it('defaults table headers to column scope', () => {
@@ -197,9 +132,7 @@ describe('Table', () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>
-              Player
-            </TableHead>
+            <TableHead>Player</TableHead>
           </TableRow>
         </TableHeader>
       </Table>,
@@ -209,10 +142,7 @@ describe('Table', () => {
       screen.getByRole('columnheader', {
         name: 'Player',
       }),
-    ).toHaveAttribute(
-      'scope',
-      'col',
-    );
+    ).toHaveAttribute('scope', 'col');
   });
 
   it('allows header scope to be overridden', () => {
@@ -220,13 +150,9 @@ describe('Table', () => {
       <Table>
         <TableBody>
           <TableRow>
-            <TableHead scope="row">
-              PlayerOne
-            </TableHead>
+            <TableHead scope="row">PlayerOne</TableHead>
 
-            <TableCell>
-              01:23.45
-            </TableCell>
+            <TableCell>01:23.45</TableCell>
           </TableRow>
         </TableBody>
       </Table>,
@@ -236,10 +162,7 @@ describe('Table', () => {
       screen.getByRole('rowheader', {
         name: 'PlayerOne',
       }),
-    ).toHaveAttribute(
-      'scope',
-      'row',
-    );
+    ).toHaveAttribute('scope', 'row');
   });
 
   it('renders a footer', () => {
@@ -247,69 +170,39 @@ describe('Table', () => {
       <Table>
         <TableBody>
           <TableRow>
-            <TableCell>
-              Approved
-            </TableCell>
+            <TableCell>Approved</TableCell>
           </TableRow>
         </TableBody>
 
         <TableFooter>
           <TableRow>
-            <TableCell>
-              Total: 1
-            </TableCell>
+            <TableCell>Total: 1</TableCell>
           </TableRow>
         </TableFooter>
       </Table>,
     );
 
-    expect(
-      screen.getByText('Total: 1')
-        .closest('tfoot'),
-    ).toHaveClass(
-      'rush-table__footer',
-    );
+    expect(screen.getByText('Total: 1').closest('tfoot')).toHaveClass('rush-table__footer');
   });
 
   it('renders the responsive container', () => {
     render(
-      <TableContainer
-        data-testid="container"
-        className="custom-container"
-      >
+      <TableContainer data-testid="container" className="custom-container">
         <Table />
       </TableContainer>,
     );
 
-    expect(
-      screen.getByTestId('container'),
-    ).toHaveClass(
-      'rush-table-container',
-      'custom-container',
-    );
+    expect(screen.getByTestId('container')).toHaveClass('rush-table-container', 'custom-container');
   });
 
   it('forwards native table props and class names', () => {
-    render(
-      <Table
-        className="custom-table"
-        title="World records"
-        data-testid="table"
-      />,
-    );
+    render(<Table className="custom-table" title="World records" data-testid="table" />);
 
-    const table =
-      screen.getByTestId('table');
+    const table = screen.getByTestId('table');
 
-    expect(table).toHaveClass(
-      'rush-table',
-      'custom-table',
-    );
+    expect(table).toHaveClass('rush-table', 'custom-table');
 
-    expect(table).toHaveAttribute(
-      'title',
-      'World records',
-    );
+    expect(table).toHaveAttribute('title', 'World records');
   });
 
   it('forwards native cell props', () => {
@@ -317,10 +210,7 @@ describe('Table', () => {
       <Table>
         <TableBody>
           <TableRow>
-            <TableCell
-              colSpan={2}
-              title="Combined cell"
-            >
+            <TableCell colSpan={2} title="Combined cell">
               Combined
             </TableCell>
           </TableRow>
@@ -328,85 +218,56 @@ describe('Table', () => {
       </Table>,
     );
 
-    const cell =
-      screen.getByRole('cell', {
-        name: 'Combined',
-      });
+    const cell = screen.getByRole('cell', {
+      name: 'Combined',
+    });
 
-    expect(cell).toHaveAttribute(
-      'colspan',
-      '2',
-    );
+    expect(cell).toHaveAttribute('colspan', '2');
 
-    expect(cell).toHaveAttribute(
-      'title',
-      'Combined cell',
-    );
+    expect(cell).toHaveAttribute('title', 'Combined cell');
   });
 
   it('does not apply striped styles by default', () => {
-  render(
+    render(
       <Table data-testid="table">
-      <TableBody>
+        <TableBody>
           <TableRow>
-          <TableCell>
-              First
-          </TableCell>
+            <TableCell>First</TableCell>
           </TableRow>
 
           <TableRow>
-          <TableCell>
-              Second
-          </TableCell>
+            <TableCell>Second</TableCell>
           </TableRow>
-      </TableBody>
+        </TableBody>
       </Table>,
-  );
+    );
 
-  const table =
-      screen.getByTestId('table');
+    const table = screen.getByTestId('table');
 
-  expect(table).not.toHaveClass(
-      'rush-table--striped',
-  );
+    expect(table).not.toHaveClass('rush-table--striped');
 
-  expect(table).not.toHaveAttribute(
-      'data-striped',
-  );
+    expect(table).not.toHaveAttribute('data-striped');
   });
 
   it('applies striped mode when requested', () => {
-  render(
-      <Table
-      striped
-      data-testid="table"
-      >
-      <TableBody>
+    render(
+      <Table striped data-testid="table">
+        <TableBody>
           <TableRow>
-          <TableCell>
-              First
-          </TableCell>
+            <TableCell>First</TableCell>
           </TableRow>
 
           <TableRow>
-          <TableCell>
-              Second
-          </TableCell>
+            <TableCell>Second</TableCell>
           </TableRow>
-      </TableBody>
+        </TableBody>
       </Table>,
-  );
+    );
 
-  const table =
-      screen.getByTestId('table');
+    const table = screen.getByTestId('table');
 
-  expect(table).toHaveClass(
-      'rush-table--striped',
-  );
+    expect(table).toHaveClass('rush-table--striped');
 
-  expect(table).toHaveAttribute(
-      'data-striped',
-      'true',
-  );
+    expect(table).toHaveAttribute('data-striped', 'true');
   });
 });

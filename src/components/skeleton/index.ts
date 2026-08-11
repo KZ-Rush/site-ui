@@ -1,8 +1,3 @@
-export {
-  Skeleton,
-} from './skeleton';
+export { Skeleton } from './skeleton';
 
-export type {
-  SkeletonProps,
-  SkeletonVariant,
-} from './skeleton';
+export type { SkeletonProps, SkeletonVariant } from './skeleton';

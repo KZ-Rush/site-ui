@@ -1,27 +1,12 @@
-import type {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ReactNode,
-  Ref,
-} from 'react';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
 import './button.scss';
 
-export type ButtonVariant =
-  | 'default'
-  | 'destructive'
-  | 'outline'
-  | 'secondary'
-  | 'ghost'
-  | 'link';
+export type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
 
-export type ButtonSize =
-  | 'default'
-  | 'sm'
-  | 'lg'
-  | 'icon';
+export type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
 
 interface ButtonSharedProps {
   /**
@@ -46,11 +31,9 @@ interface ButtonSharedProps {
 }
 
 export interface NativeButtonProps
-  extends ButtonSharedProps,
-    Omit<
-      ButtonHTMLAttributes<HTMLButtonElement>,
-      'children' | 'className'
-    > {
+  extends
+    ButtonSharedProps,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'className'> {
   href?: never;
 
   /**
@@ -60,11 +43,9 @@ export interface NativeButtonProps
 }
 
 export interface LinkButtonProps
-  extends ButtonSharedProps,
-    Omit<
-      AnchorHTMLAttributes<HTMLAnchorElement>,
-      'children' | 'className' | 'href'
-    > {
+  extends
+    ButtonSharedProps,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children' | 'className' | 'href'> {
   /**
    * When supplied, Button renders an anchor.
    */
@@ -82,9 +63,7 @@ export interface LinkButtonProps
   ref?: Ref<HTMLAnchorElement>;
 }
 
-export type ButtonProps =
-  | NativeButtonProps
-  | LinkButtonProps;
+export type ButtonProps = NativeButtonProps | LinkButtonProps;
 
 function getButtonClassName({
   variant,
@@ -103,20 +82,12 @@ function getButtonClassName({
   );
 }
 
-function isLinkButton(
-  props: ButtonProps,
-): props is LinkButtonProps {
+function isLinkButton(props: ButtonProps): props is LinkButtonProps {
   return typeof props.href === 'string';
 }
 
-export function Button(
-  props: ButtonProps,
-) {
-  const {
-    variant = 'default',
-    size = 'default',
-    className,
-  } = props;
+export function Button(props: ButtonProps) {
+  const { variant = 'default', size = 'default', className } = props;
 
   const buttonClassName = getButtonClassName({
     variant,
@@ -125,15 +96,7 @@ export function Button(
   });
 
   if (isLinkButton(props)) {
-    const {
-      href,
-      disabled = false,
-      children,
-      onClick,
-      tabIndex,
-      ref,
-      ...anchorProps
-    } = props;
+    const { href, disabled = false, children, onClick, tabIndex, ref, ...anchorProps } = props;
 
     return (
       <a
@@ -162,13 +125,7 @@ export function Button(
     );
   }
 
-  const {
-    children,
-    disabled,
-    type = 'button',
-    ref,
-    ...buttonProps
-  } = props;
+  const { children, disabled, type = 'button', ref, ...buttonProps } = props;
 
   return (
     <button

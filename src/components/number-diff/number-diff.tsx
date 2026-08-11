@@ -1,20 +1,12 @@
-import type {
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
 import './number-diff.scss';
 
-export type NumberDiffSign =
-  | 'positive'
-  | 'negative'
-  | 'neutral'
-  | 'invalid';
+export type NumberDiffSign = 'positive' | 'negative' | 'neutral' | 'invalid';
 
-export interface NumberDiffProps
-  extends Omit<ComponentPropsWithoutRef<'span'>, 'children'> {
+export interface NumberDiffProps extends Omit<ComponentPropsWithoutRef<'span'>, 'children'> {
   /**
    * Numeric difference to display.
    */
@@ -81,11 +73,7 @@ export function NumberDiff({
     return (
       <span
         {...spanProps}
-        className={classNames(
-          'rush-number-diff',
-          'rush-number-diff--invalid',
-          className,
-        )}
+        className={classNames('rush-number-diff', 'rush-number-diff--invalid', className)}
         data-sign="invalid"
         data-slot="number-diff"
       >
@@ -100,10 +88,7 @@ export function NumberDiff({
    */
   const absoluteValue = Math.abs(value);
 
-  const formattedValue = new Intl.NumberFormat(
-    locale,
-    formatOptions,
-  ).format(absoluteValue);
+  const formattedValue = new Intl.NumberFormat(locale, formatOptions).format(absoluteValue);
 
   let prefix = '';
 
@@ -116,18 +101,11 @@ export function NumberDiff({
   return (
     <span
       {...spanProps}
-      className={classNames(
-        'rush-number-diff',
-        `rush-number-diff--${sign}`,
-        className,
-      )}
+      className={classNames('rush-number-diff', `rush-number-diff--${sign}`, className)}
       data-sign={sign}
       data-slot="number-diff"
     >
-      <span
-        className="rush-number-diff__value"
-        data-slot="number-diff-value"
-      >
+      <span className="rush-number-diff__value" data-slot="number-diff-value">
         {prefix}
         {formattedValue}
       </span>
@@ -135,11 +113,7 @@ export function NumberDiff({
       {label !== undefined && label !== null && (
         <>
           {' '}
-
-          <span
-            className="rush-number-diff__label"
-            data-slot="number-diff-label"
-          >
+          <span className="rush-number-diff__label" data-slot="number-diff-label">
             {label}
           </span>
         </>

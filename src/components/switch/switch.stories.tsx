@@ -1,14 +1,7 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
-import {
-  fn,
-} from 'storybook/test';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 
 import { Switch } from './switch';
 
@@ -16,9 +9,7 @@ const meta = {
   title: 'Components/Switch',
   component: Switch,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -36,14 +27,12 @@ const meta = {
   argTypes: {
     checked: {
       control: 'boolean',
-      description:
-        'Current state for controlled usage.',
+      description: 'Current state for controlled usage.',
     },
 
     defaultChecked: {
       control: 'boolean',
-      description:
-        'Initial state for uncontrolled usage.',
+      description: 'Initial state for uncontrolled usage.',
     },
 
     offLabel: {
@@ -60,8 +49,7 @@ const meta = {
 
     alwaysActive: {
       control: 'boolean',
-      description:
-        'Keeps the thumb visually emphasized without changing its state.',
+      description: 'Keeps the thumb visually emphasized without changing its state.',
     },
 
     name: {
@@ -149,15 +137,9 @@ export const Controlled: Story = {
           alignItems: 'flex-start',
         }}
       >
-        <Switch
-          {...args}
-          checked={checked}
-          onCheckedChange={setChecked}
-        />
+        <Switch {...args} checked={checked} onCheckedChange={setChecked} />
 
-        <span>
-          State: {checked ? 'on' : 'off'}
-        </span>
+        <span>State: {checked ? 'on' : 'off'}</span>
       </div>
     );
   },
@@ -169,17 +151,9 @@ export const FormSubmission: Story = {
       onSubmit={(event) => {
         event.preventDefault();
 
-        const data = new FormData(
-          event.currentTarget,
-        );
+        const data = new FormData(event.currentTarget);
 
-        window.alert(
-          JSON.stringify(
-            Object.fromEntries(data),
-            null,
-            2,
-          ),
-        );
+        window.alert(JSON.stringify(Object.fromEntries(data), null, 2));
       }}
     >
       <div
@@ -190,15 +164,9 @@ export const FormSubmission: Story = {
           gap: '1rem',
         }}
       >
-        <Switch
-          {...args}
-          name="notifications"
-          value="enabled"
-        />
+        <Switch {...args} name="notifications" value="enabled" />
 
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   ),

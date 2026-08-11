@@ -17,7 +17,11 @@ describe('Checkbox', () => {
   it('calls native and convenience callbacks', () => {
     const onChange = vi.fn();
     const onCheckedChange = vi.fn();
-    render(<Checkbox onChange={onChange} onCheckedChange={onCheckedChange}>Remember me</Checkbox>);
+    render(
+      <Checkbox onChange={onChange} onCheckedChange={onCheckedChange}>
+        Remember me
+      </Checkbox>,
+    );
     fireEvent.click(screen.getByRole('checkbox'));
     expect(onChange).toHaveBeenCalledOnce();
     expect(onCheckedChange).toHaveBeenCalledWith(true);
@@ -28,10 +32,7 @@ describe('Checkbox', () => {
     const onCheckedChange = vi.fn();
 
     render(
-      <Checkbox
-        disabled
-        onCheckedChange={onCheckedChange}
-      >
+      <Checkbox disabled onCheckedChange={onCheckedChange}>
         Remember me
       </Checkbox>,
     );
@@ -51,7 +52,12 @@ describe('Checkbox', () => {
 
   it('forwards input props and custom class names', () => {
     render(
-      <Checkbox className="custom-checkbox" inputClassName="custom-input" name="terms" value="accepted">
+      <Checkbox
+        className="custom-checkbox"
+        inputClassName="custom-input"
+        name="terms"
+        value="accepted"
+      >
         Accept terms
       </Checkbox>,
     );
@@ -63,93 +69,48 @@ describe('Checkbox', () => {
   });
 
   it('supports an indeterminate state', () => {
-    render(
-      <Checkbox indeterminate>
-        Select all
-      </Checkbox>,
-    );
+    render(<Checkbox indeterminate>Select all</Checkbox>);
 
-    const checkbox =
-      screen.getByRole('checkbox');
+    const checkbox = screen.getByRole('checkbox');
 
-    expect(checkbox).toHaveAttribute(
-      'aria-checked',
-      'mixed',
-    );
+    expect(checkbox).toHaveAttribute('aria-checked', 'mixed');
 
-    expect(checkbox).toHaveProperty(
-      'indeterminate',
-      true,
-    );
+    expect(checkbox).toHaveProperty('indeterminate', true);
   });
 
   it('updates the indeterminate state', () => {
-    const {
-      rerender,
-    } = render(
-      <Checkbox indeterminate>
-        Select all
-      </Checkbox>,
-    );
+    const { rerender } = render(<Checkbox indeterminate>Select all</Checkbox>);
 
-    const checkbox =
-      screen.getByRole('checkbox');
+    const checkbox = screen.getByRole('checkbox');
 
-    expect(checkbox).toHaveProperty(
-      'indeterminate',
-      true,
-    );
+    expect(checkbox).toHaveProperty('indeterminate', true);
 
-    rerender(
-      <Checkbox indeterminate={false}>
-        Select all
-      </Checkbox>,
-    );
+    rerender(<Checkbox indeterminate={false}>Select all</Checkbox>);
 
-    expect(checkbox).toHaveProperty(
-      'indeterminate',
-      false,
-    );
+    expect(checkbox).toHaveProperty('indeterminate', false);
   });
 
   it('supports controlled checked state with indeterminate state', () => {
-    const {
-      rerender,
-    } = render(
-      <Checkbox
-        checked={false}
-        indeterminate
-        readOnly
-      >
+    const { rerender } = render(
+      <Checkbox checked={false} indeterminate readOnly>
         Select rows
       </Checkbox>,
     );
 
-    const checkbox =
-      screen.getByRole('checkbox');
+    const checkbox = screen.getByRole('checkbox');
 
     expect(checkbox).not.toBeChecked();
 
-    expect(checkbox).toHaveProperty(
-      'indeterminate',
-      true,
-    );
+    expect(checkbox).toHaveProperty('indeterminate', true);
 
     rerender(
-      <Checkbox
-        checked
-        indeterminate={false}
-        readOnly
-      >
+      <Checkbox checked indeterminate={false} readOnly>
         Select rows
       </Checkbox>,
     );
 
     expect(checkbox).toBeChecked();
 
-    expect(checkbox).toHaveProperty(
-      'indeterminate',
-      false,
-    );
+    expect(checkbox).toHaveProperty('indeterminate', false);
   });
 });

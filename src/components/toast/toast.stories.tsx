@@ -1,16 +1,8 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Button,
-} from '../button';
+import { Button } from '../button';
 
-import {
-  RushToastContainer,
-  showToast,
-} from './toast';
+import { RushToastContainer, showToast } from './toast';
 
 import { generateId } from '../../utils/generate-id';
 
@@ -18,9 +10,7 @@ const meta = {
   title: 'Components/Toast',
   component: RushToastContainer,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -39,22 +29,16 @@ export const Success: Story = {
       <>
         <Button
           onClick={() => {
-            showToast(
-              'The demo was uploaded successfully.',
-              {
-                type: 'success',
-                containerId,
-              },
-            );
+            showToast('The demo was uploaded successfully.', {
+              type: 'success',
+              containerId,
+            });
           }}
         >
           Show notification
         </Button>
 
-        <RushToastContainer
-          {...args}
-          containerId={containerId}
-        />
+        <RushToastContainer {...args} containerId={containerId} />
       </>
     );
   },
@@ -69,22 +53,16 @@ export const Error: Story = {
         <Button
           variant="destructive"
           onClick={() => {
-            showToast(
-              'The demo could not be uploaded.',
-              {
-                type: 'error',
-                containerId,
-              },
-            );
+            showToast('The demo could not be uploaded.', {
+              type: 'error',
+              containerId,
+            });
           }}
         >
           Show error
         </Button>
 
-        <RushToastContainer
-          {...args}
-          containerId={containerId}
-        />
+        <RushToastContainer {...args} containerId={containerId} />
       </>
     );
   },

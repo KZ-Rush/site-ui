@@ -1,26 +1,14 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
-import {
-  describe,
-  expect,
-  it,
-} from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import {
-  Skeleton,
-} from './skeleton';
+import { Skeleton } from './skeleton';
 
 describe('Skeleton', () => {
   it('renders a block skeleton by default', () => {
-    render(
-      <Skeleton data-testid="skeleton" />,
-    );
+    render(<Skeleton data-testid="skeleton" />);
 
-    const skeleton =
-      screen.getByTestId('skeleton');
+    const skeleton = screen.getByTestId('skeleton');
 
     expect(skeleton).toHaveClass(
       'rush-skeleton',
@@ -28,70 +16,33 @@ describe('Skeleton', () => {
       'rush-skeleton--animated',
     );
 
-    expect(skeleton).toHaveAttribute(
-      'data-variant',
-      'block',
-    );
+    expect(skeleton).toHaveAttribute('data-variant', 'block');
 
-    expect(skeleton).toHaveAttribute(
-      'data-animated',
-      'true',
-    );
+    expect(skeleton).toHaveAttribute('data-animated', 'true');
   });
 
   it('is hidden from assistive technologies', () => {
-    render(
-      <Skeleton data-testid="skeleton" />,
-    );
+    render(<Skeleton data-testid="skeleton" />);
 
-    expect(
-      screen.getByTestId('skeleton'),
-    ).toHaveAttribute(
-      'aria-hidden',
-      'true',
-    );
+    expect(screen.getByTestId('skeleton')).toHaveAttribute('aria-hidden', 'true');
   });
 
   it('renders the circle variant', () => {
-    render(
-      <Skeleton
-        variant="circle"
-        data-testid="skeleton"
-      />,
-    );
+    render(<Skeleton variant="circle" data-testid="skeleton" />);
 
-    expect(
-      screen.getByTestId('skeleton'),
-    ).toHaveClass(
-      'rush-skeleton--circle',
-    );
+    expect(screen.getByTestId('skeleton')).toHaveClass('rush-skeleton--circle');
 
-    expect(
-      screen.getByTestId('skeleton'),
-    ).toHaveAttribute(
-      'data-variant',
-      'circle',
-    );
+    expect(screen.getByTestId('skeleton')).toHaveAttribute('data-variant', 'circle');
   });
 
   it('can disable animation', () => {
-    render(
-      <Skeleton
-        animated={false}
-        data-testid="skeleton"
-      />,
-    );
+    render(<Skeleton animated={false} data-testid="skeleton" />);
 
-    const skeleton =
-      screen.getByTestId('skeleton');
+    const skeleton = screen.getByTestId('skeleton');
 
-    expect(skeleton).not.toHaveClass(
-      'rush-skeleton--animated',
-    );
+    expect(skeleton).not.toHaveClass('rush-skeleton--animated');
 
-    expect(skeleton).not.toHaveAttribute(
-      'data-animated',
-    );
+    expect(skeleton).not.toHaveAttribute('data-animated');
   });
 
   it('forwards native props and class names', () => {
@@ -107,18 +58,11 @@ describe('Skeleton', () => {
       />,
     );
 
-    const skeleton =
-      screen.getByTestId('skeleton');
+    const skeleton = screen.getByTestId('skeleton');
 
-    expect(skeleton).toHaveClass(
-      'rush-skeleton',
-      'custom-skeleton',
-    );
+    expect(skeleton).toHaveClass('rush-skeleton', 'custom-skeleton');
 
-    expect(skeleton).toHaveAttribute(
-      'title',
-      'Loading',
-    );
+    expect(skeleton).toHaveAttribute('title', 'Loading');
 
     expect(skeleton).toHaveStyle({
       width: '10rem',

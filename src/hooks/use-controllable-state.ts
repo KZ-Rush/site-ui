@@ -1,8 +1,4 @@
-import {
-  useCallback,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export interface UseControllableStateOptions<T> {
   /**
@@ -25,23 +21,16 @@ export interface UseControllableStateOptions<T> {
   onChange?: (value: T) => void;
 }
 
-export type SetControllableState<T> = (
-  value: T | ((current: T) => T),
-) => void;
+export type SetControllableState<T> = (value: T | ((current: T) => T)) => void;
 
 export function useControllableState<T>({
   value,
   defaultValue,
   onChange,
-}: UseControllableStateOptions<T>): [
-  T,
-  SetControllableState<T>,
-] {
-  const [internalValue, setInternalValue] =
-    useState(defaultValue);
+}: UseControllableStateOptions<T>): [T, SetControllableState<T>] {
+  const [internalValue, setInternalValue] = useState(defaultValue);
 
-  const isControlled =
-    value !== undefined;
+  const isControlled = value !== undefined;
 
   /*
    * Keep the latest callback available without making
@@ -51,33 +40,20 @@ export function useControllableState<T>({
 
   onChangeRef.current = onChange;
 
-  const currentValue = isControlled
-    ? value
-    : internalValue;
+  const currentValue = isControlled ? value : internalValue;
 
-  const setValue = useCallback<
-    SetControllableState<T>
-  >(
+  const setValue = useCallback<SetControllableState<T>>(
     (nextValue) => {
       const resolvedValue =
         typeof nextValue === 'function'
-          ? (
-              nextValue as (
-                current: T,
-              ) => T
-            )(currentValue)
+          ? (nextValue as (current: T) => T)(currentValue)
           : nextValue;
 
       /*
        * Do not notify the consumer when nothing actually
        * changes.
        */
-      if (
-        Object.is(
-          resolvedValue,
-          currentValue,
-        )
-      ) {
+      if (Object.is(resolvedValue, currentValue)) {
         return;
       }
 
@@ -85,18 +61,10 @@ export function useControllableState<T>({
         setInternalValue(resolvedValue);
       }
 
-      onChangeRef.current?.(
-        resolvedValue,
-      );
+      onChangeRef.current?.(resolvedValue);
     },
-    [
-      currentValue,
-      isControlled,
-    ],
+    [currentValue, isControlled],
   );
 
-  return [
-    currentValue,
-    setValue,
-  ];
+  return [currentValue, setValue];
 }

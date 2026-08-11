@@ -1,25 +1,12 @@
-import type {
-  AnchorHTMLAttributes,
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import type { AnchorHTMLAttributes, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import {
-  Children,
-  Fragment,
-} from 'react';
+import { Children, Fragment } from 'react';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './breadcrumbs.scss';
 
-export interface BreadcrumbsProps
-  extends Omit<
-    ComponentPropsWithoutRef<'nav'>,
-    'children'
-  > {
+export interface BreadcrumbsProps extends Omit<ComponentPropsWithoutRef<'nav'>, 'children'> {
   children: ReactNode;
 
   /**
@@ -41,10 +28,7 @@ export function Breadcrumbs({
     <nav
       {...props}
       aria-label={ariaLabel}
-      className={classNames(
-        'rush-breadcrumbs',
-        className,
-      )}
+      className={classNames('rush-breadcrumbs', className)}
       data-slot="breadcrumbs"
     >
       <ol className="rush-breadcrumbs__list">
@@ -74,84 +58,48 @@ interface BreadcrumbItemSharedProps {
 }
 
 export interface BreadcrumbLinkItemProps
-  extends BreadcrumbItemSharedProps,
-    Omit<
-      AnchorHTMLAttributes<HTMLAnchorElement>,
-      'children' | 'className' | 'href'
-    > {
+  extends
+    BreadcrumbItemSharedProps,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children' | 'className' | 'href'> {
   href: string;
   current?: never;
 }
 
 export interface BreadcrumbCurrentItemProps
-  extends BreadcrumbItemSharedProps,
-    Omit<
-      ComponentPropsWithoutRef<'span'>,
-      'children' | 'className'
-    > {
+  extends
+    BreadcrumbItemSharedProps,
+    Omit<ComponentPropsWithoutRef<'span'>, 'children' | 'className'> {
   href?: never;
   current: true;
 }
 
-export type BreadcrumbItemProps =
-  | BreadcrumbLinkItemProps
-  | BreadcrumbCurrentItemProps;
+export type BreadcrumbItemProps = BreadcrumbLinkItemProps | BreadcrumbCurrentItemProps;
 
-function isLinkItem(
-  props: BreadcrumbItemProps,
-): props is BreadcrumbLinkItemProps {
+function isLinkItem(props: BreadcrumbItemProps): props is BreadcrumbLinkItemProps {
   return typeof props.href === 'string';
 }
 
-export function BreadcrumbItem(
-  props: BreadcrumbItemProps,
-) {
+export function BreadcrumbItem(props: BreadcrumbItemProps) {
   if (isLinkItem(props)) {
-    const {
-      href,
-      children,
-      className,
-      ...anchorProps
-    } = props;
+    const { href, children, className, ...anchorProps } = props;
 
     return (
-      <li
-        className="rush-breadcrumbs__item"
-        data-slot="breadcrumbs-item"
-      >
-        <a
-          {...anchorProps}
-          href={href}
-          className={classNames(
-            'rush-breadcrumbs__link',
-            className,
-          )}
-        >
+      <li className="rush-breadcrumbs__item" data-slot="breadcrumbs-item">
+        <a {...anchorProps} href={href} className={classNames('rush-breadcrumbs__link', className)}>
           {children}
         </a>
       </li>
     );
   }
 
-  const {
-    children,
-    className,
-    current: _current,
-    ...spanProps
-  } = props;
+  const { children, className, current: _current, ...spanProps } = props;
 
   return (
-    <li
-      className="rush-breadcrumbs__item"
-      data-slot="breadcrumbs-item"
-    >
+    <li className="rush-breadcrumbs__item" data-slot="breadcrumbs-item">
       <span
         {...spanProps}
         aria-current="page"
-        className={classNames(
-          'rush-breadcrumbs__current',
-          className,
-        )}
+        className={classNames('rush-breadcrumbs__current', className)}
       >
         {children}
       </span>

@@ -38,26 +38,20 @@
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build",
-
     "test": "npm run test:all",
     "test:unit": "vitest run --project=unit",
     "test:storybook": "vitest run --project=storybook",
     "test:all": "vitest run",
-
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-
     "prepare-release": "node ./scripts/prepare-release.mjs",
-
     "lint": "npm run lint:js && npm run lint:styles",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "lint:styles": "stylelint \"src/**/*.scss\"",
     "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
-
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-
     "check": "npm run lint && npm run format:check && npm run test:unit"
   },
   "peerDependencies": {

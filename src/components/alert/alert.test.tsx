@@ -4,12 +4,20 @@ import { Alert, AlertDescription, AlertList, AlertTitle } from './alert';
 
 describe('Alert', () => {
   it('uses status for non-destructive variants', () => {
-    render(<Alert variant="info"><AlertTitle>Information</AlertTitle></Alert>);
+    render(
+      <Alert variant="info">
+        <AlertTitle>Information</AlertTitle>
+      </Alert>,
+    );
     expect(screen.getByRole('status')).toHaveClass('rush-alert--info');
   });
 
   it('uses alert for destructive variants', () => {
-    render(<Alert variant="destructive"><AlertTitle>Error</AlertTitle></Alert>);
+    render(
+      <Alert variant="destructive">
+        <AlertTitle>Error</AlertTitle>
+      </Alert>,
+    );
     expect(screen.getByRole('alert')).toHaveClass('rush-alert--destructive');
   });
 

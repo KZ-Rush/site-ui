@@ -1,7 +1,3 @@
-export {
-  Label,
-} from './label';
+export { Label } from './label';
 
-export type {
-  LabelProps,
-} from './label';
+export type { LabelProps } from './label';

@@ -1,14 +1,6 @@
-import type {
-  ChangeEvent,
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import type { ChangeEvent, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import {
-  useEffect,
-  useId,
-  useRef,
-} from 'react';
+import { useEffect, useId, useRef } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
@@ -68,10 +60,7 @@ function IndeterminateCheckboxIcon() {
         fill="currentColor"
       />
 
-      <path
-        d="M5 8.125H13V10.15625H5V8.125Z"
-        fill="white"
-      />
+      <path d="M5 8.125H13V10.15625H5V8.125Z" fill="white" />
     </svg>
   );
 }
@@ -129,38 +118,24 @@ export function Checkbox({
       return;
     }
 
-    inputRef.current.indeterminate =
-      indeterminate;
-  }, [
-    indeterminate,
-  ]);
+    inputRef.current.indeterminate = indeterminate;
+  }, [indeterminate]);
 
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement>,
-  ): void => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     onChange?.(event);
 
     if (event.defaultPrevented) {
       return;
     }
 
-    onCheckedChange?.(
-      event.currentTarget.checked,
-    );
+    onCheckedChange?.(event.currentTarget.checked);
   };
 
   return (
     <label
-      className={classNames(
-        'rush-checkbox',
-        className,
-      )}
-      data-disabled={
-        disabled || undefined
-      }
-      data-indeterminate={
-        indeterminate || undefined
-      }
+      className={classNames('rush-checkbox', className)}
+      data-disabled={disabled || undefined}
+      data-indeterminate={indeterminate || undefined}
       data-slot="checkbox"
       htmlFor={id}
     >
@@ -168,25 +143,14 @@ export function Checkbox({
         {...inputProps}
         ref={inputRef}
         id={id}
-        aria-checked={
-          indeterminate
-            ? 'mixed'
-            : inputProps['aria-checked']
-        }
-        className={classNames(
-          'rush-checkbox__input',
-          inputClassName,
-        )}
+        aria-checked={indeterminate ? 'mixed' : inputProps['aria-checked']}
+        className={classNames('rush-checkbox__input', inputClassName)}
         disabled={disabled}
         type="checkbox"
         onChange={handleChange}
       />
 
-      <span
-        aria-hidden="true"
-        className="rush-checkbox__icon"
-        data-slot="checkbox-icon"
-      >
+      <span aria-hidden="true" className="rush-checkbox__icon" data-slot="checkbox-icon">
         <span className="rush-checkbox__icon-unchecked">
           <UncheckedCheckboxIcon />
         </span>
@@ -201,10 +165,7 @@ export function Checkbox({
       </span>
 
       {children != null && (
-        <span
-          className="rush-checkbox__label"
-          data-slot="checkbox-label"
-        >
+        <span className="rush-checkbox__label" data-slot="checkbox-label">
           {children}
         </span>
       )}

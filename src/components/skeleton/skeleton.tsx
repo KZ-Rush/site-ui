@@ -1,19 +1,12 @@
-import type {
-  ComponentPropsWithoutRef,
-} from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './skeleton.scss';
 
-export type SkeletonVariant =
-  | 'block'
-  | 'circle';
+export type SkeletonVariant = 'block' | 'circle';
 
-export interface SkeletonProps
-  extends ComponentPropsWithoutRef<'div'> {
+export interface SkeletonProps extends ComponentPropsWithoutRef<'div'> {
   /**
    * Visual shape of the skeleton.
    */
@@ -38,13 +31,10 @@ export function Skeleton({
       className={classNames(
         'rush-skeleton',
         `rush-skeleton--${variant}`,
-        animated
-          && 'rush-skeleton--animated',
+        animated && 'rush-skeleton--animated',
         className,
       )}
-      data-animated={
-        animated || undefined
-      }
+      data-animated={animated || undefined}
       data-slot="skeleton"
       data-variant={variant}
     />

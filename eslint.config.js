@@ -7,11 +7,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: [
-      'dist',
-      'coverage',
-      'storybook-static',
-    ],
+    ignores: ['dist', 'coverage', 'storybook-static'],
   },
 
   eslint.configs.recommended,
@@ -19,9 +15,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
 
   {
-    files: [
-      '**/*.{ts,tsx}',
-    ],
+    files: ['**/*.{ts,tsx}'],
 
     plugins: {
       'react-hooks': reactHooks,

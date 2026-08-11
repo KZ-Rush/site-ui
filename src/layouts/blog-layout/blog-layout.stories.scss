@@ -90,14 +90,8 @@
 
     overflow-x: auto;
 
-    border-radius: var(
-      --rush-radius-lg,
-      0.625rem
-    );
+    border-radius: var(--rush-radius-lg, 0.625rem);
 
-    background-color: var(
-      --rush-color-muted,
-      #f1f5f9
-    );
+    background-color: var(--rush-color-muted, #f1f5f9);
   }
 }

@@ -1,18 +1,7 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
-import {
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-const {
-  toastMock,
-} = vi.hoisted(() => ({
+const { toastMock } = vi.hoisted(() => ({
   toastMock: vi.fn(),
 }));
 
@@ -40,10 +29,7 @@ vi.mock('react-toastify', () => ({
   ),
 }));
 
-import {
-  RushToastContainer,
-  showToast,
-} from './toast';
+import { RushToastContainer, showToast } from './toast';
 
 describe('Toast', () => {
   beforeEach(() => {
@@ -57,14 +43,11 @@ describe('Toast', () => {
       autoClose: 1_000,
     });
 
-    expect(toastMock).toHaveBeenCalledWith(
-      'Saved',
-      {
-        type: 'success',
-        autoClose: 1_000,
-        containerId: undefined,
-      },
-    );
+    expect(toastMock).toHaveBeenCalledWith('Saved', {
+      type: 'success',
+      autoClose: 1_000,
+      containerId: undefined,
+    });
 
     expect(result).toBe('toast-id');
   });
@@ -72,13 +55,10 @@ describe('Toast', () => {
   it('defaults the type to info', () => {
     showToast('Information');
 
-    expect(toastMock).toHaveBeenCalledWith(
-      'Information',
-      {
-        type: 'info',
-        containerId: undefined,
-      },
-    );
+    expect(toastMock).toHaveBeenCalledWith('Information', {
+      type: 'info',
+      containerId: undefined,
+    });
   });
 
   it('routes a toast to a requested container', () => {
@@ -87,65 +67,35 @@ describe('Toast', () => {
       containerId: 'story-success',
     });
 
-    expect(toastMock).toHaveBeenCalledWith(
-      'Saved',
-      {
-        type: 'success',
-        containerId: 'story-success',
-      },
-    );
+    expect(toastMock).toHaveBeenCalledWith('Saved', {
+      type: 'success',
+      containerId: 'story-success',
+    });
   });
 
   it('renders the container with stable defaults', () => {
-    render(
-      <RushToastContainer />,
-    );
+    render(<RushToastContainer />);
 
-    const container = screen.getByTestId(
-      'toast-container',
-    );
+    const container = screen.getByTestId('toast-container');
 
-    expect(container).toHaveClass(
-      'rush-toast-container',
-    );
+    expect(container).toHaveClass('rush-toast-container');
 
-    expect(container).toHaveAttribute(
-      'data-position',
-      'top-right',
-    );
+    expect(container).toHaveAttribute('data-position', 'top-right');
 
-    expect(container).toHaveAttribute(
-      'data-auto-close',
-      '5000',
-    );
+    expect(container).toHaveAttribute('data-auto-close', '5000');
   });
 
   it('forwards container props', () => {
     render(
-      <RushToastContainer
-        containerId="application"
-        position="bottom-left"
-        autoClose={false}
-      />,
+      <RushToastContainer containerId="application" position="bottom-left" autoClose={false} />,
     );
 
-    const container = screen.getByTestId(
-      'toast-container',
-    );
+    const container = screen.getByTestId('toast-container');
 
-    expect(container).toHaveAttribute(
-      'data-container-id',
-      'application',
-    );
+    expect(container).toHaveAttribute('data-container-id', 'application');
 
-    expect(container).toHaveAttribute(
-      'data-position',
-      'bottom-left',
-    );
+    expect(container).toHaveAttribute('data-position', 'bottom-left');
 
-    expect(container).toHaveAttribute(
-      'data-auto-close',
-      'false',
-    );
+    expect(container).toHaveAttribute('data-auto-close', 'false');
   });
 });

@@ -11,10 +11,7 @@
 
   display: flex;
   flex-direction: column;
-  gap: var(
-    --rush-data-table-gap,
-    1rem
-  );
+  gap: var(--rush-data-table-gap, 1rem);
 
   width: 100%;
   min-width: 0;
@@ -42,13 +39,7 @@
     cursor: pointer;
 
     &:hover {
-      color: var(
-        --rush-data-table-sort-hover-foreground,
-        var(
-          --rush-color-foreground,
-          #0f172a
-        )
-      );
+      color: var(--rush-data-table-sort-hover-foreground, var(--rush-color-foreground, #0f172a));
     }
 
     &:focus-visible {
@@ -56,13 +47,7 @@
     }
 
     &--active {
-      color: var(
-        --rush-data-table-sort-active-foreground,
-        var(
-          --rush-color-foreground,
-          #0f172a
-        )
-      );
+      color: var(--rush-data-table-sort-active-foreground, var(--rush-color-foreground, #0f172a));
     }
   }
 
@@ -85,10 +70,7 @@
 
     color: var(
       --rush-data-table-sort-indicator-foreground,
-      var(
-        --rush-color-muted-foreground,
-        #64748b
-      )
+      var(--rush-color-muted-foreground, #64748b)
     );
   }
 
@@ -97,10 +79,7 @@
     position: sticky;
     z-index: 1;
 
-    background-color: var(
-      --rush-table-background,
-      var(--rush-color-card, #fff)
-    );
+    background-color: var(--rush-table-background, var(--rush-color-card, #fff));
   }
 
   &__cell--sticky-left {
@@ -123,21 +102,14 @@
   }
 
   &__selection-cell {
-    width: var(
-      --rush-data-table-selection-column-width,
-      3rem
-    );
+    width: var(--rush-data-table-selection-column-width, 3rem);
 
-    min-width: var(
-      --rush-data-table-selection-column-width,
-      3rem
-    );
+    min-width: var(--rush-data-table-selection-column-width, 3rem);
 
     padding-inline: 0.5rem;
   }
 
-  &__selection-cell
-    .rush-checkbox {
+  &__selection-cell .rush-checkbox {
     margin-inline: auto;
   }
 
@@ -147,10 +119,7 @@
     &:focus-visible {
       position: relative;
 
-      outline: 2px solid var(
-        --rush-color-ring,
-        #94a3b8
-      );
+      outline: 2px solid var(--rush-color-ring, #94a3b8);
 
       outline-offset: -2px;
     }

@@ -1,8 +1,6 @@
 // .storybook/preview.tsx
 
-import type {
-  Preview,
-} from '@storybook/react-vite';
+import type { Preview } from '@storybook/react-vite';
 
 // @ts-expect-error Storybook/Vite handles this side-effect stylesheet import.
 import '../src/styles/index.scss';
@@ -46,24 +44,15 @@ const preview: Preview = {
   },
 
   decorators: [
-    (
-      Story,
-      context,
-    ) => (
+    (Story, context) => (
       <div
-        className={
-          context.globals.theme === 'dark'
-            ? 'dark'
-            : undefined
-        }
+        className={context.globals.theme === 'dark' ? 'dark' : undefined}
         style={{
           padding: '2rem',
 
-          background:
-            'var(--rush-color-background)',
+          background: 'var(--rush-color-background)',
 
-          color:
-            'var(--rush-color-foreground)',
+          color: 'var(--rush-color-foreground)',
         }}
       >
         <Story />

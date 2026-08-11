@@ -1,20 +1,10 @@
-import type {
-  ButtonHTMLAttributes,
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import type { ButtonHTMLAttributes, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './pagination.scss';
 
-export interface PaginationProps
-  extends Omit<
-    ComponentPropsWithoutRef<'nav'>,
-    'onChange'
-  > {
+export interface PaginationProps extends Omit<ComponentPropsWithoutRef<'nav'>, 'onChange'> {
   /**
    * Current page, 1-based.
    */
@@ -47,22 +37,14 @@ export interface PaginationProps
   lastLabel?: ReactNode;
 }
 
-type PaginationItem =
-  | number
-  | 'ellipsis';
+type PaginationItem = number | 'ellipsis';
 
-function clampPage(
-  page: number,
-  pageCount: number,
-): number {
+function clampPage(page: number, pageCount: number): number {
   if (pageCount <= 0) {
     return 1;
   }
 
-  return Math.min(
-    Math.max(page, 1),
-    pageCount,
-  );
+  return Math.min(Math.max(page, 1), pageCount);
 }
 
 function createPaginationItems(
@@ -74,14 +56,11 @@ function createPaginationItems(
     return [];
   }
 
-  const currentPage =
-    clampPage(page, pageCount);
+  const currentPage = clampPage(page, pageCount);
 
-  const siblings =
-    Math.max(0, siblingCount);
+  const siblings = Math.max(0, siblingCount);
 
-  const visibleCount =
-    siblings * 2 + 5;
+  const visibleCount = siblings * 2 + 5;
 
   /*
    * Small ranges do not need ellipses.
@@ -95,56 +74,32 @@ function createPaginationItems(
     );
   }
 
-  const leftSibling =
-    Math.max(
-      currentPage - siblings,
-      2,
-    );
+  const leftSibling = Math.max(currentPage - siblings, 2);
 
-  const rightSibling =
-    Math.min(
-      currentPage + siblings,
-      pageCount - 1,
-    );
+  const rightSibling = Math.min(currentPage + siblings, pageCount - 1);
 
-  const showLeftEllipsis =
-    leftSibling > 2;
+  const showLeftEllipsis = leftSibling > 2;
 
-  const showRightEllipsis =
-    rightSibling < pageCount - 1;
+  const showRightEllipsis = rightSibling < pageCount - 1;
 
-  const items: PaginationItem[] = [
-    1,
-  ];
+  const items: PaginationItem[] = [1];
 
   if (showLeftEllipsis) {
     items.push('ellipsis');
   } else {
-    for (
-      let value = 2;
-      value < leftSibling;
-      value += 1
-    ) {
+    for (let value = 2; value < leftSibling; value += 1) {
       items.push(value);
     }
   }
 
-  for (
-    let value = leftSibling;
-    value <= rightSibling;
-    value += 1
-  ) {
+  for (let value = leftSibling; value <= rightSibling; value += 1) {
     items.push(value);
   }
 
   if (showRightEllipsis) {
     items.push('ellipsis');
   } else {
-    for (
-      let value = rightSibling + 1;
-      value < pageCount;
-      value += 1
-    ) {
+    for (let value = rightSibling + 1; value < pageCount; value += 1) {
       items.push(value);
     }
   }
@@ -154,37 +109,22 @@ function createPaginationItems(
   return items;
 }
 
-interface PaginationButtonProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'type'
-  > {
+interface PaginationButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   active?: boolean;
 }
 
-function PaginationButton({
-  active = false,
-  className,
-  ...props
-}: PaginationButtonProps) {
+function PaginationButton({ active = false, className, ...props }: PaginationButtonProps) {
   return (
     <button
       {...props}
       type="button"
-      aria-current={
-        active
-          ? 'page'
-          : undefined
-      }
+      aria-current={active ? 'page' : undefined}
       className={classNames(
         'rush-pagination__button',
-        active
-          && 'rush-pagination__button--active',
+        active && 'rush-pagination__button--active',
         className,
       )}
-      data-active={
-        active || undefined
-      }
+      data-active={active || undefined}
     />
   );
 }
@@ -203,37 +143,18 @@ export function Pagination({
   'aria-label': ariaLabel = 'Pagination',
   ...props
 }: PaginationProps) {
-  const normalizedPageCount =
-    Math.max(
-      0,
-      Math.floor(pageCount),
-    );
+  const normalizedPageCount = Math.max(0, Math.floor(pageCount));
 
-  const currentPage =
-    clampPage(
-      page,
-      normalizedPageCount,
-    );
+  const currentPage = clampPage(page, normalizedPageCount);
 
-  const items =
-    createPaginationItems(
-      currentPage,
-      normalizedPageCount,
-      siblingCount,
-    );
+  const items = createPaginationItems(currentPage, normalizedPageCount, siblingCount);
 
   if (normalizedPageCount === 0) {
     return null;
   }
 
-  const requestPage = (
-    nextPage: number,
-  ): void => {
-    const normalized =
-      clampPage(
-        nextPage,
-        normalizedPageCount,
-      );
+  const requestPage = (nextPage: number): void => {
+    const normalized = clampPage(nextPage, normalizedPageCount);
 
     if (normalized === currentPage) {
       return;
@@ -246,10 +167,7 @@ export function Pagination({
     <nav
       {...props}
       aria-label={ariaLabel}
-      className={classNames(
-        'rush-pagination',
-        className,
-      )}
+      className={classNames('rush-pagination', className)}
       data-slot="pagination"
     >
       <ul className="rush-pagination__list">
@@ -272,60 +190,45 @@ export function Pagination({
             disabled={currentPage === 1}
             aria-label="Go to previous page"
             onClick={() => {
-              requestPage(
-                currentPage - 1,
-              );
+              requestPage(currentPage - 1);
             }}
           >
             {previousLabel}
           </PaginationButton>
         </li>
 
-        {items.map(
-          (item, index) => (
-            <li
-              key={`${item}-${index}`}
-            >
-              {item === 'ellipsis' ? (
-                <span
-                  aria-hidden="true"
-                  className="rush-pagination__ellipsis"
-                  data-slot="pagination-ellipsis"
-                >
-                  …
-                </span>
-              ) : (
-                <PaginationButton
-                  active={
-                    item === currentPage
-                  }
-                  aria-label={
-                    item === currentPage
-                      ? `Page ${item}, current page`
-                      : `Go to page ${item}`
-                  }
-                  onClick={() => {
-                    requestPage(item);
-                  }}
-                >
-                  {item}
-                </PaginationButton>
-              )}
-            </li>
-          ),
-        )}
+        {items.map((item, index) => (
+          <li key={`${item}-${index}`}>
+            {item === 'ellipsis' ? (
+              <span
+                aria-hidden="true"
+                className="rush-pagination__ellipsis"
+                data-slot="pagination-ellipsis"
+              >
+                …
+              </span>
+            ) : (
+              <PaginationButton
+                active={item === currentPage}
+                aria-label={
+                  item === currentPage ? `Page ${item}, current page` : `Go to page ${item}`
+                }
+                onClick={() => {
+                  requestPage(item);
+                }}
+              >
+                {item}
+              </PaginationButton>
+            )}
+          </li>
+        ))}
 
         <li>
           <PaginationButton
-            disabled={
-              currentPage
-              === normalizedPageCount
-            }
+            disabled={currentPage === normalizedPageCount}
             aria-label="Go to next page"
             onClick={() => {
-              requestPage(
-                currentPage + 1,
-              );
+              requestPage(currentPage + 1);
             }}
           >
             {nextLabel}
@@ -335,15 +238,10 @@ export function Pagination({
         {showFirstLast && (
           <li>
             <PaginationButton
-              disabled={
-                currentPage
-                === normalizedPageCount
-              }
+              disabled={currentPage === normalizedPageCount}
               aria-label="Go to last page"
               onClick={() => {
-                requestPage(
-                  normalizedPageCount,
-                );
+                requestPage(normalizedPageCount);
               }}
             >
               {lastLabel}

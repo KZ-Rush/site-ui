@@ -15,30 +15,17 @@ import {
   useState,
 } from 'react';
 
-import {
-  createPortal,
-} from 'react-dom';
+import { createPortal } from 'react-dom';
 
-import type {
-  TriggerRenderProps,
-} from '../../types/trigger';
+import type { TriggerRenderProps } from '../../types/trigger';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './tooltip.scss';
 
-export type TooltipSide =
-  | 'top'
-  | 'right'
-  | 'bottom'
-  | 'left';
+export type TooltipSide = 'top' | 'right' | 'bottom' | 'left';
 
-export type TooltipAlign =
-  | 'start'
-  | 'center'
-  | 'end';
+export type TooltipAlign = 'start' | 'center' | 'end';
 
 interface TooltipContextValue {
   open: boolean;
@@ -49,20 +36,13 @@ interface TooltipContextValue {
   closeDelay: number;
 }
 
-const TooltipContext =
-  createContext<TooltipContextValue | null>(
-    null,
-  );
+const TooltipContext = createContext<TooltipContextValue | null>(null);
 
-function useTooltipContext():
-  TooltipContextValue {
-  const context =
-    useContext(TooltipContext);
+function useTooltipContext(): TooltipContextValue {
+  const context = useContext(TooltipContext);
 
   if (!context) {
-    throw new Error(
-      'Tooltip components must be used inside <Tooltip>.',
-    );
+    throw new Error('Tooltip components must be used inside <Tooltip>.');
   }
 
   return context;
@@ -74,9 +54,7 @@ export interface TooltipProps {
   open?: boolean;
   defaultOpen?: boolean;
 
-  onOpenChange?: (
-    open: boolean,
-  ) => void;
+  onOpenChange?: (open: boolean) => void;
 
   openDelay?: number;
   closeDelay?: number;
@@ -90,38 +68,24 @@ export function Tooltip({
   openDelay = 400,
   closeDelay = 100,
 }: TooltipProps) {
-  const [
-    internalOpen,
-    setInternalOpen,
-  ] = useState(defaultOpen);
+  const [internalOpen, setInternalOpen] = useState(defaultOpen);
 
-  const triggerRef =
-    useRef<HTMLElement>(null);
+  const triggerRef = useRef<HTMLElement>(null);
 
-  const generatedId =
-    useId();
+  const generatedId = useId();
 
-  const contentId =
-    `rush-tooltip-content-${generatedId}`;
+  const contentId = `rush-tooltip-content-${generatedId}`;
 
-  const controlled =
-    open !== undefined;
+  const controlled = open !== undefined;
 
-  const resolvedOpen =
-    controlled
-      ? open
-      : internalOpen;
+  const resolvedOpen = controlled ? open : internalOpen;
 
-  const setOpen = (
-    nextOpen: boolean,
-  ): void => {
+  const setOpen = (nextOpen: boolean): void => {
     if (!controlled) {
       setInternalOpen(nextOpen);
     }
 
-    onOpenChange?.(
-      nextOpen,
-    );
+    onOpenChange?.(nextOpen);
   };
 
   return (
@@ -145,50 +109,27 @@ export interface TooltipTriggerRenderProps<
 > extends TriggerRenderProps<TElement> {
   'aria-describedby'?: string;
 
-  onMouseEnter:
-    MouseEventHandler<TElement>;
+  onMouseEnter: MouseEventHandler<TElement>;
 
-  onMouseLeave:
-    MouseEventHandler<TElement>;
+  onMouseLeave: MouseEventHandler<TElement>;
 
-  onFocus:
-    FocusEventHandler<TElement>;
+  onFocus: FocusEventHandler<TElement>;
 
-  onBlur:
-    FocusEventHandler<TElement>;
+  onBlur: FocusEventHandler<TElement>;
 }
 
-export interface TooltipTriggerProps<
-  TElement extends HTMLElement = HTMLElement,
-> {
-  render: (
-    props: TooltipTriggerRenderProps<TElement>,
-  ) => ReactNode;
+export interface TooltipTriggerProps<TElement extends HTMLElement = HTMLElement> {
+  render: (props: TooltipTriggerRenderProps<TElement>) => ReactNode;
 }
 
-export function TooltipTrigger<
-  TElement extends HTMLElement = HTMLElement,
->({
+export function TooltipTrigger<TElement extends HTMLElement = HTMLElement>({
   render,
 }: TooltipTriggerProps<TElement>) {
-  const {
-    open,
-    setOpen,
-    triggerRef,
-    contentId,
-    openDelay,
-    closeDelay,
-  } = useTooltipContext();
+  const { open, setOpen, triggerRef, contentId, openDelay, closeDelay } = useTooltipContext();
 
-  const openTimer =
-    useRef<ReturnType<typeof setTimeout> | null>(
-      null,
-    );
+  const openTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const closeTimer =
-    useRef<ReturnType<typeof setTimeout> | null>(
-      null,
-    );
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const clearTimers = (): void => {
     if (openTimer.current) {
@@ -210,43 +151,33 @@ export function TooltipTrigger<
   const scheduleOpen = (): void => {
     clearTimers();
 
-    openTimer.current =
-      setTimeout(() => {
-        setOpen(true);
-      }, openDelay);
+    openTimer.current = setTimeout(() => {
+      setOpen(true);
+    }, openDelay);
   };
 
   const scheduleClose = (): void => {
     clearTimers();
 
-    closeTimer.current =
-      setTimeout(() => {
-        setOpen(false);
-      }, closeDelay);
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+    }, closeDelay);
   };
 
   return (
     <>
       {render({
-        ref:
-          triggerRef as React.Ref<TElement>,
+        ref: triggerRef as React.Ref<TElement>,
 
-        'aria-describedby':
-          open
-            ? contentId
-            : undefined,
+        'aria-describedby': open ? contentId : undefined,
 
-        onMouseEnter:
-          scheduleOpen,
+        onMouseEnter: scheduleOpen,
 
-        onMouseLeave:
-          scheduleClose,
+        onMouseLeave: scheduleClose,
 
-        onFocus:
-          scheduleOpen,
+        onFocus: scheduleOpen,
 
-        onBlur:
-          scheduleClose,
+        onBlur: scheduleClose,
       })}
     </>
   );
@@ -257,8 +188,7 @@ interface TooltipPosition {
   left: number;
 }
 
-export interface TooltipContentProps
-  extends ComponentPropsWithoutRef<'div'> {
+export interface TooltipContentProps extends ComponentPropsWithoutRef<'div'> {
   side?: TooltipSide;
   align?: TooltipAlign;
   offset?: number;
@@ -273,127 +203,73 @@ export function TooltipContent({
   children,
   ...props
 }: TooltipContentProps) {
-  const {
-    open,
-    setOpen,
-    triggerRef,
-    contentId,
-  } = useTooltipContext();
+  const { open, setOpen, triggerRef, contentId } = useTooltipContext();
 
-  const contentRef =
-    useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  const [
-    position,
-    setPosition,
-  ] = useState<TooltipPosition | null>(
-    null,
-  );
+  const [position, setPosition] = useState<TooltipPosition | null>(null);
 
-  const updatePosition =
-    (): void => {
-      const trigger =
-        triggerRef.current;
+  const updatePosition = (): void => {
+    const trigger = triggerRef.current;
 
-      const content =
-        contentRef.current;
+    const content = contentRef.current;
 
-      if (
-        trigger == null
-        || content == null
-      ) {
-        return;
-      }
+    if (trigger == null || content == null) {
+      return;
+    }
 
-      const triggerRect =
-        trigger.getBoundingClientRect();
+    const triggerRect = trigger.getBoundingClientRect();
 
-      const contentRect =
-        content.getBoundingClientRect();
+    const contentRect = content.getBoundingClientRect();
 
-      let top = 0;
-      let left = 0;
+    let top = 0;
+    let left = 0;
 
-      if (
-        side === 'top'
-        || side === 'bottom'
-      ) {
-        if (align === 'start') {
-          left =
-            triggerRect.left;
-        } else if (
-          align === 'end'
-        ) {
-          left =
-            triggerRect.right
-            - contentRect.width;
-        } else {
-          left =
-            triggerRect.left
-            + triggerRect.width / 2
-            - contentRect.width / 2;
-        }
-
-        top =
-          side === 'top'
-            ? triggerRect.top
-              - contentRect.height
-              - offset
-            : triggerRect.bottom
-              + offset;
+    if (side === 'top' || side === 'bottom') {
+      if (align === 'start') {
+        left = triggerRect.left;
+      } else if (align === 'end') {
+        left = triggerRect.right - contentRect.width;
       } else {
-        if (align === 'start') {
-          top =
-            triggerRect.top;
-        } else if (
-          align === 'end'
-        ) {
-          top =
-            triggerRect.bottom
-            - contentRect.height;
-        } else {
-          top =
-            triggerRect.top
-            + triggerRect.height / 2
-            - contentRect.height / 2;
-        }
-
-        left =
-          side === 'left'
-            ? triggerRect.left
-              - contentRect.width
-              - offset
-            : triggerRect.right
-              + offset;
+        left = triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
       }
 
-      const viewportPadding = 8;
+      top =
+        side === 'top'
+          ? triggerRect.top - contentRect.height - offset
+          : triggerRect.bottom + offset;
+    } else {
+      if (align === 'start') {
+        top = triggerRect.top;
+      } else if (align === 'end') {
+        top = triggerRect.bottom - contentRect.height;
+      } else {
+        top = triggerRect.top + triggerRect.height / 2 - contentRect.height / 2;
+      }
 
-      left = Math.max(
-        viewportPadding,
-        Math.min(
-          left,
-          window.innerWidth
-            - contentRect.width
-            - viewportPadding,
-        ),
-      );
+      left =
+        side === 'left'
+          ? triggerRect.left - contentRect.width - offset
+          : triggerRect.right + offset;
+    }
 
-      top = Math.max(
-        viewportPadding,
-        Math.min(
-          top,
-          window.innerHeight
-            - contentRect.height
-            - viewportPadding,
-        ),
-      );
+    const viewportPadding = 8;
 
-      setPosition({
-        top,
-        left,
-      });
-    };
+    left = Math.max(
+      viewportPadding,
+      Math.min(left, window.innerWidth - contentRect.width - viewportPadding),
+    );
+
+    top = Math.max(
+      viewportPadding,
+      Math.min(top, window.innerHeight - contentRect.height - viewportPadding),
+    );
+
+    setPosition({
+      top,
+      left,
+    });
+  };
 
   useLayoutEffect(() => {
     if (!open) {
@@ -403,75 +279,39 @@ export function TooltipContent({
     }
 
     updatePosition();
-  }, [
-    open,
-    side,
-    align,
-    offset,
-  ]);
+  }, [open, side, align, offset]);
 
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    const handleWindowChange =
-      (): void => {
-        updatePosition();
-      };
+    const handleWindowChange = (): void => {
+      updatePosition();
+    };
 
-    const handleKeyDown = (
-      event: KeyboardEvent,
-    ): void => {
-      if (
-        event.key !== 'Escape'
-      ) {
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key !== 'Escape') {
         return;
       }
 
       setOpen(false);
     };
 
-    window.addEventListener(
-      'resize',
-      handleWindowChange,
-    );
+    window.addEventListener('resize', handleWindowChange);
 
-    window.addEventListener(
-      'scroll',
-      handleWindowChange,
-      true,
-    );
+    window.addEventListener('scroll', handleWindowChange, true);
 
-    document.addEventListener(
-      'keydown',
-      handleKeyDown,
-    );
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      window.removeEventListener(
-        'resize',
-        handleWindowChange,
-      );
+      window.removeEventListener('resize', handleWindowChange);
 
-      window.removeEventListener(
-        'scroll',
-        handleWindowChange,
-        true,
-      );
+      window.removeEventListener('scroll', handleWindowChange, true);
 
-      document.removeEventListener(
-        'keydown',
-        handleKeyDown,
-      );
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [
-    open,
-    side,
-    align,
-    offset,
-    setOpen,
-  ]);
+  }, [open, side, align, offset, setOpen]);
 
   if (!open) {
     return null;
@@ -483,28 +323,18 @@ export function TooltipContent({
       ref={contentRef}
       id={contentId}
       role="tooltip"
-      className={classNames(
-        'rush-tooltip__content',
-        className,
-      )}
+      className={classNames('rush-tooltip__content', className)}
       data-align={align}
       data-side={side}
       data-slot="tooltip-content"
       style={{
         ...style,
 
-        top:
-          position?.top
-          ?? 0,
+        top: position?.top ?? 0,
 
-        left:
-          position?.left
-          ?? 0,
+        left: position?.left ?? 0,
 
-        visibility:
-          position == null
-            ? 'hidden'
-            : undefined,
+        visibility: position == null ? 'hidden' : undefined,
       }}
     >
       {children}
@@ -512,4 +342,3 @@ export function TooltipContent({
     document.body,
   );
 }
-

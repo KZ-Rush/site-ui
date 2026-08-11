@@ -1,24 +1,12 @@
-import type {
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './input.scss';
 
-export type InputSize =
-  | 'sm'
-  | 'default'
-  | 'lg';
+export type InputSize = 'sm' | 'default' | 'lg';
 
-export interface InputProps
-  extends Omit<
-    ComponentPropsWithoutRef<'input'>,
-    'size'
-  > {
+export interface InputProps extends Omit<ComponentPropsWithoutRef<'input'>, 'size'> {
   /**
    * Visual size of the input.
    */
@@ -59,41 +47,25 @@ export function Input({
   disabled,
   ...props
 }: InputProps) {
-  const hasStartAdornment =
-    startAdornment != null;
+  const hasStartAdornment = startAdornment != null;
 
-  const hasEndAdornment =
-    endAdornment != null;
+  const hasEndAdornment = endAdornment != null;
 
-  const resolvedAriaInvalid =
-    ariaInvalid
-    ?? (
-      invalid
-        ? true
-        : undefined
-    );
+  const resolvedAriaInvalid = ariaInvalid ?? (invalid ? true : undefined);
 
   return (
     <div
       className={classNames(
         'rush-input',
         `rush-input--${size}`,
-        invalid
-          && 'rush-input--invalid',
-        disabled
-          && 'rush-input--disabled',
-        hasStartAdornment
-          && 'rush-input--with-start-adornment',
-        hasEndAdornment
-          && 'rush-input--with-end-adornment',
+        invalid && 'rush-input--invalid',
+        disabled && 'rush-input--disabled',
+        hasStartAdornment && 'rush-input--with-start-adornment',
+        hasEndAdornment && 'rush-input--with-end-adornment',
         className,
       )}
-      data-disabled={
-        disabled || undefined
-      }
-      data-invalid={
-        invalid || undefined
-      }
+      data-disabled={disabled || undefined}
+      data-invalid={invalid || undefined}
       data-size={size}
       data-slot="input"
     >
@@ -108,13 +80,8 @@ export function Input({
 
       <input
         {...props}
-        aria-invalid={
-          resolvedAriaInvalid
-        }
-        className={classNames(
-          'rush-input__control',
-          inputClassName,
-        )}
+        aria-invalid={resolvedAriaInvalid}
+        className={classNames('rush-input__control', inputClassName)}
         disabled={disabled}
         data-slot="input-control"
       />

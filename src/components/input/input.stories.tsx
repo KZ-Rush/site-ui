@@ -1,41 +1,17 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Input,
-} from './input';
+import { Input } from './input';
 
-import {
-  FormField,
-} from '../form-field';
+import { FormField } from '../form-field';
 
 function SearchStoryIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <circle
-        cx="11"
-        cy="11"
-        r="6"
-        stroke="currentColor"
-        strokeWidth="2"
-      />
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+      <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="2" />
 
-      <path
-        d="M16 16L21 21"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
+      <path d="M16 16L21 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -44,9 +20,7 @@ const meta = {
   title: 'Components/Input',
   component: Input,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -75,11 +49,7 @@ const meta = {
     size: {
       control: 'select',
 
-      options: [
-        'sm',
-        'default',
-        'lg',
-      ],
+      options: ['sm', 'default', 'lg'],
     },
 
     invalid: {
@@ -138,12 +108,9 @@ export const Search: Story = {
   args: {
     type: 'search',
 
-    placeholder:
-      'Search records...',
+    placeholder: 'Search records...',
 
-    startAdornment: (
-      <SearchStoryIcon />
-    ),
+    startAdornment: <SearchStoryIcon />,
   },
 };
 
@@ -166,10 +133,7 @@ export const WithEndAdornment: Story = {
 
 export const Controlled: Story = {
   render: (args) => {
-    const [
-      value,
-      setValue,
-    ] = useState('');
+    const [value, setValue] = useState('');
 
     return (
       <div
@@ -182,15 +146,11 @@ export const Controlled: Story = {
           {...args}
           value={value}
           onChange={(event) => {
-            setValue(
-              event.currentTarget.value,
-            );
+            setValue(event.currentTarget.value);
           }}
         />
 
-        <div>
-          Value: {value || '—'}
-        </div>
+        <div>Value: {value || '—'}</div>
       </div>
     );
   },
@@ -198,34 +158,16 @@ export const Controlled: Story = {
 
 export const WithFormField: Story = {
   render: () => (
-    <FormField
-      id="player-name"
-      label="Player name"
-      description="Enter the player's display name."
-    >
-      {(controlProps) => (
-        <Input
-          {...controlProps}
-          placeholder="PlayerOne"
-        />
-      )}
+    <FormField id="player-name" label="Player name" description="Enter the player's display name.">
+      {(controlProps) => <Input {...controlProps} placeholder="PlayerOne" />}
     </FormField>
   ),
 };
 
 export const WithFormFieldError: Story = {
   render: () => (
-    <FormField
-      id="player-name-error"
-      label="Player name"
-      error="Player name is required."
-    >
-      {(controlProps) => (
-        <Input
-          {...controlProps}
-          invalid
-        />
-      )}
+    <FormField id="player-name-error" label="Player name" error="Player name is required.">
+      {(controlProps) => <Input {...controlProps} invalid />}
     </FormField>
   ),
 };

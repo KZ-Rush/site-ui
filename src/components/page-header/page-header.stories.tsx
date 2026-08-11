@@ -1,28 +1,16 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  BreadcrumbItem,
-  Breadcrumbs,
-} from '../breadcrumbs';
+import { BreadcrumbItem, Breadcrumbs } from '../breadcrumbs';
 
-import {
-  Button,
-} from '../button';
+import { Button } from '../button';
 
-import {
-  PageHeader,
-} from './page-header';
+import { PageHeader } from './page-header';
 
 const meta = {
   title: 'Components/PageHeader',
   component: PageHeader,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'padded',
@@ -59,8 +47,7 @@ export const Default: Story = {};
 
 export const WithDescription: Story = {
   args: {
-    description:
-      'Review the uploaded demo and approve or reject it.',
+    description: 'Review the uploaded demo and approve or reject it.',
   },
 };
 
@@ -68,13 +55,9 @@ export const WithBreadcrumbs: Story = {
   args: {
     breadcrumbs: (
       <Breadcrumbs>
-        <BreadcrumbItem href="#records">
-          Records
-        </BreadcrumbItem>
+        <BreadcrumbItem href="#records">Records</BreadcrumbItem>
 
-        <BreadcrumbItem current>
-          Demo #123
-        </BreadcrumbItem>
+        <BreadcrumbItem current>Demo #123</BreadcrumbItem>
       </Breadcrumbs>
     ),
   },
@@ -82,18 +65,13 @@ export const WithBreadcrumbs: Story = {
 
 export const WithActions: Story = {
   args: {
-    description:
-      'Review the uploaded demo and approve or reject it.',
+    description: 'Review the uploaded demo and approve or reject it.',
 
     actions: (
       <>
-        <Button variant="outline">
-          Reject
-        </Button>
+        <Button variant="outline">Reject</Button>
 
-        <Button>
-          Approve
-        </Button>
+        <Button>Approve</Button>
       </>
     ),
   },
@@ -103,17 +81,11 @@ export const Complete: Story = {
   args: {
     breadcrumbs: (
       <Breadcrumbs>
-        <BreadcrumbItem href="#admin">
-          Administration
-        </BreadcrumbItem>
+        <BreadcrumbItem href="#admin">Administration</BreadcrumbItem>
 
-        <BreadcrumbItem href="#records">
-          Records
-        </BreadcrumbItem>
+        <BreadcrumbItem href="#records">Records</BreadcrumbItem>
 
-        <BreadcrumbItem current>
-          Demo #123
-        </BreadcrumbItem>
+        <BreadcrumbItem current>Demo #123</BreadcrumbItem>
       </Breadcrumbs>
     ),
 
@@ -122,13 +94,9 @@ export const Complete: Story = {
 
     actions: (
       <>
-        <Button variant="outline">
-          Reject
-        </Button>
+        <Button variant="outline">Reject</Button>
 
-        <Button>
-          Approve
-        </Button>
+        <Button>Approve</Button>
       </>
     ),
   },
@@ -136,16 +104,10 @@ export const Complete: Story = {
 
 export const LongTitle: Story = {
   args: {
-    title:
-      'Review world record submission for a very long Counter-Strike map name',
+    title: 'Review world record submission for a very long Counter-Strike map name',
 
-    description:
-      'Long titles should wrap without pushing actions outside the container.',
+    description: 'Long titles should wrap without pushing actions outside the container.',
 
-    actions: (
-      <Button>
-        Approve
-      </Button>
-    ),
+    actions: <Button>Approve</Button>,
   },
 };

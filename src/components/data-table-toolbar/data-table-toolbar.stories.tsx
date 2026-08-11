@@ -1,35 +1,20 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Button,
-} from '../button';
+import { Button } from '../button';
 
-import {
-  Input,
-} from '../input';
+import { Input } from '../input';
 
-import {
-  Select,
-} from '../select';
+import { Select } from '../select';
 
-import {
-  DataTableToolbar,
-} from './data-table-toolbar';
+import { DataTableToolbar } from './data-table-toolbar';
 
 const meta = {
   title: 'Components/DataTableToolbar',
   component: DataTableToolbar,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'padded',
@@ -56,36 +41,24 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    start: (
-      <span>
-        Records
-      </span>
-    ),
+    start: <span>Records</span>,
 
-    end: (
-      <Button>
-        Add record
-      </Button>
-    ),
+    end: <Button>Add record</Button>,
   },
 };
 
 export const WithSearch: Story = {
   render: () => (
     <DataTableToolbar
-      start={(
+      start={
         <div
           style={{
             width: '18rem',
           }}
         >
-          <Input
-            type="search"
-            placeholder="Search records..."
-            aria-label="Search records"
-          />
+          <Input type="search" placeholder="Search records..." aria-label="Search records" />
         </div>
-      )}
+      }
     />
   ),
 };
@@ -93,18 +66,14 @@ export const WithSearch: Story = {
 export const WithFilters: Story = {
   render: () => (
     <DataTableToolbar
-      start={(
+      start={
         <>
           <div
             style={{
               width: '18rem',
             }}
           >
-            <Input
-              type="search"
-              placeholder="Search records..."
-              aria-label="Search records"
-            />
+            <Input type="search" placeholder="Search records..." aria-label="Search records" />
           </div>
 
           <div
@@ -112,21 +81,12 @@ export const WithFilters: Story = {
               width: '10rem',
             }}
           >
-            <Select
-              aria-label="Record type"
-              defaultValue=""
-            >
-              <option value="">
-                All types
-              </option>
+            <Select aria-label="Record type" defaultValue="">
+              <option value="">All types</option>
 
-              <option value="pro">
-                PRO
-              </option>
+              <option value="pro">PRO</option>
 
-              <option value="nub">
-                NUB
-              </option>
+              <option value="nub">NUB</option>
             </Select>
           </div>
 
@@ -135,63 +95,35 @@ export const WithFilters: Story = {
               width: '12rem',
             }}
           >
-            <Select
-              aria-label="Status"
-              defaultValue=""
-            >
-              <option value="">
-                All statuses
-              </option>
+            <Select aria-label="Status" defaultValue="">
+              <option value="">All statuses</option>
 
-              <option value="approved">
-                Approved
-              </option>
+              <option value="approved">Approved</option>
 
-              <option value="pending">
-                Pending
-              </option>
+              <option value="pending">Pending</option>
 
-              <option value="rejected">
-                Rejected
-              </option>
+              <option value="rejected">Rejected</option>
             </Select>
           </div>
         </>
-      )}
+      }
 
-      end={(
-        <Button variant="outline">
-          Export
-        </Button>
-      )}
+      end={<Button variant="outline">Export</Button>}
     />
   ),
 };
 
 export const Selection: Story = {
   args: {
-    start: (
-      <Input
-        type="search"
-        placeholder="Search records..."
-      />
-    ),
+    start: <Input type="search" placeholder="Search records..." />,
 
-    selection: (
-      <span>
-        3 records selected
-      </span>
-    ),
+    selection: <span>3 records selected</span>,
 
     end: (
       <>
-        <Button variant="outline">
-          Approve
-        </Button>
+        <Button variant="outline">Approve</Button>
 
-        <Button variant="destructive">
-          Delete
-        </Button>
+        <Button variant="destructive">Delete</Button>
       </>
     ),
   },
@@ -199,10 +131,7 @@ export const Selection: Story = {
 
 export const InteractiveSelection: Story = {
   render: () => {
-    const [
-      selectedCount,
-      setSelectedCount,
-    ] = useState(0);
+    const [selectedCount, setSelectedCount] = useState(0);
 
     return (
       <div
@@ -212,66 +141,41 @@ export const InteractiveSelection: Story = {
         }}
       >
         <DataTableToolbar
-          start={(
+          start={
             <>
               <div
                 style={{
                   width: '18rem',
                 }}
               >
-                <Input
-                  type="search"
-                  placeholder="Search records..."
-                />
+                <Input type="search" placeholder="Search records..." />
               </div>
 
-              <Select
-                aria-label="Type"
-                defaultValue=""
-              >
-                <option value="">
-                  All types
-                </option>
+              <Select aria-label="Type" defaultValue="">
+                <option value="">All types</option>
 
-                <option value="pro">
-                  PRO
-                </option>
+                <option value="pro">PRO</option>
 
-                <option value="nub">
-                  NUB
-                </option>
+                <option value="nub">NUB</option>
               </Select>
             </>
-          )}
-
-          selection={
-            selectedCount > 0
-              ? (
-                <span>
-                  {selectedCount}{' '}
-                  selected
-                </span>
-              )
-              : undefined
           }
 
+          selection={selectedCount > 0 ? <span>{selectedCount} selected</span> : undefined}
+
           end={
-            selectedCount > 0
-              ? (
-                <Button
-                  variant="destructive"
-                  onClick={() => {
-                    setSelectedCount(0);
-                  }}
-                >
-                  Delete selected
-                </Button>
-              )
-              : (
-                <Button>
-                  Add record
-                </Button>
-              )
+            selectedCount > 0 ? (
+              <Button
+                variant="destructive"
+                onClick={() => {
+                  setSelectedCount(0);
+                }}
+              >
+                Delete selected
+              </Button>
+            ) : (
+              <Button>Add record</Button>
+            )
           }
         />
 
@@ -284,10 +188,7 @@ export const InteractiveSelection: Story = {
           <Button
             variant="outline"
             onClick={() => {
-              setSelectedCount(
-                (count) =>
-                  count + 1,
-              );
+              setSelectedCount((count) => count + 1);
             }}
           >
             Simulate selection
@@ -306,4 +207,3 @@ export const InteractiveSelection: Story = {
     );
   },
 };
-

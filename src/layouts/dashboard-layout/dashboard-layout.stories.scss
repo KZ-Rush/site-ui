@@ -13,10 +13,7 @@
     min-height: 4rem;
     padding-inline: 1rem;
 
-    border-bottom: 1px solid var(
-      --rush-color-border,
-      #e2e8f0
-    );
+    border-bottom: 1px solid var(--rush-color-border, #e2e8f0);
   }
 
   &__title {
@@ -39,19 +36,13 @@
   a {
     padding: 0.5rem 0.75rem;
 
-    border-radius: var(
-      --rush-radius-md,
-      0.5rem
-    );
+    border-radius: var(--rush-radius-md, 0.5rem);
 
     color: inherit;
     text-decoration: none;
 
     &:hover {
-      background-color: var(
-        --rush-color-accent,
-        #f1f5f9
-      );
+      background-color: var(--rush-color-accent, #f1f5f9);
     }
   }
 }
@@ -71,9 +62,6 @@
     min-height: 4rem;
     padding-inline: 1rem;
 
-    border-bottom: 1px solid var(
-      --rush-color-border,
-      #e2e8f0
-    );
+    border-bottom: 1px solid var(--rush-color-border, #e2e8f0);
   }
 }

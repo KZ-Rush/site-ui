@@ -9,15 +9,9 @@
 
   overflow: hidden;
 
-  border-radius: var(
-    --rush-skeleton-border-radius,
-    var(--rush-radius-md, 0.5rem)
-  );
+  border-radius: var(--rush-skeleton-border-radius, var(--rush-radius-md, 0.5rem));
 
-  background-color: var(
-    --rush-skeleton-background,
-    var(--rush-color-muted, #e2e8f0)
-  );
+  background-color: var(--rush-skeleton-background, var(--rush-color-muted, #e2e8f0));
 
   &--block {
     width: 100%;
@@ -42,20 +36,11 @@
       background: linear-gradient(
         90deg,
         transparent,
-        var(
-          --rush-skeleton-highlight,
-          rgb(255 255 255 / 45%)
-        ),
+        var(--rush-skeleton-highlight, rgb(255 255 255 / 45%)),
         transparent
       );
 
-      animation:
-        rush-skeleton-shimmer
-        var(
-          --rush-skeleton-animation-duration,
-          1.5s
-        )
-        infinite;
+      animation: rush-skeleton-shimmer var(--rush-skeleton-animation-duration, 1.5s) infinite;
     }
   }
 }

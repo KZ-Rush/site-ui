@@ -1,17 +1,13 @@
 @use '../../styles/mixins';
 
 .rush-checkbox {
-  --rush-checkbox-foreground:
-    var(--rush-color-foreground);
+  --rush-checkbox-foreground: var(--rush-color-foreground);
 
-  --rush-checkbox-icon-color:
-    var(--rush-color-muted-foreground);
+  --rush-checkbox-icon-color: var(--rush-color-muted-foreground);
 
-  --rush-checkbox-icon-checked-color:
-    var(--rush-color-primary-orange);
+  --rush-checkbox-icon-checked-color: var(--rush-color-primary-orange);
 
-  --rush-checkbox-icon-hover-color:
-    var(--rush-color-primary-orange);
+  --rush-checkbox-icon-hover-color: var(--rush-color-primary-orange);
 
   display: inline-flex;
   align-items: flex-start;
@@ -43,12 +39,8 @@
     color: var(--rush-checkbox-icon-color);
 
     transition:
-      color
-      var(--rush-transition-duration-fast)
-      var(--rush-transition-timing),
-      opacity
-      var(--rush-transition-duration-fast)
-      var(--rush-transition-timing);
+      color var(--rush-transition-duration-fast) var(--rush-transition-timing),
+      opacity var(--rush-transition-duration-fast) var(--rush-transition-timing);
   }
 
   &__icon-checked,
@@ -70,27 +62,19 @@
     min-width: 0;
   }
 
-  &__input:checked
-    + .rush-checkbox__icon {
-    color: var(
-      --rush-checkbox-icon-checked-color
-    );
+  &__input:checked + .rush-checkbox__icon {
+    color: var(--rush-checkbox-icon-checked-color);
   }
 
-  &__input:checked
-    + .rush-checkbox__icon
-    .rush-checkbox__icon-unchecked {
+  &__input:checked + .rush-checkbox__icon .rush-checkbox__icon-unchecked {
     display: none;
   }
 
-  &__input:checked
-    + .rush-checkbox__icon
-    .rush-checkbox__icon-checked {
+  &__input:checked + .rush-checkbox__icon .rush-checkbox__icon-checked {
     display: inline-flex;
   }
 
-  &__input:indeterminate
-    + &__icon {
+  &__input:indeterminate + &__icon {
     .rush-checkbox__icon-unchecked,
     .rush-checkbox__icon-checked {
       display: none;
@@ -101,15 +85,13 @@
     }
   }
 
-  &__input:focus-visible
-    + .rush-checkbox__icon {
+  &__input:focus-visible + .rush-checkbox__icon {
     border-radius: var(--rush-radius-sm);
 
     @include mixins.focus-ring;
   }
 
-  &:hover:not([data-disabled='true'])
-    .rush-checkbox__icon {
+  &:hover:not([data-disabled='true']) .rush-checkbox__icon {
     color: var(--rush-checkbox-icon-hover-color);
   }
 

@@ -1,23 +1,14 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Pagination,
-} from './pagination';
+import { Pagination } from './pagination';
 
 const meta = {
   title: 'Components/Pagination',
   component: Pagination,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'padded',
@@ -71,18 +62,9 @@ export const Default: Story = {};
 
 export const Interactive: Story = {
   render: (args) => {
-    const [
-      page,
-      setPage,
-    ] = useState(args.page);
+    const [page, setPage] = useState(args.page);
 
-    return (
-      <Pagination
-        {...args}
-        page={page}
-        onPageChange={setPage}
-      />
-    );
+    return <Pagination {...args} page={page} onPageChange={setPage} />;
   },
 };
 

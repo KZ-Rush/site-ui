@@ -5,21 +5,11 @@ import type {
   ReactNode,
 } from 'react';
 
-import {
-  createContext,
-  useContext,
-} from 'react';
+import { createContext, useContext } from 'react';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipTriggerRenderProps,
-} from '../tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipTriggerRenderProps } from '../tooltip';
 
 import './sidebar-navigation.scss';
 
@@ -27,20 +17,15 @@ interface SidebarNavigationContextValue {
   collapsed: boolean;
 }
 
-const SidebarNavigationContext =
-  createContext<SidebarNavigationContextValue>({
-    collapsed: false,
-  });
+const SidebarNavigationContext = createContext<SidebarNavigationContextValue>({
+  collapsed: false,
+});
 
-function useSidebarNavigationContext():
-  SidebarNavigationContextValue {
-  return useContext(
-    SidebarNavigationContext,
-  );
+function useSidebarNavigationContext(): SidebarNavigationContextValue {
+  return useContext(SidebarNavigationContext);
 }
 
-export interface SidebarNavigationProps
-  extends ComponentPropsWithoutRef<'nav'> {
+export interface SidebarNavigationProps extends ComponentPropsWithoutRef<'nav'> {
   /**
    * Whether the navigation is displayed in compact,
    * icon-oriented mode.
@@ -62,13 +47,8 @@ export function SidebarNavigation({
     >
       <nav
         {...props}
-        className={classNames(
-          'rush-sidebar-navigation',
-          className,
-        )}
-        data-collapsed={
-          collapsed || undefined
-        }
+        className={classNames('rush-sidebar-navigation', className)}
+        data-collapsed={collapsed || undefined}
         data-slot="sidebar-navigation"
       >
         {children}
@@ -77,8 +57,7 @@ export function SidebarNavigation({
   );
 }
 
-export interface SidebarNavigationGroupProps
-  extends ComponentPropsWithoutRef<'div'> {
+export interface SidebarNavigationGroupProps extends ComponentPropsWithoutRef<'div'> {
   /**
    * Optional group heading.
    */
@@ -91,36 +70,27 @@ export function SidebarNavigationGroup({
   children,
   ...props
 }: SidebarNavigationGroupProps) {
-  const {
-    collapsed,
-  } = useSidebarNavigationContext();
+  const { collapsed } = useSidebarNavigationContext();
 
   return (
     <div
       {...props}
-      className={classNames(
-        'rush-sidebar-navigation__group',
-        className,
-      )}
+      className={classNames('rush-sidebar-navigation__group', className)}
       data-slot="sidebar-navigation-group"
     >
-      {label !== undefined
-        && label !== null && (
-          <div
-            className={classNames(
-              'rush-sidebar-navigation__group-label',
-              collapsed
-                && 'rush-sidebar-navigation__group-label--collapsed',
-            )}
-            data-slot="sidebar-navigation-group-label"
-          >
-            {label}
-          </div>
-        )}
+      {label !== undefined && label !== null && (
+        <div
+          className={classNames(
+            'rush-sidebar-navigation__group-label',
+            collapsed && 'rush-sidebar-navigation__group-label--collapsed',
+          )}
+          data-slot="sidebar-navigation-group-label"
+        >
+          {label}
+        </div>
+      )}
 
-      <div className="rush-sidebar-navigation__items">
-        {children}
-      </div>
+      <div className="rush-sidebar-navigation__items">{children}</div>
     </div>
   );
 }
@@ -160,39 +130,27 @@ interface SidebarNavigationItemSharedProps {
 }
 
 export interface SidebarNavigationLinkItemProps
-  extends SidebarNavigationItemSharedProps,
-    Omit<
-      AnchorHTMLAttributes<HTMLAnchorElement>,
-      | 'children'
-      | 'className'
-      | 'href'
-    > {
+  extends
+    SidebarNavigationItemSharedProps,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children' | 'className' | 'href'> {
   href: string;
 
   onClick?: AnchorHTMLAttributes<HTMLAnchorElement>['onClick'];
 }
 
 export interface SidebarNavigationButtonItemProps
-  extends SidebarNavigationItemSharedProps,
-    Omit<
-      ButtonHTMLAttributes<HTMLButtonElement>,
-      | 'children'
-      | 'className'
-      | 'type'
-      | 'disabled'
-    > {
+  extends
+    SidebarNavigationItemSharedProps,
+    Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'className' | 'type' | 'disabled'> {
   href?: never;
 
   type?: 'button';
 }
 
 export type SidebarNavigationItemProps =
-  | SidebarNavigationLinkItemProps
-  | SidebarNavigationButtonItemProps;
+  SidebarNavigationLinkItemProps | SidebarNavigationButtonItemProps;
 
-function isLinkItem(
-  props: SidebarNavigationItemProps,
-): props is SidebarNavigationLinkItemProps {
+function isLinkItem(props: SidebarNavigationItemProps): props is SidebarNavigationLinkItemProps {
   return typeof props.href === 'string';
 }
 
@@ -209,22 +167,20 @@ function SidebarNavigationItemContent({
 }: SidebarNavigationItemContentProps) {
   return (
     <>
-      {icon !== undefined
-        && icon !== null && (
-          <span
-            aria-hidden="true"
-            className="rush-sidebar-navigation__item-icon"
-            data-slot="sidebar-navigation-item-icon"
-          >
-            {icon}
-          </span>
-        )}
+      {icon !== undefined && icon !== null && (
+        <span
+          aria-hidden="true"
+          className="rush-sidebar-navigation__item-icon"
+          data-slot="sidebar-navigation-item-icon"
+        >
+          {icon}
+        </span>
+      )}
 
       <span
         className={classNames(
           'rush-sidebar-navigation__item-label',
-          collapsed
-            && 'rush-sidebar-navigation__item-label--collapsed',
+          collapsed && 'rush-sidebar-navigation__item-label--collapsed',
         )}
         data-slot="sidebar-navigation-item-label"
       >
@@ -234,87 +190,37 @@ function SidebarNavigationItemContent({
   );
 }
 
-export function SidebarNavigationItem(
-  props: SidebarNavigationItemProps,
-) {
-  const {
-    collapsed,
-  } = useSidebarNavigationContext();
+export function SidebarNavigationItem(props: SidebarNavigationItemProps) {
+  const { collapsed } = useSidebarNavigationContext();
 
-  const {
-    active = false,
-    disabled = false,
-    icon,
-    children,
-    className,
-  } = props;
+  const { active = false, disabled = false, icon, children, className } = props;
 
   const itemClassName = classNames(
     'rush-sidebar-navigation__item',
-    active
-      && 'rush-sidebar-navigation__item--active',
-    disabled
-      && 'rush-sidebar-navigation__item--disabled',
-    collapsed
-      && 'rush-sidebar-navigation__item--collapsed',
+    active && 'rush-sidebar-navigation__item--active',
+    disabled && 'rush-sidebar-navigation__item--disabled',
+    collapsed && 'rush-sidebar-navigation__item--collapsed',
     className,
   );
 
-  const resolvedTooltip =
-    props.tooltip
-    ?? (
-      typeof children === 'string'
-        ? children
-        : undefined
-    );
+  const resolvedTooltip = props.tooltip ?? (typeof children === 'string' ? children : undefined);
 
   if (isLinkItem(props)) {
-    const {
-      href,
-      target,
-      rel,
-      onClick,
-      ...anchorProps
-    } = props;
+    const { href, target, rel, onClick, ...anchorProps } = props;
 
-    const link = (
-      triggerProps?: TooltipTriggerRenderProps<HTMLAnchorElement>,
-    ) => (
+    const link = (triggerProps?: TooltipTriggerRenderProps<HTMLAnchorElement>) => (
       <a
         {...anchorProps}
         {...triggerProps}
-        href={
-          disabled
-            ? undefined
-            : href
-        }
+        href={disabled ? undefined : href}
         target={target}
-        rel={
-          target === '_blank'
-            && rel === undefined
-            ? 'noopener noreferrer'
-            : rel
-        }
-        aria-current={
-          active
-            ? 'page'
-            : undefined
-        }
-        aria-disabled={
-          disabled || undefined
-        }
-        tabIndex={
-          disabled
-            ? -1
-            : anchorProps.tabIndex
-        }
+        rel={target === '_blank' && rel === undefined ? 'noopener noreferrer' : rel}
+        aria-current={active ? 'page' : undefined}
+        aria-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : anchorProps.tabIndex}
         className={itemClassName}
-        data-active={
-          active || undefined
-        }
-        data-disabled={
-          disabled || undefined
-        }
+        data-active={active || undefined}
+        data-disabled={disabled || undefined}
         data-slot="sidebar-navigation-item"
         onClick={(event) => {
           if (disabled) {
@@ -326,32 +232,18 @@ export function SidebarNavigationItem(
           onClick?.(event);
         }}
       >
-        <SidebarNavigationItemContent
-          icon={icon}
-          collapsed={collapsed}
-        >
+        <SidebarNavigationItemContent icon={icon} collapsed={collapsed}>
           {children}
         </SidebarNavigationItemContent>
       </a>
     );
 
-    if (
-      collapsed
-      && resolvedTooltip != null
-      && !disabled
-    ) {
+    if (collapsed && resolvedTooltip != null && !disabled) {
       return (
         <Tooltip>
-          <TooltipTrigger<HTMLAnchorElement>
-            render={(triggerProps) => (
-              link(triggerProps)
-            )}
-          />
+          <TooltipTrigger<HTMLAnchorElement> render={(triggerProps) => link(triggerProps)} />
 
-          <TooltipContent
-            side="right"
-            align="center"
-          >
+          <TooltipContent side="right" align="center">
             {resolvedTooltip}
           </TooltipContent>
         </Tooltip>
@@ -361,56 +253,32 @@ export function SidebarNavigationItem(
     return link();
   }
 
-  const {
-    onClick,
-    type = 'button',
-    ...buttonProps
-  } = props;
+  const { onClick, type = 'button', ...buttonProps } = props;
 
-  const button = (
-    triggerProps?: TooltipTriggerRenderProps<HTMLButtonElement>,
-  ) => (
+  const button = (triggerProps?: TooltipTriggerRenderProps<HTMLButtonElement>) => (
     <button
       {...buttonProps}
       {...triggerProps}
       type={type}
       disabled={disabled}
       className={itemClassName}
-      data-active={
-        active || undefined
-      }
-      data-disabled={
-        disabled || undefined
-      }
+      data-active={active || undefined}
+      data-disabled={disabled || undefined}
       data-slot="sidebar-navigation-item"
       onClick={onClick}
     >
-      <SidebarNavigationItemContent
-        icon={icon}
-        collapsed={collapsed}
-      >
+      <SidebarNavigationItemContent icon={icon} collapsed={collapsed}>
         {children}
       </SidebarNavigationItemContent>
     </button>
   );
 
-  if (
-    collapsed
-    && resolvedTooltip != null
-    && !disabled
-  ) {
+  if (collapsed && resolvedTooltip != null && !disabled) {
     return (
       <Tooltip>
-        <TooltipTrigger<HTMLButtonElement>
-          render={(triggerProps) => (
-            button(triggerProps)
-          )}
-        />
+        <TooltipTrigger<HTMLButtonElement> render={(triggerProps) => button(triggerProps)} />
 
-        <TooltipContent
-          side="right"
-          align="center"
-        >
+        <TooltipContent side="right" align="center">
           {resolvedTooltip}
         </TooltipContent>
       </Tooltip>
@@ -420,8 +288,7 @@ export function SidebarNavigationItem(
   return button();
 }
 
-export type SidebarNavigationSeparatorProps =
-  ComponentPropsWithoutRef<'hr'>;
+export type SidebarNavigationSeparatorProps = ComponentPropsWithoutRef<'hr'>;
 
 export function SidebarNavigationSeparator({
   className,
@@ -430,10 +297,7 @@ export function SidebarNavigationSeparator({
   return (
     <hr
       {...props}
-      className={classNames(
-        'rush-sidebar-navigation__separator',
-        className,
-      )}
+      className={classNames('rush-sidebar-navigation__separator', className)}
       data-slot="sidebar-navigation-separator"
     />
   );

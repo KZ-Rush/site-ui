@@ -10,7 +10,11 @@ describe('Button', () => {
   });
 
   it('applies variant and size classes', () => {
-    render(<Button variant="destructive" size="lg">Delete</Button>);
+    render(
+      <Button variant="destructive" size="lg">
+        Delete
+      </Button>,
+    );
     expect(screen.getByRole('button')).toHaveClass(
       'rush-button--variant-destructive',
       'rush-button--size-lg',
@@ -19,13 +23,21 @@ describe('Button', () => {
 
   it('does not call onClick when disabled', () => {
     const onClick = vi.fn();
-    render(<Button disabled onClick={onClick}>Save</Button>);
+    render(
+      <Button disabled onClick={onClick}>
+        Save
+      </Button>,
+    );
     fireEvent.click(screen.getByRole('button'));
     expect(onClick).not.toHaveBeenCalled();
   });
 
   it('renders an anchor when href is supplied', () => {
-    render(<Button href="/records" target="_blank">Records</Button>);
+    render(
+      <Button href="/records" target="_blank">
+        Records
+      </Button>,
+    );
     const link = screen.getByRole('link', { name: 'Records' });
     expect(link).toHaveAttribute('href', '/records');
     expect(link).toHaveAttribute('target', '_blank');
@@ -33,7 +45,11 @@ describe('Button', () => {
 
   it('disables link interaction', () => {
     const onClick = vi.fn();
-    render(<Button href="/records" disabled onClick={onClick}>Records</Button>);
+    render(
+      <Button href="/records" disabled onClick={onClick}>
+        Records
+      </Button>,
+    );
     const element = screen.getByText('Records');
     expect(element).not.toHaveAttribute('href');
     expect(element).toHaveAttribute('aria-disabled', 'true');
@@ -42,45 +58,30 @@ describe('Button', () => {
   });
 
   it('forwards a ref to the native button', () => {
-    const ref =
-      createRef<HTMLButtonElement>();
+    const ref = createRef<HTMLButtonElement>();
 
-    render(
-      <Button ref={ref}>
-        Save
-      </Button>,
-    );
+    render(<Button ref={ref}>Save</Button>);
 
     expect(ref.current).toBe(
-      screen.getByRole(
-        'button',
-        {
-          name: 'Save',
-        },
-      ),
+      screen.getByRole('button', {
+        name: 'Save',
+      }),
     );
   });
 
   it('forwards a ref to the link', () => {
-    const ref =
-      createRef<HTMLAnchorElement>();
+    const ref = createRef<HTMLAnchorElement>();
 
     render(
-      <Button
-        ref={ref}
-        href="/records"
-      >
+      <Button ref={ref} href="/records">
         Records
       </Button>,
     );
 
     expect(ref.current).toBe(
-      screen.getByRole(
-        'link',
-        {
-          name: 'Records',
-        },
-      ),
+      screen.getByRole('link', {
+        name: 'Records',
+      }),
     );
   });
 });

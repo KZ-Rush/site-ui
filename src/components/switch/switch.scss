@@ -5,16 +5,9 @@
   align-items: center;
   gap: 0.4rem;
 
-  color: var(
-    --rush-switch-label-foreground,
-    var(--rush-color-foreground, #0f172a)
-  );
+  color: var(--rush-switch-label-foreground, var(--rush-color-foreground, #0f172a));
 
-  font-family: var(
-    --rush-font-sans,
-    system-ui,
-    sans-serif
-  );
+  font-family: var(--rush-font-sans, system-ui, sans-serif);
 
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -38,85 +31,48 @@
 
     display: inline-block;
 
-    width: var(
-      --rush-switch-width,
-      2.5rem
-    );
+    width: var(--rush-switch-width, 2.5rem);
 
-    height: var(
-      --rush-switch-height,
-      1.25rem
-    );
+    height: var(--rush-switch-height, 1.25rem);
 
     box-sizing: border-box;
 
-    border: 1px solid var(
-      --rush-switch-track-border-color,
-      var(--rush-color-border, #1c1f27)
-    );
+    border: 1px solid var(--rush-switch-track-border-color, var(--rush-color-border, #1c1f27));
 
-    border-radius: var(
-      --rush-switch-border-radius,
-      9999px
-    );
+    border-radius: var(--rush-switch-border-radius, 9999px);
 
-    background-color: var(
-      --rush-switch-track-background,
-      #1c1f27
-    );
+    background-color: var(--rush-switch-track-background, #1c1f27);
 
-    box-shadow: inset 1px 1px 2px var(
-      --rush-switch-shadow-color,
-      #0f1013
-    );
+    box-shadow: inset 1px 1px 2px var(--rush-switch-shadow-color, #0f1013);
 
     cursor: pointer;
 
     transition:
-      background-color
-      var(--rush-switch-transition-duration, 300ms)
-      var(--rush-transition-timing, ease-in-out),
-      border-color
-      var(--rush-switch-transition-duration, 300ms)
-      var(--rush-transition-timing, ease-in-out),
-      opacity
-      var(--rush-transition-duration-fast, 150ms)
-      var(--rush-transition-timing, ease-in-out);
+      background-color var(--rush-switch-transition-duration, 300ms)
+        var(--rush-transition-timing, ease-in-out),
+      border-color var(--rush-switch-transition-duration, 300ms)
+        var(--rush-transition-timing, ease-in-out),
+      opacity var(--rush-transition-duration-fast, 150ms) var(--rush-transition-timing, ease-in-out);
   }
 
   &__thumb {
     position: absolute;
     top: 50%;
-    left: var(
-      --rush-switch-thumb-offset,
-      0.25rem
-    );
+    left: var(--rush-switch-thumb-offset, 0.25rem);
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    width: var(
-      --rush-switch-thumb-size,
-      0.75rem
-    );
+    width: var(--rush-switch-thumb-size, 0.75rem);
 
-    height: var(
-      --rush-switch-thumb-size,
-      0.75rem
-    );
+    height: var(--rush-switch-thumb-size, 0.75rem);
 
     border-radius: 50%;
 
-    background-color: var(
-      --rush-switch-thumb-background,
-      #8f98b3
-    );
+    background-color: var(--rush-switch-thumb-background, #8f98b3);
 
-    color: var(
-      --rush-switch-thumb-foreground,
-      var(--rush-switch-track-background, #1c1f27)
-    );
+    color: var(--rush-switch-thumb-foreground, var(--rush-switch-track-background, #1c1f27));
 
     box-shadow:
       2px 2px 6px rgb(0 0 0),
@@ -125,32 +81,22 @@
     transform: translateY(-50%);
 
     transition:
-      left
-      var(--rush-switch-transition-duration, 300ms)
-      var(--rush-transition-timing, ease-in-out),
-      transform
-      var(--rush-switch-transition-duration, 300ms)
-      var(--rush-transition-timing, ease-in-out),
-      background-color
-      var(--rush-switch-transition-duration, 300ms)
-      var(--rush-transition-timing, ease-in-out);
+      left var(--rush-switch-transition-duration, 300ms) var(--rush-transition-timing, ease-in-out),
+      transform var(--rush-switch-transition-duration, 300ms)
+        var(--rush-transition-timing, ease-in-out),
+      background-color var(--rush-switch-transition-duration, 300ms)
+        var(--rush-transition-timing, ease-in-out);
   }
 
   &__label {
     min-width: 0;
 
     &--off {
-      color: var(
-        --rush-switch-off-label-foreground,
-        currentColor
-      );
+      color: var(--rush-switch-off-label-foreground, currentColor);
     }
 
     &--on {
-      color: var(
-        --rush-switch-on-label-foreground,
-        currentColor
-      );
+      color: var(--rush-switch-on-label-foreground, currentColor);
     }
   }
 
@@ -166,25 +112,18 @@
     );
   }
 
-  &__input:checked
-    + &__track
-    &__thumb {
-    left: calc(
-      100%
-      - var(--rush-switch-thumb-offset, 0.25rem)
-    );
+  &__input:checked + &__track &__thumb {
+    left: calc(100% - var(--rush-switch-thumb-offset, 0.25rem));
 
     background-color: var(
       --rush-switch-checked-thumb-background,
       var(--rush-color-primary-orange, #fd8901)
     );
 
-    transform:
-      translate(-100%, -50%);
+    transform: translate(-100%, -50%);
   }
 
-  &[data-always-active='true']
-    &__thumb {
+  &[data-always-active='true'] &__thumb {
     background-color: var(
       --rush-switch-checked-thumb-background,
       var(--rush-color-primary-orange, #fd8901)
@@ -195,28 +134,19 @@
     @include mixins.focus-ring;
   }
 
-  &:hover:not([data-disabled='true'])
-    &__track {
-    border-color: var(
-      --rush-switch-hover-border-color,
-      var(--rush-color-primary-orange, #fd8901)
-    );
+  &:hover:not([data-disabled='true']) &__track {
+    border-color: var(--rush-switch-hover-border-color, var(--rush-color-primary-orange, #fd8901));
   }
 
   &[data-disabled='true'] {
     @include mixins.disabled;
   }
 
-  &[data-disabled='true']
-    &__track {
+  &[data-disabled='true'] &__track {
     cursor: not-allowed;
   }
 
-  &[data-disabled='true']
-    &__thumb {
-    background-color: var(
-      --rush-switch-disabled-thumb-background,
-      #1f222a
-    );
+  &[data-disabled='true'] &__thumb {
+    background-color: var(--rush-switch-disabled-thumb-background, #1f222a);
   }
 }

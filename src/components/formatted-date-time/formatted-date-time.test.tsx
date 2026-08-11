@@ -13,47 +13,27 @@ describe('FormattedDateTime', () => {
       />,
     );
 
-    expect(
-      screen.getByText('2026-08-01 17:30'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('2026-08-01 17:30')).toBeInTheDocument();
   });
 
   it('converts an offset date to UTC', () => {
-    render(
-      <FormattedDateTime
-        value="2026-08-01T17:30:00+03:00"
-        format="YYYY-MM-DD HH:mm"
-        utc
-      />,
-    );
+    render(<FormattedDateTime value="2026-08-01T17:30:00+03:00" format="YYYY-MM-DD HH:mm" utc />);
 
-    expect(
-      screen.getByText('2026-08-01 14:30'),
-    ).toBeInTheDocument();
-  })
+    expect(screen.getByText('2026-08-01 14:30')).toBeInTheDocument();
+  });
 
   it('formats Unix seconds supplied as number or string', () => {
-    const { rerender } = render(
-      <FormattedDateTime value={1754050200} format="YYYY" utc />,
-    );
+    const { rerender } = render(<FormattedDateTime value={1754050200} format="YYYY" utc />);
 
     expect(screen.getByText('2025')).toBeInTheDocument();
 
-    rerender(
-      <FormattedDateTime value="1754050200" format="YYYY" utc />,
-    );
+    rerender(<FormattedDateTime value="1754050200" format="YYYY" utc />);
 
     expect(screen.getByText('2025')).toBeInTheDocument();
   });
 
   it('renders a semantic time element', () => {
-    render(
-      <FormattedDateTime
-        value="2026-08-01T17:30:00Z"
-        format="YYYY-MM-DD"
-        utc
-      />,
-    );
+    render(<FormattedDateTime value="2026-08-01T17:30:00Z" format="YYYY-MM-DD" utc />);
 
     const element = screen.getByText('2026-08-01');
 
@@ -72,12 +52,7 @@ describe('FormattedDateTime', () => {
 
   it('renders fallback for invalid strict input', () => {
     render(
-      <FormattedDateTime
-        value="2026/08/01"
-        inputFormat="DD.MM.YYYY"
-        strict
-        fallback="Invalid"
-      />,
+      <FormattedDateTime value="2026/08/01" inputFormat="DD.MM.YYYY" strict fallback="Invalid" />,
     );
 
     expect(screen.getByText('Invalid')).toBeInTheDocument();

@@ -1,13 +1,7 @@
 export default {
-  extends: [
-    'stylelint-config-standard-scss',
-  ],
+  extends: ['stylelint-config-standard-scss'],
 
-  ignoreFiles: [
-    'dist/**/*',
-    'coverage/**/*',
-    'storybook-static/**/*',
-  ],
+  ignoreFiles: ['dist/**/*', 'coverage/**/*', 'storybook-static/**/*'],
 
   rules: {
     'selector-class-pattern': null,
