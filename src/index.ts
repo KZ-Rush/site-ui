@@ -224,6 +224,18 @@ export {
 } from './components/textarea';
 
 export {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  type TooltipAlign,
+  type TooltipContentProps,
+  type TooltipProps,
+  type TooltipSide,
+  type TooltipTriggerProps,
+  type TooltipTriggerRenderProps,
+} from './components/tooltip';
+
+export {
   RushToastContainer,
   showToast,
   type RushToastContainerProps,
