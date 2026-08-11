@@ -1,46 +1,25 @@
 .rush-number-diff {
-  color: var(
-    --rush-number-diff-neutral-foreground,
-    inherit
-  );
-
-  font-family: var(
-    --rush-font-sans,
-    system-ui,
-    sans-serif
-  );
-
+  color: var(--rush-number-diff-neutral-foreground, inherit);
+  font-family: var(--rush-font-sans, system-ui, sans-serif);
   font-variant-numeric: tabular-nums;
 
   &--positive {
-    color: var(
-      --rush-number-diff-positive-foreground,
-      var(--rush-color-success, #16a34a)
-    );
+    color: var(--rush-number-diff-positive-foreground, var(--rush-color-success, #16a34a));
   }
 
   &--negative {
-    color: var(
-      --rush-number-diff-negative-foreground,
-      var(--rush-color-destructive, #dc2626)
-    );
+    color: var(--rush-number-diff-negative-foreground, var(--rush-color-destructive, #dc2626));
   }
 
   &--invalid {
-    color: var(
-      --rush-number-diff-invalid-foreground,
-      var(--rush-color-muted-foreground, #64748b)
-    );
+    color: var(--rush-number-diff-invalid-foreground, var(--rush-color-muted-foreground, #64748b));
   }
 
   &__value {
-    font-weight: var(
-      --rush-number-diff-value-font-weight,
-      inherit
-    );
+    font-weight: var(--rush-number-diff-value-font-weight, inherit);
   }
 
   &__label {
-    color: currentColor;
+    color: currentcolor;
   }
 }

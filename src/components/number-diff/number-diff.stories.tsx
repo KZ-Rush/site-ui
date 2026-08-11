@@ -1,7 +1,4 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { NumberDiff } from './number-diff';
 
@@ -9,9 +6,7 @@ const meta = {
   title: 'Components/NumberDiff',
   component: NumberDiff,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -26,32 +21,27 @@ const meta = {
   argTypes: {
     value: {
       control: 'number',
-      description:
-        'Numeric difference to format and display.',
+      description: 'Numeric difference to format and display.',
     },
 
     label: {
       control: 'text',
-      description:
-        'Optional content rendered after the value.',
+      description: 'Optional content rendered after the value.',
     },
 
     locale: {
       control: 'text',
-      description:
-        'Locale passed to Intl.NumberFormat.',
+      description: 'Locale passed to Intl.NumberFormat.',
     },
 
     formatOptions: {
       control: 'object',
-      description:
-        'Options passed to Intl.NumberFormat.',
+      description: 'Options passed to Intl.NumberFormat.',
     },
 
     fallback: {
       control: 'text',
-      description:
-        'Content rendered for NaN or infinite values.',
+      description: 'Content rendered for NaN or infinite values.',
     },
 
     showPositiveSign: {
@@ -156,27 +146,15 @@ export const Comparison: Story = {
     >
       <span>Player A</span>
       <span>1,250</span>
-      <NumberDiff
-        value={120}
-        label="points"
-        locale="en-US"
-      />
+      <NumberDiff value={120} label="points" locale="en-US" />
 
       <span>Player B</span>
       <span>980</span>
-      <NumberDiff
-        value={-150}
-        label="points"
-        locale="en-US"
-      />
+      <NumberDiff value={-150} label="points" locale="en-US" />
 
       <span>Player C</span>
       <span>1,100</span>
-      <NumberDiff
-        value={0}
-        label="points"
-        locale="en-US"
-      />
+      <NumberDiff value={0} label="points" locale="en-US" />
     </div>
   ),
 };

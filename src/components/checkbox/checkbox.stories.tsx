@@ -1,14 +1,7 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
-import {
-  fn,
-} from 'storybook/test';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { fn } from 'storybook/test';
 
 import { Checkbox } from './checkbox';
 
@@ -16,9 +9,7 @@ const meta = {
   title: 'Components/Checkbox',
   component: Checkbox,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -33,20 +24,17 @@ const meta = {
   argTypes: {
     children: {
       control: 'text',
-      description:
-        'Content displayed beside the checkbox.',
+      description: 'Content displayed beside the checkbox.',
     },
 
     checked: {
       control: 'boolean',
-      description:
-        'Current state for controlled usage.',
+      description: 'Current state for controlled usage.',
     },
 
     defaultChecked: {
       control: 'boolean',
-      description:
-        'Initial state for uncontrolled usage.',
+      description: 'Initial state for uncontrolled usage.',
     },
 
     indeterminate: {
@@ -121,8 +109,7 @@ export const WithoutLabel: Story = {
 
 export const LongLabel: Story = {
   args: {
-    children:
-      'Notify me when this demo has been reviewed and its record status changes.',
+    children: 'Notify me when this demo has been reviewed and its record status changes.',
   },
 
   decorators: [
@@ -136,10 +123,7 @@ export const LongLabel: Story = {
 
 export const Controlled: Story = {
   render: () => {
-    const [
-      checked,
-      setChecked,
-    ] = useState(false);
+    const [checked, setChecked] = useState(false);
 
     return (
       <div
@@ -148,19 +132,11 @@ export const Controlled: Story = {
           gap: '1rem',
         }}
       >
-        <Checkbox
-          checked={checked}
-          onCheckedChange={setChecked}
-        >
+        <Checkbox checked={checked} onCheckedChange={setChecked}>
           Controlled checkbox
         </Checkbox>
 
-        <div>
-          Checked:{' '}
-          {checked
-            ? 'yes'
-            : 'no'}
-        </div>
+        <div>Checked: {checked ? 'yes' : 'no'}</div>
       </div>
     );
   },
@@ -172,17 +148,9 @@ export const FormSubmission: Story = {
       onSubmit={(event) => {
         event.preventDefault();
 
-        const data = new FormData(
-          event.currentTarget,
-        );
+        const data = new FormData(event.currentTarget);
 
-        window.alert(
-          JSON.stringify(
-            Object.fromEntries(data),
-            null,
-            2,
-          ),
-        );
+        window.alert(JSON.stringify(Object.fromEntries(data), null, 2));
       }}
     >
       <div
@@ -192,18 +160,11 @@ export const FormSubmission: Story = {
           gap: '1rem',
         }}
       >
-        <Checkbox
-          {...args}
-          name="terms"
-          required
-          value="accepted"
-        >
+        <Checkbox {...args} name="terms" required value="accepted">
           I accept the terms
         </Checkbox>
 
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
       </div>
     </form>
   ),
@@ -211,68 +172,36 @@ export const FormSubmission: Story = {
 
 export const SelectAll: Story = {
   render: () => {
-    const items = [
-      'Player One',
-      'Player Two',
-      'Player Three',
-    ];
+    const items = ['Player One', 'Player Two', 'Player Three'];
 
-    const [
-      selected,
-      setSelected,
-    ] = useState<
-      Set<number>
-    >(
-      new Set([
-        0,
-      ]),
-    );
+    const [selected, setSelected] = useState<Set<number>>(new Set([0]));
 
-    const allSelected =
-      selected.size === items.length;
+    const allSelected = selected.size === items.length;
 
-    const someSelected =
-      selected.size > 0
-      && !allSelected;
+    const someSelected = selected.size > 0 && !allSelected;
 
-    const toggleAll = (
-      checked: boolean,
-    ): void => {
+    const toggleAll = (checked: boolean): void => {
       if (checked) {
-        setSelected(
-          new Set(
-            items.map(
-              (_, index) => index,
-            ),
-          ),
-        );
+        setSelected(new Set(items.map((_, index) => index)));
 
         return;
       }
 
-      setSelected(
-        new Set(),
-      );
+      setSelected(new Set());
     };
 
-    const toggleItem = (
-      index: number,
-      checked: boolean,
-    ): void => {
-      setSelected(
-        (current) => {
-          const next =
-            new Set(current);
+    const toggleItem = (index: number, checked: boolean): void => {
+      setSelected((current) => {
+        const next = new Set(current);
 
-          if (checked) {
-            next.add(index);
-          } else {
-            next.delete(index);
-          }
+        if (checked) {
+          next.add(index);
+        } else {
+          next.delete(index);
+        }
 
-          return next;
-        },
-      );
+        return next;
+      });
     };
 
     return (
@@ -283,15 +212,7 @@ export const SelectAll: Story = {
           minWidth: '14rem',
         }}
       >
-        <Checkbox
-          checked={allSelected}
-          indeterminate={
-            someSelected
-          }
-          onCheckedChange={
-            toggleAll
-          }
-        >
+        <Checkbox checked={allSelected} indeterminate={someSelected} onCheckedChange={toggleAll}>
           Select all
         </Checkbox>
 
@@ -302,36 +223,21 @@ export const SelectAll: Story = {
             paddingLeft: '1.5rem',
           }}
         >
-          {items.map(
-            (
-              item,
-              index,
-            ) => (
-              <Checkbox
-                key={item}
-                checked={
-                  selected.has(
-                    index,
-                  )
-                }
-                onCheckedChange={(
-                  checked,
-                ) => {
-                  toggleItem(
-                    index,
-                    checked,
-                  );
-                }}
-              >
-                {item}
-              </Checkbox>
-            ),
-          )}
+          {items.map((item, index) => (
+            <Checkbox
+              key={item}
+              checked={selected.has(index)}
+              onCheckedChange={(checked) => {
+                toggleItem(index, checked);
+              }}
+            >
+              {item}
+            </Checkbox>
+          ))}
         </div>
 
         <div>
-          Selected:{' '}
-          {selected.size}
+          Selected: {selected.size}
           {' / '}
           {items.length}
         </div>

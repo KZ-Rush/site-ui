@@ -1,23 +1,12 @@
-import type {
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
 import './blog-layout.scss';
 
-export type BlogLayoutContentWidth =
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'full';
+export type BlogLayoutContentWidth = 'sm' | 'md' | 'lg' | 'full';
 
-export interface BlogLayoutProps
-  extends Omit<
-    ComponentPropsWithoutRef<'div'>,
-    'children'
-  > {
+export interface BlogLayoutProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
   /**
    * Main article or page content.
    */
@@ -90,101 +79,63 @@ export function BlogLayout({
   className,
   ...rootProps
 }: BlogLayoutProps) {
-  const hasNavigation =
-    navigation !== undefined
-    && navigation !== null;
+  const hasNavigation = navigation !== undefined && navigation !== null;
 
-  const hasAside =
-    aside !== undefined
-    && aside !== null;
+  const hasAside = aside !== undefined && aside !== null;
 
   return (
     <div
       {...rootProps}
-      className={classNames(
-        'rush-blog-layout',
-        className,
-      )}
+      className={classNames('rush-blog-layout', className)}
       data-content-width={contentWidth}
       data-has-aside={hasAside || undefined}
-      data-has-navigation={
-        hasNavigation || undefined
-      }
+      data-has-navigation={hasNavigation || undefined}
       data-slot="blog-layout"
-      data-sticky-side-columns={
-        stickySideColumns || undefined
-      }
+      data-sticky-side-columns={stickySideColumns || undefined}
     >
-      {header !== undefined
-        && header !== null && (
-          <header
-            className={classNames(
-              'rush-blog-layout__header',
-              headerClassName,
-            )}
-            data-slot="blog-header"
-          >
-            {header}
-          </header>
-        )}
+      {header !== undefined && header !== null && (
+        <header
+          className={classNames('rush-blog-layout__header', headerClassName)}
+          data-slot="blog-header"
+        >
+          {header}
+        </header>
+      )}
 
-      <div
-        className="rush-blog-layout__body"
-        data-slot="blog-body"
-      >
+      <div className="rush-blog-layout__body" data-slot="blog-body">
         {hasNavigation && (
           <aside
             aria-label={navigationLabel}
-            className={classNames(
-              'rush-blog-layout__navigation',
-              navigationClassName,
-            )}
+            className={classNames('rush-blog-layout__navigation', navigationClassName)}
             data-slot="blog-navigation"
           >
-            <div className="rush-blog-layout__side-content">
-              {navigation}
-            </div>
+            <div className="rush-blog-layout__side-content">{navigation}</div>
           </aside>
         )}
 
-        <main
-          className={classNames(
-            'rush-blog-layout__main',
-            mainClassName,
-          )}
-          data-slot="blog-main"
-        >
+        <main className={classNames('rush-blog-layout__main', mainClassName)} data-slot="blog-main">
           {children}
         </main>
 
         {hasAside && (
           <aside
             aria-label={asideLabel}
-            className={classNames(
-              'rush-blog-layout__aside',
-              asideClassName,
-            )}
+            className={classNames('rush-blog-layout__aside', asideClassName)}
             data-slot="blog-aside"
           >
-            <div className="rush-blog-layout__side-content">
-              {aside}
-            </div>
+            <div className="rush-blog-layout__side-content">{aside}</div>
           </aside>
         )}
       </div>
 
-      {footer !== undefined
-        && footer !== null && (
-          <footer
-            className={classNames(
-              'rush-blog-layout__footer',
-              footerClassName,
-            )}
-            data-slot="blog-footer"
-          >
-            {footer}
-          </footer>
-        )}
+      {footer !== undefined && footer !== null && (
+        <footer
+          className={classNames('rush-blog-layout__footer', footerClassName)}
+          data-slot="blog-footer"
+        >
+          {footer}
+        </footer>
+      )}
     </div>
   );
 }

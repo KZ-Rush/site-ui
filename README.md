@@ -71,7 +71,8 @@ export function Example() {
           <Alert variant="info">
             <AlertTitle>Profile updated</AlertTitle>
             <AlertDescription>
-              Last saved <FormattedDateTime value="2026-08-01T17:30:00+05:00" format="YYYY-MM-DD HH:mm" />.
+              Last saved{' '}
+              <FormattedDateTime value="2026-08-01T17:30:00+05:00" format="YYYY-MM-DD HH:mm" />.
             </AlertDescription>
           </Alert>
 
@@ -122,12 +123,12 @@ export function ArticlePage() {
   return (
     <BlogLayout
       header={<header>Site name</header>}
-      navigation={(
+      navigation={
         <nav>
           <a href="#introduction">Introduction</a>
           <a href="#summary">Summary</a>
         </nav>
-      )}
+      }
       aside={<nav>On this page</nav>}
       footer={<footer>Copyright 2026</footer>}
       contentWidth="md"
@@ -156,19 +157,19 @@ import {
 export function DashboardPage() {
   return (
     <DashboardLayout
-      sidebar={(
+      sidebar={
         <nav>
           <DashboardSidebarToggle />
           <a href="#overview">Overview</a>
           <a href="#records">Records</a>
         </nav>
-      )}
-      header={(
+      }
+      header={
         <header>
           <DashboardMobileSidebarToggle />
           <strong>Dashboard</strong>
         </header>
-      )}
+      }
     >
       <h1 id="overview">Overview</h1>
       <p>Dashboard content goes here.</p>
@@ -193,27 +194,27 @@ import {
 export function WorkspacePage() {
   return (
     <WorkspaceLayout
-      sidebar={(
+      sidebar={
         <nav>
           <WorkspaceSidebarToggle />
           <a href="#files">Files</a>
           <a href="#activity">Activity</a>
         </nav>
-      )}
-      aside={(
+      }
+      aside={
         <section>
           <WorkspaceAsideToggle />
           <h2>Details</h2>
           <p>Selected item metadata.</p>
         </section>
-      )}
-      header={(
+      }
+      header={
         <header>
           <WorkspaceMobileSidebarToggle />
           <strong>Workspace</strong>
           <WorkspaceMobileAsideToggle />
         </header>
-      )}
+      }
     >
       <h1 id="files">Files</h1>
       <p>Select an item to view its details.</p>

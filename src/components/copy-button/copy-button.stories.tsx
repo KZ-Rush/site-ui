@@ -1,13 +1,5 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
-import {
-  expect,
-  fn,
-  userEvent,
-  within,
-} from 'storybook/test';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn, userEvent, within } from 'storybook/test';
 
 import { CopyButton } from './copy-button';
 
@@ -15,9 +7,7 @@ const meta = {
   title: 'Components/CopyButton',
   component: CopyButton,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -38,8 +28,7 @@ const meta = {
   argTypes: {
     value: {
       control: 'text',
-      description:
-        'Text written to the system clipboard.',
+      description: 'Text written to the system clipboard.',
     },
 
     defaultContent: {
@@ -124,20 +113,14 @@ export const ReactNodeContent: Story = {
   args: {
     defaultContent: (
       <>
-        <span aria-hidden="true">
-          📋
-        </span>
-
+        <span aria-hidden="true">📋</span>
         Copy filename
       </>
     ),
 
     copiedContent: (
       <>
-        <span aria-hidden="true">
-          ✓
-        </span>
-
+        <span aria-hidden="true">✓</span>
         Copied
       </>
     ),
@@ -149,41 +132,27 @@ export const SuccessfulInteraction: Story = {
     copiedDuration: 10_000,
   },
 
-  play: async ({
-    canvasElement,
-    args,
-  }) => {
+  play: async ({ canvasElement, args }) => {
     args.onCopy?.mockClear();
     args.onCopyError?.mockClear();
 
     const writeText = fn().mockResolvedValue(undefined);
 
-    Object.defineProperty(
-      navigator,
-      'clipboard',
-      {
-        configurable: true,
-        value: {
-          writeText,
-        },
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText,
       },
-    );
+    });
 
     const canvas = within(canvasElement);
-    const button = canvas.getByRole(
-      'button',
-      { name: 'Copy' },
-    );
+    const button = canvas.getByRole('button', { name: 'Copy' });
 
     await userEvent.click(button);
 
-    await expect(writeText).toHaveBeenCalledWith(
-      'demo-name.dem',
-    );
+    await expect(writeText).toHaveBeenCalledWith('demo-name.dem');
 
-    await expect(args.onCopy).toHaveBeenCalledWith(
-      'demo-name.dem',
-    );
+    await expect(args.onCopy).toHaveBeenCalledWith('demo-name.dem');
 
     await expect(args.onCopyError).not.toHaveBeenCalled();
   },

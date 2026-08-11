@@ -1,42 +1,19 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 
-import {
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
-import {
-  Select,
-} from './select';
+import { Select } from './select';
 
-function renderSelect(
-  props: Partial<
-    React.ComponentProps<typeof Select>
-  > = {},
-) {
+function renderSelect(props: Partial<React.ComponentProps<typeof Select>> = {}) {
   return render(
-    <Select
-      aria-label="Player"
-      {...props}
-    >
-      <option value="">
-        Select player
-      </option>
+    <Select aria-label="Player" {...props}>
+      <option value="">Select player</option>
 
-      <option value="one">
-        Player One
-      </option>
+      <option value="one">Player One</option>
 
-      <option value="two">
-        Player Two
-      </option>
+      <option value="two">Player Two</option>
     </Select>,
   );
 }
@@ -46,12 +23,9 @@ describe('Select', () => {
     renderSelect();
 
     expect(
-      screen.getByRole(
-        'combobox',
-        {
-          name: 'Player',
-        },
-      ),
+      screen.getByRole('combobox', {
+        name: 'Player',
+      }),
     ).toBeInTheDocument();
   });
 
@@ -61,41 +35,30 @@ describe('Select', () => {
       required: true,
     });
 
-    const select =
-      screen.getByRole('combobox');
+    const select = screen.getByRole('combobox');
 
-    expect(select).toHaveAttribute(
-      'name',
-      'player',
-    );
+    expect(select).toHaveAttribute('name', 'player');
 
     expect(select).toBeRequired();
   });
 
-    it('supports changing the selected value', async () => {
+  it('supports changing the selected value', async () => {
     const user = userEvent.setup();
 
     renderSelect();
 
-    const select =
-        screen.getByRole('combobox');
+    const select = screen.getByRole('combobox');
 
-    await user.selectOptions(
-        select,
-        'two',
-    );
+    await user.selectOptions(select, 'two');
 
     expect(select).toHaveValue('two');
 
     expect(
-        screen.getByRole('option', {
+      screen.getByRole('option', {
         name: 'Player Two',
-        }),
-    ).toHaveProperty(
-        'selected',
-        true,
-    );
-    });
+      }),
+    ).toHaveProperty('selected', true);
+  });
 
   it('calls native onChange', async () => {
     const user = userEvent.setup();
@@ -105,12 +68,7 @@ describe('Select', () => {
       onChange,
     });
 
-    await user.selectOptions(
-      screen.getByRole(
-        'combobox',
-      ),
-      'one',
-    );
+    await user.selectOptions(screen.getByRole('combobox'), 'one');
 
     expect(onChange).toHaveBeenCalled();
   });
@@ -120,19 +78,11 @@ describe('Select', () => {
       disabled: true,
     });
 
-    const select =
-      screen.getByRole('combobox');
+    const select = screen.getByRole('combobox');
 
     expect(select).toBeDisabled();
 
-    expect(
-      select.closest(
-        '[data-slot="select"]',
-      ),
-    ).toHaveAttribute(
-      'data-disabled',
-      'true',
-    );
+    expect(select.closest('[data-slot="select"]')).toHaveAttribute('data-disabled', 'true');
   });
 
   it('supports invalid state', () => {
@@ -140,22 +90,11 @@ describe('Select', () => {
       invalid: true,
     });
 
-    const select =
-      screen.getByRole('combobox');
+    const select = screen.getByRole('combobox');
 
-    expect(select).toHaveAttribute(
-      'aria-invalid',
-      'true',
-    );
+    expect(select).toHaveAttribute('aria-invalid', 'true');
 
-    expect(
-      select.closest(
-        '[data-slot="select"]',
-      ),
-    ).toHaveAttribute(
-      'data-invalid',
-      'true',
-    );
+    expect(select.closest('[data-slot="select"]')).toHaveAttribute('data-invalid', 'true');
   });
 
   it('preserves explicitly supplied aria-invalid', () => {
@@ -164,12 +103,7 @@ describe('Select', () => {
       'aria-invalid': 'grammar',
     });
 
-    expect(
-      screen.getByRole('combobox'),
-    ).toHaveAttribute(
-      'aria-invalid',
-      'grammar',
-    );
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-invalid', 'grammar');
   });
 
   it('applies the requested size', () => {
@@ -177,13 +111,7 @@ describe('Select', () => {
       size: 'lg',
     });
 
-    expect(
-      screen
-        .getByRole('combobox')
-        .closest(
-          '[data-slot="select"]',
-        ),
-    ).toHaveClass(
+    expect(screen.getByRole('combobox').closest('[data-slot="select"]')).toHaveClass(
       'rush-select--lg',
     );
   });
@@ -191,42 +119,21 @@ describe('Select', () => {
   it('renders the indicator', () => {
     renderSelect();
 
-    const root =
-      screen
-        .getByRole('combobox')
-        .closest(
-          '[data-slot="select"]',
-        );
+    const root = screen.getByRole('combobox').closest('[data-slot="select"]');
 
-    expect(
-      root?.querySelector(
-        '[data-slot="select-indicator"]',
-      ),
-    ).toBeInTheDocument();
+    expect(root?.querySelector('[data-slot="select-indicator"]')).toBeInTheDocument();
   });
 
   it('applies root and control class names separately', () => {
     renderSelect({
       className: 'custom-root',
-      selectClassName:
-        'custom-control',
+      selectClassName: 'custom-control',
     });
 
-    const select =
-      screen.getByRole('combobox');
+    const select = screen.getByRole('combobox');
 
-    expect(
-      select.closest(
-        '[data-slot="select"]',
-      ),
-    ).toHaveClass(
-      'rush-select',
-      'custom-root',
-    );
+    expect(select.closest('[data-slot="select"]')).toHaveClass('rush-select', 'custom-root');
 
-    expect(select).toHaveClass(
-      'rush-select__control',
-      'custom-control',
-    );
+    expect(select).toHaveClass('rush-select__control', 'custom-control');
   });
 });

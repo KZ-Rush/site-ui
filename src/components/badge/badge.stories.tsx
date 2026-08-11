@@ -1,24 +1,11 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Badge } from './badge';
 
 function StatusStoryIcon() {
   return (
-    <svg
-      aria-hidden="true"
-      focusable="false"
-      viewBox="0 0 24 24"
-      fill="none"
-    >
-      <circle
-        cx="12"
-        cy="12"
-        r="8"
-        fill="currentColor"
-      />
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="8" fill="currentColor" />
     </svg>
   );
 }
@@ -27,9 +14,7 @@ const meta = {
   title: 'Components/Badge',
   component: Badge,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -62,8 +47,7 @@ const meta = {
 
     href: {
       control: 'text',
-      description:
-        'When supplied, Badge renders as an anchor.',
+      description: 'When supplied, Badge renders as an anchor.',
     },
   },
 } satisfies Meta<typeof Badge>;
@@ -153,8 +137,7 @@ export const WithIcon: Story = {
 
 export const LongContent: Story = {
   args: {
-    children:
-      'A very long badge value that will be constrained',
+    children: 'A very long badge value that will be constrained',
   },
 
   decorators: [
@@ -175,37 +158,21 @@ export const AllVariants: Story = {
         gap: '0.5rem',
       }}
     >
-      <Badge>
-        Default
-      </Badge>
+      <Badge>Default</Badge>
 
-      <Badge variant="secondary">
-        Secondary
-      </Badge>
+      <Badge variant="secondary">Secondary</Badge>
 
-      <Badge variant="success">
-        Success
-      </Badge>
+      <Badge variant="success">Success</Badge>
 
-      <Badge variant="warning">
-        Warning
-      </Badge>
+      <Badge variant="warning">Warning</Badge>
 
-      <Badge variant="destructive">
-        Destructive
-      </Badge>
+      <Badge variant="destructive">Destructive</Badge>
 
-      <Badge variant="info">
-        Info
-      </Badge>
+      <Badge variant="info">Info</Badge>
 
-      <Badge variant="notice">
-        Notice
-      </Badge>
+      <Badge variant="notice">Notice</Badge>
 
-      <Badge variant="outline">
-        Outline
-      </Badge>
+      <Badge variant="outline">Outline</Badge>
     </div>
   ),
 };
@@ -219,33 +186,19 @@ export const KzRushStatuses: Story = {
         gap: '0.5rem',
       }}
     >
-      <Badge variant="secondary">
-        Pending
-      </Badge>
+      <Badge variant="secondary">Pending</Badge>
 
-      <Badge variant="warning">
-        Needs review
-      </Badge>
+      <Badge variant="warning">Needs review</Badge>
 
-      <Badge variant="info">
-        Processing
-      </Badge>
+      <Badge variant="info">Processing</Badge>
 
-      <Badge variant="success">
-        Approved
-      </Badge>
+      <Badge variant="success">Approved</Badge>
 
-      <Badge variant="destructive">
-        Rejected
-      </Badge>
+      <Badge variant="destructive">Rejected</Badge>
 
-      <Badge variant="notice">
-        New record
-      </Badge>
+      <Badge variant="notice">New record</Badge>
 
-      <Badge variant="outline">
-        Archived
-      </Badge>
+      <Badge variant="outline">Archived</Badge>
     </div>
   ),
 };

@@ -7,21 +7,16 @@ export function lockBodyScroll(): void {
   }
 
   if (lockCount === 0) {
-    originalOverflow =
-      document.body.style.overflow;
+    originalOverflow = document.body.style.overflow;
 
-    document.body.style.overflow =
-      'hidden';
+    document.body.style.overflow = 'hidden';
   }
 
   lockCount += 1;
 }
 
 export function unlockBodyScroll(): void {
-  if (
-    typeof document === 'undefined'
-    || lockCount === 0
-  ) {
+  if (typeof document === 'undefined' || lockCount === 0) {
     return;
   }
 
@@ -31,8 +26,7 @@ export function unlockBodyScroll(): void {
     return;
   }
 
-  document.body.style.overflow =
-    originalOverflow ?? '';
+  document.body.style.overflow = originalOverflow ?? '';
 
   originalOverflow = null;
 }

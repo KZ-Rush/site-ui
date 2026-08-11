@@ -2,111 +2,49 @@
 
 .rush-drawer {
   position: fixed;
-  z-index: var(
-    --rush-drawer-z-index,
-    50
-  );
-
+  z-index: var(--rush-drawer-z-index, 50);
   inset: 0;
 
   &__overlay {
     position: absolute;
     inset: 0;
-
-    background-color: var(
-      --rush-drawer-overlay-background,
-      rgb(0 0 0 / 50%)
-    );
-
-    animation:
-      rush-drawer-overlay-in
-      var(
-        --rush-drawer-transition-duration,
-        200ms
-      )
-      ease-out;
+    background-color: var(--rush-drawer-overlay-background, rgb(0 0 0 / 50%));
+    animation: rush-drawer-overlay-in var(--rush-drawer-transition-duration, 200ms) ease-out;
   }
 
   &__content {
     position: absolute;
     top: 0;
     bottom: 0;
-
     display: flex;
     flex-direction: column;
-
-    width: min(
-      var(
-        --rush-drawer-width,
-        20rem
-      ),
-      calc(100vw - 2rem)
-    );
-
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    border-color: var(
-      --rush-drawer-border-color,
-      var(--rush-color-border, #e2e8f0)
-    );
-
-    background-color: var(
-      --rush-drawer-background,
-      var(--rush-color-card, #fff)
-    );
-
-    color: var(
-      --rush-drawer-foreground,
-      var(--rush-color-card-foreground, #0f172a)
-    );
-
+    width: min(var(--rush-drawer-width, 20rem), calc(100vw - 2rem));
+    overflow: hidden auto;
+    border-color: var(--rush-drawer-border-color, var(--rush-color-border, #e2e8f0));
+    background-color: var(--rush-drawer-background, var(--rush-color-card, #fff));
+    color: var(--rush-drawer-foreground, var(--rush-color-card-foreground, #0f172a));
     box-shadow: var(
       --rush-drawer-shadow,
       0 20px 25px -5px rgb(0 0 0 / 10%),
       0 8px 10px -6px rgb(0 0 0 / 10%)
     );
-
     outline: none;
 
     &--left {
       left: 0;
-
-      border-right: 1px solid var(
-        --rush-drawer-border-color,
-        var(--rush-color-border, #e2e8f0)
-      );
-
-      animation:
-        rush-drawer-left-in
-        var(
-          --rush-drawer-transition-duration,
-          200ms
-        )
-        ease-out;
+      border-right: 1px solid var(--rush-drawer-border-color, var(--rush-color-border, #e2e8f0));
+      animation: rush-drawer-left-in var(--rush-drawer-transition-duration, 200ms) ease-out;
     }
 
     &--right {
       right: 0;
-
-      border-left: 1px solid var(
-        --rush-drawer-border-color,
-        var(--rush-color-border, #e2e8f0)
-      );
-
-      animation:
-        rush-drawer-right-in
-        var(
-          --rush-drawer-transition-duration,
-          200ms
-        )
-        ease-out;
+      border-left: 1px solid var(--rush-drawer-border-color, var(--rush-color-border, #e2e8f0));
+      animation: rush-drawer-right-in var(--rush-drawer-transition-duration, 200ms) ease-out;
     }
   }
 
   &__title {
     margin: 0;
-
     font-size: 1.125rem;
     font-weight: 600;
     line-height: 1.5;
@@ -121,27 +59,17 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     width: 2.25rem;
     height: 2.25rem;
     padding: 0;
-
     border: 0;
-    border-radius: var(
-      --rush-radius-md,
-      0.5rem
-    );
-
+    border-radius: var(--rush-radius-md, 0.5rem);
     background: transparent;
     color: inherit;
-
     cursor: pointer;
 
     &:hover:not(:disabled) {
-      background-color: var(
-        --rush-color-accent,
-        #f1f5f9
-      );
+      background-color: var(--rush-color-accent, #f1f5f9);
     }
 
     &:focus-visible {

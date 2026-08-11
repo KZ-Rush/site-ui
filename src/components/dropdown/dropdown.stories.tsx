@@ -1,15 +1,8 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Button,
-} from '../button';
+import { Button } from '../button';
 
 import {
   Dropdown,
@@ -24,9 +17,7 @@ const meta = {
   title: 'Components/Dropdown',
   component: Dropdown,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -64,30 +55,21 @@ const meta = {
 
 export default meta;
 
-type Story =
-  StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: () => (
     <Dropdown>
-      <DropdownTrigger>
-        Open menu
-      </DropdownTrigger>
+      <DropdownTrigger>Open menu</DropdownTrigger>
 
       <DropdownContent>
-        <DropdownItem>
-          Profile
-        </DropdownItem>
+        <DropdownItem>Profile</DropdownItem>
 
-        <DropdownItem>
-          Settings
-        </DropdownItem>
+        <DropdownItem>Settings</DropdownItem>
 
         <DropdownSeparator />
 
-        <DropdownItem destructive>
-          Sign out
-        </DropdownItem>
+        <DropdownItem destructive>Sign out</DropdownItem>
       </DropdownContent>
     </Dropdown>
   ),
@@ -95,52 +77,26 @@ export const Default: Story = {
 
 export const Checkboxes: Story = {
   render: () => {
-    const [
-      playerVisible,
-      setPlayerVisible,
-    ] = useState(true);
+    const [playerVisible, setPlayerVisible] = useState(true);
 
-    const [
-      mapVisible,
-      setMapVisible,
-    ] = useState(true);
+    const [mapVisible, setMapVisible] = useState(true);
 
-    const [
-      timeVisible,
-      setTimeVisible,
-    ] = useState(false);
+    const [timeVisible, setTimeVisible] = useState(false);
 
     return (
       <Dropdown>
-        <DropdownTrigger>
-          Columns
-        </DropdownTrigger>
+        <DropdownTrigger>Columns</DropdownTrigger>
 
         <DropdownContent align="end">
-          <DropdownCheckboxItem
-            checked={playerVisible}
-            onCheckedChange={
-              setPlayerVisible
-            }
-          >
+          <DropdownCheckboxItem checked={playerVisible} onCheckedChange={setPlayerVisible}>
             Player
           </DropdownCheckboxItem>
 
-          <DropdownCheckboxItem
-            checked={mapVisible}
-            onCheckedChange={
-              setMapVisible
-            }
-          >
+          <DropdownCheckboxItem checked={mapVisible} onCheckedChange={setMapVisible}>
             Map
           </DropdownCheckboxItem>
 
-          <DropdownCheckboxItem
-            checked={timeVisible}
-            onCheckedChange={
-              setTimeVisible
-            }
-          >
+          <DropdownCheckboxItem checked={timeVisible} onCheckedChange={setTimeVisible}>
             Time
           </DropdownCheckboxItem>
         </DropdownContent>
@@ -152,26 +108,16 @@ export const Checkboxes: Story = {
 export const TriggerVariant: Story = {
   render: () => (
     <Dropdown>
-      <DropdownTrigger
-        variant="outline"
-      >
-        Actions
-      </DropdownTrigger>
+      <DropdownTrigger variant="outline">Actions</DropdownTrigger>
 
       <DropdownContent align="end">
-        <DropdownItem>
-          Edit
-        </DropdownItem>
+        <DropdownItem>Edit</DropdownItem>
 
-        <DropdownItem>
-          Duplicate
-        </DropdownItem>
+        <DropdownItem>Duplicate</DropdownItem>
 
         <DropdownSeparator />
 
-        <DropdownItem destructive>
-          Delete
-        </DropdownItem>
+        <DropdownItem destructive>Delete</DropdownItem>
       </DropdownContent>
     </Dropdown>
   ),
@@ -181,27 +127,17 @@ export const CustomTrigger: Story = {
   render: () => (
     <Dropdown>
       <DropdownTrigger
-        render={(
-          triggerProps,
-        ) => (
-          <Button
-            {...triggerProps}
-            variant="outline"
-            size="sm"
-          >
+        render={(triggerProps) => (
+          <Button {...triggerProps} variant="outline" size="sm">
             Custom trigger
           </Button>
         )}
       />
 
       <DropdownContent align="end">
-        <DropdownItem>
-          Edit
-        </DropdownItem>
+        <DropdownItem>Edit</DropdownItem>
 
-        <DropdownItem>
-          Duplicate
-        </DropdownItem>
+        <DropdownItem>Duplicate</DropdownItem>
       </DropdownContent>
     </Dropdown>
   ),
@@ -211,9 +147,7 @@ export const IconTrigger: Story = {
   render: () => (
     <Dropdown>
       <DropdownTrigger
-        render={(
-          triggerProps,
-        ) => (
+        render={(triggerProps) => (
           <button
             {...triggerProps}
             type="button"
@@ -230,13 +164,9 @@ export const IconTrigger: Story = {
       />
 
       <DropdownContent align="end">
-        <DropdownItem>
-          Edit
-        </DropdownItem>
+        <DropdownItem>Edit</DropdownItem>
 
-        <DropdownItem destructive>
-          Delete
-        </DropdownItem>
+        <DropdownItem destructive>Delete</DropdownItem>
       </DropdownContent>
     </Dropdown>
   ),

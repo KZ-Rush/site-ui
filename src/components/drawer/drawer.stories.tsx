@@ -1,29 +1,14 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTitle,
-  DrawerTrigger,
-} from './drawer';
+import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from './drawer';
 
-import {
-  expect,
-  userEvent,
-  within,
-} from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 
 const meta = {
   title: 'Components/Drawer',
   component: Drawer,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -66,9 +51,7 @@ type Story = StoryObj<typeof meta>;
 export const Left: Story = {
   render: () => (
     <Drawer>
-      <DrawerTrigger>
-        Open navigation
-      </DrawerTrigger>
+      <DrawerTrigger>Open navigation</DrawerTrigger>
 
       <DrawerContent side="left">
         <div
@@ -79,13 +62,9 @@ export const Left: Story = {
             padding: '1rem',
           }}
         >
-          <DrawerTitle>
-            Navigation
-          </DrawerTitle>
+          <DrawerTitle>Navigation</DrawerTitle>
 
-          <DrawerClose aria-label="Close drawer">
-            ×
-          </DrawerClose>
+          <DrawerClose aria-label="Close drawer">×</DrawerClose>
         </div>
 
         <nav
@@ -96,21 +75,13 @@ export const Left: Story = {
             padding: '1rem',
           }}
         >
-          <a href="#dashboard">
-            Dashboard
-          </a>
+          <a href="#dashboard">Dashboard</a>
 
-          <a href="#records">
-            Records
-          </a>
+          <a href="#records">Records</a>
 
-          <a href="#maps">
-            Maps
-          </a>
+          <a href="#maps">Maps</a>
 
-          <a href="#players">
-            Players
-          </a>
+          <a href="#players">Players</a>
         </nav>
       </DrawerContent>
     </Drawer>
@@ -120,9 +91,7 @@ export const Left: Story = {
 export const Right: Story = {
   render: () => (
     <Drawer>
-      <DrawerTrigger>
-        Open details
-      </DrawerTrigger>
+      <DrawerTrigger>Open details</DrawerTrigger>
 
       <DrawerContent side="right">
         <div
@@ -133,18 +102,12 @@ export const Right: Story = {
             padding: '1rem',
           }}
         >
-          <DrawerTitle>
-            Demo details
-          </DrawerTitle>
+          <DrawerTitle>Demo details</DrawerTitle>
 
-          <DrawerClose aria-label="Close drawer">
-            ×
-          </DrawerClose>
+          <DrawerClose aria-label="Close drawer">×</DrawerClose>
         </div>
 
-        <div style={{ padding: '1rem' }}>
-          Demo metadata and inspector content.
-        </div>
+        <div style={{ padding: '1rem' }}>Demo metadata and inspector content.</div>
       </DrawerContent>
     </Drawer>
   ),
@@ -153,23 +116,15 @@ export const Right: Story = {
 export const InitiallyOpen: Story = {
   render: () => (
     <Drawer defaultOpen>
-      <DrawerTrigger>
-        Open drawer
-      </DrawerTrigger>
+      <DrawerTrigger>Open drawer</DrawerTrigger>
 
       <DrawerContent>
         <div style={{ padding: '1rem' }}>
-          <DrawerTitle>
-            Navigation
-          </DrawerTitle>
+          <DrawerTitle>Navigation</DrawerTitle>
 
-          <p>
-            This drawer starts open.
-          </p>
+          <p>This drawer starts open.</p>
 
-          <DrawerClose>
-            Close
-          </DrawerClose>
+          <DrawerClose>Close</DrawerClose>
         </div>
       </DrawerContent>
     </Drawer>
@@ -179,26 +134,18 @@ export const InitiallyOpen: Story = {
 export const Interaction: Story = {
   render: () => (
     <Drawer>
-      <DrawerTrigger>
-        Open drawer
-      </DrawerTrigger>
+      <DrawerTrigger>Open drawer</DrawerTrigger>
 
       <DrawerContent aria-label="Navigation">
-        <DrawerClose>
-          Close drawer
-        </DrawerClose>
+        <DrawerClose>Close drawer</DrawerClose>
       </DrawerContent>
     </Drawer>
   ),
 
-  play: async ({
-    canvasElement,
-  }) => {
-    const canvas =
-      within(canvasElement);
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
 
-    const body =
-      within(document.body);
+    const body = within(document.body);
 
     await userEvent.click(
       canvas.getByRole('button', {
@@ -212,9 +159,7 @@ export const Interaction: Story = {
       }),
     ).toBeInTheDocument();
 
-    await userEvent.keyboard(
-      '{Escape}',
-    );
+    await userEvent.keyboard('{Escape}');
 
     await expect(
       body.queryByRole('dialog', {

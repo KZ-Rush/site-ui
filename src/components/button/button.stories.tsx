@@ -1,13 +1,5 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
-import {
-  expect,
-  fn,
-  userEvent,
-  within,
-} from 'storybook/test';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn, userEvent, within } from 'storybook/test';
 
 import { Button } from './button';
 
@@ -15,9 +7,7 @@ const meta = {
   title: 'Components/Button',
   component: Button,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -39,25 +29,13 @@ const meta = {
     variant: {
       control: 'select',
 
-      options: [
-        'default',
-        'destructive',
-        'outline',
-        'secondary',
-        'ghost',
-        'link',
-      ],
+      options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'],
     },
 
     size: {
       control: 'select',
 
-      options: [
-        'default',
-        'sm',
-        'lg',
-        'icon',
-      ],
+      options: ['default', 'sm', 'lg', 'icon'],
     },
 
     disabled: {
@@ -129,16 +107,8 @@ export const Icon: Story = {
     size: 'icon',
     'aria-label': 'Add record',
     children: (
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-      >
-        <path
-          d="M12 5v14M5 12h14"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" strokeWidth="2" />
       </svg>
     ),
   },
@@ -166,20 +136,12 @@ export const DisabledLink: Story = {
 };
 
 export const ClickInteraction: Story = {
-  play: async ({
-    canvasElement,
-    args,
-  }) => {
+  play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole(
-      'button',
-      { name: 'Button' },
-    );
+    const button = canvas.getByRole('button', { name: 'Button' });
 
     await userEvent.click(button);
 
-    await expect(
-      args.onClick,
-    ).toHaveBeenCalledOnce();
+    await expect(args.onClick).toHaveBeenCalledOnce();
   },
 };

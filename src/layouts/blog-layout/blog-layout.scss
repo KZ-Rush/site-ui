@@ -1,111 +1,54 @@
 .rush-blog-layout {
   min-width: 0;
   min-height: 100dvh;
-
-  background-color: var(
-    --rush-blog-background,
-    var(--rush-color-background, #fff)
-  );
-
-  color: var(
-    --rush-blog-foreground,
-    var(--rush-color-foreground, #0f172a)
-  );
-
-  font-family: var(
-    --rush-font-sans,
-    system-ui,
-    sans-serif
-  );
+  background-color: var(--rush-blog-background, var(--rush-color-background, #fff));
+  color: var(--rush-blog-foreground, var(--rush-color-foreground, #0f172a));
+  font-family: var(--rush-font-sans, system-ui, sans-serif);
 
   &__header,
   &__footer {
     width: 100%;
-
-    background-color: var(
-      --rush-blog-chrome-background,
-      var(--rush-color-background, #fff)
-    );
+    background-color: var(--rush-blog-chrome-background, var(--rush-color-background, #fff));
   }
 
   &__header {
-    border-bottom: 1px solid var(
-      --rush-blog-border-color,
-      var(--rush-color-border, #e2e8f0)
-    );
+    border-bottom: 1px solid var(--rush-blog-border-color, var(--rush-color-border, #e2e8f0));
   }
 
   &__footer {
-    border-top: 1px solid var(
-      --rush-blog-border-color,
-      var(--rush-color-border, #e2e8f0)
-    );
+    border-top: 1px solid var(--rush-blog-border-color, var(--rush-color-border, #e2e8f0));
   }
 
   &__body {
     display: grid;
     grid-template-columns:
-      var(
-        --rush-blog-navigation-column-width,
-        15rem
-      )
+      var(--rush-blog-navigation-column-width, 15rem)
       minmax(0, 1fr)
-      var(
-        --rush-blog-aside-column-width,
-        15rem
-      );
-
-    gap: var(
-      --rush-blog-column-gap,
-      2rem
-    );
-
-    width: min(
-      100%,
-      var(
-        --rush-blog-container-width,
-        90rem
-      )
-    );
-
+      var(--rush-blog-aside-column-width, 15rem);
+    gap: var(--rush-blog-column-gap, 2rem);
+    width: min(100%, var(--rush-blog-container-width, 90rem));
     margin-inline: auto;
-
-    padding: var(
-      --rush-blog-body-padding,
-      2rem 1.5rem
-    );
+    padding: var(--rush-blog-body-padding, 2rem 1.5rem);
   }
 
   /*
    * Remove unused columns without requiring separate
    * component implementations.
    */
-  &:not([data-has-navigation])
-    &__body {
+  &:not([data-has-navigation]) &__body {
     grid-template-columns:
       minmax(0, 1fr)
-      var(
-        --rush-blog-aside-column-width,
-        15rem
-      );
+      var(--rush-blog-aside-column-width, 15rem);
   }
 
-  &:not([data-has-aside])
-    &__body {
+  &:not([data-has-aside]) &__body {
     grid-template-columns:
-      var(
-        --rush-blog-navigation-column-width,
-        15rem
-      )
+      var(--rush-blog-navigation-column-width, 15rem)
       minmax(0, 1fr);
   }
 
-  &:not([data-has-navigation]):not(
-    [data-has-aside]
-  )
-    &__body {
-    grid-template-columns:
-      minmax(0, 1fr);
+  &:not([data-has-navigation], [data-has-aside]) &__body {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   &__navigation,
@@ -117,54 +60,33 @@
     min-width: 0;
   }
 
-  &[data-sticky-side-columns='true']
-    &__side-content {
+  &[data-sticky-side-columns='true'] &__side-content {
     position: sticky;
-    top: var(
-      --rush-blog-sticky-offset,
-      1.5rem
-    );
-
-    max-height: calc(
-      100dvh
-      - var(
-        --rush-blog-sticky-offset,
-        1.5rem
-      )
-      * 2
-    );
-
+    top: var(--rush-blog-sticky-offset, 1.5rem);
+    max-height: calc(100dvh - var(--rush-blog-sticky-offset, 1.5rem) * 2);
     overflow-y: auto;
   }
 
   &__main {
     width: 100%;
     min-width: 0;
-    max-width: var(
-      --rush-blog-content-max-width,
-      48rem
-    );
-
+    max-width: var(--rush-blog-content-max-width, 48rem);
     margin-inline: auto;
   }
 
-  &[data-content-width='sm']
-    &__main {
+  &[data-content-width='sm'] &__main {
     --rush-blog-content-max-width: 42rem;
   }
 
-  &[data-content-width='md']
-    &__main {
+  &[data-content-width='md'] &__main {
     --rush-blog-content-max-width: 48rem;
   }
 
-  &[data-content-width='lg']
-    &__main {
+  &[data-content-width='lg'] &__main {
     --rush-blog-content-max-width: 64rem;
   }
 
-  &[data-content-width='full']
-    &__main {
+  &[data-content-width='full'] &__main {
     --rush-blog-content-max-width: none;
   }
 }
@@ -173,37 +95,25 @@
   .rush-blog-layout {
     &__body {
       grid-template-columns:
-        var(
-          --rush-blog-navigation-column-width,
-          14rem
-        )
+        var(--rush-blog-navigation-column-width, 14rem)
         minmax(0, 1fr);
-
-      gap: var(
-        --rush-blog-tablet-column-gap,
-        1.5rem
-      );
+      gap: var(--rush-blog-tablet-column-gap, 1.5rem);
     }
 
-    &[data-has-aside]
-      &__aside {
+    &[data-has-aside] &__aside {
       grid-column: 2;
     }
 
-    &:not([data-has-navigation])
-      &__body {
-      grid-template-columns:
-        minmax(0, 1fr);
+    &:not([data-has-navigation]) &__body {
+      grid-template-columns: minmax(0, 1fr);
     }
 
-    &:not([data-has-navigation])
-      &__aside {
+    &:not([data-has-navigation]) &__aside {
       grid-column: 1;
     }
   }
 
-  .rush-blog-layout__aside
-    .rush-blog-layout__side-content {
+  .rush-blog-layout__aside .rush-blog-layout__side-content {
     position: static;
     max-height: none;
     overflow: visible;
@@ -215,15 +125,8 @@
     &__body {
       display: flex;
       flex-direction: column;
-      gap: var(
-        --rush-blog-mobile-section-gap,
-        2rem
-      );
-
-      padding: var(
-        --rush-blog-mobile-body-padding,
-        1.5rem 1rem
-      );
+      gap: var(--rush-blog-mobile-section-gap, 2rem);
+      padding: var(--rush-blog-mobile-body-padding, 1.5rem 1rem);
     }
 
     &__navigation,
@@ -233,8 +136,7 @@
       max-width: none;
     }
 
-    &[data-sticky-side-columns='true']
-      &__side-content {
+    &[data-sticky-side-columns='true'] &__side-content {
       position: static;
       max-height: none;
       overflow: visible;

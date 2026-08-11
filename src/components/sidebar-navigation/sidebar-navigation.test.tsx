@@ -1,16 +1,8 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import userEvent from '@testing-library/user-event';
 
-import {
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import {
   SidebarNavigation,
@@ -23,9 +15,7 @@ describe('SidebarNavigation', () => {
   it('renders an accessible navigation region', () => {
     render(
       <SidebarNavigation aria-label="Main navigation">
-        <SidebarNavigationItem href="/dashboard">
-          Dashboard
-        </SidebarNavigationItem>
+        <SidebarNavigationItem href="/dashboard">Dashboard</SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
@@ -39,11 +29,7 @@ describe('SidebarNavigation', () => {
   it('renders a link item', () => {
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem
-          href="/records"
-        >
-          Records
-        </SidebarNavigationItem>
+        <SidebarNavigationItem href="/records">Records</SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
@@ -51,18 +37,13 @@ describe('SidebarNavigation', () => {
       screen.getByRole('link', {
         name: 'Records',
       }),
-    ).toHaveAttribute(
-      'href',
-      '/records',
-    );
+    ).toHaveAttribute('href', '/records');
   });
 
   it('renders a button item when href is omitted', () => {
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem>
-          Settings
-        </SidebarNavigationItem>
+        <SidebarNavigationItem>Settings</SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
@@ -70,19 +51,13 @@ describe('SidebarNavigation', () => {
       screen.getByRole('button', {
         name: 'Settings',
       }),
-    ).toHaveAttribute(
-      'type',
-      'button',
-    );
+    ).toHaveAttribute('type', 'button');
   });
 
   it('marks active links as the current page', () => {
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem
-          href="/dashboard"
-          active
-        >
+        <SidebarNavigationItem href="/dashboard" active>
           Dashboard
         </SidebarNavigationItem>
       </SidebarNavigation>,
@@ -92,20 +67,13 @@ describe('SidebarNavigation', () => {
       screen.getByRole('link', {
         name: 'Dashboard',
       }),
-    ).toHaveAttribute(
-      'aria-current',
-      'page',
-    );
+    ).toHaveAttribute('aria-current', 'page');
   });
 
   it('marks active items visually', () => {
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem
-          active
-        >
-          Settings
-        </SidebarNavigationItem>
+        <SidebarNavigationItem active>Settings</SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
@@ -113,9 +81,7 @@ describe('SidebarNavigation', () => {
       screen.getByRole('button', {
         name: 'Settings',
       }),
-    ).toHaveClass(
-      'rush-sidebar-navigation__item--active',
-    );
+    ).toHaveClass('rush-sidebar-navigation__item--active');
   });
 
   it('prevents disabled link interaction', async () => {
@@ -124,19 +90,13 @@ describe('SidebarNavigation', () => {
 
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem
-          href="/records"
-          disabled
-          onClick={onClick}
-        >
+        <SidebarNavigationItem href="/records" disabled onClick={onClick}>
           Records
         </SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
-    const link = screen
-      .getByText('Records')
-      .closest('a');
+    const link = screen.getByText('Records').closest('a');
 
     expect(link).toBeInTheDocument();
 
@@ -146,15 +106,9 @@ describe('SidebarNavigation', () => {
 
     expect(link).not.toHaveAttribute('href');
 
-    expect(link).toHaveAttribute(
-      'aria-disabled',
-      'true',
-    );
+    expect(link).toHaveAttribute('aria-disabled', 'true');
 
-    expect(link).toHaveAttribute(
-      'tabindex',
-      '-1',
-    );
+    expect(link).toHaveAttribute('tabindex', '-1');
 
     await user.click(link);
 
@@ -167,29 +121,21 @@ describe('SidebarNavigation', () => {
 
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem
-          disabled
-          onClick={onClick}
-        >
+        <SidebarNavigationItem disabled onClick={onClick}>
           Settings
         </SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
-    const button = screen.getByRole(
-      'button',
-      {
-        name: 'Settings',
-      },
-    );
+    const button = screen.getByRole('button', {
+      name: 'Settings',
+    });
 
     expect(button).toBeDisabled();
 
     await user.click(button);
 
-    expect(
-      onClick,
-    ).not.toHaveBeenCalled();
+    expect(onClick).not.toHaveBeenCalled();
   });
 
   it('calls button item onClick', async () => {
@@ -198,11 +144,7 @@ describe('SidebarNavigation', () => {
 
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem
-          onClick={onClick}
-        >
-          Settings
-        </SidebarNavigationItem>
+        <SidebarNavigationItem onClick={onClick}>Settings</SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
@@ -212,20 +154,13 @@ describe('SidebarNavigation', () => {
       }),
     );
 
-    expect(
-      onClick,
-    ).toHaveBeenCalledOnce();
+    expect(onClick).toHaveBeenCalledOnce();
   });
 
   it('keeps labels accessible in collapsed mode', () => {
     render(
-      <SidebarNavigation
-        collapsed
-        aria-label="Main navigation"
-      >
-        <SidebarNavigationItem href="/records">
-          Records
-        </SidebarNavigationItem>
+      <SidebarNavigation collapsed aria-label="Main navigation">
+        <SidebarNavigationItem href="/records">Records</SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
@@ -235,9 +170,7 @@ describe('SidebarNavigation', () => {
       }),
     ).toBeInTheDocument();
 
-    expect(
-      screen.getByText('Records'),
-    ).toHaveClass(
+    expect(screen.getByText('Records')).toHaveClass(
       'rush-sidebar-navigation__item-label--collapsed',
     );
   });
@@ -246,40 +179,26 @@ describe('SidebarNavigation', () => {
     render(
       <SidebarNavigation>
         <SidebarNavigationGroup label="Administration">
-          <SidebarNavigationItem>
-            Users
-          </SidebarNavigationItem>
+          <SidebarNavigationItem>Users</SidebarNavigationItem>
         </SidebarNavigationGroup>
       </SidebarNavigation>,
     );
 
-    expect(
-      screen.getByText('Administration'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Administration')).toBeInTheDocument();
   });
 
   it('renders a separator', () => {
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem>
-          Dashboard
-        </SidebarNavigationItem>
+        <SidebarNavigationItem>Dashboard</SidebarNavigationItem>
 
-        <SidebarNavigationSeparator
-          data-testid="separator"
-        />
+        <SidebarNavigationSeparator data-testid="separator" />
 
-        <SidebarNavigationItem>
-          Settings
-        </SidebarNavigationItem>
+        <SidebarNavigationItem>Settings</SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
-    expect(
-      screen.getByTestId('separator'),
-    ).toHaveClass(
-      'rush-sidebar-navigation__separator',
-    );
+    expect(screen.getByTestId('separator')).toHaveClass('rush-sidebar-navigation__separator');
   });
 
   it('forwards native navigation props', () => {
@@ -289,29 +208,17 @@ describe('SidebarNavigation', () => {
         className="custom-navigation"
         title="Admin menu"
       >
-        <SidebarNavigationItem>
-          Users
-        </SidebarNavigationItem>
+        <SidebarNavigationItem>Users</SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
-    const navigation =
-      screen.getByRole(
-        'navigation',
-        {
-          name: 'Administration',
-        },
-      );
+    const navigation = screen.getByRole('navigation', {
+      name: 'Administration',
+    });
 
-    expect(navigation).toHaveClass(
-      'rush-sidebar-navigation',
-      'custom-navigation',
-    );
+    expect(navigation).toHaveClass('rush-sidebar-navigation', 'custom-navigation');
 
-    expect(navigation).toHaveAttribute(
-      'title',
-      'Admin menu',
-    );
+    expect(navigation).toHaveAttribute('title', 'Admin menu');
   });
 
   it('shows a tooltip for collapsed navigation items', async () => {
@@ -319,28 +226,19 @@ describe('SidebarNavigation', () => {
 
     render(
       <SidebarNavigation collapsed>
-        <SidebarNavigationItem
-          href="/records"
-          icon={<span>R</span>}
-          tooltip="Records"
-        >
+        <SidebarNavigationItem href="/records" icon={<span>R</span>} tooltip="Records">
           Records
         </SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
     await user.hover(
-      screen.getByRole(
-        'link',
-        {
-          name: 'Records',
-        },
-      ),
+      screen.getByRole('link', {
+        name: 'Records',
+      }),
     );
 
-    expect(
-      await screen.findByRole('tooltip'),
-    ).toHaveTextContent('Records');
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Records');
   });
 
   it('shows a tooltip when a collapsed item receives focus', async () => {
@@ -348,11 +246,7 @@ describe('SidebarNavigation', () => {
 
     render(
       <SidebarNavigation collapsed>
-        <SidebarNavigationItem
-          href="/records"
-          icon={<span>R</span>}
-          tooltip="Records"
-        >
+        <SidebarNavigationItem href="/records" icon={<span>R</span>} tooltip="Records">
           Records
         </SidebarNavigationItem>
       </SidebarNavigation>,
@@ -360,9 +254,7 @@ describe('SidebarNavigation', () => {
 
     await user.tab();
 
-    expect(
-      await screen.findByRole('tooltip'),
-    ).toHaveTextContent('Records');
+    expect(await screen.findByRole('tooltip')).toHaveTextContent('Records');
   });
 
   it('does not show a tooltip in expanded mode', async () => {
@@ -370,27 +262,18 @@ describe('SidebarNavigation', () => {
 
     render(
       <SidebarNavigation>
-        <SidebarNavigationItem
-          href="/records"
-          icon={<span>R</span>}
-          tooltip="Records"
-        >
+        <SidebarNavigationItem href="/records" icon={<span>R</span>} tooltip="Records">
           Records
         </SidebarNavigationItem>
       </SidebarNavigation>,
     );
 
     await user.hover(
-      screen.getByRole(
-        'link',
-        {
-          name: 'Records',
-        },
-      ),
+      screen.getByRole('link', {
+        name: 'Records',
+      }),
     );
 
-    expect(
-      screen.queryByRole('tooltip'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
   });
 });

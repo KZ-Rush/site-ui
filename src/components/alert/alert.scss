@@ -2,36 +2,13 @@
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-
   width: 100%;
   padding: 0.875rem 1rem;
-
-  border: 1px solid var(
-    --rush-alert-border-color,
-    var(--rush-color-border, #e2e8f0)
-  );
-
-  border-radius: var(
-    --rush-alert-border-radius,
-    var(--rush-radius-lg, 0.625rem)
-  );
-
-  background-color: var(
-    --rush-alert-background,
-    var(--rush-color-background, #fff)
-  );
-
-  color: var(
-    --rush-alert-foreground,
-    var(--rush-color-foreground, #0f172a)
-  );
-
-  font-family: var(
-    --rush-font-sans,
-    system-ui,
-    sans-serif
-  );
-
+  border: 1px solid var(--rush-alert-border-color, var(--rush-color-border, #e2e8f0));
+  border-radius: var(--rush-alert-border-radius, var(--rush-radius-lg, 0.625rem));
+  background-color: var(--rush-alert-background, var(--rush-color-background, #fff));
+  color: var(--rush-alert-foreground, var(--rush-color-foreground, #0f172a));
+  font-family: var(--rush-font-sans, system-ui, sans-serif);
   font-size: 0.875rem;
   line-height: 1.25rem;
 
@@ -40,15 +17,10 @@
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-
     width: 1rem;
     height: 1rem;
     margin-top: 0.125rem;
-
-    color: var(
-      --rush-alert-icon-foreground,
-      currentColor
-    );
+    color: var(--rush-alert-icon-foreground, currentColor);
 
     > svg {
       width: 100%;
@@ -61,26 +33,19 @@
     flex: 1 1 auto;
     flex-direction: column;
     gap: 0.25rem;
-
     min-width: 0;
   }
 
   &__title {
     margin: 0;
-
     color: inherit;
-
     font-size: inherit;
     font-weight: 600;
     line-height: 1.25;
   }
 
   &__description {
-    color: var(
-      --rush-alert-description-foreground,
-      currentColor
-    );
-
+    color: var(--rush-alert-description-foreground, currentColor);
     opacity: 0.85;
 
     > :first-child {
@@ -99,7 +64,6 @@
   &__list {
     margin: 0;
     padding-left: 1.25rem;
-
     list-style: disc;
 
     li + li {
@@ -108,84 +72,44 @@
   }
 
   &--default {
-    --rush-alert-background:
-      var(--rush-color-background, #fff);
-
-    --rush-alert-foreground:
-      var(--rush-color-foreground, #0f172a);
-
-    --rush-alert-border-color:
-      var(--rush-color-border, #e2e8f0);
+    --rush-alert-background: var(--rush-color-background, #fff);
+    --rush-alert-foreground: var(--rush-color-foreground, #0f172a);
+    --rush-alert-border-color: var(--rush-color-border, #e2e8f0);
   }
 
   &--destructive {
-    --rush-alert-background:
-      var(--rush-color-destructive-soft, #fef2f2);
-
-    --rush-alert-foreground:
-      var(--rush-color-destructive-strong, #991b1b);
-
-    --rush-alert-border-color:
-      var(--rush-color-destructive-border, #fecaca);
-
-    --rush-alert-icon-foreground:
-      var(--rush-color-destructive, #dc2626);
+    --rush-alert-background: var(--rush-color-destructive-soft, #fef2f2);
+    --rush-alert-foreground: var(--rush-color-destructive-strong, #991b1b);
+    --rush-alert-border-color: var(--rush-color-destructive-border, #fecaca);
+    --rush-alert-icon-foreground: var(--rush-color-destructive, #dc2626);
   }
 
   &--warning {
-    --rush-alert-background:
-      var(--rush-color-warning-soft, #fffbeb);
-
-    --rush-alert-foreground:
-      var(--rush-color-warning-strong, #92400e);
-
-    --rush-alert-border-color:
-      var(--rush-color-warning-border, #fde68a);
-
-    --rush-alert-icon-foreground:
-      var(--rush-color-warning, #f59e0b);
+    --rush-alert-background: var(--rush-color-warning-soft, #fffbeb);
+    --rush-alert-foreground: var(--rush-color-warning-strong, #92400e);
+    --rush-alert-border-color: var(--rush-color-warning-border, #fde68a);
+    --rush-alert-icon-foreground: var(--rush-color-warning, #f59e0b);
   }
 
   &--info {
-    --rush-alert-background:
-      var(--rush-color-info-soft, #eff6ff);
-
-    --rush-alert-foreground:
-      var(--rush-color-info-strong, #1d4ed8);
-
-    --rush-alert-border-color:
-      var(--rush-color-info-border, #bfdbfe);
-
-    --rush-alert-icon-foreground:
-      var(--rush-color-info, #3b82f6);
+    --rush-alert-background: var(--rush-color-info-soft, #eff6ff);
+    --rush-alert-foreground: var(--rush-color-info-strong, #1d4ed8);
+    --rush-alert-border-color: var(--rush-color-info-border, #bfdbfe);
+    --rush-alert-icon-foreground: var(--rush-color-info, #3b82f6);
   }
 
   &--success {
-    --rush-alert-background:
-      var(--rush-color-success-soft, #f0fdf4);
-
-    --rush-alert-foreground:
-      var(--rush-color-success-strong, #166534);
-
-    --rush-alert-border-color:
-      var(--rush-color-success-border, #bbf7d0);
-
-    --rush-alert-icon-foreground:
-      var(--rush-color-success, #16a34a);
+    --rush-alert-background: var(--rush-color-success-soft, #f0fdf4);
+    --rush-alert-foreground: var(--rush-color-success-strong, #166534);
+    --rush-alert-border-color: var(--rush-color-success-border, #bbf7d0);
+    --rush-alert-icon-foreground: var(--rush-color-success, #16a34a);
   }
 
   &--notice {
-    --rush-alert-background:
-      var(--rush-color-notice-soft, #faf5ff);
-
-    --rush-alert-foreground:
-      var(--rush-color-notice-strong, #7e22ce);
-
-    --rush-alert-border-color:
-      var(--rush-color-notice-border, #e9d5ff);
-
-    --rush-alert-icon-foreground:
-      var(--rush-color-notice, #a855f7);
+    --rush-alert-background: var(--rush-color-notice-soft, #faf5ff);
+    --rush-alert-foreground: var(--rush-color-notice-strong, #7e22ce);
+    --rush-alert-border-color: var(--rush-color-notice-border, #e9d5ff);
+    --rush-alert-icon-foreground: var(--rush-color-notice, #a855f7);
   }
 }
 

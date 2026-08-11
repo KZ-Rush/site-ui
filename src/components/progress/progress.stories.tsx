@@ -1,7 +1,4 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Progress } from './progress';
 
@@ -9,9 +6,7 @@ const meta = {
   title: 'Components/Progress',
   component: Progress,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -40,8 +35,7 @@ const meta = {
         step: 1,
       },
 
-      description:
-        'Progress percentage, clamped between 0 and 100.',
+      description: 'Progress percentage, clamped between 0 and 100.',
     },
 
     showValue: {
@@ -50,8 +44,7 @@ const meta = {
 
     formatValue: {
       control: false,
-      description:
-        'Function that customizes the visible value.',
+      description: 'Function that customizes the visible value.',
     },
 
     className: {
@@ -96,16 +89,7 @@ export const CustomValue: Story = {
     progress: 72,
   },
 
-  render: (args) => (
-    <Progress
-      {...args}
-      formatValue={(value) => (
-        <>
-          Processing: {value}%
-        </>
-      )}
-    />
-  ),
+  render: (args) => <Progress {...args} formatValue={(value) => <>Processing: {value}%</>} />,
 };
 
 export const BelowMinimum: Story = {

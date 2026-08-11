@@ -1,18 +1,8 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  describe,
-  expect,
-  it,
-  vi,
-} from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
-import {
-  LayoutPanelToggle,
-} from './layout-panel-toggle';
+import { LayoutPanelToggle } from './layout-panel-toggle';
 
 describe('LayoutPanelToggle', () => {
   it('renders expanded state', () => {
@@ -26,22 +16,13 @@ describe('LayoutPanelToggle', () => {
       />,
     );
 
-    const button = screen.getByRole(
-      'button',
-      {
-        name: 'Collapse sidebar',
-      },
-    );
+    const button = screen.getByRole('button', {
+      name: 'Collapse sidebar',
+    });
 
-    expect(button).toHaveAttribute(
-      'aria-controls',
-      'sidebar',
-    );
+    expect(button).toHaveAttribute('aria-controls', 'sidebar');
 
-    expect(button).toHaveAttribute(
-      'aria-expanded',
-      'true',
-    );
+    expect(button).toHaveAttribute('aria-expanded', 'true');
   });
 
   it('renders collapsed state', () => {
@@ -55,17 +36,11 @@ describe('LayoutPanelToggle', () => {
       />,
     );
 
-    const button = screen.getByRole(
-      'button',
-      {
-        name: 'Expand sidebar',
-      },
-    );
+    const button = screen.getByRole('button', {
+      name: 'Expand sidebar',
+    });
 
-    expect(button).toHaveAttribute(
-      'aria-expanded',
-      'false',
-    );
+    expect(button).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('calls onToggle after click', async () => {
@@ -82,9 +57,7 @@ describe('LayoutPanelToggle', () => {
       />,
     );
 
-    await user.click(
-      screen.getByRole('button'),
-    );
+    await user.click(screen.getByRole('button'));
 
     expect(onToggle).toHaveBeenCalledOnce();
   });
@@ -109,14 +82,9 @@ describe('LayoutPanelToggle', () => {
       />,
     );
 
-    await user.click(
-      screen.getByRole('button'),
-    );
+    await user.click(screen.getByRole('button'));
 
-    expect(calls).toEqual([
-      'click',
-      'toggle',
-    ]);
+    expect(calls).toEqual(['click', 'toggle']);
   });
 
   it('does not toggle when click is prevented', async () => {
@@ -136,9 +104,7 @@ describe('LayoutPanelToggle', () => {
       />,
     );
 
-    await user.click(
-      screen.getByRole('button'),
-    );
+    await user.click(screen.getByRole('button'));
 
     expect(onToggle).not.toHaveBeenCalled();
   });
@@ -158,9 +124,7 @@ describe('LayoutPanelToggle', () => {
       />,
     );
 
-    const button = screen.getByRole(
-      'button',
-    );
+    const button = screen.getByRole('button');
 
     expect(button).toBeDisabled();
 
@@ -182,9 +146,7 @@ describe('LayoutPanelToggle', () => {
       </LayoutPanelToggle>,
     );
 
-    expect(
-      screen.getByText('Toggle icon'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Toggle icon')).toBeInTheDocument();
   });
 
   it('renders fallback content', () => {
@@ -199,9 +161,7 @@ describe('LayoutPanelToggle', () => {
       />,
     );
 
-    expect(
-      screen.getByText('Fallback icon'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Fallback icon')).toBeInTheDocument();
   });
 
   it('prefers children over fallback content', () => {
@@ -218,13 +178,9 @@ describe('LayoutPanelToggle', () => {
       </LayoutPanelToggle>,
     );
 
-    expect(
-      screen.getByText('Custom'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Custom')).toBeInTheDocument();
 
-    expect(
-      screen.queryByText('Fallback'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText('Fallback')).not.toBeInTheDocument();
   });
 
   it('forwards button properties and class names', () => {
@@ -240,23 +196,12 @@ describe('LayoutPanelToggle', () => {
       />,
     );
 
-    const button = screen.getByRole(
-      'button',
-    );
+    const button = screen.getByRole('button');
 
-    expect(button).toHaveClass(
-      'rush-layout-panel-toggle',
-      'custom-toggle',
-    );
+    expect(button).toHaveClass('rush-layout-panel-toggle', 'custom-toggle');
 
-    expect(button).toHaveAttribute(
-      'title',
-      'Toggle navigation',
-    );
+    expect(button).toHaveAttribute('title', 'Toggle navigation');
 
-    expect(button).toHaveAttribute(
-      'type',
-      'button',
-    );
+    expect(button).toHaveAttribute('type', 'button');
   });
 });

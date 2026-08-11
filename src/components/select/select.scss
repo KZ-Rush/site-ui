@@ -10,75 +10,32 @@
   }
 
   position: relative;
-
   display: flex;
   align-items: center;
-
   width: 100%;
   min-width: 0;
-
-  border: 1px solid var(
-    --rush-select-border-color,
-    var(--rush-color-input, #e2e8f0)
-  );
-
-  border-radius: var(
-    --rush-select-border-radius,
-    var(--rush-radius-md, 0.5rem)
-  );
-
-  background-color: var(
-    --rush-select-background,
-    var(--rush-color-background, #fff)
-  );
-
-  color: var(
-    --rush-select-foreground,
-    var(--rush-color-foreground, #0f172a)
-  );
-
+  border: 1px solid var(--rush-select-border-color, var(--rush-color-input, #e2e8f0));
+  border-radius: var(--rush-select-border-radius, var(--rush-radius-md, 0.5rem));
+  background-color: var(--rush-select-background, var(--rush-color-background, #fff));
+  color: var(--rush-select-foreground, var(--rush-color-foreground, #0f172a));
   transition:
-    border-color
-    var(--rush-transition-duration-fast, 150ms)
-    var(--rush-transition-timing, ease-in-out),
-    box-shadow
-    var(--rush-transition-duration-fast, 150ms)
-    var(--rush-transition-timing, ease-in-out);
+    border-color var(--rush-transition-duration-fast, 150ms)
+      var(--rush-transition-timing, ease-in-out),
+    box-shadow var(--rush-transition-duration-fast, 150ms)
+      var(--rush-transition-timing, ease-in-out);
 
   &:focus-within {
-    border-color: var(
-      --rush-select-focus-border-color,
-      var(--rush-color-ring, #94a3b8)
-    );
-
-    box-shadow:
-      0 0 0 3px
-      color-mix(
-        in srgb,
-        var(--rush-color-ring, #94a3b8) 30%,
-        transparent
-      );
+    border-color: var(--rush-select-focus-border-color, var(--rush-color-ring, #94a3b8));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--rush-color-ring, #94a3b8) 30%, transparent);
   }
 
   &--invalid {
-    border-color: var(
-      --rush-select-invalid-border-color,
-      var(--rush-color-destructive, #dc2626)
-    );
+    border-color: var(--rush-select-invalid-border-color, var(--rush-color-destructive, #dc2626));
 
     &:focus-within {
-      border-color: var(
-        --rush-select-invalid-border-color,
-        var(--rush-color-destructive, #dc2626)
-      );
-
-      box-shadow:
-        0 0 0 3px
-        color-mix(
-          in srgb,
-          var(--rush-color-destructive, #dc2626) 25%,
-          transparent
-        );
+      border-color: var(--rush-select-invalid-border-color, var(--rush-color-destructive, #dc2626));
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--rush-color-destructive, #dc2626) 25%, transparent);
     }
   }
 
@@ -88,52 +45,28 @@
   }
 
   &--sm {
-    min-height: var(
-      --rush-select-height-sm,
-      2rem
-    );
+    min-height: var(--rush-select-height-sm, 2rem);
 
     .rush-select__control {
-      padding:
-        0.375rem
-        2rem
-        0.375rem
-        0.625rem;
-
+      padding: 0.375rem 2rem 0.375rem 0.625rem;
       font-size: 0.8125rem;
     }
   }
 
   &--default {
-    min-height: var(
-      --rush-select-height,
-      2.25rem
-    );
+    min-height: var(--rush-select-height, 2.25rem);
 
     .rush-select__control {
-      padding:
-        0.5rem
-        2.25rem
-        0.5rem
-        0.75rem;
-
+      padding: 0.5rem 2.25rem 0.5rem 0.75rem;
       font-size: 0.875rem;
     }
   }
 
   &--lg {
-    min-height: var(
-      --rush-select-height-lg,
-      2.5rem
-    );
+    min-height: var(--rush-select-height-lg, 2.5rem);
 
     .rush-select__control {
-      padding:
-        0.625rem
-        2.5rem
-        0.625rem
-        0.875rem;
-
+      padding: 0.625rem 2.5rem 0.625rem 0.875rem;
       font-size: 1rem;
     }
   }
@@ -141,17 +74,12 @@
   &__control {
     width: 100%;
     min-width: 0;
-
     border: 0;
     outline: 0;
-
     appearance: none;
-
     background: transparent;
     color: inherit;
-
     font: inherit;
-
     cursor: pointer;
 
     &:disabled {
@@ -163,21 +91,13 @@
     position: absolute;
     top: 50%;
     right: 0.75rem;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     width: 1rem;
     height: 1rem;
-
     transform: translateY(-50%);
-
-    color: var(
-      --rush-select-indicator-foreground,
-      var(--rush-color-muted-foreground, #64748b)
-    );
-
+    color: var(--rush-select-indicator-foreground, var(--rush-color-muted-foreground, #64748b));
     pointer-events: none;
 
     svg {

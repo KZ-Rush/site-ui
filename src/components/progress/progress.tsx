@@ -1,18 +1,10 @@
-import type {
-  ComponentPropsWithoutRef,
-  CSSProperties,
-  ReactNode,
-} from 'react';
+import type { ComponentPropsWithoutRef, CSSProperties, ReactNode } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
 import './progress.scss';
 
-export interface ProgressProps
-  extends Omit<
-    ComponentPropsWithoutRef<'div'>,
-    'children'
-  > {
+export interface ProgressProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
   /**
    * Progress percentage.
    *
@@ -37,10 +29,7 @@ function normalizeProgress(progress: number): number {
     return 0;
   }
 
-  return Math.min(
-    100,
-    Math.max(0, progress),
-  );
+  return Math.min(100, Math.max(0, progress));
 }
 
 export function Progress({
@@ -52,19 +41,14 @@ export function Progress({
   'aria-labelledby': ariaLabelledBy,
   ...divProps
 }: ProgressProps) {
-  const normalizedProgress =
-    normalizeProgress(progress);
+  const normalizedProgress = normalizeProgress(progress);
 
   const style = {
-    '--rush-progress-value':
-      `${normalizedProgress}%`,
+    '--rush-progress-value': `${normalizedProgress}%`,
   } as CSSProperties;
 
   const accessibleLabel =
-    ariaLabel === undefined
-    && ariaLabelledBy === undefined
-      ? 'Progress'
-      : ariaLabel;
+    ariaLabel === undefined && ariaLabelledBy === undefined ? 'Progress' : ariaLabel;
 
   return (
     <div
@@ -74,31 +58,16 @@ export function Progress({
       aria-valuemax={100}
       aria-valuemin={0}
       aria-valuenow={normalizedProgress}
-      className={classNames(
-        'rush-progress',
-        className,
-      )}
+      className={classNames('rush-progress', className)}
       data-slot="progress"
       role="progressbar"
     >
-      <div
-        aria-hidden="true"
-        className="rush-progress__track"
-        data-slot="progress-track"
-      >
-        <div
-          className="rush-progress__fill"
-          data-slot="progress-fill"
-          style={style}
-        />
+      <div aria-hidden="true" className="rush-progress__track" data-slot="progress-track">
+        <div className="rush-progress__fill" data-slot="progress-fill" style={style} />
       </div>
 
       {showValue && (
-        <div
-          aria-hidden="true"
-          className="rush-progress__value"
-          data-slot="progress-value"
-        >
+        <div aria-hidden="true" className="rush-progress__value" data-slot="progress-value">
           {formatValue(normalizedProgress)}
         </div>
       )}

@@ -2,15 +2,8 @@
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "types": [
-      "node",
-      "vite/client"
-    ],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node", "vite/client"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -23,9 +16,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    ".storybook",
-    "vite.config.ts"
-  ]
+  "include": ["src", ".storybook", "vite.config.ts"]
 }

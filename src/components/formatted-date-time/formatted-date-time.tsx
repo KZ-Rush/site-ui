@@ -1,24 +1,13 @@
-import type {
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import moment, {
-  type Moment,
-  type MomentInput,
-} from 'moment';
+import moment, { type Moment, type MomentInput } from 'moment';
 
-export type FormattedDateTimeValue =
-  | string
-  | number
-  | null
-  | undefined;
+export type FormattedDateTimeValue = string | number | null | undefined;
 
-export interface FormattedDateTimeProps
-  extends Omit<
-    ComponentPropsWithoutRef<'time'>,
-    'children' | 'dateTime'
-  > {
+export interface FormattedDateTimeProps extends Omit<
+  ComponentPropsWithoutRef<'time'>,
+  'children' | 'dateTime'
+> {
   /**
    * Date value to format.
    *
@@ -60,63 +49,33 @@ export interface FormattedDateTimeProps
   inputFormat?: moment.MomentFormatSpecification;
 }
 
-function isNumericString(
-  value: string,
-): boolean {
+function isNumericString(value: string): boolean {
   const normalizedValue = value.trim();
 
-  return normalizedValue !== ''
-    && Number.isFinite(Number(normalizedValue));
+  return normalizedValue !== '' && Number.isFinite(Number(normalizedValue));
 }
 
-type MissingFormattedDateTimeValue =
-  | null
-  | undefined
-  | ''
-  | 0
-  | '0';
+type MissingFormattedDateTimeValue = null | undefined | '' | 0 | '0';
 
-function isMissingValue(
-  value: FormattedDateTimeValue,
-): value is MissingFormattedDateTimeValue {
-  return value === null
-    || value === undefined
-    || value === ''
-    || value === 0
-    || value === '0';
+function isMissingValue(value: FormattedDateTimeValue): value is MissingFormattedDateTimeValue {
+  return value === null || value === undefined || value === '' || value === 0 || value === '0';
 }
 
 function createDate(
   value: string | number,
-  {
-    inputFormat,
-    strict,
-    utc,
-  }: Pick<
-    FormattedDateTimeProps,
-    'inputFormat' | 'strict' | 'utc'
-  >,
+  { inputFormat, strict, utc }: Pick<FormattedDateTimeProps, 'inputFormat' | 'strict' | 'utc'>,
 ): Moment {
   let date: Moment;
 
-  if (
-    typeof value === 'number'
-    || isNumericString(value)
-  ) {
+  if (typeof value === 'number' || isNumericString(value)) {
     date = moment.unix(Number(value));
   } else if (inputFormat !== undefined) {
-    date = moment(
-      value as MomentInput,
-      inputFormat,
-      strict,
-    );
+    date = moment(value as MomentInput, inputFormat, strict);
   } else {
     date = moment(value as MomentInput);
   }
 
-  return utc
-    ? date.utc()
-    : date;
+  return utc ? date.utc() : date;
 }
 
 export function FormattedDateTime({
@@ -143,11 +102,7 @@ export function FormattedDateTime({
   }
 
   return (
-    <time
-      {...timeProps}
-      data-slot="formatted-date-time"
-      dateTime={date.toISOString()}
-    >
+    <time {...timeProps} data-slot="formatted-date-time" dateTime={date.toISOString()}>
       {date.format(format)}
     </time>
   );

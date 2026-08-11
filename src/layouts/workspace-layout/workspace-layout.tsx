@@ -1,27 +1,12 @@
-import type {
-  ButtonHTMLAttributes,
-  ComponentPropsWithoutRef,
-  ReactNode,
-} from 'react';
+import type { ButtonHTMLAttributes, ComponentPropsWithoutRef, ReactNode } from 'react';
 
-import {
-  createContext,
-  useContext,
-  useId,
-} from 'react';
+import { createContext, useContext, useId } from 'react';
 
-import {
-  Drawer,
-  DrawerContent,
-} from '../../components/drawer';
+import { Drawer, DrawerContent } from '../../components/drawer';
 
-import {
-  useControllableState,
-} from '../../hooks/use-controllable-state';
+import { useControllableState } from '../../hooks/use-controllable-state';
 
-import {
-  LayoutPanelToggle,
-} from '../shared/layout-panel-toggle';
+import { LayoutPanelToggle } from '../shared/layout-panel-toggle';
 
 import { classNames } from '../../utils/class-names';
 
@@ -47,21 +32,13 @@ interface WorkspaceLayoutContextValue {
   toggleMobileAside: () => void;
 }
 
-const WorkspaceLayoutContext =
-  createContext<WorkspaceLayoutContextValue | null>(
-    null,
-  );
+const WorkspaceLayoutContext = createContext<WorkspaceLayoutContextValue | null>(null);
 
-function useWorkspaceLayoutContext():
-  WorkspaceLayoutContextValue {
-  const context = useContext(
-    WorkspaceLayoutContext,
-  );
+function useWorkspaceLayoutContext(): WorkspaceLayoutContextValue {
+  const context = useContext(WorkspaceLayoutContext);
 
   if (!context) {
-    throw new Error(
-      'Workspace layout controls must be used inside WorkspaceLayout.',
-    );
+    throw new Error('Workspace layout controls must be used inside WorkspaceLayout.');
   }
 
   return context;
@@ -72,17 +49,9 @@ export interface WorkspacePanelRenderState {
   mobile: boolean;
 }
 
-export type WorkspacePanelContent =
-  | ReactNode
-  | ((
-      state: WorkspacePanelRenderState,
-    ) => ReactNode);
+export type WorkspacePanelContent = ReactNode | ((state: WorkspacePanelRenderState) => ReactNode);
 
-export interface WorkspaceLayoutProps
-  extends Omit<
-    ComponentPropsWithoutRef<'div'>,
-    'children'
-  > {
+export interface WorkspaceLayoutProps extends Omit<ComponentPropsWithoutRef<'div'>, 'children'> {
   /**
    * Main workspace content.
    */
@@ -143,9 +112,7 @@ export interface WorkspaceLayoutProps
   /**
    * Called when the requested sidebar state changes.
    */
-  onSidebarCollapsedChange?: (
-    collapsed: boolean,
-  ) => void;
+  onSidebarCollapsedChange?: (collapsed: boolean) => void;
 
   /**
    * Controlled right-aside collapsed state.
@@ -160,9 +127,7 @@ export interface WorkspaceLayoutProps
   /**
    * Called when the requested aside state changes.
    */
-  onAsideCollapsedChange?: (
-    collapsed: boolean,
-  ) => void;
+  onAsideCollapsedChange?: (collapsed: boolean) => void;
 
   /**
    * Controlled mobile left drawer state.
@@ -171,9 +136,7 @@ export interface WorkspaceLayoutProps
 
   defaultMobileSidebarOpen?: boolean;
 
-  onMobileSidebarOpenChange?: (
-    open: boolean,
-  ) => void;
+  onMobileSidebarOpenChange?: (open: boolean) => void;
 
   /**
    * Controlled mobile right drawer state.
@@ -182,9 +145,7 @@ export interface WorkspaceLayoutProps
 
   defaultMobileAsideOpen?: boolean;
 
-  onMobileAsideOpenChange?: (
-    open: boolean,
-  ) => void;
+  onMobileAsideOpenChange?: (open: boolean) => void;
 
   sidebarClassName?: string;
   asideClassName?: string;
@@ -196,16 +157,11 @@ function renderPanelContent(
   content: WorkspacePanelContent | undefined,
   state: WorkspacePanelRenderState,
 ): ReactNode {
-  if (
-    content === undefined
-    || content === null
-  ) {
+  if (content === undefined || content === null) {
     return null;
   }
 
-  return typeof content === 'function'
-    ? content(state)
-    : content;
+  return typeof content === 'function' ? content(state) : content;
 }
 
 export function WorkspaceLayout({
@@ -252,80 +208,46 @@ export function WorkspaceLayout({
   const generatedMobileSidebarId = useId();
   const generatedMobileAsideId = useId();
 
-  const sidebarId =
-    providedSidebarId
-    ?? `rush-workspace-sidebar-${generatedSidebarId}`;
+  const sidebarId = providedSidebarId ?? `rush-workspace-sidebar-${generatedSidebarId}`;
 
-  const asideId =
-    providedAsideId
-    ?? `rush-workspace-aside-${generatedAsideId}`;
+  const asideId = providedAsideId ?? `rush-workspace-aside-${generatedAsideId}`;
 
-  const mobileSidebarId =
-    `rush-workspace-mobile-sidebar-${generatedMobileSidebarId}`;
+  const mobileSidebarId = `rush-workspace-mobile-sidebar-${generatedMobileSidebarId}`;
 
-  const mobileAsideId =
-    `rush-workspace-mobile-aside-${generatedMobileAsideId}`;
+  const mobileAsideId = `rush-workspace-mobile-aside-${generatedMobileAsideId}`;
 
-  const hasAside =
-    aside !== undefined
-    && aside !== null;
+  const hasAside = aside !== undefined && aside !== null;
 
-  const [
-    resolvedSidebarCollapsed,
-    setSidebarCollapsed,
-  ] = useControllableState({
+  const [resolvedSidebarCollapsed, setSidebarCollapsed] = useControllableState({
     value: sidebarCollapsed,
-    defaultValue:
-      defaultSidebarCollapsed,
-    onChange:
-      onSidebarCollapsedChange,
+    defaultValue: defaultSidebarCollapsed,
+    onChange: onSidebarCollapsedChange,
   });
 
-  const [
-    resolvedAsideCollapsed,
-    setAsideCollapsed,
-  ] = useControllableState({
+  const [resolvedAsideCollapsed, setAsideCollapsed] = useControllableState({
     value: asideCollapsed,
-    defaultValue:
-      defaultAsideCollapsed,
-    onChange:
-      onAsideCollapsedChange,
+    defaultValue: defaultAsideCollapsed,
+    onChange: onAsideCollapsedChange,
   });
 
-  const [
-    resolvedMobileSidebarOpen,
-    setMobileSidebarOpen,
-  ] = useControllableState({
+  const [resolvedMobileSidebarOpen, setMobileSidebarOpen] = useControllableState({
     value: mobileSidebarOpen,
-    defaultValue:
-      defaultMobileSidebarOpen,
-    onChange:
-      onMobileSidebarOpenChange,
+    defaultValue: defaultMobileSidebarOpen,
+    onChange: onMobileSidebarOpenChange,
   });
 
-  const [
-    resolvedMobileAsideOpen,
-    setMobileAsideOpen,
-  ] = useControllableState({
+  const [resolvedMobileAsideOpen, setMobileAsideOpen] = useControllableState({
     value: mobileAsideOpen,
-    defaultValue:
-      defaultMobileAsideOpen,
-    onChange:
-      onMobileAsideOpenChange,
+    defaultValue: defaultMobileAsideOpen,
+    onChange: onMobileAsideOpenChange,
   });
 
-  const effectiveAsideCollapsed =
-    !hasAside
-    || resolvedAsideCollapsed;
+  const effectiveAsideCollapsed = !hasAside || resolvedAsideCollapsed;
 
-  const effectiveMobileAsideOpen =
-    hasAside
-    && resolvedMobileAsideOpen;
+  const effectiveMobileAsideOpen = hasAside && resolvedMobileAsideOpen;
 
   const toggleSidebar = (): void => {
-    setSidebarCollapsed(
-      (current) => !current,
-    );
+    setSidebarCollapsed((current) => !current);
   };
 
   const toggleAside = (): void => {
@@ -333,9 +255,7 @@ export function WorkspaceLayout({
       return;
     }
 
-    setAsideCollapsed(
-      (current) => !current,
-    );
+    setAsideCollapsed((current) => !current);
   };
 
   const toggleMobileSidebar = (): void => {
@@ -343,9 +263,7 @@ export function WorkspaceLayout({
       setMobileAsideOpen(false);
     }
 
-    setMobileSidebarOpen(
-      (current) => !current,
-    );
+    setMobileSidebarOpen((current) => !current);
   };
 
   const toggleMobileAside = (): void => {
@@ -357,63 +275,39 @@ export function WorkspaceLayout({
       setMobileSidebarOpen(false);
     }
 
-    setMobileAsideOpen(
-      (current) => !current,
-    );
+    setMobileAsideOpen((current) => !current);
   };
 
-  const desktopSidebarContent =
-    renderPanelContent(
-      sidebar,
-      {
-        collapsed:
-          resolvedSidebarCollapsed,
-        mobile: false,
-      },
-    );
+  const desktopSidebarContent = renderPanelContent(sidebar, {
+    collapsed: resolvedSidebarCollapsed,
+    mobile: false,
+  });
 
-  const desktopAsideContent =
-    renderPanelContent(
-      aside,
-      {
-        collapsed:
-          effectiveAsideCollapsed,
-        mobile: false,
-      },
-    );
+  const desktopAsideContent = renderPanelContent(aside, {
+    collapsed: effectiveAsideCollapsed,
+    mobile: false,
+  });
 
-  const mobileSidebarContent =
-    renderPanelContent(
-      mobileSidebar ?? sidebar,
-      {
-        collapsed: false,
-        mobile: true,
-      },
-    );
+  const mobileSidebarContent = renderPanelContent(mobileSidebar ?? sidebar, {
+    collapsed: false,
+    mobile: true,
+  });
 
-  const mobileAsideContent =
-    renderPanelContent(
-      mobileAside ?? aside,
-      {
-        collapsed: false,
-        mobile: true,
-      },
-    );
+  const mobileAsideContent = renderPanelContent(mobileAside ?? aside, {
+    collapsed: false,
+    mobile: true,
+  });
 
   return (
     <WorkspaceLayoutContext.Provider
       value={{
-        sidebarCollapsed:
-          resolvedSidebarCollapsed,
+        sidebarCollapsed: resolvedSidebarCollapsed,
 
-        asideCollapsed:
-          effectiveAsideCollapsed,
+        asideCollapsed: effectiveAsideCollapsed,
 
-        mobileSidebarOpen:
-          resolvedMobileSidebarOpen,
+        mobileSidebarOpen: resolvedMobileSidebarOpen,
 
-        mobileAsideOpen:
-          effectiveMobileAsideOpen,
+        mobileAsideOpen: effectiveMobileAsideOpen,
 
         sidebarId,
         asideId,
@@ -428,73 +322,38 @@ export function WorkspaceLayout({
         toggleMobileAside,
       }}
     >
-      <Drawer
-        open={resolvedMobileSidebarOpen}
-        onOpenChange={setMobileSidebarOpen}
-      >
-        <Drawer
-          open={effectiveMobileAsideOpen}
-          onOpenChange={setMobileAsideOpen}
-        >
+      <Drawer open={resolvedMobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
+        <Drawer open={effectiveMobileAsideOpen} onOpenChange={setMobileAsideOpen}>
           <div
             {...rootProps}
-            className={classNames(
-              'rush-workspace-layout',
-              className,
-            )}
-            data-sidebar-collapsed={
-              resolvedSidebarCollapsed
-              || undefined
-            }
-            data-aside-collapsed={
-              effectiveAsideCollapsed
-              || undefined
-            }
-            data-mobile-sidebar-open={
-              resolvedMobileSidebarOpen
-              || undefined
-            }
-            data-mobile-aside-open={
-              effectiveMobileAsideOpen
-              || undefined
-            }
-            data-has-aside={
-              hasAside || undefined
-            }
+            className={classNames('rush-workspace-layout', className)}
+            data-sidebar-collapsed={resolvedSidebarCollapsed || undefined}
+            data-aside-collapsed={effectiveAsideCollapsed || undefined}
+            data-mobile-sidebar-open={resolvedMobileSidebarOpen || undefined}
+            data-mobile-aside-open={effectiveMobileAsideOpen || undefined}
+            data-has-aside={hasAside || undefined}
             data-slot="workspace-layout"
           >
             <aside
               id={sidebarId}
               aria-label={sidebarLabel}
-              className={classNames(
-                'rush-workspace-layout__sidebar',
-                sidebarClassName,
-              )}
+              className={classNames('rush-workspace-layout__sidebar', sidebarClassName)}
               data-slot="workspace-sidebar"
             >
-              <div className="rush-workspace-layout__sidebar-content">
-                {desktopSidebarContent}
-              </div>
+              <div className="rush-workspace-layout__sidebar-content">{desktopSidebarContent}</div>
             </aside>
 
-            {header !== undefined
-              && header !== null && (
-                <header
-                  className={classNames(
-                    'rush-workspace-layout__header',
-                    headerClassName,
-                  )}
-                  data-slot="workspace-header"
-                >
-                  {header}
-                </header>
-              )}
+            {header !== undefined && header !== null && (
+              <header
+                className={classNames('rush-workspace-layout__header', headerClassName)}
+                data-slot="workspace-header"
+              >
+                {header}
+              </header>
+            )}
 
             <main
-              className={classNames(
-                'rush-workspace-layout__main',
-                mainClassName,
-              )}
+              className={classNames('rush-workspace-layout__main', mainClassName)}
               data-slot="workspace-main"
             >
               {children}
@@ -504,15 +363,10 @@ export function WorkspaceLayout({
               <aside
                 id={asideId}
                 aria-label={asideLabel}
-                className={classNames(
-                  'rush-workspace-layout__aside',
-                  asideClassName,
-                )}
+                className={classNames('rush-workspace-layout__aside', asideClassName)}
                 data-slot="workspace-aside"
               >
-                <div className="rush-workspace-layout__aside-content">
-                  {desktopAsideContent}
-                </div>
+                <div className="rush-workspace-layout__aside-content">{desktopAsideContent}</div>
               </aside>
             )}
           </div>
@@ -552,18 +406,16 @@ export function WorkspaceLayout({
   );
 }
 
-interface WorkspacePanelToggleProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'children' | 'type'
-  > {
+interface WorkspacePanelToggleProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'children' | 'type'
+> {
   children?: ReactNode;
   collapseLabel?: string;
   expandLabel?: string;
 }
 
-export type WorkspaceSidebarToggleProps =
-  WorkspacePanelToggleProps;
+export type WorkspaceSidebarToggleProps = WorkspacePanelToggleProps;
 
 export function WorkspaceSidebarToggle({
   children,
@@ -572,11 +424,7 @@ export function WorkspaceSidebarToggle({
   className,
   ...buttonProps
 }: WorkspaceSidebarToggleProps) {
-  const {
-    sidebarCollapsed,
-    sidebarId,
-    toggleSidebar,
-  } = useWorkspaceLayoutContext();
+  const { sidebarCollapsed, sidebarId, toggleSidebar } = useWorkspaceLayoutContext();
 
   return (
     <LayoutPanelToggle
@@ -591,19 +439,14 @@ export function WorkspaceSidebarToggle({
         'rush-workspace-layout__sidebar-toggle',
         className,
       )}
-      fallbackContent={(
-        <span aria-hidden="true">
-          ☰
-        </span>
-      )}
+      fallbackContent={<span aria-hidden="true">☰</span>}
     >
       {children}
     </LayoutPanelToggle>
   );
 }
 
-export type WorkspaceAsideToggleProps =
-  WorkspacePanelToggleProps;
+export type WorkspaceAsideToggleProps = WorkspacePanelToggleProps;
 
 export function WorkspaceAsideToggle({
   children,
@@ -612,11 +455,7 @@ export function WorkspaceAsideToggle({
   className,
   ...buttonProps
 }: WorkspaceAsideToggleProps) {
-  const {
-    asideCollapsed,
-    asideId,
-    toggleAside,
-  } = useWorkspaceLayoutContext();
+  const { asideCollapsed, asideId, toggleAside } = useWorkspaceLayoutContext();
 
   return (
     <LayoutPanelToggle
@@ -631,22 +470,17 @@ export function WorkspaceAsideToggle({
         'rush-workspace-layout__aside-toggle',
         className,
       )}
-      fallbackContent={(
-        <span aria-hidden="true">
-          ◧
-        </span>
-      )}
+      fallbackContent={<span aria-hidden="true">◧</span>}
     >
       {children}
     </LayoutPanelToggle>
   );
 }
 
-export interface WorkspaceMobileSidebarToggleProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'children' | 'type'
-  > {
+export interface WorkspaceMobileSidebarToggleProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'children' | 'type'
+> {
   children?: ReactNode;
 
   openLabel?: string;
@@ -660,11 +494,7 @@ export function WorkspaceMobileSidebarToggle({
   className,
   ...buttonProps
 }: WorkspaceMobileSidebarToggleProps) {
-  const {
-    mobileSidebarOpen,
-    mobileSidebarId,
-    toggleMobileSidebar,
-  } = useWorkspaceLayoutContext();
+  const { mobileSidebarOpen, mobileSidebarId, toggleMobileSidebar } = useWorkspaceLayoutContext();
 
   return (
     <LayoutPanelToggle
@@ -674,26 +504,18 @@ export function WorkspaceMobileSidebarToggle({
       collapseLabel={closeLabel}
       expandLabel={openLabel}
       onToggle={toggleMobileSidebar}
-      className={classNames(
-        'rush-workspace-layout__mobile-sidebar-toggle',
-        className,
-      )}
-      fallbackContent={(
-        <span aria-hidden="true">
-          ☰
-        </span>
-      )}
+      className={classNames('rush-workspace-layout__mobile-sidebar-toggle', className)}
+      fallbackContent={<span aria-hidden="true">☰</span>}
     >
       {children}
     </LayoutPanelToggle>
   );
 }
 
-export interface WorkspaceMobileAsideToggleProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'children' | 'type'
-  > {
+export interface WorkspaceMobileAsideToggleProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'children' | 'type'
+> {
   children?: ReactNode;
 
   openLabel?: string;
@@ -707,11 +529,7 @@ export function WorkspaceMobileAsideToggle({
   className,
   ...buttonProps
 }: WorkspaceMobileAsideToggleProps) {
-  const {
-    mobileAsideOpen,
-    mobileAsideId,
-    toggleMobileAside,
-  } = useWorkspaceLayoutContext();
+  const { mobileAsideOpen, mobileAsideId, toggleMobileAside } = useWorkspaceLayoutContext();
 
   return (
     <LayoutPanelToggle
@@ -721,15 +539,8 @@ export function WorkspaceMobileAsideToggle({
       collapseLabel={closeLabel}
       expandLabel={openLabel}
       onToggle={toggleMobileAside}
-      className={classNames(
-        'rush-workspace-layout__mobile-aside-toggle',
-        className,
-      )}
-      fallbackContent={(
-        <span aria-hidden="true">
-          ◧
-        </span>
-      )}
+      className={classNames('rush-workspace-layout__mobile-aside-toggle', className)}
+      fallbackContent={<span aria-hidden="true">◧</span>}
     >
       {children}
     </LayoutPanelToggle>

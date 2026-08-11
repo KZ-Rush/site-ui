@@ -1,10 +1,4 @@
-export {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTitle,
-  DrawerTrigger,
-} from './drawer';
+export { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from './drawer';
 
 export type {
   DrawerCloseProps,

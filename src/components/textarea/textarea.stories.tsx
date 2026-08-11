@@ -1,27 +1,16 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  FormField,
-} from '../form-field';
+import { FormField } from '../form-field';
 
-import {
-  Textarea,
-} from './textarea';
+import { Textarea } from './textarea';
 
 const meta = {
   title: 'Components/Textarea',
   component: Textarea,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -50,11 +39,7 @@ const meta = {
     size: {
       control: 'select',
 
-      options: [
-        'sm',
-        'default',
-        'lg',
-      ],
+      options: ['sm', 'default', 'lg'],
     },
 
     invalid: {
@@ -88,8 +73,7 @@ export const Large: Story = {
 export const Disabled: Story = {
   args: {
     disabled: true,
-    value:
-      'This description cannot be changed.',
+    value: 'This description cannot be changed.',
     readOnly: true,
   },
 };
@@ -97,25 +81,20 @@ export const Disabled: Story = {
 export const Invalid: Story = {
   args: {
     invalid: true,
-    value:
-      'This value failed validation.',
+    value: 'This value failed validation.',
     readOnly: true,
   },
 };
 
 export const WithDefaultValue: Story = {
   args: {
-    defaultValue:
-      'This is the initial textarea value.',
+    defaultValue: 'This is the initial textarea value.',
   },
 };
 
 export const Controlled: Story = {
   render: (args) => {
-    const [
-      value,
-      setValue,
-    ] = useState('');
+    const [value, setValue] = useState('');
 
     return (
       <div
@@ -128,15 +107,11 @@ export const Controlled: Story = {
           {...args}
           value={value}
           onChange={(event) => {
-            setValue(
-              event.currentTarget.value,
-            );
+            setValue(event.currentTarget.value);
           }}
         />
 
-        <div>
-          Characters: {value.length}
-        </div>
+        <div>Characters: {value.length}</div>
       </div>
     );
   },
@@ -149,12 +124,7 @@ export const WithFormField: Story = {
       label="Description"
       description="Provide additional information about the demo."
     >
-      {(controlProps) => (
-        <Textarea
-          {...controlProps}
-          placeholder="Enter description..."
-        />
-      )}
+      {(controlProps) => <Textarea {...controlProps} placeholder="Enter description..." />}
     </FormField>
   ),
 };
@@ -166,22 +136,13 @@ export const WithFormFieldError: Story = {
       label="Description"
       error="Description must be at least 20 characters."
     >
-      {(controlProps) => (
-        <Textarea
-          {...controlProps}
-          invalid
-          defaultValue="Too short"
-        />
-      )}
+      {(controlProps) => <Textarea {...controlProps} invalid defaultValue="Too short" />}
     </FormField>
   ),
 };
 
 export const LongContent: Story = {
   args: {
-    defaultValue:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(
-        10,
-      ),
+    defaultValue: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(10),
   },
 };

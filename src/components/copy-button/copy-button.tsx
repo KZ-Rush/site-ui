@@ -1,28 +1,16 @@
-import type {
-  ButtonHTMLAttributes,
-  MouseEvent,
-  ReactNode,
-} from 'react';
-import {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import type { ButtonHTMLAttributes, MouseEvent, ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
 import './copy-button.scss';
 
-export type CopyButtonStatus =
-  | 'idle'
-  | 'copied'
-  | 'error';
+export type CopyButtonStatus = 'idle' | 'copied' | 'error';
 
-export interface CopyButtonProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'onCopy' | 'value'
-  > {
+export interface CopyButtonProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'onCopy' | 'value'
+> {
   /**
    * Text written to the clipboard.
    *
@@ -66,17 +54,14 @@ export interface CopyButtonProps
   /**
    * Called when clipboard access is unavailable or rejected.
    */
-  onCopyError?: (
-    error: unknown,
-    value: string,
-  ) => void;
+  onCopyError?: (error: unknown, value: string) => void;
 }
 
 function getClipboard(): Clipboard | null {
   if (
-    typeof navigator === 'undefined'
-    || !navigator.clipboard
-    || typeof navigator.clipboard.writeText !== 'function'
+    typeof navigator === 'undefined' ||
+    !navigator.clipboard ||
+    typeof navigator.clipboard.writeText !== 'function'
   ) {
     return null;
   }
@@ -99,8 +84,7 @@ export function CopyButton({
   type = 'button',
   ...buttonProps
 }: CopyButtonProps) {
-  const [status, setStatus] =
-    useState<CopyButtonStatus>('idle');
+  const [status, setStatus] = useState<CopyButtonStatus>('idle');
 
   const timeoutRef = useRef<number | null>(null);
 
@@ -121,9 +105,7 @@ export function CopyButton({
     timeoutRef.current = null;
   };
 
-  const resetStatusAfter = (
-    duration: number,
-  ): void => {
+  const resetStatusAfter = (duration: number): void => {
     clearStatusTimeout();
 
     if (duration <= 0) {
@@ -152,11 +134,7 @@ export function CopyButton({
     };
   }, []);
 
-  const handleCopyError = (
-    error: unknown,
-    currentValue: string,
-    operation: number,
-  ): void => {
+  const handleCopyError = (error: unknown, currentValue: string, operation: number): void => {
     if (operation !== operationRef.current) {
       return;
     }
@@ -166,9 +144,7 @@ export function CopyButton({
     onCopyError?.(error, currentValue);
   };
 
-  const handleClick = async (
-    event: MouseEvent<HTMLButtonElement>,
-  ): Promise<void> => {
+  const handleClick = async (event: MouseEvent<HTMLButtonElement>): Promise<void> => {
     onClick?.(event);
 
     if (event.defaultPrevented || value == null || value === '') {
@@ -181,11 +157,7 @@ export function CopyButton({
     operationRef.current = operation;
 
     if (!clipboard) {
-      handleCopyError(
-        new Error('Clipboard API is unavailable.'),
-        value,
-        operation,
-      );
+      handleCopyError(new Error('Clipboard API is unavailable.'), value, operation);
 
       return;
     }
@@ -193,11 +165,7 @@ export function CopyButton({
     try {
       await clipboard.writeText(value);
     } catch (error: unknown) {
-      handleCopyError(
-        error,
-        value,
-        operation,
-      );
+      handleCopyError(error, value, operation);
 
       return;
     }
@@ -215,10 +183,7 @@ export function CopyButton({
     onCopy?.(value);
   };
 
-  const isMissingValue =
-    value === null
-    || value === undefined
-    || value === '';
+  const isMissingValue = value === null || value === undefined || value === '';
 
   let content = defaultContent;
 
@@ -231,10 +196,7 @@ export function CopyButton({
   return (
     <button
       {...buttonProps}
-      className={classNames(
-        'rush-copy-button',
-        className,
-      )}
+      className={classNames('rush-copy-button', className)}
       data-slot="copy-button"
       data-status={status}
       disabled={disabled || isMissingValue}

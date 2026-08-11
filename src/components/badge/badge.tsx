@@ -1,22 +1,11 @@
-import type {
-  AnchorHTMLAttributes,
-  HTMLAttributes,
-  ReactNode,
-} from 'react';
+import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from 'react';
 
 import { classNames } from '../../utils/class-names';
 
 import './badge.scss';
 
 export type BadgeVariant =
-  | 'default'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'destructive'
-  | 'info'
-  | 'notice'
-  | 'outline';
+  'default' | 'secondary' | 'success' | 'warning' | 'destructive' | 'info' | 'notice' | 'outline';
 
 interface BadgeSharedProps {
   /**
@@ -29,63 +18,34 @@ interface BadgeSharedProps {
 }
 
 export interface BadgeSpanProps
-  extends BadgeSharedProps,
-    Omit<
-      HTMLAttributes<HTMLSpanElement>,
-      'children' | 'className'
-    > {
+  extends BadgeSharedProps, Omit<HTMLAttributes<HTMLSpanElement>, 'children' | 'className'> {
   href?: never;
 }
 
 export interface BadgeLinkProps
-  extends BadgeSharedProps,
-    Omit<
-      AnchorHTMLAttributes<HTMLAnchorElement>,
-      'children' | 'className' | 'href'
-    > {
+  extends
+    BadgeSharedProps,
+    Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'children' | 'className' | 'href'> {
   href: string;
 }
 
-export type BadgeProps =
-  | BadgeSpanProps
-  | BadgeLinkProps;
+export type BadgeProps = BadgeSpanProps | BadgeLinkProps;
 
-function isLinkBadge(
-  props: BadgeProps,
-): props is BadgeLinkProps {
+function isLinkBadge(props: BadgeProps): props is BadgeLinkProps {
   return typeof props.href === 'string';
 }
 
-function getBadgeClassName(
-  variant: BadgeVariant,
-  className?: string,
-): string {
-  return classNames(
-    'rush-badge',
-    `rush-badge--variant-${variant}`,
-    className,
-  );
+function getBadgeClassName(variant: BadgeVariant, className?: string): string {
+  return classNames('rush-badge', `rush-badge--variant-${variant}`, className);
 }
 
-export function Badge(
-  props: BadgeProps,
-) {
-  const {
-    variant = 'default',
-    className,
-  } = props;
+export function Badge(props: BadgeProps) {
+  const { variant = 'default', className } = props;
 
-  const badgeClassName = getBadgeClassName(
-    variant,
-    className,
-  );
+  const badgeClassName = getBadgeClassName(variant, className);
 
   if (isLinkBadge(props)) {
-    const {
-      href,
-      children,
-      ...anchorProps
-    } = props;
+    const { href, children, ...anchorProps } = props;
 
     return (
       <a
@@ -100,18 +60,10 @@ export function Badge(
     );
   }
 
-  const {
-    children,
-    ...spanProps
-  } = props;
+  const { children, ...spanProps } = props;
 
   return (
-    <span
-      {...spanProps}
-      className={badgeClassName}
-      data-slot="badge"
-      data-variant={variant}
-    >
+    <span {...spanProps} className={badgeClassName} data-slot="badge" data-variant={variant}>
       {children}
     </span>
   );

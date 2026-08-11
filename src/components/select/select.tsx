@@ -1,23 +1,12 @@
-import type {
-  ComponentPropsWithoutRef,
-} from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './select.scss';
 
-export type SelectSize =
-  | 'sm'
-  | 'default'
-  | 'lg';
+export type SelectSize = 'sm' | 'default' | 'lg';
 
-export interface SelectProps
-  extends Omit<
-    ComponentPropsWithoutRef<'select'>,
-    'size'
-  > {
+export interface SelectProps extends Omit<ComponentPropsWithoutRef<'select'>, 'size'> {
   /**
    * Visual size of the select.
    */
@@ -44,59 +33,34 @@ export function Select({
   children,
   ...props
 }: SelectProps) {
-  const resolvedAriaInvalid =
-    ariaInvalid
-    ?? (
-      invalid
-        ? true
-        : undefined
-    );
+  const resolvedAriaInvalid = ariaInvalid ?? (invalid ? true : undefined);
 
   return (
     <div
       className={classNames(
         'rush-select',
         `rush-select--${size}`,
-        invalid
-          && 'rush-select--invalid',
-        disabled
-          && 'rush-select--disabled',
+        invalid && 'rush-select--invalid',
+        disabled && 'rush-select--disabled',
         className,
       )}
-      data-disabled={
-        disabled || undefined
-      }
-      data-invalid={
-        invalid || undefined
-      }
+      data-disabled={disabled || undefined}
+      data-invalid={invalid || undefined}
       data-size={size}
       data-slot="select"
     >
       <select
         {...props}
-        aria-invalid={
-          resolvedAriaInvalid
-        }
-        className={classNames(
-          'rush-select__control',
-          selectClassName,
-        )}
+        aria-invalid={resolvedAriaInvalid}
+        className={classNames('rush-select__control', selectClassName)}
         disabled={disabled}
         data-slot="select-control"
       >
         {children}
       </select>
 
-      <span
-        aria-hidden="true"
-        className="rush-select__indicator"
-        data-slot="select-indicator"
-      >
-        <svg
-          viewBox="0 0 20 20"
-          fill="none"
-          focusable="false"
-        >
+      <span aria-hidden="true" className="rush-select__indicator" data-slot="select-indicator">
+        <svg viewBox="0 0 20 20" fill="none" focusable="false">
           <path
             d="M5 7.5L10 12.5L15 7.5"
             stroke="currentColor"

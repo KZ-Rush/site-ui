@@ -1,25 +1,14 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Button,
-} from '../button';
+import { Button } from '../button';
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from './tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
 
 const meta = {
   title: 'Components/Tooltip',
   component: Tooltip,
 
-  tags: [
-    '!autodocs',
-  ],
+  tags: ['!autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -63,21 +52,14 @@ export const Default: Story = {
   render: () => (
     <Tooltip>
       <TooltipTrigger<HTMLButtonElement>
-        render={(
-          triggerProps,
-        ) => (
-          <Button
-            {...triggerProps}
-            variant="outline"
-          >
+        render={(triggerProps) => (
+          <Button {...triggerProps} variant="outline">
             Hover me
           </Button>
         )}
       />
 
-      <TooltipContent>
-        Tooltip content
-      </TooltipContent>
+      <TooltipContent>Tooltip content</TooltipContent>
     </Tooltip>
   ),
 };
@@ -86,23 +68,14 @@ export const IconButton: Story = {
   render: () => (
     <Tooltip>
       <TooltipTrigger<HTMLButtonElement>
-        render={(
-          triggerProps,
-        ) => (
-          <Button
-            {...triggerProps}
-            variant="ghost"
-            size="icon"
-            aria-label="Edit record"
-          >
+        render={(triggerProps) => (
+          <Button {...triggerProps} variant="ghost" size="icon" aria-label="Edit record">
             ✎
           </Button>
         )}
       />
 
-      <TooltipContent>
-        Edit record
-      </TooltipContent>
+      <TooltipContent>Edit record</TooltipContent>
     </Tooltip>
   ),
 };
@@ -111,23 +84,14 @@ export const Bottom: Story = {
   render: () => (
     <Tooltip>
       <TooltipTrigger<HTMLButtonElement>
-        render={(
-          triggerProps,
-        ) => (
-          <Button
-            {...triggerProps}
-            variant="outline"
-          >
+        render={(triggerProps) => (
+          <Button {...triggerProps} variant="outline">
             Bottom tooltip
           </Button>
         )}
       />
 
-      <TooltipContent
-        side="bottom"
-      >
-        Below the trigger
-      </TooltipContent>
+      <TooltipContent side="bottom">Below the trigger</TooltipContent>
     </Tooltip>
   ),
 };

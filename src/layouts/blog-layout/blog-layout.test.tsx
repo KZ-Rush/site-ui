@@ -1,16 +1,7 @@
-import {
-  render,
-  screen,
-} from '@testing-library/react';
-import {
-  describe,
-  expect,
-  it,
-} from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 
-import {
-  BlogLayout,
-} from './blog-layout';
+import { BlogLayout } from './blog-layout';
 
 function renderLayout({
   navigation = 'Navigation',
@@ -24,12 +15,7 @@ function renderLayout({
   footer?: React.ReactNode;
 } = {}) {
   return render(
-    <BlogLayout
-      header={header}
-      footer={footer}
-      navigation={navigation}
-      aside={aside}
-    >
+    <BlogLayout header={header} footer={footer} navigation={navigation} aside={aside}>
       Article
     </BlogLayout>,
   );
@@ -39,17 +25,11 @@ describe('BlogLayout', () => {
   it('renders semantic layout regions', () => {
     renderLayout();
 
-    expect(
-      screen.getByRole('banner'),
-    ).toHaveTextContent('Header');
+    expect(screen.getByRole('banner')).toHaveTextContent('Header');
 
-    expect(
-      screen.getByRole('main'),
-    ).toHaveTextContent('Article');
+    expect(screen.getByRole('main')).toHaveTextContent('Article');
 
-    expect(
-      screen.getByRole('contentinfo'),
-    ).toHaveTextContent('Footer');
+    expect(screen.getByRole('contentinfo')).toHaveTextContent('Footer');
 
     expect(
       screen.getByRole('complementary', {
@@ -61,110 +41,51 @@ describe('BlogLayout', () => {
       screen.getByRole('complementary', {
         name: 'Related information',
       }),
-    ).toHaveTextContent(
-      'Table of contents',
-    );
+    ).toHaveTextContent('Table of contents');
   });
 
   it('does not render optional regions when omitted', () => {
-    render(
-      <BlogLayout>
-        Article
-      </BlogLayout>,
-    );
+    render(<BlogLayout>Article</BlogLayout>);
 
-    expect(
-      screen.queryByRole('banner'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('banner')).not.toBeInTheDocument();
 
-    expect(
-      screen.queryByRole('contentinfo'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('contentinfo')).not.toBeInTheDocument();
 
-    expect(
-      screen.queryByRole('complementary'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByRole('complementary')).not.toBeInTheDocument();
 
-    expect(
-      screen.getByRole('main'),
-    ).toHaveTextContent('Article');
+    expect(screen.getByRole('main')).toHaveTextContent('Article');
   });
 
   it('sets optional-region data attributes', () => {
     renderLayout();
 
-    const layout = screen
-      .getByRole('main')
-      .closest(
-        '[data-slot="blog-layout"]',
-      );
+    const layout = screen.getByRole('main').closest('[data-slot="blog-layout"]');
 
-    expect(layout).toHaveAttribute(
-      'data-has-navigation',
-      'true',
-    );
+    expect(layout).toHaveAttribute('data-has-navigation', 'true');
 
-    expect(layout).toHaveAttribute(
-      'data-has-aside',
-      'true',
-    );
+    expect(layout).toHaveAttribute('data-has-aside', 'true');
   });
 
   it('supports all content-width values', () => {
-    const {
-      rerender,
-    } = render(
-      <BlogLayout contentWidth="sm">
-        Article
-      </BlogLayout>,
-    );
+    const { rerender } = render(<BlogLayout contentWidth="sm">Article</BlogLayout>);
 
-    const getLayout = () => (
-      screen
-        .getByRole('main')
-        .closest(
-          '[data-slot="blog-layout"]',
-        )
-    );
+    const getLayout = () => screen.getByRole('main').closest('[data-slot="blog-layout"]');
 
-    expect(getLayout()).toHaveAttribute(
-      'data-content-width',
-      'sm',
-    );
+    expect(getLayout()).toHaveAttribute('data-content-width', 'sm');
 
-    rerender(
-      <BlogLayout contentWidth="lg">
-        Article
-      </BlogLayout>,
-    );
+    rerender(<BlogLayout contentWidth="lg">Article</BlogLayout>);
 
-    expect(getLayout()).toHaveAttribute(
-      'data-content-width',
-      'lg',
-    );
+    expect(getLayout()).toHaveAttribute('data-content-width', 'lg');
 
-    rerender(
-      <BlogLayout contentWidth="full">
-        Article
-      </BlogLayout>,
-    );
+    rerender(<BlogLayout contentWidth="full">Article</BlogLayout>);
 
-    expect(getLayout()).toHaveAttribute(
-      'data-content-width',
-      'full',
-    );
+    expect(getLayout()).toHaveAttribute('data-content-width', 'full');
   });
 
   it('enables sticky side columns by default', () => {
     renderLayout();
 
-    expect(
-      screen
-        .getByRole('main')
-        .closest(
-          '[data-slot="blog-layout"]',
-        ),
-    ).toHaveAttribute(
+    expect(screen.getByRole('main').closest('[data-slot="blog-layout"]')).toHaveAttribute(
       'data-sticky-side-columns',
       'true',
     );
@@ -172,21 +93,12 @@ describe('BlogLayout', () => {
 
   it('allows sticky side columns to be disabled', () => {
     render(
-      <BlogLayout
-        navigation="Navigation"
-        stickySideColumns={false}
-      >
+      <BlogLayout navigation="Navigation" stickySideColumns={false}>
         Article
       </BlogLayout>,
     );
 
-    expect(
-      screen
-        .getByRole('main')
-        .closest(
-          '[data-slot="blog-layout"]',
-        ),
-    ).not.toHaveAttribute(
+    expect(screen.getByRole('main').closest('[data-slot="blog-layout"]')).not.toHaveAttribute(
       'data-sticky-side-columns',
     );
   });
@@ -218,29 +130,16 @@ describe('BlogLayout', () => {
 
   it('forwards native root props and class names', () => {
     render(
-      <BlogLayout
-        className="custom-blog-layout"
-        title="News article"
-      >
+      <BlogLayout className="custom-blog-layout" title="News article">
         Article
       </BlogLayout>,
     );
 
-    const layout = screen
-      .getByRole('main')
-      .closest(
-        '[data-slot="blog-layout"]',
-      );
+    const layout = screen.getByRole('main').closest('[data-slot="blog-layout"]');
 
-    expect(layout).toHaveClass(
-      'rush-blog-layout',
-      'custom-blog-layout',
-    );
+    expect(layout).toHaveClass('rush-blog-layout', 'custom-blog-layout');
 
-    expect(layout).toHaveAttribute(
-      'title',
-      'News article',
-    );
+    expect(layout).toHaveAttribute('title', 'News article');
   });
 
   it('applies custom region class names', () => {
@@ -260,13 +159,9 @@ describe('BlogLayout', () => {
       </BlogLayout>,
     );
 
-    expect(
-      screen.getByRole('banner'),
-    ).toHaveClass('custom-header');
+    expect(screen.getByRole('banner')).toHaveClass('custom-header');
 
-    expect(
-      screen.getByRole('contentinfo'),
-    ).toHaveClass('custom-footer');
+    expect(screen.getByRole('contentinfo')).toHaveClass('custom-footer');
 
     expect(
       screen.getByRole('complementary', {
@@ -280,8 +175,6 @@ describe('BlogLayout', () => {
       }),
     ).toHaveClass('custom-aside');
 
-    expect(
-      screen.getByRole('main'),
-    ).toHaveClass('custom-main');
+    expect(screen.getByRole('main')).toHaveClass('custom-main');
   });
 });

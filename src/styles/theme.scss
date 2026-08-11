@@ -3,83 +3,62 @@
    * Typography
    */
   --rush-font-sans:
-    'Manrope',
-    'Instrument Sans',
-    ui-sans-serif,
-    system-ui,
-    sans-serif,
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
-    'Noto Color Emoji';
+    'Manrope', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /*
    * Core surfaces and text
    */
-  --rush-color-background: oklch(1 0 0);
-  --rush-color-foreground: oklch(0.145 0 0);
-
-  --rush-color-card: oklch(1 0 0);
-  --rush-color-card-foreground: oklch(0.145 0 0);
-
-  --rush-color-popover: oklch(1 0 0);
-  --rush-color-popover-foreground: oklch(0.145 0 0);
+  --rush-color-background: oklch(100% 0 0deg);
+  --rush-color-foreground: oklch(14.5% 0 0deg);
+  --rush-color-card: oklch(100% 0 0deg);
+  --rush-color-card-foreground: oklch(14.5% 0 0deg);
+  --rush-color-popover: oklch(100% 0 0deg);
+  --rush-color-popover-foreground: oklch(14.5% 0 0deg);
 
   /*
    * Brand and semantic colors
    */
-  --rush-color-primary: oklch(0.205 0 0);
-  --rush-color-primary-foreground: oklch(0.985 0 0);
-  --rush-color-primary-hover: oklch(0.3 0 0);
-
+  --rush-color-primary: oklch(20.5% 0 0deg);
+  --rush-color-primary-foreground: oklch(98.5% 0 0deg);
+  --rush-color-primary-hover: oklch(30% 0 0deg);
   --rush-color-primary-orange: #fd8901;
   --rush-color-primary-orange-foreground: #fff;
-
   --rush-color-primary-yellow: #fbad00;
   --rush-color-primary-yellow-foreground: #0f1013;
-
-  --rush-color-secondary: oklch(0.97 0 0);
-  --rush-color-secondary-foreground: oklch(0.205 0 0);
+  --rush-color-secondary: oklch(97% 0 0deg);
+  --rush-color-secondary-foreground: oklch(20.5% 0 0deg);
   --rush-color-secondary-hover: #e2e8f0;
-
-  --rush-color-muted: oklch(0.97 0 0);
-  --rush-color-muted-foreground: oklch(0.556 0 0);
-
-  --rush-color-accent: oklch(0.97 0 0);
-  --rush-color-accent-foreground: oklch(0.205 0 0);
-
-  --rush-color-destructive: oklch(0.577 0.245 27.325);
+  --rush-color-muted: oklch(97% 0 0deg);
+  --rush-color-muted-foreground: oklch(55.6% 0 0deg);
+  --rush-color-accent: oklch(97% 0 0deg);
+  --rush-color-accent-foreground: oklch(20.5% 0 0deg);
+  --rush-color-destructive: oklch(57.7% 0.245 27.325deg);
   --rush-color-destructive-foreground: #fff;
   --rush-color-destructive-hover: #b91c1c;
-
-  --rush-color-success: oklch(0.627 0.194 149.214);
+  --rush-color-success: oklch(62.7% 0.194 149.214deg);
   --rush-color-success-foreground: #fff;
 
   /*
    * Interactive and structural colors
    */
-  --rush-color-border: oklch(0.922 0 0);
-  --rush-color-input: oklch(0.922 0 0);
-  --rush-color-focus: oklch(0.623 0.214 259.815);
-
+  --rush-color-border: oklch(92.2% 0 0deg);
+  --rush-color-input: oklch(92.2% 0 0deg);
+  --rush-color-focus: oklch(62.3% 0.214 259.815deg);
   --rush-color-info: #3b82f6;
   --rush-color-info-soft: #eff6ff;
   --rush-color-info-strong: #1d4ed8;
   --rush-color-info-border: #bfdbfe;
-
   --rush-color-warning: #f59e0b;
   --rush-color-warning-soft: #fffbeb;
   --rush-color-warning-strong: #92400e;
   --rush-color-warning-border: #fde68a;
-
   --rush-color-success-soft: #f0fdf4;
   --rush-color-success-strong: #166534;
   --rush-color-success-border: #bbf7d0;
-
   --rush-color-destructive-soft: #fef2f2;
   --rush-color-destructive-strong: #991b1b;
   --rush-color-destructive-border: #fecaca;
-
   --rush-color-notice: #a855f7;
   --rush-color-notice-soft: #faf5ff;
   --rush-color-notice-strong: #7e22ce;
@@ -97,11 +76,8 @@
   /*
    * Shadows
    */
-  --rush-shadow-xs:
-    0 1px 2px rgb(0 0 0 / 5%);
-  --rush-shadow-sm:
-    0 1px 3px rgb(0 0 0 / 10%),
-    0 1px 2px -1px rgb(0 0 0 / 10%);
+  --rush-shadow-xs: 0 1px 2px rgb(0 0 0 / 5%);
+  --rush-shadow-sm: 0 1px 3px rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
 
   /*
    * Motion
@@ -109,7 +85,6 @@
   --rush-transition-duration-fast: 250ms;
   --rush-transition-duration-normal: 500ms;
   --rush-transition-timing: ease-in-out;
-
   --rush-dashboard-sidebar-width: 16rem;
   --rush-dashboard-sidebar-collapsed-width: 4rem;
   --rush-dashboard-header-height: 4rem;
@@ -117,70 +92,44 @@
   --rush-dashboard-transition-duration: 300ms;
   --rush-dashboard-mobile-sidebar-max-height: 20rem;
   --rush-dashboard-mobile-sidebar-width: 18rem;
-
   --rush-workspace-sidebar-width: 16rem;
   --rush-workspace-sidebar-collapsed-width: 4rem;
-
   --rush-workspace-aside-width: 20rem;
   --rush-workspace-aside-collapsed-width: 0rem;
-
   --rush-workspace-header-height: 4rem;
   --rush-workspace-content-padding: 1.5rem;
-
   --rush-workspace-transition-duration: 300ms;
-
   --rush-workspace-inline-aside-max-height: 22rem;
   --rush-workspace-mobile-sidebar-max-height: 20rem;
-
   --rush-workspace-mobile-sidebar-width: 18rem;
-
   --rush-workspace-mobile-aside-width: 20rem;
-
   --rush-blog-container-width: 90rem;
-
   --rush-blog-navigation-column-width: 15rem;
   --rush-blog-aside-column-width: 15rem;
-
   --rush-blog-column-gap: 2rem;
   --rush-blog-tablet-column-gap: 1.5rem;
   --rush-blog-mobile-section-gap: 2rem;
-
   --rush-blog-body-padding: 2rem 1.5rem;
   --rush-blog-mobile-body-padding: 1.5rem 1rem;
-
   --rush-blog-sticky-offset: 1.5rem;
-
-  --rush-data-table-selection-column-width:
-    3rem;
-
+  --rush-data-table-selection-column-width: 3rem;
   --rush-drawer-width: 20rem;
   --rush-drawer-z-index: 50;
   --rush-drawer-transition-duration: 200ms;
-
-  --rush-drawer-overlay-background:
-    rgb(0 0 0 / 50%);
-
+  --rush-drawer-overlay-background: rgb(0 0 0 / 50%);
   --rush-input-height-sm: 2rem;
   --rush-input-height: 2.25rem;
   --rush-input-height-lg: 2.5rem;
-
   --rush-page-header-gap: 1rem;
   --rush-page-header-body-gap: 1.5rem;
   --rush-page-header-actions-gap: 0.5rem;
-
-  --rush-page-header-title-font-size:
-    1.875rem;
-
-  --rush-page-header-description-max-width:
-    48rem;
-
+  --rush-page-header-title-font-size: 1.875rem;
+  --rush-page-header-description-max-width: 48rem;
   --rush-select-height-sm: 2rem;
   --rush-select-height: 2.25rem;
   --rush-select-height-lg: 2.5rem;
-
   --rush-sidebar-navigation-gap: 0.75rem;
   --rush-sidebar-navigation-padding: 0.75rem;
-
   --rush-sidebar-navigation-item-height: 2.5rem;
 
   /*
@@ -191,64 +140,34 @@
   --rush-color-table-border: #ebeef5;
   --rush-color-table-striped: #fafafa;
   --rush-color-table-hover: #f5f7fa;
-
-  --rush-table-background:
-    var(--rush-color-card);
-
-  --rush-table-foreground:
-    var(--rush-color-card-foreground);
-
-  --rush-table-border-color:
-    var(--rush-color-border);
-
-  --rush-table-header-background:
-    var(--rush-color-muted);
-
-  --rush-table-footer-background:
-    var(--rush-color-muted);
-
-  --rush-table-hover-background:
-    var(--rush-color-accent);
-
-  --rush-table-selected-background:
-    var(--rush-color-accent);
-
-  --rush-table-striped-background:
-    var(--rush-color-table-striped);
-
+  --rush-table-background: var(--rush-color-card);
+  --rush-table-foreground: var(--rush-color-card-foreground);
+  --rush-table-border-color: var(--rush-color-border);
+  --rush-table-header-background: var(--rush-color-muted);
+  --rush-table-footer-background: var(--rush-color-muted);
+  --rush-table-hover-background: var(--rush-color-accent);
+  --rush-table-selected-background: var(--rush-color-accent);
+  --rush-table-striped-background: var(--rush-color-table-striped);
   --rush-table-font-size: 0.875rem;
-
   --rush-table-cell-padding-y: 0.75rem;
   --rush-table-cell-padding-x: 1rem;
-
   --rush-table-compact-cell-padding-y: 0.5rem;
   --rush-table-compact-cell-padding-x: 0.75rem;
-
   --rush-textarea-height-sm: 5rem;
   --rush-textarea-height: 6rem;
   --rush-textarea-height-lg: 7rem;
-
   --rush-pagination-gap: 0.25rem;
   --rush-pagination-button-size: 2.25rem;
 
   /*
    * Progress
    */
-  --rush-progress-track-background:
-    var(--rush-color-muted);
-
-  --rush-progress-fill-background:
-    var(--rush-color-primary-yellow);
-
+  --rush-progress-track-background: var(--rush-color-muted);
+  --rush-progress-fill-background: var(--rush-color-primary-yellow);
   --rush-progress-value-foreground: #935300;
-
-  --rush-progress-highlight-color:
-    rgb(255 255 255 / 33%);
-
+  --rush-progress-highlight-color: rgb(255 255 255 / 33%);
   --rush-skeleton-animation-duration: 1.5s;
-
-  --rush-skeleton-highlight:
-    rgb(255 255 255 / 45%);
+  --rush-skeleton-highlight: rgb(255 255 255 / 45%);
 
   /*
    * Switch
@@ -257,101 +176,68 @@
   --rush-switch-height: 1.25rem;
   --rush-switch-thumb-size: 0.75rem;
   --rush-switch-thumb-offset: 0.25rem;
-
   --rush-switch-border-radius: 9999px;
-
   --rush-switch-shadow-color: #0f1013;
-
   --rush-switch-track-background: #1c1f27;
   --rush-switch-track-border-color: #1c1f27;
-
   --rush-switch-thumb-background: #8f98b3;
-  --rush-switch-checked-thumb-background:
-    var(--rush-color-primary-orange);
-
+  --rush-switch-checked-thumb-background: var(--rush-color-primary-orange);
   --rush-switch-disabled-thumb-background: #1f222a;
-
   --rush-switch-transition-duration: 300ms;
 }
 
 .dark,
 [data-rush-theme='dark'] {
   --rush-color-background: #0f1013;
-  --rush-color-foreground: oklch(0.985 0 0);
-
+  --rush-color-foreground: oklch(98.5% 0 0deg);
   --rush-color-card: #14161b;
-  --rush-color-card-foreground: oklch(0.985 0 0);
-
-  --rush-color-popover: oklch(0.145 0 0);
-  --rush-color-popover-foreground: oklch(0.985 0 0);
-
-  --rush-color-primary: oklch(0.985 0 0);
-  --rush-color-primary-foreground: oklch(0.205 0 0);
-  --rush-color-primary-hover: oklch(0.87 0 0);
-
-  --rush-color-secondary: oklch(0.269 0 0);
-  --rush-color-secondary-foreground: oklch(0.985 0 0);
-  --rush-color-secondary-hover:
-    oklch(0.35 0 0);
-
-  --rush-color-muted: oklch(0.269 0 0);
-  --rush-color-muted-foreground: oklch(0.708 0 0);
-
-  --rush-color-accent: oklch(0.269 0 0);
-  --rush-color-accent-foreground: oklch(0.985 0 0);
-
-  --rush-color-destructive: oklch(0.396 0.141 25.723);
-  --rush-color-destructive-foreground: oklch(0.985 0 0);
-  --rush-color-destructive-hover:
-    oklch(0.577 0.245 27.325);
-
-  --rush-color-success: oklch(0.723 0.219 149.579);
+  --rush-color-card-foreground: oklch(98.5% 0 0deg);
+  --rush-color-popover: oklch(14.5% 0 0deg);
+  --rush-color-popover-foreground: oklch(98.5% 0 0deg);
+  --rush-color-primary: oklch(98.5% 0 0deg);
+  --rush-color-primary-foreground: oklch(20.5% 0 0deg);
+  --rush-color-primary-hover: oklch(87% 0 0deg);
+  --rush-color-secondary: oklch(26.9% 0 0deg);
+  --rush-color-secondary-foreground: oklch(98.5% 0 0deg);
+  --rush-color-secondary-hover: oklch(35% 0 0deg);
+  --rush-color-muted: oklch(26.9% 0 0deg);
+  --rush-color-muted-foreground: oklch(70.8% 0 0deg);
+  --rush-color-accent: oklch(26.9% 0 0deg);
+  --rush-color-accent-foreground: oklch(98.5% 0 0deg);
+  --rush-color-destructive: oklch(39.6% 0.141 25.723deg);
+  --rush-color-destructive-foreground: oklch(98.5% 0 0deg);
+  --rush-color-destructive-hover: oklch(57.7% 0.245 27.325deg);
+  --rush-color-success: oklch(72.3% 0.219 149.579deg);
   --rush-color-success-foreground: #0f1013;
-
-  --rush-color-border: oklch(0.269 0 0);
-  --rush-color-input: oklch(0.269 0 0);
-  --rush-color-focus: oklch(0.623 0.214 259.815);
-
+  --rush-color-border: oklch(26.9% 0 0deg);
+  --rush-color-input: oklch(26.9% 0 0deg);
+  --rush-color-focus: oklch(62.3% 0.214 259.815deg);
   --rush-color-info-soft: #172554;
   --rush-color-info-strong: #bfdbfe;
   --rush-color-info-border: #1e40af;
-
   --rush-color-warning-soft: #451a03;
   --rush-color-warning-strong: #fde68a;
   --rush-color-warning-border: #92400e;
-
   --rush-color-success-soft: #052e16;
   --rush-color-success-strong: #bbf7d0;
   --rush-color-success-border: #166534;
-
   --rush-color-destructive-soft: #450a0a;
   --rush-color-destructive-strong: #fecaca;
   --rush-color-destructive-border: #991b1b;
-
   --rush-color-notice-soft: #3b0764;
   --rush-color-notice-strong: #e9d5ff;
   --rush-color-notice-border: #7e22ce;
-
   --rush-color-table: #1c1f27;
   --rush-color-table-foreground: #f4f4f4;
   --rush-color-table-border: #21252d;
   --rush-color-table-striped: #191c22;
   --rush-color-table-hover: #21252d;
-
-  --rush-progress-track-background:
-    var(--rush-color-muted);
-
-  --rush-progress-fill-background:
-    var(--rush-color-primary-yellow);
-
+  --rush-progress-track-background: var(--rush-color-muted);
+  --rush-progress-fill-background: var(--rush-color-primary-yellow);
   --rush-progress-value-foreground: #935300;
-
-  --rush-progress-highlight-color:
-    rgb(255 255 255 / 33%);
-
+  --rush-progress-highlight-color: rgb(255 255 255 / 33%);
   --rush-switch-track-background: #1c1f27;
   --rush-switch-track-border-color: #21252d;
-
   --rush-switch-thumb-background: #8f98b3;
   --rush-switch-disabled-thumb-background: #1f222a;
 }

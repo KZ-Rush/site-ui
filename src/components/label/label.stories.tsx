@@ -1,7 +1,4 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Label } from './label';
 
@@ -9,9 +6,7 @@ const meta = {
   title: 'Components/Label',
   component: Label,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -61,10 +56,7 @@ export const WithInput: Story = {
     >
       <Label {...args} />
 
-      <input
-        id={args.htmlFor}
-        type="text"
-      />
+      <input id={args.htmlFor} type="text" />
     </div>
   ),
 };
@@ -85,11 +77,7 @@ export const WithDisabledInput: Story = {
     >
       <Label {...args} />
 
-      <input
-        id={args.htmlFor}
-        type="text"
-        disabled
-      />
+      <input id={args.htmlFor} type="text" disabled />
     </div>
   ),
 };

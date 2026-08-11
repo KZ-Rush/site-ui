@@ -1,14 +1,6 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Alert,
-  AlertDescription,
-  AlertList,
-  AlertTitle,
-} from './alert';
+import { Alert, AlertDescription, AlertList, AlertTitle } from './alert';
 
 import {
   ErrorStoryIcon,
@@ -22,9 +14,7 @@ const meta = {
   title: 'Components/Alert',
   component: Alert,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'centered',
@@ -46,14 +36,7 @@ const meta = {
     variant: {
       control: 'select',
 
-      options: [
-        'default',
-        'destructive',
-        'warning',
-        'info',
-        'success',
-        'notice',
-      ],
+      options: ['default', 'destructive', 'warning', 'info', 'success', 'notice'],
     },
 
     icon: {
@@ -67,11 +50,7 @@ const meta = {
     role: {
       control: 'select',
 
-      options: [
-        undefined,
-        'alert',
-        'status',
-      ],
+      options: [undefined, 'alert', 'status'],
     },
   },
 } satisfies Meta<typeof Alert>;
@@ -82,17 +61,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<InfoStoryIcon />}
-    >
-      <AlertTitle>
-        Information
-      </AlertTitle>
+    <Alert {...args} icon={<InfoStoryIcon />}>
+      <AlertTitle>Information</AlertTitle>
 
-      <AlertDescription>
-        Your profile settings were loaded.
-      </AlertDescription>
+      <AlertDescription>Your profile settings were loaded.</AlertDescription>
     </Alert>
   ),
 };
@@ -103,21 +75,11 @@ export const Destructive: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<ErrorStoryIcon />}
-    >
-      <AlertTitle>
-        Something went wrong.
-      </AlertTitle>
+    <Alert {...args} icon={<ErrorStoryIcon />}>
+      <AlertTitle>Something went wrong.</AlertTitle>
 
       <AlertDescription>
-        <AlertList
-          messages={[
-            'The demo file is required.',
-            'The selected map does not exist.',
-          ]}
-        />
+        <AlertList messages={['The demo file is required.', 'The selected map does not exist.']} />
       </AlertDescription>
     </Alert>
   ),
@@ -129,17 +91,10 @@ export const Warning: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<WarningStoryIcon />}
-    >
-      <AlertTitle>
-        Warning
-      </AlertTitle>
+    <Alert {...args} icon={<WarningStoryIcon />}>
+      <AlertTitle>Warning</AlertTitle>
 
-      <AlertDescription>
-        This action may recalculate the leaderboard.
-      </AlertDescription>
+      <AlertDescription>This action may recalculate the leaderboard.</AlertDescription>
     </Alert>
   ),
 };
@@ -150,17 +105,10 @@ export const Info: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<InfoStoryIcon />}
-    >
-      <AlertTitle>
-        Server information
-      </AlertTitle>
+    <Alert {...args} icon={<InfoStoryIcon />}>
+      <AlertTitle>Server information</AlertTitle>
 
-      <AlertDescription>
-        The game server will restart in five minutes.
-      </AlertDescription>
+      <AlertDescription>The game server will restart in five minutes.</AlertDescription>
     </Alert>
   ),
 };
@@ -171,17 +119,10 @@ export const Success: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<SuccessStoryIcon />}
-    >
-      <AlertTitle>
-        Demo approved
-      </AlertTitle>
+    <Alert {...args} icon={<SuccessStoryIcon />}>
+      <AlertTitle>Demo approved</AlertTitle>
 
-      <AlertDescription>
-        The record was added to the leaderboard.
-      </AlertDescription>
+      <AlertDescription>The record was added to the leaderboard.</AlertDescription>
     </Alert>
   ),
 };
@@ -192,17 +133,10 @@ export const Notice: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<NoticeStoryIcon />}
-    >
-      <AlertTitle>
-        Notice
-      </AlertTitle>
+    <Alert {...args} icon={<NoticeStoryIcon />}>
+      <AlertTitle>Notice</AlertTitle>
 
-      <AlertDescription>
-        A new version of the map is available.
-      </AlertDescription>
+      <AlertDescription>A new version of the map is available.</AlertDescription>
     </Alert>
   ),
 };
@@ -210,13 +144,9 @@ export const Notice: Story = {
 export const WithoutIcon: Story = {
   render: (args) => (
     <Alert {...args}>
-      <AlertTitle>
-        Plain alert
-      </AlertTitle>
+      <AlertTitle>Plain alert</AlertTitle>
 
-      <AlertDescription>
-        Icons are optional and do not reserve empty space.
-      </AlertDescription>
+      <AlertDescription>Icons are optional and do not reserve empty space.</AlertDescription>
     </Alert>
   ),
 };
@@ -227,13 +157,8 @@ export const DescriptionOnly: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<InfoStoryIcon />}
-    >
-      <AlertDescription>
-        The server will restart in five minutes.
-      </AlertDescription>
+    <Alert {...args} icon={<InfoStoryIcon />}>
+      <AlertDescription>The server will restart in five minutes.</AlertDescription>
     </Alert>
   ),
 };
@@ -244,13 +169,8 @@ export const TitleOnly: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<SuccessStoryIcon />}
-    >
-      <AlertTitle>
-        Changes saved successfully.
-      </AlertTitle>
+    <Alert {...args} icon={<SuccessStoryIcon />}>
+      <AlertTitle>Changes saved successfully.</AlertTitle>
     </Alert>
   ),
 };
@@ -261,18 +181,12 @@ export const LongContent: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<WarningStoryIcon />}
-    >
-      <AlertTitle>
-        Leaderboard recalculation
-      </AlertTitle>
+    <Alert {...args} icon={<WarningStoryIcon />}>
+      <AlertTitle>Leaderboard recalculation</AlertTitle>
 
       <AlertDescription>
-        Recalculating player rankings may take several
-        minutes. During this operation, recently approved
-        records may temporarily display outdated positions.
+        Recalculating player rankings may take several minutes. During this operation, recently
+        approved records may temporarily display outdated positions.
       </AlertDescription>
     </Alert>
   ),
@@ -284,13 +198,8 @@ export const DuplicateMessages: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<ErrorStoryIcon />}
-    >
-      <AlertTitle>
-        Validation failed
-      </AlertTitle>
+    <Alert {...args} icon={<ErrorStoryIcon />}>
+      <AlertTitle>Validation failed</AlertTitle>
 
       <AlertDescription>
         <AlertList
@@ -313,23 +222,15 @@ export const RichDescription: Story = {
   },
 
   render: (args) => (
-    <Alert
-      {...args}
-      icon={<NoticeStoryIcon />}
-    >
-      <AlertTitle>
-        Demo format
-      </AlertTitle>
+    <Alert {...args} icon={<NoticeStoryIcon />}>
+      <AlertTitle>Demo format</AlertTitle>
 
       <AlertDescription>
         <p>
-          Upload a valid <code>.dem</code> file recorded
-          with Counter-Strike 1.6.
+          Upload a valid <code>.dem</code> file recorded with Counter-Strike 1.6.
         </p>
 
-        <p>
-          Compressed archives are not accepted.
-        </p>
+        <p>Compressed archives are not accepted.</p>
       </AlertDescription>
     </Alert>
   ),

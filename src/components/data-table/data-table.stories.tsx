@@ -1,49 +1,24 @@
-import {
-  useState,
-} from 'react';
+import { useState } from 'react';
 
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  DataTable,
-  type DataTableSorting,
-  type DataTableRowKey,
-} from './data-table';
+import { DataTable, type DataTableSorting, type DataTableRowKey } from './data-table';
 
-import {
-  Badge,
-} from '../badge';
+import { Badge } from '../badge';
 
-import {
-  Button,
-} from '../button';
+import { Button } from '../button';
 
-import {
-  Checkbox,
-} from '../checkbox';
+import { Checkbox } from '../checkbox';
 
-import type {
-  DataTableColumn,
-} from './data-table';
+import type { DataTableColumn } from './data-table';
 
-import {
-  DataTableColumnVisibility,
-} from '../data-table-column-visibility';
+import { DataTableColumnVisibility } from '../data-table-column-visibility';
 
-import {
-  DataTableToolbar,
-} from '../data-table-toolbar';
+import { DataTableToolbar } from '../data-table-toolbar';
 
-import {
-  Input,
-} from '../input';
+import { Input } from '../input';
 
-import {
-  Select,
-} from '../select';
+import { Select } from '../select';
 
 interface RecordRow {
   id: number;
@@ -146,35 +121,21 @@ const columns: DataTableColumn<RecordRow>[] = [
     header: 'Player',
     sortable: true,
 
-    cell: (row) => (
-      row.player
-    ),
+    cell: (row) => row.player,
   },
   {
     id: 'map',
     header: 'Map',
     sortable: true,
 
-    cell: (row) => (
-      row.map
-    ),
+    cell: (row) => row.map,
   },
   {
     id: 'type',
     header: 'Type',
     sortable: true,
 
-    cell: (row) => (
-      <Badge
-        variant={
-          row.type === 'PRO'
-            ? 'success'
-            : 'secondary'
-        }
-      >
-        {row.type}
-      </Badge>
-    ),
+    cell: (row) => <Badge variant={row.type === 'PRO' ? 'success' : 'secondary'}>{row.type}</Badge>,
   },
   {
     id: 'time',
@@ -182,68 +143,57 @@ const columns: DataTableColumn<RecordRow>[] = [
     align: 'right',
     sortable: true,
 
-    cell: (row) => (
-      row.time
-    ),
+    cell: (row) => row.time,
   },
 ];
 
-const columnsWithActions:
-  DataTableColumn<RecordRow>[] = [
-    ...columns,
+const columnsWithActions: DataTableColumn<RecordRow>[] = [
+  ...columns,
 
-    {
-      id: 'actions',
-      header: '',
-      align: 'right',
-      hideable: false,
-      sticky: 'right',
+  {
+    id: 'actions',
+    header: '',
+    align: 'right',
+    hideable: false,
+    sticky: 'right',
 
-      cell: (row) => (
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            gap: '0.5rem',
+    cell: (row) => (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          gap: '0.5rem',
+        }}
+      >
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            console.log('Edit', row.id);
           }}
         >
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => {
-              console.log(
-                'Edit',
-                row.id,
-              );
-            }}
-          >
-            Edit
-          </Button>
+          Edit
+        </Button>
 
-          <Button
-            size="sm"
-            variant="destructive"
-            onClick={() => {
-              console.log(
-                'Delete',
-                row.id,
-              );
-            }}
-          >
-            Delete
-          </Button>
-        </div>
-      ),
-    },
-  ];
+        <Button
+          size="sm"
+          variant="destructive"
+          onClick={() => {
+            console.log('Delete', row.id);
+          }}
+        >
+          Delete
+        </Button>
+      </div>
+    ),
+  },
+];
 
 const meta = {
   title: 'Components/DataTable',
   component: DataTable<RecordRow>,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'padded',
@@ -291,14 +241,11 @@ const meta = {
       control: false,
     },
   },
-} satisfies Meta<
-  typeof DataTable<RecordRow>
->;
+} satisfies Meta<typeof DataTable<RecordRow>>;
 
 export default meta;
 
-type Story =
-  StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
 
@@ -313,11 +260,9 @@ export const Empty: Story = {
   args: {
     data: [],
 
-    emptyTitle:
-      'No records found',
+    emptyTitle: 'No records found',
 
-    emptyDescription:
-      'There are no records matching the current filters.',
+    emptyDescription: 'There are no records matching the current filters.',
   },
 };
 
@@ -330,48 +275,28 @@ export const CompactStriped: Story = {
 
 export const Sorting: Story = {
   render: (args) => {
-    const [
-      sorting,
-      setSorting,
-    ] = useState<DataTableSorting>({
+    const [sorting, setSorting] = useState<DataTableSorting>({
       column: 'time',
       direction: 'asc',
     });
 
-    const sortedData = [...args.data].sort(
-      (a, b) => {
-        const direction =
-          sorting.direction === 'asc'
-            ? 1
-            : -1;
+    const sortedData = [...args.data].sort((a, b) => {
+      const direction = sorting.direction === 'asc' ? 1 : -1;
 
-        switch (sorting.column) {
-          case 'player':
-            return (
-              a.player.localeCompare(
-                b.player,
-              ) * direction
-            );
+      switch (sorting.column) {
+        case 'player':
+          return a.player.localeCompare(b.player) * direction;
 
-          case 'map':
-            return (
-              a.map.localeCompare(
-                b.map,
-              ) * direction
-            );
+        case 'map':
+          return a.map.localeCompare(b.map) * direction;
 
-          case 'time':
-            return (
-              a.time.localeCompare(
-                b.time,
-              ) * direction
-            );
+        case 'time':
+          return a.time.localeCompare(b.time) * direction;
 
-          default:
-            return 0;
-        }
-      },
-    );
+        default:
+          return 0;
+      }
+    });
 
     return (
       <DataTable<RecordRow>
@@ -386,10 +311,7 @@ export const Sorting: Story = {
 
 export const Paginated: Story = {
   render: (args) => {
-    const [
-      page,
-      setPage,
-    ] = useState(3);
+    const [page, setPage] = useState(3);
 
     return (
       <DataTable<RecordRow>
@@ -407,14 +329,7 @@ export const Paginated: Story = {
 
 export const Selectable: Story = {
   render: (args) => {
-    const [
-      selectedKeys,
-      setSelectedKeys,
-    ] = useState<
-      Set<DataTableRowKey>
-    >(
-      new Set(),
-    );
+    const [selectedKeys, setSelectedKeys] = useState<Set<DataTableRowKey>>(new Set());
 
     return (
       <div
@@ -428,15 +343,11 @@ export const Selectable: Story = {
           selection={{
             selectedKeys,
 
-            onSelectionChange:
-              setSelectedKeys,
+            onSelectionChange: setSelectedKeys,
           }}
         />
 
-        <div>
-          Selected:{' '}
-          {selectedKeys.size}
-        </div>
+        <div>Selected: {selectedKeys.size}</div>
       </div>
     );
   },
@@ -444,14 +355,7 @@ export const Selectable: Story = {
 
 export const PartiallySelectable: Story = {
   render: (args) => {
-    const [
-      selectedKeys,
-      setSelectedKeys,
-    ] = useState<
-      Set<DataTableRowKey>
-    >(
-      new Set(),
-    );
+    const [selectedKeys, setSelectedKeys] = useState<Set<DataTableRowKey>>(new Set());
 
     return (
       <DataTable<RecordRow>
@@ -459,14 +363,9 @@ export const PartiallySelectable: Story = {
         selection={{
           selectedKeys,
 
-          onSelectionChange:
-            setSelectedKeys,
+          onSelectionChange: setSelectedKeys,
 
-          isRowSelectable: (
-            row,
-          ) => (
-            row.type === 'PRO'
-          ),
+          isRowSelectable: (row) => row.type === 'PRO',
         }}
       />
     );
@@ -475,12 +374,7 @@ export const PartiallySelectable: Story = {
 
 export const ClickableRows: Story = {
   render: (args) => {
-    const [
-      openedRecord,
-      setOpenedRecord,
-    ] = useState<RecordRow | null>(
-      null,
-    );
+    const [openedRecord, setOpenedRecord] = useState<RecordRow | null>(null);
 
     return (
       <div
@@ -491,26 +385,14 @@ export const ClickableRows: Story = {
       >
         <DataTable<RecordRow>
           {...args}
-          columns={
-            columnsWithActions
-          }
+          columns={columnsWithActions}
           onRowClick={(row) => {
-            setOpenedRecord(
-              row,
-            );
+            setOpenedRecord(row);
           }}
-          getRowAriaLabel={(
-            row,
-          ) => (
-            `Open record for ${row.player}`
-          )}
+          getRowAriaLabel={(row) => `Open record for ${row.player}`}
         />
 
-        <div>
-          Opened:{' '}
-          {openedRecord?.player
-            ?? 'none'}
-        </div>
+        <div>Opened: {openedRecord?.player ?? 'none'}</div>
       </div>
     );
   },
@@ -518,21 +400,9 @@ export const ClickableRows: Story = {
 
 export const SelectableClickableRows: Story = {
   render: (args) => {
-    const [
-      selectedKeys,
-      setSelectedKeys,
-    ] = useState<
-      Set<DataTableRowKey>
-    >(
-      new Set(),
-    );
+    const [selectedKeys, setSelectedKeys] = useState<Set<DataTableRowKey>>(new Set());
 
-    const [
-      openedRecord,
-      setOpenedRecord,
-    ] = useState<RecordRow | null>(
-      null,
-    );
+    const [openedRecord, setOpenedRecord] = useState<RecordRow | null>(null);
 
     return (
       <div
@@ -543,33 +413,21 @@ export const SelectableClickableRows: Story = {
       >
         <DataTable<RecordRow>
           {...args}
-          columns={
-            columnsWithActions
-          }
+          columns={columnsWithActions}
           selection={{
             selectedKeys,
-            onSelectionChange:
-              setSelectedKeys,
+            onSelectionChange: setSelectedKeys,
           }}
           onRowClick={(row) => {
-            setOpenedRecord(
-              row,
-            );
+            setOpenedRecord(row);
           }}
-          getRowAriaLabel={(
-            row,
-          ) => (
-            `Open record for ${row.player}`
-          )}
+          getRowAriaLabel={(row) => `Open record for ${row.player}`}
         />
 
         <div>
-          Selected:{' '}
-          {selectedKeys.size}
+          Selected: {selectedKeys.size}
           {' · '}
-          Opened:{' '}
-          {openedRecord?.player
-            ?? 'none'}
+          Opened: {openedRecord?.player ?? 'none'}
         </div>
       </div>
     );
@@ -582,139 +440,65 @@ export const CompleteExample: Story = {
     const [type, setType] = useState('');
     const [page, setPage] = useState(1);
 
-    const [sorting, setSorting] =
-      useState<DataTableSorting>({
-        column: 'time',
-        direction: 'asc',
-      });
+    const [sorting, setSorting] = useState<DataTableSorting>({
+      column: 'time',
+      direction: 'asc',
+    });
 
-    const [selectedKeys, setSelectedKeys] =
-      useState<Set<DataTableRowKey>>(
-        new Set(),
-      );
+    const [selectedKeys, setSelectedKeys] = useState<Set<DataTableRowKey>>(new Set());
 
-    const [openedRecord, setOpenedRecord] =
-      useState<RecordRow | null>(null);
+    const [openedRecord, setOpenedRecord] = useState<RecordRow | null>(null);
 
-    const [
-      visibleColumns,
-      setVisibleColumns,
-    ] = useState(
-      new Set(
-        columns.map(
-          (column) => column.id,
-        ),
-      ),
+    const [visibleColumns, setVisibleColumns] = useState(
+      new Set(columns.map((column) => column.id)),
     );
 
     const pageSize = 5;
 
-    const filteredData = records.filter(
-      (record) => {
-        const normalizedSearch =
-          search
-            .trim()
-            .toLowerCase();
+    const filteredData = records.filter((record) => {
+      const normalizedSearch = search.trim().toLowerCase();
 
-        const matchesSearch =
-          normalizedSearch === ''
-          || record.player
-            .toLowerCase()
-            .includes(
-              normalizedSearch,
-            )
-          || record.map
-            .toLowerCase()
-            .includes(
-              normalizedSearch,
-            );
+      const matchesSearch =
+        normalizedSearch === '' ||
+        record.player.toLowerCase().includes(normalizedSearch) ||
+        record.map.toLowerCase().includes(normalizedSearch);
 
-        const matchesType =
-          type === ''
-          || record.type === type;
+      const matchesType = type === '' || record.type === type;
 
-        return (
-          matchesSearch
-          && matchesType
-        );
-      },
-    );
+      return matchesSearch && matchesType;
+    });
 
-    const sortedData = [
-      ...filteredData,
-    ].sort((a, b) => {
-      const direction =
-        sorting.direction === 'asc'
-          ? 1
-          : -1;
+    const sortedData = [...filteredData].sort((a, b) => {
+      const direction = sorting.direction === 'asc' ? 1 : -1;
 
       switch (sorting.column) {
         case 'player':
-          return (
-            a.player.localeCompare(
-              b.player,
-            )
-            * direction
-          );
+          return a.player.localeCompare(b.player) * direction;
 
         case 'map':
-          return (
-            a.map.localeCompare(
-              b.map,
-            )
-            * direction
-          );
+          return a.map.localeCompare(b.map) * direction;
 
         case 'type':
-          return (
-            a.type.localeCompare(
-              b.type,
-            )
-            * direction
-          );
+          return a.type.localeCompare(b.type) * direction;
 
         case 'time':
-          return (
-            a.time.localeCompare(
-              b.time,
-            )
-            * direction
-          );
+          return a.time.localeCompare(b.time) * direction;
 
         default:
           return 0;
       }
     });
 
-    const pageCount =
-      Math.max(
-        1,
-        Math.ceil(
-          sortedData.length
-          / pageSize,
-        ),
-      );
+    const pageCount = Math.max(1, Math.ceil(sortedData.length / pageSize));
 
-    const currentPage =
-      Math.min(
-        page,
-        pageCount,
-      );
+    const currentPage = Math.min(page, pageCount);
 
-    const start =
-      (currentPage - 1)
-      * pageSize;
+    const start = (currentPage - 1) * pageSize;
 
-    const pageData =
-      sortedData.slice(
-        start,
-        start + pageSize,
-      );
+    const pageData = sortedData.slice(start, start + pageSize);
 
     const clearSelection = (): void => {
-      setSelectedKeys(
-        new Set(),
-      );
+      setSelectedKeys(new Set());
     };
 
     return (
@@ -725,7 +509,7 @@ export const CompleteExample: Story = {
         }}
       >
         <DataTableToolbar
-          start={(
+          start={
             <>
               <div
                 style={{
@@ -738,9 +522,7 @@ export const CompleteExample: Story = {
                   aria-label="Search records"
                   value={search}
                   onChange={(event) => {
-                    setSearch(
-                      event.currentTarget.value,
-                    );
+                    setSearch(event.currentTarget.value);
 
                     setPage(1);
                   }}
@@ -756,80 +538,45 @@ export const CompleteExample: Story = {
                   aria-label="Record type"
                   value={type}
                   onChange={(event) => {
-                    setType(
-                      event.currentTarget.value,
-                    );
+                    setType(event.currentTarget.value);
 
                     setPage(1);
                   }}
                 >
-                  <option value="">
-                    All types
-                  </option>
+                  <option value="">All types</option>
 
-                  <option value="PRO">
-                    PRO
-                  </option>
+                  <option value="PRO">PRO</option>
 
-                  <option value="NUB">
-                    NUB
-                  </option>
+                  <option value="NUB">NUB</option>
                 </Select>
               </div>
             </>
-          )}
-
-          selection={
-            selectedKeys.size > 0
-              ? (
-                <span>
-                  {selectedKeys.size}{' '}
-                  selected
-                </span>
-              )
-              : undefined
           }
 
+          selection={selectedKeys.size > 0 ? <span>{selectedKeys.size} selected</span> : undefined}
+
           end={
-            selectedKeys.size > 0
-              ? (
-                <>
-                  <Button
-                    variant="outline"
-                    onClick={
-                      clearSelection
-                    }
-                  >
-                    Clear
-                  </Button>
+            selectedKeys.size > 0 ? (
+              <>
+                <Button variant="outline" onClick={clearSelection}>
+                  Clear
+                </Button>
 
-                  <Button
-                    variant="destructive"
-                    onClick={
-                      clearSelection
-                    }
-                  >
-                    Delete selected
-                  </Button>
-                </>
-              )
-              : (
-                <>
-                  <DataTableColumnVisibility
-                    columns={columns}
-                    visibleColumns={
-                      visibleColumns
-                    }
-                    onVisibilityChange={
-                      setVisibleColumns
-                    }
-                  />
+                <Button variant="destructive" onClick={clearSelection}>
+                  Delete selected
+                </Button>
+              </>
+            ) : (
+              <>
+                <DataTableColumnVisibility
+                  columns={columns}
+                  visibleColumns={visibleColumns}
+                  onVisibilityChange={setVisibleColumns}
+                />
 
-                  <Button>
-                    Add record
-                  </Button>
-                </>
-              )
+                <Button>Add record</Button>
+              </>
+            )
           }
         />
 
@@ -842,38 +589,26 @@ export const CompleteExample: Story = {
           }}
 
           sorting={sorting}
-          onSortChange={(
-            nextSorting,
-          ) => {
-            setSorting(
-              nextSorting,
-            );
+          onSortChange={(nextSorting) => {
+            setSorting(nextSorting);
 
             setPage(1);
           }}
           selection={{
             selectedKeys,
-            onSelectionChange:
-              setSelectedKeys,
+            onSelectionChange: setSelectedKeys,
           }}
           pagination={{
             page: currentPage,
             pageCount,
             showFirstLast: true,
 
-            onPageChange:
-              setPage,
+            onPageChange: setPage,
           }}
           onRowClick={(row) => {
-            setOpenedRecord(
-              row,
-            );
+            setOpenedRecord(row);
           }}
-          getRowAriaLabel={(
-            row,
-          ) => (
-            `Open record for ${row.player}`
-          )}
+          getRowAriaLabel={(row) => `Open record for ${row.player}`}
           emptyTitle="No records found"
           emptyDescription="Try changing the search text or filters."
         />
@@ -886,21 +621,11 @@ export const CompleteExample: Story = {
             fontSize: '0.875rem',
           }}
         >
-          <span>
-            Results:{' '}
-            {filteredData.length}
-          </span>
+          <span>Results: {filteredData.length}</span>
 
-          <span>
-            Selected:{' '}
-            {selectedKeys.size}
-          </span>
+          <span>Selected: {selectedKeys.size}</span>
 
-          <span>
-            Opened:{' '}
-            {openedRecord?.player
-              ?? 'none'}
-          </span>
+          <span>Opened: {openedRecord?.player ?? 'none'}</span>
         </div>
       </div>
     );
@@ -934,35 +659,22 @@ export const ResponsiveScroll: Story = {
 
 export const ColumnVisibility: Story = {
   render: (args) => {
-    const [
-      visibleColumns,
-      setVisibleColumns,
-    ] = useState(
-      new Set(
-        columns.map(
-          (column) => column.id,
-        ),
-      ),
+    const [visibleColumns, setVisibleColumns] = useState(
+      new Set(columns.map((column) => column.id)),
     );
 
-    const toggleColumn = (
-      columnId: string,
-      visible: boolean,
-    ): void => {
-      setVisibleColumns(
-        (current) => {
-          const next =
-            new Set(current);
+    const toggleColumn = (columnId: string, visible: boolean): void => {
+      setVisibleColumns((current) => {
+        const next = new Set(current);
 
-          if (visible) {
-            next.add(columnId);
-          } else {
-            next.delete(columnId);
-          }
+        if (visible) {
+          next.add(columnId);
+        } else {
+          next.delete(columnId);
+        }
 
-          return next;
-        },
-      );
+        return next;
+      });
     };
 
     return (
@@ -979,28 +691,17 @@ export const ColumnVisibility: Story = {
             flexWrap: 'wrap',
           }}
         >
-          {columns.map(
-            (column) => (
-              <Checkbox
-                key={column.id}
-                checked={
-                  visibleColumns.has(
-                    column.id,
-                  )
-                }
-                onCheckedChange={(
-                  checked,
-                ) => {
-                  toggleColumn(
-                    column.id,
-                    checked,
-                  );
-                }}
-              >
-                {column.id}
-              </Checkbox>
-            ),
-          )}
+          {columns.map((column) => (
+            <Checkbox
+              key={column.id}
+              checked={visibleColumns.has(column.id)}
+              onCheckedChange={(checked) => {
+                toggleColumn(column.id, checked);
+              }}
+            >
+              {column.id}
+            </Checkbox>
+          ))}
         </div>
 
         <DataTable<RecordRow>

@@ -1,26 +1,15 @@
-import type {
-  ReactNode,
-} from 'react';
+import type { ReactNode } from 'react';
 
-import {
-  Dropdown,
-  DropdownCheckboxItem,
-  DropdownContent,
-  DropdownTrigger,
-} from '../dropdown';
+import { Dropdown, DropdownCheckboxItem, DropdownContent, DropdownTrigger } from '../dropdown';
 
-import type {
-  DataTableColumn,
-} from '../data-table';
+import type { DataTableColumn } from '../data-table';
 
 export interface DataTableColumnVisibilityProps<T> {
   columns: readonly DataTableColumn<T>[];
 
   visibleColumns: ReadonlySet<string>;
 
-  onVisibilityChange: (
-    visibleColumns: Set<string>,
-  ) => void;
+  onVisibilityChange: (visibleColumns: Set<string>) => void;
 
   label?: ReactNode;
 
@@ -34,30 +23,14 @@ export function DataTableColumnVisibility<T>({
   label = 'Columns',
   className,
 }: DataTableColumnVisibilityProps<T>) {
-  const hideableColumns =
-    columns.filter(
-      (column) => (
-        column.hideable !== false
-      ),
-    );
+  const hideableColumns = columns.filter((column) => column.hideable !== false);
 
-  const visibleHideableCount =
-    hideableColumns.filter(
-      (column) => (
-        visibleColumns.has(
-          column.id,
-        )
-      ),
-    ).length;
+  const visibleHideableCount = hideableColumns.filter((column) =>
+    visibleColumns.has(column.id),
+  ).length;
 
-  const toggleColumn = (
-    columnId: string,
-    visible: boolean,
-  ): void => {
-    const next =
-      new Set(
-        visibleColumns,
-      );
+  const toggleColumn = (columnId: string, visible: boolean): void => {
+    const next = new Set(visibleColumns);
 
     if (visible) {
       next.add(columnId);
@@ -65,52 +38,34 @@ export function DataTableColumnVisibility<T>({
       next.delete(columnId);
     }
 
-    onVisibilityChange(
-      next,
-    );
+    onVisibilityChange(next);
   };
 
   return (
     <Dropdown>
-      <DropdownTrigger
-        className={className}
-        variant="outline"
-      >
+      <DropdownTrigger className={className} variant="outline">
         {label}
       </DropdownTrigger>
 
       <DropdownContent align="end">
-        {hideableColumns.map(
-          (column) => {
-            const visible =
-              visibleColumns.has(
-                column.id,
-              );
+        {hideableColumns.map((column) => {
+          const visible = visibleColumns.has(column.id);
 
-            const lastVisible =
-              visible
-              && visibleHideableCount === 1;
+          const lastVisible = visible && visibleHideableCount === 1;
 
-            return (
-              <DropdownCheckboxItem
-                key={column.id}
-                checked={visible}
-                disabled={lastVisible}
-                onCheckedChange={(
-                  checked,
-                ) => {
-                  toggleColumn(
-                    column.id,
-                    checked,
-                  );
-                }}
-              >
-                {column.visibilityLabel
-                  ?? column.header}
-              </DropdownCheckboxItem>
-            );
-          },
-        )}
+          return (
+            <DropdownCheckboxItem
+              key={column.id}
+              checked={visible}
+              disabled={lastVisible}
+              onCheckedChange={(checked) => {
+                toggleColumn(column.id, checked);
+              }}
+            >
+              {column.visibilityLabel ?? column.header}
+            </DropdownCheckboxItem>
+          );
+        })}
       </DropdownContent>
     </Dropdown>
   );

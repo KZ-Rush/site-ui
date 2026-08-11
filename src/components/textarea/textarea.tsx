@@ -1,20 +1,12 @@
-import type {
-  ComponentPropsWithoutRef,
-} from 'react';
+import type { ComponentPropsWithoutRef } from 'react';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './textarea.scss';
 
-export type TextareaSize =
-  | 'sm'
-  | 'default'
-  | 'lg';
+export type TextareaSize = 'sm' | 'default' | 'lg';
 
-export interface TextareaProps
-  extends ComponentPropsWithoutRef<'textarea'> {
+export interface TextareaProps extends ComponentPropsWithoutRef<'textarea'> {
   /**
    * Visual size of the textarea.
    */
@@ -40,43 +32,26 @@ export function Textarea({
   'aria-invalid': ariaInvalid,
   ...props
 }: TextareaProps) {
-  const resolvedAriaInvalid =
-    ariaInvalid
-    ?? (
-      invalid
-        ? true
-        : undefined
-    );
+  const resolvedAriaInvalid = ariaInvalid ?? (invalid ? true : undefined);
 
   return (
     <div
       className={classNames(
         'rush-textarea',
         `rush-textarea--${size}`,
-        invalid
-          && 'rush-textarea--invalid',
-        disabled
-          && 'rush-textarea--disabled',
+        invalid && 'rush-textarea--invalid',
+        disabled && 'rush-textarea--disabled',
         className,
       )}
-      data-disabled={
-        disabled || undefined
-      }
-      data-invalid={
-        invalid || undefined
-      }
+      data-disabled={disabled || undefined}
+      data-invalid={invalid || undefined}
       data-size={size}
       data-slot="textarea"
     >
       <textarea
         {...props}
-        aria-invalid={
-          resolvedAriaInvalid
-        }
-        className={classNames(
-          'rush-textarea__control',
-          textareaClassName,
-        )}
+        aria-invalid={resolvedAriaInvalid}
+        className={classNames('rush-textarea__control', textareaClassName)}
         disabled={disabled}
         data-slot="textarea-control"
       />

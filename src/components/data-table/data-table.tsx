@@ -1,24 +1,12 @@
-import type {
-  KeyboardEvent,
-  MouseEvent,
-  ReactNode,
-} from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
-import {
-  Checkbox,
-} from '../checkbox';
+import { Checkbox } from '../checkbox';
 
-import {
-  EmptyState,
-} from '../empty-state';
+import { EmptyState } from '../empty-state';
 
-import {
-  Pagination,
-} from '../pagination';
+import { Pagination } from '../pagination';
 
-import {
-  Skeleton,
-} from '../skeleton';
+import { Skeleton } from '../skeleton';
 
 import {
   Table,
@@ -33,15 +21,11 @@ import {
   type TableDensity,
 } from '../table';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
 import './data-table.scss';
 
-export type DataTableSortDirection =
-  | 'asc'
-  | 'desc';
+export type DataTableSortDirection = 'asc' | 'desc';
 
 export interface DataTableSorting {
   column: string;
@@ -64,10 +48,7 @@ export interface DataTableColumn<T> {
   /**
    * Renders the cell value.
    */
-  cell: (
-    row: T,
-    rowIndex: number,
-  ) => ReactNode;
+  cell: (row: T, rowIndex: number) => ReactNode;
 
   /**
    * Cell/header alignment.
@@ -109,9 +90,7 @@ export interface DataTableColumn<T> {
 export interface DataTableColumnVisibility {
   visibleColumns: ReadonlySet<string>;
 
-  onVisibilityChange?: (
-    visibleColumns: Set<string>,
-  ) => void;
+  onVisibilityChange?: (visibleColumns: Set<string>) => void;
 }
 
 export interface DataTablePagination {
@@ -122,13 +101,9 @@ export interface DataTablePagination {
   onPageChange: (page: number) => void;
 }
 
-export type DataTableResponsiveMode =
-  | 'scroll'
-  | 'none';
+export type DataTableResponsiveMode = 'scroll' | 'none';
 
-export type DataTableRowKey =
-  | string
-  | number;
+export type DataTableRowKey = string | number;
 
 export interface DataTableSelection<T> {
   /**
@@ -139,17 +114,12 @@ export interface DataTableSelection<T> {
   /**
    * Called with the complete requested selection.
    */
-  onSelectionChange: (
-    selectedKeys: Set<DataTableRowKey>,
-  ) => void;
+  onSelectionChange: (selectedKeys: Set<DataTableRowKey>) => void;
 
   /**
    * Optional predicate for rows that cannot be selected.
    */
-  isRowSelectable?: (
-    row: T,
-    rowIndex: number,
-  ) => boolean;
+  isRowSelectable?: (row: T, rowIndex: number) => boolean;
 
   /**
    * Show the select-all checkbox in the header.
@@ -165,37 +135,25 @@ export interface DataTableProps<T> {
   /**
    * Stable key for each row.
    */
-  getRowKey: (
-    row: T,
-    rowIndex: number,
-  ) => DataTableRowKey;
+  getRowKey: (row: T, rowIndex: number) => DataTableRowKey;
 
   /**
    * Called when an interactive row is activated
    * by mouse or keyboard.
    */
-  onRowClick?: (
-    row: T,
-    rowIndex: number,
-  ) => void;
+  onRowClick?: (row: T, rowIndex: number) => void;
 
   /**
    * Controls whether a particular row can be activated.
    *
    * Defaults to true when onRowClick is provided.
    */
-  isRowClickable?: (
-    row: T,
-    rowIndex: number,
-  ) => boolean;
+  isRowClickable?: (row: T, rowIndex: number) => boolean;
 
   /**
    * Optional accessible label for clickable rows.
    */
-  getRowAriaLabel?: (
-    row: T,
-    rowIndex: number,
-  ) => string | undefined;
+  getRowAriaLabel?: (row: T, rowIndex: number) => string | undefined;
 
   /**
    * Whether loading placeholders should be shown.
@@ -230,9 +188,7 @@ export interface DataTableProps<T> {
   /**
    * Called when a sortable column requests another state.
    */
-  onSortChange?: (
-    sorting: DataTableSorting,
-  ) => void;
+  onSortChange?: (sorting: DataTableSorting) => void;
 
   pagination?: DataTablePagination;
 
@@ -268,15 +224,11 @@ function getNextSortDirection(
   currentSorting: DataTableSorting | undefined,
   columnId: string,
 ): DataTableSortDirection {
-  if (
-    currentSorting?.column !== columnId
-  ) {
+  if (currentSorting?.column !== columnId) {
     return 'asc';
   }
 
-  return currentSorting.direction === 'asc'
-    ? 'desc'
-    : 'asc';
+  return currentSorting.direction === 'asc' ? 'desc' : 'asc';
 }
 
 interface SortButtonProps {
@@ -284,60 +236,32 @@ interface SortButtonProps {
   children: ReactNode;
   sorting?: DataTableSorting;
 
-  onSortChange?: (
-    sorting: DataTableSorting,
-  ) => void;
+  onSortChange?: (sorting: DataTableSorting) => void;
 }
 
-function SortButton({
-  columnId,
-  children,
-  sorting,
-  onSortChange,
-}: SortButtonProps) {
-  const active =
-    sorting?.column === columnId;
+function SortButton({ columnId, children, sorting, onSortChange }: SortButtonProps) {
+  const active = sorting?.column === columnId;
 
-  const direction =
-    active
-      ? sorting.direction
-      : undefined;
+  const direction = active ? sorting.direction : undefined;
 
   return (
     <button
       type="button"
-      className={classNames(
-        'rush-data-table__sort',
-        active
-          && 'rush-data-table__sort--active',
-      )}
+      className={classNames('rush-data-table__sort', active && 'rush-data-table__sort--active')}
       data-direction={direction}
       data-slot="data-table-sort"
       onClick={() => {
         onSortChange?.({
           column: columnId,
 
-          direction:
-            getNextSortDirection(
-              sorting,
-              columnId,
-            ),
+          direction: getNextSortDirection(sorting, columnId),
         });
       }}
     >
-      <span className="rush-data-table__sort-label">
-        {children}
-      </span>
+      <span className="rush-data-table__sort-label">{children}</span>
 
-      <span
-        aria-hidden="true"
-        className="rush-data-table__sort-indicator"
-      >
-        {direction === 'asc'
-          ? '↑'
-          : direction === 'desc'
-            ? '↓'
-            : '↕'}
+      <span aria-hidden="true" className="rush-data-table__sort-indicator">
+        {direction === 'asc' ? '↑' : direction === 'desc' ? '↓' : '↕'}
       </span>
     </button>
   );
@@ -357,24 +281,18 @@ const interactiveElementSelector = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(',');
 
-function isInteractiveElement(
-  target: EventTarget | null,
-  currentTarget: HTMLElement,
-): boolean {
+function isInteractiveElement(target: EventTarget | null, currentTarget: HTMLElement): boolean {
   if (!(target instanceof Element)) {
     return false;
   }
 
-  const interactiveElement =
-    target.closest(
-      interactiveElementSelector,
-    );
+  const interactiveElement = target.closest(interactiveElementSelector);
 
-  return interactiveElement != null
-    && interactiveElement !== currentTarget
-    && currentTarget.contains(
-      interactiveElement,
-    );
+  return (
+    interactiveElement != null &&
+    interactiveElement !== currentTarget &&
+    currentTarget.contains(interactiveElement)
+  );
 }
 
 export function DataTable<T>({
@@ -412,77 +330,37 @@ export function DataTable<T>({
 
   columnVisibility,
 }: DataTableProps<T>) {
-  const safeLoadingRows =
-    Math.max(
-      1,
-      Math.floor(loadingRows),
-    );
+  const safeLoadingRows = Math.max(1, Math.floor(loadingRows));
 
-  const hasData =
-    data.length > 0;
+  const hasData = data.length > 0;
 
   const selectableRows =
     selection == null
       ? []
       : data
-          .map(
-            (
-              row,
-              rowIndex,
-            ) => ({
-              row,
-              rowIndex,
-              key: getRowKey(
-                row,
-                rowIndex,
-              ),
-            }),
-          )
-          .filter(
-            ({
-              row,
-              rowIndex,
-            }) => (
-              selection.isRowSelectable?.(
-                row,
-                rowIndex,
-              )
-              ?? true
-            ),
-          );
+          .map((row, rowIndex) => ({
+            row,
+            rowIndex,
+            key: getRowKey(row, rowIndex),
+          }))
+          .filter(({ row, rowIndex }) => selection.isRowSelectable?.(row, rowIndex) ?? true);
 
   const selectedSelectableCount =
     selection == null
       ? 0
-      : selectableRows.filter(
-          ({ key }) => (
-            selection.selectedKeys.has(
-              key,
-            )
-          ),
-        ).length;
+      : selectableRows.filter(({ key }) => selection.selectedKeys.has(key)).length;
 
   const allSelectableSelected =
-    selectableRows.length > 0
-    && selectedSelectableCount
-      === selectableRows.length;
+    selectableRows.length > 0 && selectedSelectableCount === selectableRows.length;
 
-  const someSelectableSelected =
-    selectedSelectableCount > 0
-    && !allSelectableSelected;
+  const someSelectableSelected = selectedSelectableCount > 0 && !allSelectableSelected;
 
-  const setRowSelected = (
-    key: DataTableRowKey,
-    selected: boolean,
-  ): void => {
+  const setRowSelected = (key: DataTableRowKey, selected: boolean): void => {
     if (!selection) {
       return;
     }
 
-    const next =
-      new Set(
-        selection.selectedKeys,
-      );
+    const next = new Set(selection.selectedKeys);
 
     if (selected) {
       next.add(key);
@@ -490,28 +368,17 @@ export function DataTable<T>({
       next.delete(key);
     }
 
-    selection.onSelectionChange(
-      next,
-    );
+    selection.onSelectionChange(next);
   };
 
-  const setAllVisibleSelected = (
-    selected: boolean,
-  ): void => {
+  const setAllVisibleSelected = (selected: boolean): void => {
     if (!selection) {
       return;
     }
 
-    const next =
-      new Set(
-        selection.selectedKeys,
-      );
+    const next = new Set(selection.selectedKeys);
 
-    for (
-      const {
-        key,
-      } of selectableRows
-    ) {
+    for (const { key } of selectableRows) {
       if (selected) {
         next.add(key);
       } else {
@@ -519,20 +386,13 @@ export function DataTable<T>({
       }
     }
 
-    selection.onSelectionChange(
-      next,
-    );
+    selection.onSelectionChange(next);
   };
 
   const visibleColumns =
     columnVisibility == null
       ? columns
-      : columns.filter(
-          (column) =>
-            columnVisibility
-              .visibleColumns
-              .has(column.id),
-        );
+      : columns.filter((column) => columnVisibility.visibleColumns.has(column.id));
 
   return (
     <div
@@ -541,9 +401,7 @@ export function DataTable<T>({
         `rush-data-table--responsive-${responsive}`,
         className,
       )}
-      data-loading={
-        loading || undefined
-      }
+      data-loading={loading || undefined}
       data-slot="data-table"
     >
       <TableContainer>
@@ -552,15 +410,9 @@ export function DataTable<T>({
           hoverable={hoverable}
           density={density}
           className={tableClassName}
-          aria-busy={
-            loading || undefined
-          }
+          aria-busy={loading || undefined}
         >
-          {caption != null && (
-            <TableCaption>
-              {caption}
-            </TableCaption>
-          )}
+          {caption != null && <TableCaption>{caption}</TableCaption>}
 
           <TableHeader>
             <TableRow>
@@ -572,70 +424,45 @@ export function DataTable<T>({
                 >
                   {selection.showSelectAll !== false && (
                     <Checkbox
-                      checked={
-                        allSelectableSelected
-                      }
-                      indeterminate={
-                        someSelectableSelected
-                      }
-                      disabled={
-                        selectableRows.length === 0
-                      }
+                      checked={allSelectableSelected}
+                      indeterminate={someSelectableSelected}
+                      disabled={selectableRows.length === 0}
                       aria-label={
                         allSelectableSelected
                           ? 'Deselect all rows on this page'
                           : 'Select all rows on this page'
                       }
-                      onCheckedChange={
-                        setAllVisibleSelected
-                      }
+                      onCheckedChange={setAllVisibleSelected}
                     />
                   )}
                 </TableHead>
               )}
 
-              {visibleColumns.map(
-                (column) => (
-                  <TableHead
-                    key={column.id}
-                    align={
-                      column.align
-                    }
-                    className={classNames(
-                      column.headerClassName,
-                      column.sticky
-                        && `rush-data-table__cell--sticky-${column.sticky}`,
-                    )}
-                    aria-sort={
-                      sorting?.column
-                        === column.id
-                        ? (
-                            sorting.direction
-                            === 'asc'
-                              ? 'ascending'
-                              : 'descending'
-                          )
-                        : undefined
-                    }
-                  >
-                    {column.sortable ? (
-                      <SortButton
-                        columnId={
-                          column.id
-                        }
-                        sorting={sorting}
-                        onSortChange={
-                          onSortChange
-                        }
-                      >
-                        {column.header}
-                      </SortButton>
-                    ) : (
-                      column.header
-                    )}
-                  </TableHead>
-                ),
-              )}
+              {visibleColumns.map((column) => (
+                <TableHead
+                  key={column.id}
+                  align={column.align}
+                  className={classNames(
+                    column.headerClassName,
+                    column.sticky && `rush-data-table__cell--sticky-${column.sticky}`,
+                  )}
+                  aria-sort={
+                    sorting?.column === column.id
+                      ? sorting.direction === 'asc'
+                        ? 'ascending'
+                        : 'descending'
+                      : undefined
+                  }
+                >
+                  {column.sortable ? (
+                    <SortButton columnId={column.id} sorting={sorting} onSortChange={onSortChange}>
+                      {column.header}
+                    </SortButton>
+                  ) : (
+                    column.header
+                  )}
+                </TableHead>
+              ))}
             </TableRow>
           </TableHeader>
 
@@ -643,20 +470,12 @@ export function DataTable<T>({
             {loading ? (
               Array.from(
                 {
-                  length:
-                    safeLoadingRows,
+                  length: safeLoadingRows,
                 },
                 (_, rowIndex) => (
-                  <TableRow
-                    key={
-                      `loading-${rowIndex}`
-                    }
-                  >
+                  <TableRow key={`loading-${rowIndex}`}>
                     {selection != null && (
-                      <TableCell
-                        className="rush-data-table__selection-cell"
-                        align="center"
-                      >
+                      <TableCell className="rush-data-table__selection-cell" align="center">
                         <Skeleton
                           variant="block"
                           style={{
@@ -668,275 +487,144 @@ export function DataTable<T>({
                       </TableCell>
                     )}
 
-                    {visibleColumns.map(
-                      (column) => (
-                        <TableCell
-                          key={
-                            column.id
-                          }
-                          align={
-                            column.align
-                          }
-                          className={
-                            column.cellClassName
-                          }
-                        >
-                          <Skeleton
-                            style={{
-                              height:
-                                '1rem',
+                    {visibleColumns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        className={column.cellClassName}
+                      >
+                        <Skeleton
+                          style={{
+                            height: '1rem',
 
-                              width:
-                                column.align
-                                === 'right'
-                                  ? '60%'
-                                  : '80%',
+                            width: column.align === 'right' ? '60%' : '80%',
 
-                              marginLeft:
-                                column.align
-                                === 'right'
-                                  ? 'auto'
-                                  : undefined,
-                            }}
-                          />
-                        </TableCell>
-                      ),
-                    )}
+                            marginLeft: column.align === 'right' ? 'auto' : undefined,
+                          }}
+                        />
+                      </TableCell>
+                    ))}
                   </TableRow>
                 ),
               )
-            ) : (
-              hasData
-                ? data.map(
-                    (
-                      row,
-                      rowIndex,
-                    ) => {
-                      const rowKey =
-                        getRowKey(
-                          row,
-                          rowIndex,
-                        );
+            ) : hasData ? (
+              data.map((row, rowIndex) => {
+                const rowKey = getRowKey(row, rowIndex);
 
-                      const selectable =
-                        selection?.isRowSelectable?.(
-                          row,
-                          rowIndex,
-                        )
-                        ?? true;
+                const selectable = selection?.isRowSelectable?.(row, rowIndex) ?? true;
 
-                      const selected =
-                        selection?.selectedKeys.has(
-                          rowKey,
-                        )
-                        ?? false;
+                const selected = selection?.selectedKeys.has(rowKey) ?? false;
 
-                      const clickable =
-                        onRowClick != null
-                        && (
-                          isRowClickable?.(
-                            row,
-                            rowIndex,
-                          )
-                          ?? true
-                        );
+                const clickable = onRowClick != null && (isRowClickable?.(row, rowIndex) ?? true);
 
-                      const handleRowClick = (
-                        event: MouseEvent<HTMLTableRowElement>,
-                      ): void => {
-                        if (
-                          !clickable
-                          || onRowClick == null
-                        ) {
-                          return;
-                        }
+                const handleRowClick = (event: MouseEvent<HTMLTableRowElement>): void => {
+                  if (!clickable || onRowClick == null) {
+                    return;
+                  }
 
-                        if (
-                          isInteractiveElement(
-                            event.target,
-                            event.currentTarget,
-                          )
-                        ) {
-                          return;
-                        }
+                  if (isInteractiveElement(event.target, event.currentTarget)) {
+                    return;
+                  }
 
-                        onRowClick(
-                          row,
-                          rowIndex,
-                        );
-                      };
+                  onRowClick(row, rowIndex);
+                };
 
-                      const handleRowKeyDown = (
-                        event: KeyboardEvent<HTMLTableRowElement>,
-                      ): void => {
-                        if (
-                          !clickable
-                          || onRowClick == null
-                        ) {
-                          return;
-                        }
+                const handleRowKeyDown = (event: KeyboardEvent<HTMLTableRowElement>): void => {
+                  if (!clickable || onRowClick == null) {
+                    return;
+                  }
 
-                        /*
-                        * If keyboard input originated from a control inside
-                        * the row, let that control handle it.
-                        */
-                        if (
-                          event.target !== event.currentTarget
-                        ) {
-                          return;
-                        }
+                  /*
+                   * If keyboard input originated from a control inside
+                   * the row, let that control handle it.
+                   */
+                  if (event.target !== event.currentTarget) {
+                    return;
+                  }
 
-                        if (
-                          event.key !== 'Enter'
-                          && event.key !== ' '
-                        ) {
-                          return;
-                        }
+                  if (event.key !== 'Enter' && event.key !== ' ') {
+                    return;
+                  }
 
-                        event.preventDefault();
+                  event.preventDefault();
 
-                        onRowClick(
-                          row,
-                          rowIndex,
-                        );
-                      };
+                  onRowClick(row, rowIndex);
+                };
 
-                      return (
-                        <TableRow
-                          key={rowKey}
-                          selected={selected}
-                          tabIndex={
-                            clickable
-                              ? 0
-                              : undefined
-                          }
+                return (
+                  <TableRow
+                    key={rowKey}
+                    selected={selected}
+                    tabIndex={clickable ? 0 : undefined}
+                    aria-label={clickable ? getRowAriaLabel?.(row, rowIndex) : undefined}
+                    className={classNames(clickable && 'rush-data-table__row--clickable')}
+                    data-clickable={clickable || undefined}
+                    onClick={handleRowClick}
+                    onKeyDown={handleRowKeyDown}
+                  >
+                    {selection != null && (
+                      <TableCell align="center" className="rush-data-table__selection-cell">
+                        <Checkbox
+                          checked={selected}
+                          disabled={!selectable}
                           aria-label={
-                            clickable
-                              ? getRowAriaLabel?.(
-                                  row,
-                                  rowIndex,
-                                )
-                              : undefined
+                            selected ? `Deselect row ${rowIndex + 1}` : `Select row ${rowIndex + 1}`
                           }
-                          className={classNames(
-                            clickable
-                              && 'rush-data-table__row--clickable',
-                          )}
-                          data-clickable={
-                            clickable || undefined
-                          }
-                          onClick={handleRowClick}
-                          onKeyDown={handleRowKeyDown}
-                        >
-                          {selection != null && (
-                            <TableCell
-                              align="center"
-                              className="rush-data-table__selection-cell"
-                            >
-                              <Checkbox
-                                checked={selected}
-                                disabled={!selectable}
-                                aria-label={
-                                  selected
-                                    ? `Deselect row ${rowIndex + 1}`
-                                    : `Select row ${rowIndex + 1}`
-                                }
-                                onCheckedChange={(
-                                  checked,
-                                ) => {
-                                  if (!selectable) {
-                                    return;
-                                  }
+                          onCheckedChange={(checked) => {
+                            if (!selectable) {
+                              return;
+                            }
 
-                                  setRowSelected(
-                                    rowKey,
-                                    checked,
-                                  );
-                                }}
-                              />
-                            </TableCell>
-                          )}
-
-                          {visibleColumns.map(
-                            (column) => (
-                              <TableCell
-                                key={column.id}
-                                align={column.align}
-                                className={classNames(
-                                  column.cellClassName,
-                                  column.sticky &&
-                                    `rush-data-table__cell--sticky-${column.sticky}`,
-                                )}
-                              >
-                                {column.cell(
-                                  row,
-                                  rowIndex,
-                                )}
-                              </TableCell>
-                            ),
-                          )}
-                        </TableRow>
-                      );
-                    },
-                  )
-                : (
-                    <TableRow>
-                      <TableCell
-                        colSpan={
-                          visibleColumns.length
-                          + (
-                            selection != null
-                              ? 1
-                              : 0
-                          )
-                        }
-                        className="rush-data-table__empty-cell"
-                      >
-                        <EmptyState
-                          title={
-                            emptyTitle
-                          }
-                          description={
-                            emptyDescription
-                          }
-                          action={
-                            emptyAction
-                          }
+                            setRowSelected(rowKey, checked);
+                          }}
                         />
                       </TableCell>
-                    </TableRow>
-                  )
+                    )}
+
+                    {visibleColumns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        className={classNames(
+                          column.cellClassName,
+                          column.sticky && `rush-data-table__cell--sticky-${column.sticky}`,
+                        )}
+                      >
+                        {column.cell(row, rowIndex)}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={visibleColumns.length + (selection != null ? 1 : 0)}
+                  className="rush-data-table__empty-cell"
+                >
+                  <EmptyState
+                    title={emptyTitle}
+                    description={emptyDescription}
+                    action={emptyAction}
+                  />
+                </TableCell>
+              </TableRow>
             )}
           </TableBody>
         </Table>
       </TableContainer>
 
-      {!loading
-        && pagination != null
-        && pagination.pageCount > 0 && (
-          <div
-            className="rush-data-table__pagination"
-            data-slot="data-table-pagination"
-          >
-            <Pagination
-              page={
-                pagination.page
-              }
-              pageCount={
-                pagination.pageCount
-              }
-              siblingCount={
-                pagination.siblingCount
-              }
-              showFirstLast={
-                pagination.showFirstLast
-              }
-              onPageChange={
-                pagination.onPageChange
-              }
-            />
-          </div>
-        )}
+      {!loading && pagination != null && pagination.pageCount > 0 && (
+        <div className="rush-data-table__pagination" data-slot="data-table-pagination">
+          <Pagination
+            page={pagination.page}
+            pageCount={pagination.pageCount}
+            siblingCount={pagination.siblingCount}
+            showFirstLast={pagination.showFirstLast}
+            onPageChange={pagination.onPageChange}
+          />
+        </div>
+      )}
     </div>
   );
 }

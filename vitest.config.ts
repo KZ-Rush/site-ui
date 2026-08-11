@@ -9,29 +9,18 @@ export default defineConfig({
   test: {
     projects: [
       {
-        plugins: [
-          react(),
-        ],
+        plugins: [react()],
 
         test: {
           name: 'unit',
 
           environment: 'jsdom',
 
-          include: [
-            'src/**/*.test.{ts,tsx}',
-          ],
+          include: ['src/**/*.test.{ts,tsx}'],
 
-          exclude: [
-            'src/**/*.stories.{ts,tsx}',
-            'node_modules',
-            'dist',
-            'storybook-static',
-          ],
+          exclude: ['src/**/*.stories.{ts,tsx}', 'node_modules', 'dist', 'storybook-static'],
 
-          setupFiles: [
-            './src/test/setup.ts',
-          ],
+          setupFiles: ['./src/test/setup.ts'],
         },
       },
 
@@ -40,12 +29,7 @@ export default defineConfig({
 
         plugins: [
           storybookTest({
-            configDir: fileURLToPath(
-              new URL(
-                './.storybook',
-                import.meta.url,
-              ),
-            ),
+            configDir: fileURLToPath(new URL('./.storybook', import.meta.url)),
           }),
         ],
 
@@ -63,9 +47,7 @@ export default defineConfig({
             ],
           },
 
-          setupFiles: [
-            './.storybook/vitest.setup.ts',
-          ],
+          setupFiles: ['./.storybook/vitest.setup.ts'],
         },
       },
     ],

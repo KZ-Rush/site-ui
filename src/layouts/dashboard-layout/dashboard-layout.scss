@@ -2,200 +2,79 @@
 
 .rush-dashboard-layout {
   display: grid;
-
   grid-template-areas:
     'sidebar header'
     'sidebar main';
-
   grid-template-columns:
-    var(
-      --rush-dashboard-sidebar-current-width,
-      var(
-        --rush-dashboard-sidebar-width,
-        16rem
-      )
-    )
+    var(--rush-dashboard-sidebar-current-width, var(--rush-dashboard-sidebar-width, 16rem))
     minmax(0, 1fr);
-
   grid-template-rows:
     auto
     minmax(0, 1fr);
-
   min-width: 0;
   min-height: 100dvh;
-
   overflow: hidden;
-
-  background-color: var(
-    --rush-dashboard-background,
-    var(
-      --rush-color-background,
-      #fff
-    )
-  );
-
-  color: var(
-    --rush-dashboard-foreground,
-    var(
-      --rush-color-foreground,
-      #0f172a
-    )
-  );
-
-  font-family: var(
-    --rush-font-sans,
-    system-ui,
-    sans-serif
-  );
-
-  transition:
-    grid-template-columns
-    var(
-      --rush-dashboard-transition-duration,
-      var(
-        --rush-transition-duration-normal,
-        300ms
-      )
-    )
-    var(
-      --rush-transition-timing,
-      ease-in-out
-    );
+  background-color: var(--rush-dashboard-background, var(--rush-color-background, #fff));
+  color: var(--rush-dashboard-foreground, var(--rush-color-foreground, #0f172a));
+  font-family: var(--rush-font-sans, system-ui, sans-serif);
+  transition: grid-template-columns
+    var(--rush-dashboard-transition-duration, var(--rush-transition-duration-normal, 300ms))
+    var(--rush-transition-timing, ease-in-out);
 
   &[data-collapsed='true'] {
-    --rush-dashboard-sidebar-current-width:
-      var(
-        --rush-dashboard-sidebar-collapsed-width,
-        4rem
-      );
+    --rush-dashboard-sidebar-current-width: var(--rush-dashboard-sidebar-collapsed-width, 4rem);
   }
 
   &__sidebar {
     grid-area: sidebar;
-
     min-width: 0;
     min-height: 0;
-
     overflow: hidden;
-
-    border-right: 1px solid var(
-      --rush-dashboard-border-color,
-      var(
-        --rush-color-border,
-        #e2e8f0
-      )
-    );
+    border-right: 1px solid var(--rush-dashboard-border-color, var(--rush-color-border, #e2e8f0));
 
     &__mobile-drawer {
-      --rush-drawer-width:
-        var(
-          --rush-dashboard-mobile-sidebar-width,
-          18rem
-        );
+      --rush-drawer-width: var(--rush-dashboard-mobile-sidebar-width, 18rem);
     }
 
     &__mobile-sidebar {
       min-height: 100%;
-
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden auto;
     }
 
-    background-color: var(
-      --rush-dashboard-sidebar-background,
-      var(
-        --rush-color-card,
-        #fff
-      )
-    );
-
-    color: var(
-      --rush-dashboard-sidebar-foreground,
-      var(
-        --rush-color-card-foreground,
-        #0f172a
-      )
-    );
+    background-color: var(--rush-dashboard-sidebar-background, var(--rush-color-card, #fff));
+    color: var(--rush-dashboard-sidebar-foreground, var(--rush-color-card-foreground, #0f172a));
   }
 
   &__sidebar-content {
-    width: var(
-      --rush-dashboard-sidebar-width,
-      16rem
-    );
-
+    width: var(--rush-dashboard-sidebar-width, 16rem);
     height: 100%;
-
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    transition:
-      opacity
-      var(
-        --rush-transition-duration-fast,
-        150ms
-      )
-      var(
-        --rush-transition-timing,
-        ease-in-out
-      );
+    overflow: hidden auto;
+    transition: opacity var(--rush-transition-duration-fast, 150ms)
+      var(--rush-transition-timing, ease-in-out);
   }
 
-  &[data-collapsed='true']
-    &__sidebar-content {
-    width: var(
-      --rush-dashboard-sidebar-collapsed-width,
-      4rem
-    );
+  &[data-collapsed='true'] &__sidebar-content {
+    width: var(--rush-dashboard-sidebar-collapsed-width, 4rem);
   }
 
   &__header {
     grid-area: header;
-
     display: flex;
     align-items: center;
     gap: 1rem;
-
     min-width: 0;
-    min-height: var(
-      --rush-dashboard-header-height,
-      4rem
-    );
-
-    padding-inline: var(
-      --rush-dashboard-content-padding,
-      1.5rem
-    );
-
-    border-bottom: 1px solid var(
-      --rush-dashboard-border-color,
-      var(
-        --rush-color-border,
-        #e2e8f0
-      )
-    );
-
-    background-color: var(
-      --rush-dashboard-header-background,
-      var(
-        --rush-color-background,
-        #fff
-      )
-    );
+    min-height: var(--rush-dashboard-header-height, 4rem);
+    padding-inline: var(--rush-dashboard-content-padding, 1.5rem);
+    border-bottom: 1px solid var(--rush-dashboard-border-color, var(--rush-color-border, #e2e8f0));
+    background-color: var(--rush-dashboard-header-background, var(--rush-color-background, #fff));
   }
 
   &__main {
     grid-area: main;
-
     min-width: 0;
     min-height: 0;
-
     overflow: auto;
-
-    padding: var(
-      --rush-dashboard-content-padding,
-      1.5rem
-    );
+    padding: var(--rush-dashboard-content-padding, 1.5rem);
   }
 }
 
@@ -213,14 +92,10 @@
     grid-template-areas:
       'header'
       'main';
-
-    grid-template-columns:
-      minmax(0, 1fr);
-
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows:
       auto
       minmax(0, 1fr);
-
     min-height: 100dvh;
 
     &__sidebar {

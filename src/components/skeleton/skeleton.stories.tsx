@@ -1,19 +1,12 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Skeleton,
-} from './skeleton';
+import { Skeleton } from './skeleton';
 
 const meta = {
   title: 'Components/Skeleton',
   component: Skeleton,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'padded',
@@ -27,10 +20,7 @@ const meta = {
   argTypes: {
     variant: {
       control: 'select',
-      options: [
-        'block',
-        'circle',
-      ],
+      options: ['block', 'circle'],
     },
 
     animated: {
@@ -180,8 +170,7 @@ export const TableRows: Story = {
             key={index}
             style={{
               display: 'grid',
-              gridTemplateColumns:
-                '1fr 2fr 1fr 1fr',
+              gridTemplateColumns: '1fr 2fr 1fr 1fr',
               gap: '1rem',
             }}
           >

@@ -1,11 +1,6 @@
-import type {
-  Meta,
-  StoryObj,
-} from '@storybook/react-vite';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import {
-  Badge,
-} from '../badge';
+import { Badge } from '../badge';
 
 import {
   Table,
@@ -23,9 +18,7 @@ const meta = {
   title: 'Components/Table',
   component: Table,
 
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
 
   parameters: {
     layout: 'padded',
@@ -45,10 +38,7 @@ const meta = {
 
     density: {
       control: 'select',
-      options: [
-        'default',
-        'compact',
-      ],
+      options: ['default', 'compact'],
     },
 
     striped: {
@@ -76,94 +66,56 @@ function ExampleTable({
 }) {
   return (
     <TableContainer>
-      <Table
-        striped={striped}
-        hoverable={hoverable}
-        density={density}
-      >
-        <TableCaption>
-          Latest approved KZ-Rush records.
-        </TableCaption>
+      <Table striped={striped} hoverable={hoverable} density={density}>
+        <TableCaption>Latest approved KZ-Rush records.</TableCaption>
 
         <TableHeader>
           <TableRow>
-            <TableHead>
-              Player
-            </TableHead>
+            <TableHead>Player</TableHead>
 
-            <TableHead>
-              Map
-            </TableHead>
+            <TableHead>Map</TableHead>
 
-            <TableHead>
-              Type
-            </TableHead>
+            <TableHead>Type</TableHead>
 
-            <TableHead align="right">
-              Time
-            </TableHead>
+            <TableHead align="right">Time</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
           <TableRow>
-            <TableCell>
-              PlayerOne
-            </TableCell>
+            <TableCell>PlayerOne</TableCell>
+
+            <TableCell>kz_example</TableCell>
 
             <TableCell>
-              kz_example
+              <Badge variant="success">PRO</Badge>
             </TableCell>
 
-            <TableCell>
-              <Badge variant="success">
-                PRO
-              </Badge>
-            </TableCell>
-
-            <TableCell align="right">
-              01:23.45
-            </TableCell>
+            <TableCell align="right">01:23.45</TableCell>
           </TableRow>
 
           <TableRow selected>
-            <TableCell>
-              PlayerTwo
-            </TableCell>
+            <TableCell>PlayerTwo</TableCell>
+
+            <TableCell>kz_longmap</TableCell>
 
             <TableCell>
-              kz_longmap
+              <Badge variant="secondary">NUB</Badge>
             </TableCell>
 
-            <TableCell>
-              <Badge variant="secondary">
-                NUB
-              </Badge>
-            </TableCell>
-
-            <TableCell align="right">
-              02:14.88
-            </TableCell>
+            <TableCell align="right">02:14.88</TableCell>
           </TableRow>
 
           <TableRow>
-            <TableCell>
-              PlayerThree
-            </TableCell>
+            <TableCell>PlayerThree</TableCell>
+
+            <TableCell>kz_climb</TableCell>
 
             <TableCell>
-              kz_climb
+              <Badge variant="success">PRO</Badge>
             </TableCell>
 
-            <TableCell>
-              <Badge variant="success">
-                PRO
-              </Badge>
-            </TableCell>
-
-            <TableCell align="right">
-              00:58.32
-            </TableCell>
+            <TableCell align="right">00:58.32</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -173,11 +125,7 @@ function ExampleTable({
 
 export const Default: Story = {
   render: (args) => (
-    <ExampleTable
-      striped={args.striped}
-      hoverable={args.hoverable}
-      density={args.density}
-    />
+    <ExampleTable striped={args.striped} hoverable={args.hoverable} density={args.density} />
   ),
 };
 
@@ -187,11 +135,7 @@ export const Striped: Story = {
   },
 
   render: (args) => (
-    <ExampleTable
-      striped={args.striped}
-      hoverable={args.hoverable}
-      density={args.density}
-    />
+    <ExampleTable striped={args.striped} hoverable={args.hoverable} density={args.density} />
   ),
 };
 
@@ -201,11 +145,7 @@ export const Compact: Story = {
   },
 
   render: (args) => (
-    <ExampleTable
-      striped={args.striped}
-      hoverable={args.hoverable}
-      density={args.density}
-    />
+    <ExampleTable striped={args.striped} hoverable={args.hoverable} density={args.density} />
   ),
 };
 
@@ -215,11 +155,7 @@ export const WithoutHover: Story = {
   },
 
   render: (args) => (
-    <ExampleTable
-      striped={args.striped}
-      hoverable={args.hoverable}
-      density={args.density}
-    />
+    <ExampleTable striped={args.striped} hoverable={args.hoverable} density={args.density} />
   ),
 };
 
@@ -229,47 +165,31 @@ export const WithFooter: Story = {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>
-              Status
-            </TableHead>
+            <TableHead>Status</TableHead>
 
-            <TableHead align="right">
-              Count
-            </TableHead>
+            <TableHead align="right">Count</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
           <TableRow>
-            <TableCell>
-              Approved
-            </TableCell>
+            <TableCell>Approved</TableCell>
 
-            <TableCell align="right">
-              128
-            </TableCell>
+            <TableCell align="right">128</TableCell>
           </TableRow>
 
           <TableRow>
-            <TableCell>
-              Pending
-            </TableCell>
+            <TableCell>Pending</TableCell>
 
-            <TableCell align="right">
-              12
-            </TableCell>
+            <TableCell align="right">12</TableCell>
           </TableRow>
         </TableBody>
 
         <TableFooter>
           <TableRow>
-            <TableCell>
-              Total
-            </TableCell>
+            <TableCell>Total</TableCell>
 
-            <TableCell align="right">
-              140
-            </TableCell>
+            <TableCell align="right">140</TableCell>
           </TableRow>
         </TableFooter>
       </Table>
@@ -292,65 +212,37 @@ export const WideTable: Story = {
         >
           <TableHeader>
             <TableRow>
-              <TableHead>
-                Player
-              </TableHead>
+              <TableHead>Player</TableHead>
 
-              <TableHead>
-                Map
-              </TableHead>
+              <TableHead>Map</TableHead>
 
-              <TableHead>
-                Country
-              </TableHead>
+              <TableHead>Country</TableHead>
 
-              <TableHead>
-                Weapon
-              </TableHead>
+              <TableHead>Weapon</TableHead>
 
-              <TableHead>
-                Type
-              </TableHead>
+              <TableHead>Type</TableHead>
 
-              <TableHead>
-                Date
-              </TableHead>
+              <TableHead>Date</TableHead>
 
-              <TableHead align="right">
-                Time
-              </TableHead>
+              <TableHead align="right">Time</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             <TableRow>
-              <TableCell>
-                PlayerOne
-              </TableCell>
+              <TableCell>PlayerOne</TableCell>
 
-              <TableCell>
-                kz_very_long_map_name
-              </TableCell>
+              <TableCell>kz_very_long_map_name</TableCell>
 
-              <TableCell>
-                Kazakhstan
-              </TableCell>
+              <TableCell>Kazakhstan</TableCell>
 
-              <TableCell>
-                Knife
-              </TableCell>
+              <TableCell>Knife</TableCell>
 
-              <TableCell>
-                PRO
-              </TableCell>
+              <TableCell>PRO</TableCell>
 
-              <TableCell>
-                2026-08-09
-              </TableCell>
+              <TableCell>2026-08-09</TableCell>
 
-              <TableCell align="right">
-                01:23.45
-              </TableCell>
+              <TableCell align="right">01:23.45</TableCell>
             </TableRow>
           </TableBody>
         </Table>

@@ -8,6 +8,7 @@ import type {
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -16,29 +17,17 @@ import {
   useState,
 } from 'react';
 
-import {
-  createPortal,
-} from 'react-dom';
+import { createPortal } from 'react-dom';
 
-import {
-  classNames,
-} from '../../utils/class-names';
+import { classNames } from '../../utils/class-names';
 
-import {
-  Button,
-  type NativeButtonProps,
-} from '../button';
+import { Button, type NativeButtonProps } from '../button';
 
-import type {
-  TriggerRenderProps,
-} from '../../types/trigger';
+import type { TriggerRenderProps } from '../../types/trigger';
 
 import './dropdown.scss';
 
-export type DropdownAlign =
-  | 'start'
-  | 'center'
-  | 'end';
+export type DropdownAlign = 'start' | 'center' | 'end';
 
 interface DropdownContextValue {
   open: boolean;
@@ -47,20 +36,13 @@ interface DropdownContextValue {
   contentId: string;
 }
 
-const DropdownContext =
-  createContext<DropdownContextValue | null>(
-    null,
-  );
+const DropdownContext = createContext<DropdownContextValue | null>(null);
 
-function useDropdownContext():
-  DropdownContextValue {
-  const context =
-    useContext(DropdownContext);
+function useDropdownContext(): DropdownContextValue {
+  const context = useContext(DropdownContext);
 
   if (!context) {
-    throw new Error(
-      'Dropdown components must be used inside <Dropdown>.',
-    );
+    throw new Error('Dropdown components must be used inside <Dropdown>.');
   }
 
   return context;
@@ -73,49 +55,28 @@ export interface DropdownProps {
 
   defaultOpen?: boolean;
 
-  onOpenChange?: (
-    open: boolean,
-  ) => void;
+  onOpenChange?: (open: boolean) => void;
 }
 
-export function Dropdown({
-  children,
-  open,
-  defaultOpen = false,
-  onOpenChange,
-}: DropdownProps) {
-  const [
-    internalOpen,
-    setInternalOpen,
-  ] = useState(defaultOpen);
+export function Dropdown({ children, open, defaultOpen = false, onOpenChange }: DropdownProps) {
+  const [internalOpen, setInternalOpen] = useState(defaultOpen);
 
-  const triggerRef =
-    useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
-  const generatedId =
-    useId();
+  const generatedId = useId();
 
-  const contentId =
-    `rush-dropdown-content-${generatedId}`;
+  const contentId = `rush-dropdown-content-${generatedId}`;
 
-  const controlled =
-    open !== undefined;
+  const controlled = open !== undefined;
 
-  const resolvedOpen =
-    controlled
-      ? open
-      : internalOpen;
+  const resolvedOpen = controlled ? open : internalOpen;
 
-  const setOpen = (
-    nextOpen: boolean,
-  ): void => {
+  const setOpen = (nextOpen: boolean): void => {
     if (!controlled) {
       setInternalOpen(nextOpen);
     }
 
-    onOpenChange?.(
-      nextOpen,
-    );
+    onOpenChange?.(nextOpen);
   };
 
   return (
@@ -132,16 +93,10 @@ export function Dropdown({
   );
 }
 
-export interface DropdownTriggerProps
-  extends Omit<
-    NativeButtonProps,
-    'children'
-  > {
+export interface DropdownTriggerProps extends Omit<NativeButtonProps, 'children'> {
   children?: ReactNode;
 
-  render?: (
-    props: TriggerRenderProps<HTMLButtonElement>,
-  ) => ReactNode;
+  render?: (props: TriggerRenderProps<HTMLButtonElement>) => ReactNode;
 }
 
 export function DropdownTrigger({
@@ -151,17 +106,9 @@ export function DropdownTrigger({
   onClick,
   ...props
 }: DropdownTriggerProps) {
-  const {
-    open,
-    setOpen,
-    triggerRef,
-    contentId,
-  } = useDropdownContext();
+  const { open, setOpen, triggerRef, contentId } = useDropdownContext();
 
-  const handleClick = (
-    event:
-      ReactMouseEvent<HTMLButtonElement>,
-  ): void => {
+  const handleClick = (event: ReactMouseEvent<HTMLButtonElement>): void => {
     onClick?.(event);
 
     if (event.defaultPrevented) {
@@ -171,28 +118,20 @@ export function DropdownTrigger({
     setOpen(!open);
   };
 
-  const triggerProps:
-    TriggerRenderProps<HTMLButtonElement> = {
-      ref: triggerRef,
+  const triggerProps: TriggerRenderProps<HTMLButtonElement> = {
+    ref: triggerRef,
 
-      'aria-expanded': open,
+    'aria-expanded': open,
 
-      'aria-haspopup': 'menu',
+    'aria-haspopup': 'menu',
 
-      'aria-controls':
-        open
-          ? contentId
-          : undefined,
+    'aria-controls': open ? contentId : undefined,
 
-      onClick: handleClick,
-    };
+    onClick: handleClick,
+  };
 
   if (render) {
-    return (
-      <>
-        {render(triggerProps)}
-      </>
-    );
+    return <>{render(triggerProps)}</>;
   }
 
   return (
@@ -200,10 +139,7 @@ export function DropdownTrigger({
       {...props}
       {...triggerProps}
       type="button"
-      className={classNames(
-        'rush-dropdown__trigger',
-        className,
-      )}
+      className={classNames('rush-dropdown__trigger', className)}
       data-slot="dropdown-trigger"
     >
       {children}
@@ -211,8 +147,7 @@ export function DropdownTrigger({
   );
 }
 
-export interface DropdownContentProps
-  extends ComponentPropsWithoutRef<'div'> {
+export interface DropdownContentProps extends ComponentPropsWithoutRef<'div'> {
   align?: DropdownAlign;
 
   /**
@@ -234,94 +169,52 @@ export function DropdownContent({
   style,
   ...props
 }: DropdownContentProps) {
-  const {
-    open,
-    setOpen,
-    triggerRef,
-    contentId,
-  } = useDropdownContext();
+  const { open, setOpen, triggerRef, contentId } = useDropdownContext();
 
-  const contentRef =
-    useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  const [
-    position,
-    setPosition,
-  ] = useState<DropdownPosition | null>(
-    null,
-  );
+  const [position, setPosition] = useState<DropdownPosition | null>(null);
 
-  const updatePosition = (): void => {
-    const trigger =
-      triggerRef.current;
+  const updatePosition = useCallback((): void => {
+    const trigger = triggerRef.current;
 
-    const content =
-      contentRef.current;
+    const content = contentRef.current;
 
-    if (
-      trigger == null
-      || content == null
-    ) {
+    if (trigger == null || content == null) {
       return;
     }
 
-    const triggerRect =
-      trigger.getBoundingClientRect();
+    const triggerRect = trigger.getBoundingClientRect();
 
-    const contentRect =
-      content.getBoundingClientRect();
+    const contentRect = content.getBoundingClientRect();
 
-    let left =
-      triggerRect.left;
+    let left = triggerRect.left;
 
     if (align === 'center') {
-      left =
-        triggerRect.left
-        + triggerRect.width / 2
-        - contentRect.width / 2;
+      left = triggerRect.left + triggerRect.width / 2 - contentRect.width / 2;
     }
 
     if (align === 'end') {
-      left =
-        triggerRect.right
-        - contentRect.width;
+      left = triggerRect.right - contentRect.width;
     }
 
     const viewportPadding = 8;
 
     left = Math.max(
       viewportPadding,
-      Math.min(
-        left,
-        window.innerWidth
-          - contentRect.width
-          - viewportPadding,
-      ),
+      Math.min(left, window.innerWidth - contentRect.width - viewportPadding),
     );
 
-    let top =
-      triggerRect.bottom
-      + offset;
+    let top = triggerRect.bottom + offset;
 
     /*
      * If there isn't enough room below,
      * try opening above the trigger.
      */
-    if (
-      top
-        + contentRect.height
-        + viewportPadding
-      > window.innerHeight
-    ) {
-      const topAbove =
-        triggerRect.top
-        - contentRect.height
-        - offset;
+    if (top + contentRect.height + viewportPadding > window.innerHeight) {
+      const topAbove = triggerRect.top - contentRect.height - offset;
 
-      if (
-        topAbove
-        >= viewportPadding
-      ) {
+      if (topAbove >= viewportPadding) {
         top = topAbove;
       }
     }
@@ -330,98 +223,60 @@ export function DropdownContent({
       top,
       left,
     });
-  };
+  }, [align, offset, triggerRef]);
 
   useLayoutEffect(() => {
     if (!open) {
-      setPosition(null);
-
       return;
     }
 
     updatePosition();
-  }, [
-    open,
-    align,
-    offset,
-  ]);
+  }, [open, align, offset, updatePosition]);
 
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    const handleWindowChange =
-      (): void => {
-        updatePosition();
-      };
+    const handleWindowChange = (): void => {
+      updatePosition();
+    };
 
-    window.addEventListener(
-      'resize',
-      handleWindowChange,
-    );
+    window.addEventListener('resize', handleWindowChange);
 
-    window.addEventListener(
-      'scroll',
-      handleWindowChange,
-      true,
-    );
+    window.addEventListener('scroll', handleWindowChange, true);
 
     return () => {
-      window.removeEventListener(
-        'resize',
-        handleWindowChange,
-      );
+      window.removeEventListener('resize', handleWindowChange);
 
-      window.removeEventListener(
-        'scroll',
-        handleWindowChange,
-        true,
-      );
+      window.removeEventListener('scroll', handleWindowChange, true);
     };
-  }, [
-    open,
-    align,
-    offset,
-  ]);
+  }, [open, align, offset, updatePosition]);
 
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    const handlePointerDown = (
-      event: MouseEvent,
-    ): void => {
-      const target =
-        event.target;
+    const handlePointerDown = (event: MouseEvent): void => {
+      const target = event.target;
 
       if (!(target instanceof Node)) {
         return;
       }
 
-      if (
-        contentRef.current?.contains(
-          target,
-        )
-      ) {
+      if (contentRef.current?.contains(target)) {
         return;
       }
 
-      if (
-        triggerRef.current?.contains(
-          target,
-        )
-      ) {
+      if (triggerRef.current?.contains(target)) {
         return;
       }
 
       setOpen(false);
     };
 
-    const handleKeyDown = (
-      event: KeyboardEvent,
-    ): void => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key !== 'Escape') {
         return;
       }
@@ -435,55 +290,31 @@ export function DropdownContent({
       });
     };
 
-    document.addEventListener(
-      'mousedown',
-      handlePointerDown,
-    );
+    document.addEventListener('mousedown', handlePointerDown);
 
-    document.addEventListener(
-      'keydown',
-      handleKeyDown,
-    );
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.removeEventListener(
-        'mousedown',
-        handlePointerDown,
-      );
+      document.removeEventListener('mousedown', handlePointerDown);
 
-      document.removeEventListener(
-        'keydown',
-        handleKeyDown,
-      );
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [
-    open,
-    setOpen,
-    triggerRef,
-  ]);
+  }, [open, setOpen, triggerRef]);
 
   useEffect(() => {
-    if (
-      !open
-      || position == null
-    ) {
+    if (!open || position == null) {
       return;
     }
 
     requestAnimationFrame(() => {
-      const firstItem =
-        contentRef.current
-          ?.querySelector<HTMLElement>(
-            '[role="menuitem"]:not([aria-disabled="true"]), '
-              + '[role="menuitemcheckbox"]:not([aria-disabled="true"])',
-          );
+      const firstItem = contentRef.current?.querySelector<HTMLElement>(
+        '[role="menuitem"]:not([aria-disabled="true"]), ' +
+          '[role="menuitemcheckbox"]:not([aria-disabled="true"])',
+      );
 
       firstItem?.focus();
     });
-  }, [
-    open,
-    position,
-  ]);
+  }, [open, position]);
 
   if (!open) {
     return null;
@@ -492,18 +323,11 @@ export function DropdownContent({
   const contentStyle: CSSProperties = {
     ...style,
 
-    top:
-      position?.top
-      ?? 0,
+    top: position?.top ?? 0,
 
-    left:
-      position?.left
-      ?? 0,
+    left: position?.left ?? 0,
 
-    visibility:
-      position == null
-        ? 'hidden'
-        : undefined,
+    visibility: position == null ? 'hidden' : undefined,
   };
 
   return createPortal(
@@ -512,10 +336,7 @@ export function DropdownContent({
       ref={contentRef}
       id={contentId}
       role="menu"
-      className={classNames(
-        'rush-dropdown__content',
-        className,
-      )}
+      className={classNames('rush-dropdown__content', className)}
       data-align={align}
       data-slot="dropdown-content"
       style={contentStyle}
@@ -526,11 +347,7 @@ export function DropdownContent({
   );
 }
 
-export interface DropdownItemProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'type'
-  > {
+export interface DropdownItemProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
   onSelect?: () => void;
 
   destructive?: boolean;
@@ -545,19 +362,12 @@ export function DropdownItem({
   onClick,
   ...props
 }: DropdownItemProps) {
-  const {
-    setOpen,
-  } = useDropdownContext();
+  const { setOpen } = useDropdownContext();
 
-  const handleClick = (
-    event: ReactMouseEvent<HTMLButtonElement>,
-  ): void => {
+  const handleClick = (event: ReactMouseEvent<HTMLButtonElement>): void => {
     onClick?.(event);
 
-    if (
-      event.defaultPrevented
-      || disabled
-    ) {
+    if (event.defaultPrevented || disabled) {
       return;
     }
 
@@ -572,35 +382,27 @@ export function DropdownItem({
       type="button"
       role="menuitem"
       disabled={disabled}
-      aria-disabled={
-        disabled || undefined
-      }
+      aria-disabled={disabled || undefined}
       className={classNames(
         'rush-dropdown__item',
-        destructive
-          && 'rush-dropdown__item--destructive',
+        destructive && 'rush-dropdown__item--destructive',
         className,
       )}
       data-slot="dropdown-item"
-      onClick={
-        handleClick
-      }
+      onClick={handleClick}
     >
       {children}
     </button>
   );
 }
 
-export interface DropdownCheckboxItemProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    'type'
-  > {
+export interface DropdownCheckboxItemProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'type'
+> {
   checked: boolean;
 
-  onCheckedChange?: (
-    checked: boolean,
-  ) => void;
+  onCheckedChange?: (checked: boolean) => void;
 }
 
 export function DropdownCheckboxItem({
@@ -612,21 +414,14 @@ export function DropdownCheckboxItem({
   onClick,
   ...props
 }: DropdownCheckboxItemProps) {
-  const handleClick = (
-    event: ReactMouseEvent<HTMLButtonElement>,
-  ): void => {
+  const handleClick = (event: ReactMouseEvent<HTMLButtonElement>): void => {
     onClick?.(event);
 
-    if (
-      event.defaultPrevented
-      || disabled
-    ) {
+    if (event.defaultPrevented || disabled) {
       return;
     }
 
-    onCheckedChange?.(
-      !checked,
-    );
+    onCheckedChange?.(!checked);
   };
 
   return (
@@ -635,51 +430,29 @@ export function DropdownCheckboxItem({
       type="button"
       role="menuitemcheckbox"
       aria-checked={checked}
-      aria-disabled={
-        disabled || undefined
-      }
+      aria-disabled={disabled || undefined}
       disabled={disabled}
-      className={classNames(
-        'rush-dropdown__item',
-        'rush-dropdown__checkbox-item',
-        className,
-      )}
+      className={classNames('rush-dropdown__item', 'rush-dropdown__checkbox-item', className)}
       data-slot="dropdown-checkbox-item"
-      onClick={
-        handleClick
-      }
+      onClick={handleClick}
     >
-      <span
-        aria-hidden="true"
-        className="rush-dropdown__checkbox-indicator"
-      >
-        {checked
-          ? '✓'
-          : ''}
+      <span aria-hidden="true" className="rush-dropdown__checkbox-indicator">
+        {checked ? '✓' : ''}
       </span>
 
-      <span className="rush-dropdown__item-label">
-        {children}
-      </span>
+      <span className="rush-dropdown__item-label">{children}</span>
     </button>
   );
 }
 
-export type DropdownSeparatorProps =
-  ComponentPropsWithoutRef<'div'>;
+export type DropdownSeparatorProps = ComponentPropsWithoutRef<'div'>;
 
-export function DropdownSeparator({
-  className,
-  ...props
-}: DropdownSeparatorProps) {
+export function DropdownSeparator({ className, ...props }: DropdownSeparatorProps) {
   return (
     <div
       {...props}
       role="separator"
-      className={classNames(
-        'rush-dropdown__separator',
-        className,
-      )}
+      className={classNames('rush-dropdown__separator', className)}
       data-slot="dropdown-separator"
     />
   );

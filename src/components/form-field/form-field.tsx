@@ -1,7 +1,4 @@
-import type {
-  AriaAttributes,
-  ReactNode,
-} from 'react';
+import type { AriaAttributes, ReactNode } from 'react';
 
 import { Label } from '../label';
 
@@ -39,48 +36,24 @@ export interface FormFieldProps {
    * Renders the form control with the required accessibility
    * attributes.
    */
-  children: (
-    controlProps: FormFieldControlProps,
-  ) => ReactNode;
+  children: (controlProps: FormFieldControlProps) => ReactNode;
 }
 
-export function FormField({
-  id,
-  label,
-  description,
-  error,
-  children,
-}: FormFieldProps) {
-  const descriptionId = description
-    ? `${id}-description`
-    : undefined;
+export function FormField({ id, label, description, error, children }: FormFieldProps) {
+  const descriptionId = description ? `${id}-description` : undefined;
 
-  const errorId = error
-    ? `${id}-error`
-    : undefined;
+  const errorId = error ? `${id}-error` : undefined;
 
-  const describedBy = [
-    descriptionId,
-    errorId,
-  ]
-    .filter(
-      (value): value is string => Boolean(value),
-    )
-    .join(' ') || undefined;
+  const describedBy =
+    [descriptionId, errorId].filter((value): value is string => Boolean(value)).join(' ') ||
+    undefined;
 
   const hasError = Boolean(error);
 
   return (
-    <div
-      className="rush-form-field"
-      data-slot="form-field"
-      data-invalid={hasError || undefined}
-    >
+    <div className="rush-form-field" data-slot="form-field" data-invalid={hasError || undefined}>
       {label && (
-        <Label
-          htmlFor={id}
-          className="rush-form-field__label"
-        >
+        <Label htmlFor={id} className="rush-form-field__label">
           {label}
         </Label>
       )}
@@ -95,10 +68,7 @@ export function FormField({
         </p>
       )}
 
-      <div
-        className="rush-form-field__control"
-        data-slot="form-field-control"
-      >
+      <div className="rush-form-field__control" data-slot="form-field-control">
         {children({
           id,
           'aria-describedby': describedBy,
