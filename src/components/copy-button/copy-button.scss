@@ -2,49 +2,31 @@
 
 .rush-copy-button {
   --rush-copy-button-background: var(--rush-color-primary);
-
   --rush-copy-button-foreground: var(--rush-color-primary-foreground);
-
   --rush-copy-button-border-color: var(--rush-color-primary);
-
   --rush-copy-button-hover-background: var(--rush-color-primary-hover);
-
   --rush-copy-button-hover-border-color: var(--rush-copy-button-hover-background);
-
   --rush-copy-button-success-background: var(--rush-color-success);
-
   --rush-copy-button-success-foreground: var(--rush-color-success-foreground);
-
   --rush-copy-button-success-border-color: var(--rush-color-success);
-
   --rush-copy-button-error-background: var(--rush-color-destructive);
-
   --rush-copy-button-error-foreground: var(--rush-color-destructive-foreground);
-
   --rush-copy-button-error-border-color: var(--rush-color-destructive);
 
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-
   min-height: 2.5rem;
   padding: 0.5rem 0.875rem;
-
   border: 1px solid var(--rush-copy-button-border-color);
-
   border-radius: var(--rush-radius-md);
-
   background-color: var(--rush-copy-button-background);
-
   color: var(--rush-copy-button-foreground);
-
   font-weight: 500;
   line-height: 1.25;
   text-align: center;
-
   cursor: pointer;
-
   transition:
     background-color var(--rush-transition-duration-fast) var(--rush-transition-timing),
     border-color var(--rush-transition-duration-fast) var(--rush-transition-timing),
@@ -53,7 +35,6 @@
 
   &:hover:not(:disabled) {
     border-color: var(--rush-copy-button-hover-border-color);
-
     background-color: var(--rush-copy-button-hover-background);
   }
 
@@ -67,17 +48,13 @@
 
   &[data-status='copied'] {
     border-color: var(--rush-copy-button-success-border-color);
-
     background-color: var(--rush-copy-button-success-background);
-
     color: var(--rush-copy-button-success-foreground);
   }
 
   &[data-status='error'] {
     border-color: var(--rush-copy-button-error-border-color);
-
     background-color: var(--rush-copy-button-error-background);
-
     color: var(--rush-copy-button-error-foreground);
   }
 }

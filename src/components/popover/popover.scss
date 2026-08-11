@@ -1,25 +1,15 @@
 .rush-popover {
   &__content {
     box-sizing: border-box;
-
     position: fixed;
-
     z-index: var(--rush-popover-z-index, 1050);
-
     min-width: var(--rush-popover-min-width, 16rem);
-
     max-width: var(--rush-popover-max-width, min(24rem, calc(100vw - 1rem)));
-
     padding: var(--rush-popover-padding, 1rem);
-
     border: 1px solid var(--rush-popover-border-color, var(--rush-color-border, #e2e8f0));
-
     border-radius: var(--rush-popover-border-radius, var(--rush-radius-lg, 0.625rem));
-
     background-color: var(--rush-popover-background, var(--rush-color-popover, #fff));
-
     color: var(--rush-popover-foreground, var(--rush-color-popover-foreground, #0f172a));
-
     box-shadow: 0 10px 30px rgb(0 0 0 / 12%);
   }
 

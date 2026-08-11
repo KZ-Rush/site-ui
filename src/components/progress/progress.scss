@@ -1,35 +1,26 @@
 .rush-progress {
   position: relative;
-
   width: 100%;
   height: var(--rush-progress-height, 1.875rem);
-
   font-family: var(--rush-font-sans, system-ui, sans-serif);
 
   &__track {
     width: 100%;
     height: 100%;
-
     overflow: hidden;
-
     border-radius: var(--rush-progress-border-radius, var(--rush-radius-lg, 0.625rem));
-
     background-color: var(--rush-progress-track-background, var(--rush-color-muted, #f1f5f9));
   }
 
   &__fill {
     width: var(--rush-progress-value, 0%);
     height: 100%;
-
     border-radius: inherit;
-
     background-color: var(
       --rush-progress-fill-background,
       var(--rush-color-primary-yellow, #fbad00)
     );
-
     box-shadow: inset 0 4px 8px var(--rush-progress-highlight-color, rgb(255 255 255 / 33%));
-
     transition: width var(--rush-progress-transition-duration, 300ms)
       var(--rush-transition-timing, ease-in-out);
   }
@@ -37,20 +28,15 @@
   &__value {
     position: absolute;
     inset: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     padding-inline: 0.5rem;
-
     color: var(--rush-progress-value-foreground, #935300);
-
     font-size: 0.875rem;
     font-weight: 700;
     line-height: 1;
     text-align: center;
-
     pointer-events: none;
   }
 }

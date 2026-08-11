@@ -11,18 +11,12 @@
 
   display: flex;
   align-items: center;
-
   width: 100%;
   min-width: 0;
-
   border: 1px solid var(--rush-input-border-color, var(--rush-color-input, #e2e8f0));
-
   border-radius: var(--rush-input-border-radius, var(--rush-radius-md, 0.5rem));
-
   background-color: var(--rush-input-background, var(--rush-color-background, #fff));
-
   color: var(--rush-input-foreground, var(--rush-color-foreground, #0f172a));
-
   transition:
     border-color var(--rush-transition-duration-fast, 150ms)
       var(--rush-transition-timing, ease-in-out),
@@ -31,7 +25,6 @@
 
   &:focus-within {
     border-color: var(--rush-input-focus-border-color, var(--rush-color-ring, #94a3b8));
-
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--rush-color-ring, #94a3b8) 30%, transparent);
   }
 
@@ -40,7 +33,6 @@
 
     &:focus-within {
       border-color: var(--rush-input-invalid-border-color, var(--rush-color-destructive, #dc2626));
-
       box-shadow: 0 0 0 3px
         color-mix(in srgb, var(--rush-color-destructive, #dc2626) 25%, transparent);
     }
@@ -48,7 +40,6 @@
 
   &--disabled {
     cursor: not-allowed;
-
     opacity: 0.5;
   }
 
@@ -57,7 +48,6 @@
 
     .rush-input__control {
       padding: 0.375rem 0.625rem;
-
       font-size: 0.8125rem;
     }
   }
@@ -67,7 +57,6 @@
 
     .rush-input__control {
       padding: 0.5rem 0.75rem;
-
       font-size: 0.875rem;
     }
   }
@@ -77,23 +66,18 @@
 
     .rush-input__control {
       padding: 0.625rem 0.875rem;
-
       font-size: 1rem;
     }
   }
 
   &__control {
     flex: 1 1 auto;
-
     width: 100%;
     min-width: 0;
-
     border: 0;
     outline: 0;
-
     background: transparent;
     color: inherit;
-
     font: inherit;
 
     &::placeholder {
@@ -110,7 +94,6 @@
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-
     color: var(--rush-input-adornment-foreground, var(--rush-color-muted-foreground, #64748b));
 
     svg {

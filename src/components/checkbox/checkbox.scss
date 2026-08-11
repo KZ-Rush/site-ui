@@ -2,22 +2,16 @@
 
 .rush-checkbox {
   --rush-checkbox-foreground: var(--rush-color-foreground);
-
   --rush-checkbox-icon-color: var(--rush-color-muted-foreground);
-
   --rush-checkbox-icon-checked-color: var(--rush-color-primary-orange);
-
   --rush-checkbox-icon-hover-color: var(--rush-color-primary-orange);
 
   display: inline-flex;
   align-items: flex-start;
   gap: 0.5rem;
-
   color: var(--rush-checkbox-foreground);
-
   font-size: 0.875rem;
   line-height: 1.25rem;
-
   cursor: pointer;
   user-select: none;
 
@@ -27,17 +21,13 @@
 
   &__icon {
     position: relative;
-
     display: inline-flex;
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
-
     width: 1.25rem;
     height: 1.25rem;
-
     color: var(--rush-checkbox-icon-color);
-
     transition:
       color var(--rush-transition-duration-fast) var(--rush-transition-timing),
       opacity var(--rush-transition-duration-fast) var(--rush-transition-timing);
@@ -47,7 +37,6 @@
   &__icon-unchecked {
     position: absolute;
     inset: 0;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;

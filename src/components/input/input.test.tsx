@@ -32,8 +32,6 @@ describe('Input', () => {
   });
 
   it('supports controlled values', async () => {
-    const user = userEvent.setup();
-
     const onChange = vi.fn();
 
     render(<Input aria-label="Player name" value="Alex" onChange={onChange} readOnly />);

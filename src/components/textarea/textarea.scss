@@ -10,18 +10,12 @@
   }
 
   display: flex;
-
   width: 100%;
   min-width: 0;
-
   border: 1px solid var(--rush-textarea-border-color, var(--rush-color-input, #e2e8f0));
-
   border-radius: var(--rush-textarea-border-radius, var(--rush-radius-md, 0.5rem));
-
   background-color: var(--rush-textarea-background, var(--rush-color-background, #fff));
-
   color: var(--rush-textarea-foreground, var(--rush-color-foreground, #0f172a));
-
   transition:
     border-color var(--rush-transition-duration-fast, 150ms)
       var(--rush-transition-timing, ease-in-out),
@@ -30,7 +24,6 @@
 
   &:focus-within {
     border-color: var(--rush-textarea-focus-border-color, var(--rush-color-ring, #94a3b8));
-
     box-shadow: 0 0 0 3px color-mix(in srgb, var(--rush-color-ring, #94a3b8) 30%, transparent);
   }
 
@@ -42,7 +35,6 @@
         --rush-textarea-invalid-border-color,
         var(--rush-color-destructive, #dc2626)
       );
-
       box-shadow: 0 0 0 3px
         color-mix(in srgb, var(--rush-color-destructive, #dc2626) 25%, transparent);
     }
@@ -56,9 +48,7 @@
   &--sm {
     .rush-textarea__control {
       min-height: var(--rush-textarea-height-sm, 5rem);
-
       padding: 0.5rem 0.625rem;
-
       font-size: 0.8125rem;
     }
   }
@@ -66,9 +56,7 @@
   &--default {
     .rush-textarea__control {
       min-height: var(--rush-textarea-height, 6rem);
-
       padding: 0.625rem 0.75rem;
-
       font-size: 0.875rem;
     }
   }
@@ -76,27 +64,20 @@
   &--lg {
     .rush-textarea__control {
       min-height: var(--rush-textarea-height-lg, 7rem);
-
       padding: 0.75rem 0.875rem;
-
       font-size: 1rem;
     }
   }
 
   &__control {
     display: block;
-
     width: 100%;
     min-width: 0;
-
     border: 0;
     outline: 0;
-
     resize: vertical;
-
     background: transparent;
     color: inherit;
-
     font: inherit;
     line-height: 1.5;
 

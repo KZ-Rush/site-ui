@@ -1,21 +1,12 @@
 .rush-toast-container {
   --toastify-font-family: var(--rush-font-sans, system-ui, sans-serif);
-
   --toastify-color-light: var(--rush-color-card, #fff);
-
   --toastify-text-color-light: var(--rush-color-card-foreground, #0f172a);
-
   --toastify-color-dark: var(--rush-color-card, #14161b);
-
   --toastify-text-color-dark: var(--rush-color-card-foreground, #f8fafc);
-
   --toastify-color-info: var(--rush-color-primary, #2563eb);
-
   --toastify-color-success: var(--rush-color-success, #16a34a);
-
   --toastify-color-warning: var(--rush-color-primary-yellow, #fbad00);
-
   --toastify-color-error: var(--rush-color-destructive, #dc2626);
-
   --toastify-toast-bd-radius: var(--rush-radius-md, 0.5rem);
 }

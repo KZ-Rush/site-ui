@@ -1,30 +1,20 @@
 .rush-table-container {
   box-sizing: border-box;
-
   width: 100%;
   max-width: 100%;
-
   overflow-x: auto;
-
   border: 1px solid var(--rush-table-border-color, var(--rush-color-border, #e2e8f0));
-
   border-radius: var(--rush-table-border-radius, var(--rush-radius-lg, 0.625rem));
-
   background-color: var(--rush-table-background, var(--rush-color-card, #fff));
 }
 
 .rush-table {
   box-sizing: border-box;
-
   width: 100%;
   min-width: 100%;
-
   border-collapse: collapse;
-
   color: var(--rush-table-foreground, var(--rush-color-card-foreground, #0f172a));
-
   font-size: var(--rush-table-font-size, 0.875rem);
-
   line-height: 1.4;
 
   *,
@@ -43,15 +33,12 @@
 
   &__footer {
     background-color: var(--rush-table-footer-background, var(--rush-color-muted, #f8fafc));
-
     font-weight: 600;
   }
 
   &__row {
     border-bottom: 1px solid var(--rush-table-border-color, var(--rush-color-border, #e2e8f0));
-
     background-color: transparent;
-
     transition: background-color var(--rush-transition-duration-fast, 150ms)
       var(--rush-transition-timing, ease-in-out);
 
@@ -90,15 +77,12 @@
   &__head,
   &__cell {
     min-width: 0;
-
     vertical-align: middle;
   }
 
   &__head {
     color: var(--rush-table-head-foreground, var(--rush-color-muted-foreground, #64748b));
-
     font-weight: 600;
-
     white-space: nowrap;
   }
 
@@ -120,11 +104,8 @@
 
   &__caption {
     padding: 0.75rem;
-
     color: var(--rush-table-caption-foreground, var(--rush-color-muted-foreground, #64748b));
-
     font-size: 0.8125rem;
-
     caption-side: bottom;
     text-align: left;
   }

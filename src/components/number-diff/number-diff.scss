@@ -1,8 +1,6 @@
 .rush-number-diff {
   color: var(--rush-number-diff-neutral-foreground, inherit);
-
   font-family: var(--rush-font-sans, system-ui, sans-serif);
-
   font-variant-numeric: tabular-nums;
 
   &--positive {
@@ -22,6 +20,6 @@
   }
 
   &__label {
-    color: currentColor;
+    color: currentcolor;
   }
 }
