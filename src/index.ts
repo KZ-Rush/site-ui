@@ -55,6 +55,8 @@ export {
 
 export { Checkbox, type CheckboxProps } from './components/checkbox';
 
+export { ConfirmDialog, type ConfirmDialogProps } from './components/confirm-dialog';
+
 export { CopyButton, type CopyButtonProps, type CopyButtonStatus } from './components/copy-button';
 
 export {
