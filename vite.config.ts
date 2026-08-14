@@ -19,6 +19,8 @@ export default defineConfig({
         'src/**/*.test.tsx',
         'src/**/*-story-icons.ts',
         'src/**/*-story-icons.tsx',
+        'src/**/*.stories.scss',
+        'src/test',
       ],
     }),
   ],

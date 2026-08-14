@@ -54,7 +54,6 @@ export const Default: Story = {
         position: 'relative',
         width: '28rem',
         height: '16rem',
-        border: '1px solid #e2e8f0',
       }}
     >
       <div
