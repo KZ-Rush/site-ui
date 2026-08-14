@@ -135,6 +135,7 @@ export {
   type DropdownCheckboxItemProps,
   type DropdownContentProps,
   type DropdownItemProps,
+  type DropdownItemRenderProps,
   type DropdownProps,
   type DropdownSeparatorProps,
   type DropdownTriggerProps,

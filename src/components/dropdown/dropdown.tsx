@@ -3,6 +3,7 @@ import type {
   CSSProperties,
   ComponentPropsWithoutRef,
   MouseEvent as ReactMouseEvent,
+  MouseEventHandler,
   ReactNode,
 } from 'react';
 
@@ -347,27 +348,92 @@ export function DropdownContent({
   );
 }
 
-export interface DropdownItemProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
-  onSelect?: () => void;
+export interface DropdownItemRenderProps<TElement extends HTMLElement> {
+  role: 'menuitem';
 
-  destructive?: boolean;
+  tabIndex: number;
+
+  'aria-disabled'?: true;
+
+  'data-slot': 'dropdown-item';
+
+  className: string;
+
+  onClick: MouseEventHandler<TElement>;
 }
 
-export function DropdownItem({
+export interface DropdownItemProps<TElement extends HTMLElement = HTMLButtonElement> extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'type' | 'onClick'
+> {
+  /**
+   * Called when the item is successfully selected.
+   */
+  onSelect?: () => void;
+
+  /**
+   * Applies destructive visual styling.
+   */
+  destructive?: boolean;
+
+  /**
+   * Custom renderer used for links, router integrations,
+   * or other interactive elements.
+   */
+  render?: (props: DropdownItemRenderProps<TElement>) => ReactNode;
+}
+
+export function DropdownItem<TElement extends HTMLElement = HTMLButtonElement>({
   onSelect,
   destructive = false,
-  disabled,
+  disabled = false,
   className,
   children,
-  onClick,
+  render,
   ...props
-}: DropdownItemProps) {
+}: DropdownItemProps<TElement>) {
   const { setOpen } = useDropdownContext();
 
-  const handleClick = (event: ReactMouseEvent<HTMLButtonElement>): void => {
-    onClick?.(event);
+  const itemClassName = classNames(
+    'rush-dropdown__item',
+    destructive && 'rush-dropdown__item--destructive',
+    disabled && 'rush-dropdown__item--disabled',
+    className,
+  );
 
-    if (event.defaultPrevented || disabled) {
+  const handleRenderClick: MouseEventHandler<TElement> = (event): void => {
+    if (event.defaultPrevented) {
+      return;
+    }
+
+    if (disabled) {
+      event.preventDefault();
+
+      return;
+    }
+
+    onSelect?.();
+
+    setOpen(false);
+  };
+
+  if (render) {
+    return (
+      <>
+        {render({
+          role: 'menuitem',
+          tabIndex: disabled ? -1 : 0,
+          'aria-disabled': disabled || undefined,
+          'data-slot': 'dropdown-item',
+          className: itemClassName,
+          onClick: handleRenderClick,
+        })}
+      </>
+    );
+  }
+
+  const handleButtonClick: MouseEventHandler<HTMLButtonElement> = (event): void => {
+    if (event.defaultPrevented) {
       return;
     }
 
@@ -383,13 +449,9 @@ export function DropdownItem({
       role="menuitem"
       disabled={disabled}
       aria-disabled={disabled || undefined}
-      className={classNames(
-        'rush-dropdown__item',
-        destructive && 'rush-dropdown__item--destructive',
-        className,
-      )}
+      className={itemClassName}
       data-slot="dropdown-item"
-      onClick={handleClick}
+      onClick={handleButtonClick}
     >
       {children}
     </button>

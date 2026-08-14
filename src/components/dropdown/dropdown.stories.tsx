@@ -171,3 +171,33 @@ export const IconTrigger: Story = {
     </Dropdown>
   ),
 };
+
+export const CustomItemRenderer: Story = {
+  render: () => (
+    <Dropdown>
+      <DropdownTrigger>User menu</DropdownTrigger>
+
+      <DropdownContent>
+        <DropdownItem<HTMLAnchorElement>
+          render={(props) => (
+            <a {...props} href="#profile">
+              Profile
+            </a>
+          )}
+        />
+
+        <DropdownItem<HTMLAnchorElement>
+          render={(props) => (
+            <a {...props} href="#settings">
+              Settings
+            </a>
+          )}
+        />
+
+        <DropdownSeparator />
+
+        <DropdownItem>Sign out</DropdownItem>
+      </DropdownContent>
+    </Dropdown>
+  ),
+};

@@ -12,6 +12,7 @@ export type {
   DropdownCheckboxItemProps,
   DropdownContentProps,
   DropdownItemProps,
+  DropdownItemRenderProps,
   DropdownProps,
   DropdownSeparatorProps,
   DropdownTriggerProps,

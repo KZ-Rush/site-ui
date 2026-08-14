@@ -293,4 +293,103 @@ describe('Dropdown', () => {
       expect(trigger).toHaveFocus();
     });
   });
+
+  it('supports a custom item renderer', async () => {
+    const user = userEvent.setup();
+
+    render(
+      <Dropdown defaultOpen>
+        <DropdownTrigger>Open</DropdownTrigger>
+
+        <DropdownContent>
+          <DropdownItem<HTMLAnchorElement>
+            render={(props) => (
+              <a {...props} href="/profile">
+                Profile
+              </a>
+            )}
+          />
+        </DropdownContent>
+      </Dropdown>,
+    );
+
+    const item = screen.getByRole('menuitem', {
+      name: 'Profile',
+    });
+
+    expect(item).toHaveAttribute('href', '/profile');
+
+    await user.click(item);
+
+    expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+  });
+
+  it('calls onSelect for a custom rendered item', async () => {
+    const user = userEvent.setup();
+
+    const onSelect = vi.fn();
+
+    render(
+      <Dropdown defaultOpen>
+        <DropdownTrigger>Open</DropdownTrigger>
+
+        <DropdownContent>
+          <DropdownItem<HTMLAnchorElement>
+            onSelect={onSelect}
+            render={(props) => (
+              <a {...props} href="#profile">
+                Profile
+              </a>
+            )}
+          />
+        </DropdownContent>
+      </Dropdown>,
+    );
+
+    await user.click(
+      screen.getByRole('menuitem', {
+        name: 'Profile',
+      }),
+    );
+
+    expect(onSelect).toHaveBeenCalledOnce();
+  });
+
+  it('does not select a disabled custom rendered item', async () => {
+    const user = userEvent.setup();
+
+    const onSelect = vi.fn();
+
+    render(
+      <Dropdown defaultOpen>
+        <DropdownTrigger>Open</DropdownTrigger>
+
+        <DropdownContent>
+          <DropdownItem<HTMLAnchorElement>
+            disabled
+            onSelect={onSelect}
+            render={(props) => (
+              <a {...props} href="#profile">
+                Profile
+              </a>
+            )}
+          />
+        </DropdownContent>
+      </Dropdown>,
+    );
+
+    const item = screen.getByRole('menuitem', {
+      name: 'Profile',
+    });
+
+    expect(item).toHaveAttribute('aria-disabled', 'true');
+
+    expect(item).toHaveAttribute('tabindex', '-1');
+
+    await user.click(item);
+
+    expect(onSelect).not.toHaveBeenCalled();
+
+    expect(screen.getByRole('menu')).toBeInTheDocument();
+  });
 });
