@@ -17,19 +17,13 @@ function ThemeDecorator(
     };
   },
 ) {
-  const theme =
-    context.globals.theme ?? 'light';
+  const theme = context.globals.theme ?? 'light';
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      'data-rush-theme',
-      theme,
-    );
+    document.documentElement.setAttribute('data-rush-theme', theme);
 
     return () => {
-      document.documentElement.removeAttribute(
-        'data-rush-theme',
-      );
+      document.documentElement.removeAttribute('data-rush-theme');
     };
   }, [theme]);
 
@@ -79,9 +73,7 @@ const preview: Preview = {
     layout: 'fullscreen',
   },
 
-  decorators: [
-    ThemeDecorator,
-  ],
+  decorators: [ThemeDecorator],
 };
 
 export default preview;

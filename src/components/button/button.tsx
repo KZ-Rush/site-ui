@@ -4,7 +4,8 @@ import { classNames } from '../../utils/class-names';
 
 import './button.scss';
 
-export type ButtonVariant = 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+export type ButtonVariant =
+  'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link' | 'unstyled';
 
 export type ButtonSize = 'default' | 'sm' | 'lg' | 'icon';
 

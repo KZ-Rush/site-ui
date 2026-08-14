@@ -84,4 +84,14 @@ describe('Button', () => {
       }),
     );
   });
+
+  it('supports the unstyled variant', () => {
+    render(<Button variant="unstyled">Profile</Button>);
+
+    expect(
+      screen.getByRole('button', {
+        name: 'Profile',
+      }),
+    ).toHaveClass('rush-button--variant-unstyled');
+  });
 });

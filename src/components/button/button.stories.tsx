@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn, userEvent, within } from 'storybook/test';
 
 import { Button } from './button';
+import { Avatar } from '../avatar';
 
 const meta = {
   title: 'Components/Button',
@@ -127,6 +128,13 @@ export const AsLink: Story = {
   },
 };
 
+export const Unstyled: Story = {
+  args: {
+    variant: 'unstyled',
+    children: 'Unstyled button',
+  },
+};
+
 export const DisabledLink: Story = {
   args: {
     href: 'https://kz-rush.ru',
@@ -144,4 +152,17 @@ export const ClickInteraction: Story = {
 
     await expect(args.onClick).toHaveBeenCalledOnce();
   },
+};
+
+export const AvatarButton: Story = {
+  args: {
+    variant: 'unstyled',
+    'aria-label': 'Open user menu',
+  },
+
+  render: (args) => (
+    <Button {...args}>
+      <Avatar alt="User avatar" fallback="AR" />
+    </Button>
+  ),
 };
