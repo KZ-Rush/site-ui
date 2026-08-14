@@ -184,6 +184,14 @@
   --rush-switch-checked-thumb-background: var(--rush-color-primary-orange);
   --rush-switch-disabled-thumb-background: #1f222a;
   --rush-switch-transition-duration: 300ms;
+
+  /*
+   * Standalone layout
+   */
+  --rush-standalone-content-width: 32rem;
+  --rush-standalone-padding: 2rem;
+  --rush-standalone-mobile-padding: 1rem;
+  --rush-standalone-section-gap: 2rem;
 }
 
 .dark,
