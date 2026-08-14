@@ -188,6 +188,8 @@ export {
 
 export { Progress, type ProgressProps } from './components/progress';
 
+export { Result, type ResultProps, type ResultStatus } from './components/result';
+
 export { Select, type SelectProps, type SelectSize } from './components/select';
 
 export { Separator, type SeparatorOrientation, type SeparatorProps } from './components/separator';
@@ -208,6 +210,8 @@ export {
 export { Skeleton, type SkeletonProps, type SkeletonVariant } from './components/skeleton';
 
 export { Spinner, type SpinnerProps, type SpinnerSize } from './components/spinner';
+
+export { Statistic, type StatisticProps } from './components/statistic';
 
 export { Switch, type SwitchProps } from './components/switch';
 

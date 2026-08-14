@@ -1,0 +1,32 @@
+.rush-statistic {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  &__title {
+    color: var(--rush-color-muted-foreground);
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  &__value {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    color: var(--rush-color-foreground);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  &__prefix,
+  &__suffix {
+    font-size: 0.875em;
+    font-weight: 500;
+  }
+
+  &__diff {
+    font-size: 0.875rem;
+  }
+}
