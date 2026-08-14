@@ -211,6 +211,8 @@ export { Skeleton, type SkeletonProps, type SkeletonVariant } from './components
 
 export { Spinner, type SpinnerProps, type SpinnerSize } from './components/spinner';
 
+export { Statistic, type StatisticProps } from './components/statistic';
+
 export { Switch, type SwitchProps } from './components/switch';
 
 export {
