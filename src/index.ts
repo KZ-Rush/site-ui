@@ -288,6 +288,17 @@ export {
 } from './layouts/dashboard-layout';
 
 export {
+  StandaloneLayout,
+  StandaloneLayoutContent,
+  StandaloneLayoutFooter,
+  StandaloneLayoutHeader,
+  type StandaloneLayoutContentProps,
+  type StandaloneLayoutFooterProps,
+  type StandaloneLayoutHeaderProps,
+  type StandaloneLayoutProps,
+} from './layouts/standalone-layout';
+
+export {
   WorkspaceAsideToggle,
   WorkspaceLayout,
   WorkspaceMobileAsideToggle,
