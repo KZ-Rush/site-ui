@@ -101,5 +101,8 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "country-flag-icons": "^1.6.20"
   }
 }
