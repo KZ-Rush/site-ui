@@ -19,9 +19,7 @@ const spacingValues = [
 
 const meta = {
   title: 'Utilities',
-  tags: [
-    'autodocs',
-  ],
+  tags: ['autodocs'],
   parameters: {
     layout: 'padded',
   },
