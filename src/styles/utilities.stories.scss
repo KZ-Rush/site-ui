@@ -1,0 +1,129 @@
+.utilities-story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--rush-spacing-10);
+  width: 100%;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rush-spacing-4);
+  }
+
+  &__heading {
+    margin: 0;
+    color: var(--rush-color-foreground);
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  &__description {
+    margin: 0;
+    color: var(--rush-color-muted-foreground);
+    font-size: 0.875rem;
+  }
+
+  &__examples {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rush-spacing-3);
+  }
+
+  &__example {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rush-spacing-2);
+  }
+
+  &__label {
+    color: var(--rush-color-muted-foreground);
+    font-family: monospace;
+    font-size: 0.75rem;
+  }
+
+  &__demo {
+    background: var(--rush-color-muted);
+    border: 1px solid var(--rush-color-border);
+  }
+
+  &__content {
+    padding: var(--rush-spacing-2);
+    background: var(--rush-color-card);
+    color: var(--rush-color-card-foreground);
+  }
+
+  &__box {
+    display: flex;
+    min-width: 3rem;
+    min-height: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: var(--rush-spacing-2);
+    background: var(--rush-color-muted);
+    border: 1px solid var(--rush-color-border);
+    color: var(--rush-color-foreground);
+  }
+
+  &__alignment-area {
+    min-height: 8rem;
+    border: 1px dashed var(--rush-color-border);
+  }
+
+  &__sizing-area {
+    width: 30rem;
+    max-width: 100%;
+    border: 1px dashed var(--rush-color-border);
+  }
+
+  &__spacing-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--rush-color-foreground);
+    font-size: 0.875rem;
+
+    th,
+    td {
+      padding: var(--rush-spacing-2) var(--rush-spacing-3);
+      border-bottom: 1px solid var(--rush-color-border);
+      text-align: start;
+    }
+
+    th {
+      color: var(--rush-color-muted-foreground);
+      font-weight: 500;
+    }
+
+    code {
+      font-family: monospace;
+    }
+  }
+
+  &__spacing-preview {
+    height: 1rem;
+    background: var(--rush-color-primary-orange);
+  }
+
+  &__logical-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--rush-spacing-6);
+  }
+
+  &__logical-example {
+    overflow: hidden;
+    border: 1px dashed var(--rush-color-border);
+  }
+
+  &__logical-title {
+    padding: var(--rush-spacing-2);
+    border-bottom: 1px solid var(--rush-color-border);
+    color: var(--rush-color-muted-foreground);
+    font-size: 0.75rem;
+  }
+
+  @media (width < 48rem) {
+    &__logical-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}
