@@ -48,9 +48,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
   FormattedDateTime,
-  Input,
-  Label,
   FormField,
+  Input,
   RushToastContainer,
   showToast,
   Spinner,
@@ -81,25 +80,28 @@ export function Example() {
             </AlertDescription>
           </Alert>
 
-          <FormField>
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" placeholder="you@example.com" />
+          <FormField id="email" label="Email">
+            {(controlProps) => (
+              <Input {...controlProps} type="email" placeholder="you@example.com" />
+            )}
           </FormField>
 
-          <FormField>
-            <Label htmlFor="newsletter">Subscribe to newsletter</Label>
-            <Checkbox id="newsletter" />
+          <FormField id="newsletter" label="Subscribe to newsletter">
+            {(controlProps) => <Checkbox {...controlProps} />}
           </FormField>
 
-          <FormField>
-            <Label htmlFor="notifications">Notifications</Label>
-            <Switch id="notifications" defaultChecked />
+          <FormField id="notifications" label="Notifications">
+            {(controlProps) => <Switch {...controlProps} defaultChecked />}
           </FormField>
 
           <Tooltip>
-            <TooltipTrigger>
-              <Button variant="ghost">Hover me</Button>
-            </TooltipTrigger>
+            <TooltipTrigger<HTMLButtonElement>
+              render={(triggerProps) => (
+                <Button {...triggerProps} variant="ghost">
+                  Hover me
+                </Button>
+              )}
+            />
             <TooltipContent>Tooltip text</TooltipContent>
           </Tooltip>
 
@@ -129,6 +131,48 @@ export function Example() {
 ```
 
 ## Layout examples
+
+### Standalone layout
+
+Use `StandaloneLayout` for focused pages such as authentication, error, and maintenance screens.
+
+```tsx
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  FormField,
+  Input,
+  StandaloneLayout,
+  StandaloneLayoutContent,
+  StandaloneLayoutFooter,
+  StandaloneLayoutHeader,
+} from '@kz-rush/site-ui';
+
+export function SignInPage() {
+  return (
+    <StandaloneLayout>
+      <StandaloneLayoutHeader>KZ-Rush</StandaloneLayoutHeader>
+
+      <StandaloneLayoutContent>
+        <Card>
+          <CardHeader>
+            <CardTitle>Sign in</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <FormField id="email" label="Email">
+              {(controlProps) => <Input {...controlProps} type="email" />}
+            </FormField>
+          </CardContent>
+        </Card>
+      </StandaloneLayoutContent>
+
+      <StandaloneLayoutFooter>Copyright 2026</StandaloneLayoutFooter>
+    </StandaloneLayout>
+  );
+}
+```
 
 ### Blog layout
 
@@ -268,11 +312,13 @@ export function WorkspacePage() {
 - Pagination
 - Popover, PopoverTrigger, PopoverContent, PopoverClose
 - Progress
+- Result
 - Select
 - Separator
 - SidebarNavigation, SidebarNavigationGroup, SidebarNavigationItem, SidebarNavigationSeparator
 - Skeleton
 - Spinner
+- Statistic
 - Switch
 - Table, TableContainer, TableHeader, TableHead, TableBody, TableRow, TableCell, TableFooter, TableCaption
 - Tabs, TabsList, TabsTrigger, TabsContent
@@ -281,6 +327,7 @@ export function WorkspacePage() {
 - RushToastContainer and showToast
 - BlogLayout
 - DashboardLayout, DashboardSidebarToggle, and DashboardMobileSidebarToggle
+- StandaloneLayout, StandaloneLayoutHeader, StandaloneLayoutContent, and StandaloneLayoutFooter
 - WorkspaceLayout, WorkspaceAsideToggle, WorkspaceSidebarToggle, WorkspaceMobileAsideToggle, and WorkspaceMobileSidebarToggle
 
 ## Styling
@@ -304,6 +351,9 @@ import '@kz-rush/site-ui/styles.css';
 - `npm run test:all` - run all Vitest projects
 - `npm run storybook` - start Storybook on port 6006
 - `npm run build-storybook` - build a static Storybook site
+- `npm run lint` - run JavaScript/TypeScript and SCSS linters
+- `npm run format:check` - verify Prettier formatting
+- `npm run check` - run linters, formatting checks, and unit tests
 
 ### Local workflow
 
@@ -315,19 +365,29 @@ npm run test
 
 ## Release workflow
 
-Releases are published to GitHub Packages by [`.github/workflows/publish.yml`](.github/workflows/publish.yml). The workflow starts when a tag matching `vMAJOR.MINOR.PATCH` is pushed.
+Releases are published to GitHub Packages by [`.github/workflows/release.yml`](.github/workflows/release.yml). The workflow is started manually from GitHub Actions after a release pull request has been merged into `main`.
 
-Before creating the tag, update the version in `package.json` and ensure the changes are merged to the release commit. The tag version must exactly match the package version; for example, version `0.2.0` requires tag `v0.2.0`.
+Prepare the release on a branch with a clean working tree. The helper updates `package.json` and `package-lock.json` and creates the release commit; it intentionally refuses to run directly on `main`.
 
 ```bash
-npm version 0.2.0 --no-git-tag-version
-git add package.json package-lock.json
-git commit -m "chore: release v0.2.0"
-git tag v0.2.0
-git push origin main --follow-tags
+git switch -c release/0.18.0
+npm run prepare-release -- 0.18.0
+git push -u origin release/0.18.0
 ```
 
-The workflow installs dependencies, verifies the tag and package versions match, runs unit and Storybook tests, builds the package, verifies its contents with `npm pack --dry-run`, and publishes using `GITHUB_TOKEN`.
+Open and merge the pull request into `main`, then go to **GitHub → Actions → Release package → Run workflow**, select `main`, and enter the same version without the `v` prefix (for example, `0.18.0`).
+
+The workflow verifies that it is running from `main` and that the requested version matches `package.json`. It then installs dependencies, runs formatting and lint checks, executes unit and Storybook tests, builds the package, verifies its contents with `npm pack --dry-run`, creates the annotated `vMAJOR.MINOR.PATCH` tag, and publishes using the workflow-scoped `GITHUB_TOKEN`. Do not create or push the release tag manually.
+
+## Security
+
+Do not commit credentials, access tokens, private keys, or local `.env` files. Environment files are ignored by Git, except for intentionally committed `.env.example` templates.
+
+Please report suspected vulnerabilities privately as described in [`SECURITY.md`](SECURITY.md). Do not include sensitive vulnerability details in a public issue.
+
+## AI-assisted development
+
+This project uses AI-assisted development tools for tasks such as implementation, refactoring, documentation, testing, and code review. AI-generated or AI-suggested changes are reviewed and validated before they are accepted. The maintainers remain responsible for the code, releases, security decisions, and licensing compliance.
 
 ## Peer dependencies
 

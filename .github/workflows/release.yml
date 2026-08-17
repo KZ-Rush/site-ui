@@ -20,7 +20,6 @@ jobs:
   release:
     name: Test, tag and publish
     runs-on: ubuntu-latest
-
     timeout-minutes: 20
 
     steps:
@@ -33,14 +32,14 @@ jobs:
           fi
 
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
-          node-version: 24
+          node-version: 25
           cache: npm
           registry-url: https://npm.pkg.github.com
           scope: '@kz-rush'
@@ -112,6 +111,14 @@ jobs:
       - name: Verify package contents
         run: npm pack --dry-run
 
+      - name: Build Storybook
+        run: npm run build-storybook
+
+      - name: Upload Storybook Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: storybook-static
+
       - name: Create release tag
         if: steps.release_tag.outputs.exists != 'true'
         shell: bash
@@ -130,3 +137,30 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-storybook:
+    name: Deploy Storybook
+    needs:
+      - release
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    permissions:
+      contents: read
+      actions: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    concurrency:
+      group: storybook-pages
+      cancel-in-progress: false
+
+    steps:
+      - name: Deploy Storybook to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0

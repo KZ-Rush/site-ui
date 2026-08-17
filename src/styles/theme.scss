@@ -74,6 +74,21 @@
   --rush-radius-xl: calc(var(--rush-radius-base) + 2px);
 
   /*
+  * Spacing
+  */
+  --rush-spacing-0: 0;
+  --rush-spacing-1: 0.25rem;
+  --rush-spacing-2: 0.5rem;
+  --rush-spacing-3: 0.75rem;
+  --rush-spacing-4: 1rem;
+  --rush-spacing-5: 1.25rem;
+  --rush-spacing-6: 1.5rem;
+  --rush-spacing-8: 2rem;
+  --rush-spacing-10: 2.5rem;
+  --rush-spacing-12: 3rem;
+  --rush-spacing-16: 4rem;
+
+  /*
    * Shadows
    */
   --rush-shadow-xs: 0 1px 2px rgb(0 0 0 / 5%);
