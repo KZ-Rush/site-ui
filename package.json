@@ -83,7 +83,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-storybook": "^10.5.7",
     "globals": "^17.9.0",
-    "jsdom": "^29.1.1",
+    "jsdom": "^30.0.1",
     "moment": "^2.30.0",
     "playwright": "^1.62.0",
     "prettier": "^3.9.6",
