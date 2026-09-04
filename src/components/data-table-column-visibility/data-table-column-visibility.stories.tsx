@@ -4,10 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import type { DataTableColumn } from '../data-table';
 
-import {
-  DataTableColumnVisibility,
-  type DataTableColumnVisibilityProps,
-} from './data-table-column-visibility';
+import { DataTableColumnVisibility } from './data-table-column-visibility';
 
 interface ExampleRow {
   id: number;
@@ -40,14 +37,10 @@ const columns: DataTableColumn<ExampleRow>[] = [
   },
 ];
 
-function ExampleColumnVisibility(props: DataTableColumnVisibilityProps<ExampleRow>) {
-  return <DataTableColumnVisibility<ExampleRow> {...props} />;
-}
-
 const meta = {
   title: 'Components/DataTableColumnVisibility',
 
-  component: ExampleColumnVisibility,
+  component: DataTableColumnVisibility<ExampleRow>,
 
   tags: ['autodocs'],
 
@@ -82,18 +75,32 @@ const meta = {
       control: 'text',
     },
   },
-} satisfies Meta<typeof ExampleColumnVisibility>;
+} satisfies Meta<typeof DataTableColumnVisibility<ExampleRow>>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<DataTableColumnVisibility
+  columns={columns}
+  visibleColumns={visibleColumns}
+  onVisibilityChange={setVisibleColumns}
+  label="Columns"
+/>`,
+      },
+    },
+  },
+
   render: (args) => {
     const [visibleColumns, setVisibleColumns] = useState(new Set(args.visibleColumns));
 
     return (
-      <ExampleColumnVisibility
+      <DataTableColumnVisibility
         {...args}
         visibleColumns={visibleColumns}
         onVisibilityChange={setVisibleColumns}
@@ -103,6 +110,20 @@ export const Default: Story = {
 };
 
 export const NonHideableColumn: Story = {
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<DataTableColumnVisibility
+  columns={customColumns}
+  visibleColumns={visibleColumns}
+  onVisibilityChange={setVisibleColumns}
+  label="Columns"
+/>`,
+      },
+    },
+  },
+
   render: (args) => {
     const customColumns: DataTableColumn<ExampleRow>[] = [
       {
@@ -118,7 +139,7 @@ export const NonHideableColumn: Story = {
     );
 
     return (
-      <ExampleColumnVisibility
+      <DataTableColumnVisibility
         {...args}
         columns={customColumns}
         visibleColumns={visibleColumns}
@@ -129,6 +150,20 @@ export const NonHideableColumn: Story = {
 };
 
 export const CustomLabels: Story = {
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<DataTableColumnVisibility
+  columns={customColumns}
+  visibleColumns={visibleColumns}
+  onVisibilityChange={setVisibleColumns}
+  label="Columns"
+/>`,
+      },
+    },
+  },
+
   render: (args) => {
     const customColumns: DataTableColumn<ExampleRow>[] = [
       {
@@ -144,7 +179,7 @@ export const CustomLabels: Story = {
     );
 
     return (
-      <ExampleColumnVisibility
+      <DataTableColumnVisibility
         {...args}
         columns={customColumns}
         visibleColumns={visibleColumns}

@@ -133,6 +133,18 @@ export const WithIcon: Story = {
       </>
     ),
   },
+
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<Badge variant="secondary">
+  <StatusStoryIcon />
+  Processing
+</Badge>`,
+      },
+    },
+  },
 };
 
 export const LongContent: Story = {
