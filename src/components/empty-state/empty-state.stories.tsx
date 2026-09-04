@@ -69,6 +69,19 @@ export const WithIcon: Story = {
 
     description: 'Uploaded demos will appear here.',
   },
+
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<EmptyState
+  title="No records found"
+  description="Uploaded demos will appear here."
+  icon={<ExampleIcon />}
+/>`,
+      },
+    },
+  },
 };
 
 export const WithAction: Story = {
@@ -80,6 +93,20 @@ export const WithAction: Story = {
     icon: <ExampleIcon />,
 
     action: <Button>Upload demo</Button>,
+  },
+
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<EmptyState
+  title="No demos yet"
+  description="Upload your first demo to get started."
+  icon={<ExampleIcon />}
+  action={<Button>Upload demo</Button>}
+/>`,
+      },
+    },
   },
 };
 
@@ -94,6 +121,21 @@ export const WithTwoActions: Story = {
     action: <Button>Clear filters</Button>,
 
     secondaryAction: <Button variant="outline">Learn more</Button>,
+  },
+
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<EmptyState
+  title="No records found"
+  description="Try changing or clearing the current filters."
+  icon={<ExampleIcon />}
+  action={<Button>Clear filters</Button>}
+  secondaryAction={<Button variant="outline">Learn more</Button>}
+/>`,
+      },
+    },
   },
 };
 
