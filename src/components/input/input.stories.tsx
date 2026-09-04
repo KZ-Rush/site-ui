@@ -112,6 +112,19 @@ export const Search: Story = {
 
     startAdornment: <SearchStoryIcon />,
   },
+
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<Input
+  type="search"
+  placeholder="Search records..."
+  startAdornment={<SearchStoryIcon />}
+/>`,
+      },
+    },
+  },
 };
 
 export const WithEndAdornment: Story = {

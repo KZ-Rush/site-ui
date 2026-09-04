@@ -91,6 +91,33 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<SidebarNavigation aria-label="Main navigation">
+  <SidebarNavigationGroup label="Main">
+    <SidebarNavigationItem href="#dashboard" icon={<DashboardStoryIcon />} active>
+      Dashboard
+    </SidebarNavigationItem>
+
+    <SidebarNavigationItem href="#records" icon={<RecordStoryIcon />}>
+      Records
+    </SidebarNavigationItem>
+  </SidebarNavigationGroup>
+
+  <SidebarNavigationSeparator />
+
+  <SidebarNavigationGroup label="Administration">
+    <SidebarNavigationItem icon={<SettingsStoryIcon />} onClick={() => {}}>
+      Settings
+    </SidebarNavigationItem>
+  </SidebarNavigationGroup>
+</SidebarNavigation>`,
+      },
+    },
+  },
+
   render: (args) => (
     <SidebarNavigation {...args} aria-label="Main navigation">
       <SidebarNavigationGroup label="Main">
@@ -132,6 +159,31 @@ export const Collapsed: Story = {
       </div>
     ),
   ],
+
+  parameters: {
+    docs: {
+      source: {
+        language: 'tsx',
+        code: `<SidebarNavigation collapsed aria-label="Main navigation">
+  <SidebarNavigationGroup label="Main">
+    <SidebarNavigationItem href="#dashboard" icon={<DashboardStoryIcon />} active>
+      Dashboard
+    </SidebarNavigationItem>
+
+    <SidebarNavigationItem href="#records" icon={<RecordStoryIcon />}>
+      Records
+    </SidebarNavigationItem>
+  </SidebarNavigationGroup>
+
+  <SidebarNavigationSeparator />
+
+  <SidebarNavigationItem icon={<SettingsStoryIcon />} onClick={() => {}}>
+    Settings
+  </SidebarNavigationItem>
+</SidebarNavigation>`,
+      },
+    },
+  },
 
   render: (args) => (
     <SidebarNavigation {...args} aria-label="Main navigation">
