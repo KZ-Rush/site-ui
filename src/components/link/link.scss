@@ -1,18 +1,22 @@
 @use '../../styles/mixins';
 
 .rush-link {
-  color: var(--rush-link-foreground, var(--rush-color-primary, #0f172a));
+  color: var(--rush-link-foreground, var(--rush-color-primary-orange, #fd8901));
   font: inherit;
-  font-weight: var(--rush-link-font-weight, 500);
-  text-decoration-line: underline;
-  text-decoration-thickness: from-font;
-  text-underline-offset: var(--rush-link-underline-offset, 0.2em);
+  font-weight: var(--rush-link-font-weight, 400);
+  text-decoration: none;
   cursor: pointer;
   transition: color var(--rush-transition-duration-fast, 150ms)
     var(--rush-transition-timing, ease-in-out);
 
-  &:hover {
-    color: var(--rush-link-hover-foreground, var(--rush-color-primary-hover, #334155));
+  &:hover:not([data-disabled='true']) {
+    color: var(--rush-link-hover-foreground, var(--rush-color-primary-yellow, #fbad00));
+  }
+
+  &[data-disabled='true'] {
+    @include mixins.disabled;
+
+    opacity: var(--rush-link-disabled-opacity, var(--rush-primary-disabled-opacity, 0.3));
   }
 
   &:focus-visible {
