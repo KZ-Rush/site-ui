@@ -10,6 +10,7 @@
   "author": "Alexey Rodionov <devrnd@mail.ru>",
   "license": "MIT",
   "type": "module",
+  "packageManager": "npm@11.19.0",
   "private": false,
   "bugs": {
     "url": "https://github.com/KZ-Rush/site-ui/issues"
