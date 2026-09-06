@@ -1,0 +1,7 @@
+.rush-description {
+  margin: 0;
+  color: var(--rush-description-foreground, var(--rush-color-muted-foreground, #64748b));
+  font-family: var(--rush-font-sans, system-ui, sans-serif);
+  font-size: var(--rush-description-font-size, 0.875rem);
+  line-height: var(--rush-description-line-height, 1.25rem);
+}
