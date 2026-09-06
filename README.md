@@ -130,6 +130,18 @@ export function Example() {
 }
 ```
 
+### Country flags
+
+Flags are decorative by default. Add a `label` when the flag itself needs an accessible name, or use `fallback="none"` when an unsupported code should render nothing.
+
+```tsx
+import { CountryFlag } from '@kz-rush/site-ui';
+
+<CountryFlag code="kz" />
+<CountryFlag code="ca" label="Canada" />
+<CountryFlag code={countryCode} fallback="none" />
+```
+
 ## Layout examples
 
 ### Standalone layout
@@ -297,7 +309,9 @@ export function WorkspacePage() {
 - Checkbox
 - ConfirmDialog
 - CopyButton
+- CountryFlag
 - DataTable, DataTableColumnVisibility, DataTableToolbar
+- Description
 - Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose
 - Drawer, DrawerTrigger, DrawerContent, DrawerTitle, DrawerClose
 - Dropdown, DropdownTrigger, DropdownContent, DropdownItem, DropdownCheckboxItem, DropdownSeparator
@@ -306,6 +320,7 @@ export function WorkspacePage() {
 - FormField
 - Input
 - Label
+- Link
 - LoadingOverlay
 - NumberDiff
 - PageHeader
@@ -357,10 +372,21 @@ import '@kz-rush/site-ui/styles.css';
 
 ### Local workflow
 
+Use the Node.js version declared in `.nvmrc` before installing dependencies:
+
 ```bash
-npm install
+nvm use
+npm ci
 npm run build
 npm run test
+```
+
+After updating dependencies, regenerate and validate the lockfile with the same toolchain:
+
+```bash
+npm update
+npm install --package-lock-only
+npm ci --dry-run
 ```
 
 ## Release workflow

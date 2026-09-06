@@ -1,0 +1,11 @@
+.rush-country-flag {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: var(--rush-country-flag-width);
+  height: var(--rush-country-flag-height);
+  overflow: hidden;
+  background-image: url('./country-flags.webp?no-inline');
+  background-repeat: no-repeat;
+  background-position: -2px var(--rush-country-flag-position-y);
+  vertical-align: -0.0625em;
+}

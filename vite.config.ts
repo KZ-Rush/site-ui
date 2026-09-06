@@ -6,6 +6,8 @@ import dts from 'vite-plugin-dts';
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
+  base: './',
+
   plugins: [
     react(),
     dts({
@@ -25,6 +27,8 @@ export default defineConfig({
     }),
   ],
   build: {
+    assetsDir: '',
+
     lib: {
       entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
       formats: ['es'],
