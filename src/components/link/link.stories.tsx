@@ -30,6 +30,10 @@ const meta = {
       control: 'select',
       options: [undefined, '_self', '_blank'],
     },
+
+    disabled: {
+      control: 'boolean',
+    },
   },
 } satisfies Meta<typeof Link>;
 
@@ -45,6 +49,13 @@ export const External: Story = {
     target: '_blank',
     rel: 'noreferrer',
     children: 'Open KZ-Rush',
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+    children: 'Unavailable',
   },
 };
 

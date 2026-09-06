@@ -1,7 +1,7 @@
 import { createRef } from 'react';
 
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Link } from './link';
 
@@ -36,5 +36,25 @@ describe('Link', () => {
     );
 
     expect(ref.current).toBe(screen.getByRole('link', { name: 'Maps' }));
+  });
+
+  it('disables navigation and interaction', () => {
+    const onClick = vi.fn();
+
+    render(
+      <Link disabled href="/records" onClick={onClick}>
+        View records
+      </Link>,
+    );
+
+    const element = screen.getByText('View records');
+
+    expect(element).not.toHaveAttribute('href');
+    expect(element).toHaveAttribute('aria-disabled', 'true');
+    expect(element).toHaveAttribute('data-disabled', 'true');
+    expect(element).toHaveAttribute('tabindex', '-1');
+
+    fireEvent.click(element);
+    expect(onClick).not.toHaveBeenCalled();
   });
 });

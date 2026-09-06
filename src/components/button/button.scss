@@ -9,8 +9,8 @@
   border: 1px solid transparent;
   border-radius: var(--rush-button-border-radius, var(--rush-radius-md, 0.5rem));
   font-family: var(--rush-font-sans, system-ui, sans-serif);
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: var(--rush-button-font-size, 0.875rem);
+  font-weight: var(--rush-button-font-weight, 400);
   line-height: 1;
   text-align: center;
   text-decoration: none;
@@ -54,9 +54,16 @@
       --rush-button-default-border-color,
       var(--rush-color-primary-orange, #fd8901)
     );
-    background-color: var(
+    background: var(
       --rush-button-default-background,
-      var(--rush-color-primary-orange, #fd8901)
+      var(
+        --rush-color-primary-gradient,
+        linear-gradient(
+          180deg,
+          var(--rush-color-primary-orange, #fd8901),
+          var(--rush-color-primary-yellow, #fbad00)
+        )
+      )
     );
     color: var(--rush-button-default-foreground, var(--rush-color-primary-orange-foreground, #fff));
     box-shadow: var(--rush-button-shadow, var(--rush-shadow-xs, 0 1px 2px rgb(0 0 0 / 5%)));
@@ -64,15 +71,26 @@
     &:hover:not(:disabled, [data-disabled='true']) {
       border-color: var(
         --rush-button-default-hover-border-color,
-        var(--rush-color-primary-yellow, #fbad00)
+        var(--rush-color-primary-orange, #fd8901)
       );
-      background-color: var(
+      background: var(
         --rush-button-default-hover-background,
-        var(--rush-color-primary-yellow, #fbad00)
+        var(
+          --rush-color-primary-gradient-hover,
+          linear-gradient(180deg, rgb(253 137 1 / 50%), rgb(251 173 0 / 50%))
+        )
       );
       color: var(
         --rush-button-default-hover-foreground,
-        var(--rush-color-primary-yellow-foreground, #0f1013)
+        var(--rush-color-primary-orange-foreground, #fff)
+      );
+    }
+
+    &:disabled,
+    &[data-disabled='true'] {
+      opacity: var(
+        --rush-button-default-disabled-opacity,
+        var(--rush-primary-disabled-opacity, 0.3)
       );
     }
   }
@@ -123,15 +141,34 @@
   }
 
   &--variant-secondary {
-    border-color: var(--rush-button-secondary-border-color, var(--rush-color-secondary, #f1f5f9));
-    background-color: var(--rush-button-secondary-background, var(--rush-color-secondary, #f1f5f9));
-    color: var(--rush-button-secondary-foreground, var(--rush-color-secondary-foreground, #0f172a));
+    border-color: var(
+      --rush-button-secondary-border-color,
+      var(--rush-color-primary-orange, #fd8901)
+    );
+    background: var(
+      --rush-button-secondary-background,
+      linear-gradient(90deg, rgb(253 137 1 / 30%), rgb(253 137 1 / 10%))
+    );
+    color: var(--rush-button-secondary-foreground, var(--rush-color-primary-yellow, #fbad00));
     box-shadow: var(--rush-button-shadow, var(--rush-shadow-xs, 0 1px 2px rgb(0 0 0 / 5%)));
 
     &:hover:not(:disabled, [data-disabled='true']) {
-      background-color: var(
-        --rush-button-secondary-hover-background,
-        var(--rush-color-secondary-hover, #e2e8f0)
+      border-color: var(
+        --rush-button-secondary-hover-border-color,
+        var(--rush-color-primary-orange, #fd8901)
+      );
+      background: var(--rush-button-secondary-hover-background, transparent);
+      color: var(
+        --rush-button-secondary-hover-foreground,
+        var(--rush-color-primary-yellow, #fbad00)
+      );
+    }
+
+    &:disabled,
+    &[data-disabled='true'] {
+      opacity: var(
+        --rush-button-secondary-disabled-opacity,
+        var(--rush-primary-disabled-opacity, 0.3)
       );
     }
   }
@@ -183,11 +220,15 @@
     border: 0;
     border-radius: 0;
     background-color: transparent;
-    color: var(--rush-button-link-foreground, var(--rush-color-primary, #0f172a));
-    text-underline-offset: 0.25rem;
+    color: var(--rush-button-link-foreground, var(--rush-color-primary-orange, #fd8901));
 
     &:hover:not(:disabled, [data-disabled='true']) {
-      text-decoration: underline;
+      color: var(--rush-button-link-hover-foreground, var(--rush-color-primary-yellow, #fbad00));
+    }
+
+    &:disabled,
+    &[data-disabled='true'] {
+      opacity: var(--rush-button-link-disabled-opacity, var(--rush-primary-disabled-opacity, 0.3));
     }
   }
 
