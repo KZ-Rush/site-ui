@@ -310,6 +310,7 @@ export function WorkspacePage() {
 - ConfirmDialog
 - CopyButton
 - CountryFlag
+- DataList, DataListItem, DataListTerm, DataListValue
 - DataTable, DataTableColumnVisibility, DataTableToolbar
 - Description
 - Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription, DialogClose
@@ -333,6 +334,7 @@ export function WorkspacePage() {
 - SidebarNavigation, SidebarNavigationGroup, SidebarNavigationItem, SidebarNavigationSeparator
 - Skeleton
 - Spinner
+- Spoiler, SpoilerSummary, SpoilerContent
 - Statistic
 - Switch
 - Table, TableContainer, TableHeader, TableHead, TableBody, TableRow, TableCell, TableFooter, TableCaption

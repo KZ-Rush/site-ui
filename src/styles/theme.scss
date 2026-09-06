@@ -26,6 +26,22 @@
   --rush-color-primary-orange-foreground: #fff;
   --rush-color-primary-yellow: #fbad00;
   --rush-color-primary-yellow-foreground: #0f1013;
+  --rush-color-primary-gradient: linear-gradient(
+    180deg,
+    var(--rush-color-primary-orange) 0%,
+    var(--rush-color-primary-yellow) 100%
+  );
+  --rush-color-primary-gradient-hover: linear-gradient(
+    180deg,
+    rgb(253 137 1 / 50%) 0%,
+    rgb(251 173 0 / 50%) 100%
+  );
+  --rush-primary-disabled-opacity: 0.3;
+  --rush-button-secondary-background: linear-gradient(
+    90deg,
+    rgb(253 137 1 / 30%) 0%,
+    rgb(253 137 1 / 10%) 100%
+  );
   --rush-color-secondary: oklch(97% 0 0deg);
   --rush-color-secondary-foreground: oklch(20.5% 0 0deg);
   --rush-color-secondary-hover: #e2e8f0;

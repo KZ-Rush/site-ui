@@ -78,6 +78,13 @@ export const Secondary: Story = {
   },
 };
 
+export const SecondaryDisabled: Story = {
+  args: {
+    variant: 'secondary',
+    disabled: true,
+  },
+};
+
 export const Ghost: Story = {
   args: {
     variant: 'ghost',
@@ -138,6 +145,14 @@ export const Unstyled: Story = {
 export const DisabledLink: Story = {
   args: {
     href: 'https://kz-rush.ru',
+    disabled: true,
+    children: 'Unavailable',
+  },
+};
+
+export const DisabledLinkVariant: Story = {
+  args: {
+    variant: 'link',
     disabled: true,
     children: 'Unavailable',
   },

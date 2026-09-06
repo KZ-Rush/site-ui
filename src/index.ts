@@ -84,6 +84,18 @@ export {
   type CountryFlagProps,
 } from './components/country-flag';
 
+export {
+  DataList,
+  DataListItem,
+  DataListTerm,
+  DataListValue,
+  type DataListItemProps,
+  type DataListOrientation,
+  type DataListProps,
+  type DataListTermProps,
+  type DataListValueProps,
+} from './components/data-list';
+
 export { Description, type DescriptionProps } from './components/description';
 
 export {
@@ -223,6 +235,16 @@ export {
 export { Skeleton, type SkeletonProps, type SkeletonVariant } from './components/skeleton';
 
 export { Spinner, type SpinnerProps, type SpinnerSize } from './components/spinner';
+
+export {
+  Spoiler,
+  SpoilerContent,
+  SpoilerSummary,
+  type SpoilerContentProps,
+  type SpoilerProps,
+  type SpoilerSummaryProps,
+  type SpoilerVariant,
+} from './components/spoiler';
 
 export { Statistic, type StatisticProps } from './components/statistic';
 
