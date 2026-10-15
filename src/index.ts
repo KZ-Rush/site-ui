@@ -1,6 +1,14 @@
 import './styles/index.scss';
 
 export {
+  ActionGroup,
+  type ActionGroupAlign,
+  type ActionGroupJustify,
+  type ActionGroupOrientation,
+  type ActionGroupProps,
+} from './components/action-group';
+
+export {
   Accordion,
   AccordionContent,
   AccordionItem,
