@@ -331,6 +331,7 @@ export function WorkspacePage() {
 - Progress
 - Result
 - Select
+- SearchableSelect
 - Separator
 - SidebarNavigation, SidebarNavigationGroup, SidebarNavigationItem, SidebarNavigationSeparator
 - Skeleton
