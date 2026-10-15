@@ -217,6 +217,13 @@ export { Result, type ResultProps, type ResultStatus } from './components/result
 
 export { Select, type SelectProps, type SelectSize } from './components/select';
 
+export {
+  SearchableSelect,
+  type SearchableSelectOptionValue,
+  type SearchableSelectProps,
+  type SearchableSelectSize,
+} from './components/searchable-select';
+
 export { Separator, type SeparatorOrientation, type SeparatorProps } from './components/separator';
 
 export {
