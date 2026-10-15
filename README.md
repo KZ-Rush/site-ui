@@ -299,6 +299,7 @@ export function WorkspacePage() {
 
 ## Available components
 
+- ActionGroup
 - Accordion, AccordionContent, AccordionItem, AccordionTrigger
 - Alert, AlertTitle, AlertDescription, AlertList
 - Avatar
