@@ -191,24 +191,45 @@ export const ServerFiltered: Story = {
 
 export const Loading: Story = {
   args: {
-    defaultOpen: true,
     loading: true,
+  },
+
+  parameters: {
+    docs: {
+      description: {
+        story: 'Open the select to preview its loading state.',
+      },
+    },
   },
 };
 
 export const Error: Story = {
   args: {
-    defaultOpen: true,
     error: true,
     errorText: 'Unable to load maps. Try searching again.',
+  },
+
+  parameters: {
+    docs: {
+      description: {
+        story: 'Open the select to preview its error state.',
+      },
+    },
   },
 };
 
 export const Empty: Story = {
   args: {
-    defaultOpen: true,
     options: [],
     emptyText: 'No matching maps found.',
+  },
+
+  parameters: {
+    docs: {
+      description: {
+        story: 'Open the select to preview its empty state.',
+      },
+    },
   },
 };
 
